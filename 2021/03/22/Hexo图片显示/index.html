@@ -20,18 +20,23 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"colored-dye.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Come and have a cup of tea ~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="colored-dye&#39;s Blog">
-<meta property="og:url" content="https://colored-dye.github.io/tags/%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99/index.html">
+<meta name="description" content="这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：   作为网页源文件之一的实体文件，通过images&#x2F;xxx.jpg在Markdown语法下引用。  利用图床生成URL并引用外链。  图床又有几种常用的：   sm.ms：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo图片显示">
+<meta property="og:url" content="https://colored-dye.github.io/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/index.html">
 <meta property="og:site_name" content="colored-dye&#39;s Blog">
-<meta property="og:description" content="Come and have a cup of tea ~">
+<meta property="og:description" content="这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：   作为网页源文件之一的实体文件，通过images&#x2F;xxx.jpg在Markdown语法下引用。  利用图床生成URL并引用外链。  图床又有几种常用的：   sm.ms：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar">
+<meta property="article:published_time" content="2021-03-22T14:07:39.000Z">
+<meta property="article:modified_time" content="2021-03-22T14:22:30.944Z">
 <meta property="article:author" content="colored-dye">
+<meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar">
 
 
-<link rel="canonical" href="https://colored-dye.github.io/tags/%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99/">
+<link rel="canonical" href="https://colored-dye.github.io/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/">
 
 
 <script class="page-configurations">
@@ -39,11 +44,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>标签: 随便写写 | colored-dye's Blog</title>
+<title>Hexo图片显示 | colored-dye's Blog</title>
   
 
 
@@ -225,50 +230,110 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">随便写写
-          <small>标签</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="colored-dye">
+      <meta itemprop="description" content="Come and have a cup of tea ~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="colored-dye's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo图片显示
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="创建时间：2021-03-22 22:07:39 / 修改时间：22:22:30" itemprop="dateCreated datePublished" datetime="2021-03-22T22:07:39+08:00">2021-03-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+<ol>
+<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
+</li>
+<li><p>利用图床生成URL并引用外链。</p>
+<p> 图床又有几种常用的：</p>
+<ol>
+<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
+</li>
+<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
+<p> 在本机上还可以采用修改host文件的方式。先通过</p>
+<p> [ipaddress]: <a target="_blank" rel="noopener" href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
+<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
+</li>
+<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
+</li>
+<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
+<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
+<p>最后插一个图片再次测试一下~</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-21T19:23:29+08:00"
-              content="2021-03-21">
-          03-21
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/21/Test0/" itemprop="url">
-            <span itemprop="name">Test0</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/21/Test0/" rel="prev" title="Test0">
+                  <i class="fa fa-chevron-left"></i> Test0
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
+
 
 
 <script>
