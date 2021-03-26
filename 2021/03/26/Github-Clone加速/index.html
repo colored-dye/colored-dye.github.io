@@ -20,18 +20,21 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"colored-dye.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Come and have a cup of tea ~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="colored-dye&#39;s Blog">
-<meta property="og:url" content="https://colored-dye.github.io/archives/index.html">
+<meta name="description" content="有从Github Git Clone一些项目的需求，比如说克隆riscv-toolchain的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。  URL修改  加后缀  将github.com改为github.com.cnpmjs.org. 这个似乎是和npm相关的，提供私有的npm regi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Clone加速">
+<meta property="og:url" content="https://colored-dye.github.io/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/index.html">
 <meta property="og:site_name" content="colored-dye&#39;s Blog">
-<meta property="og:description" content="Come and have a cup of tea ~">
+<meta property="og:description" content="有从Github Git Clone一些项目的需求，比如说克隆riscv-toolchain的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。  URL修改  加后缀  将github.com改为github.com.cnpmjs.org. 这个似乎是和npm相关的，提供私有的npm regi">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-26T14:56:54.000Z">
+<meta property="article:modified_time" content="2021-03-26T15:05:51.376Z">
 <meta property="article:author" content="colored-dye">
+<meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://colored-dye.github.io/archives/">
+<link rel="canonical" href="https://colored-dye.github.io/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/">
 
 
 <script class="page-configurations">
@@ -39,11 +42,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>归档 | colored-dye's Blog</title>
+<title>Github Clone加速 | colored-dye's Blog</title>
   
 
 
@@ -231,89 +234,116 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 3 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="colored-dye">
+      <meta itemprop="description" content="Come and have a cup of tea ~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="colored-dye's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Github Clone加速
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="创建时间：2021-03-26 22:56:54 / 修改时间：23:05:51" itemprop="dateCreated datePublished" datetime="2021-03-26T22:56:54+08:00">2021-03-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>有从Github Git Clone一些项目的需求，比如说克隆<code>riscv-toolchain</code>的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。</p>
+<ol>
+<li><p>URL修改</p>
+<ol>
+<li><p>加后缀</p>
+<p> 将<code>github.com</code>改为<code>github.com.cnpmjs.org</code>. 这个似乎是和<code>npm</code>相关的，提供私有的npm registry.</p>
+</li>
+<li><p>镜像网站</p>
+<p> <code>https://hub.fastgit.org</code>.</p>
+</li>
+</ol>
+</li>
+<li><p> 利用码云<code>Gitee</code>，根据URL导入Github仓库。</p>
+</li>
+<li><p> 修改<code>hosts</code>文件（hhh其实不太管用）</p>
+</li>
+<li><p> Chrome插件</p>
+</li>
+<li><p> 使用代理</p>
+</li>
+</ol>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-26T22:56:54+08:00"
-              content="2021-03-26">
-          03-26
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/" itemprop="url">
-            <span itemprop="name">Github Clone加速</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" rel="prev" title="Hexo图片显示">
+                  <i class="fa fa-chevron-left"></i> Hexo图片显示
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-22T22:07:39+08:00"
-              content="2021-03-22">
-          03-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" itemprop="url">
-            <span itemprop="name">Hexo图片显示</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-21T19:23:29+08:00"
-              content="2021-03-21">
-          03-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/21/Test0/" itemprop="url">
-            <span itemprop="name">Test0</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
 
 
 <script>

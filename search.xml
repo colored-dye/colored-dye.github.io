@@ -33,6 +33,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Github Clone加速</title>
+    <url>/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/</url>
+    <content><![CDATA[<p>有从Github Git Clone一些项目的需求，比如说克隆<code>riscv-toolchain</code>的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。</p>
+<ol>
+<li><p>URL修改</p>
+<ol>
+<li><p>加后缀</p>
+<p> 将<code>github.com</code>改为<code>github.com.cnpmjs.org</code>. 这个似乎是和<code>npm</code>相关的，提供私有的npm registry.</p>
+</li>
+<li><p>镜像网站</p>
+<p> <code>https://hub.fastgit.org</code>.</p>
+</li>
+</ol>
+</li>
+<li><p> 利用码云<code>Gitee</code>，根据URL导入Github仓库。</p>
+</li>
+<li><p> 修改<code>hosts</code>文件（hhh其实不太管用）</p>
+</li>
+<li><p> Chrome插件</p>
+</li>
+<li><p> 使用代理</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Test0</title>
     <url>/2021/03/21/Test0/</url>
     <content><![CDATA[<p>昨日重现吗hhh……还是爬回来继续坚持写博客咯~</p>
