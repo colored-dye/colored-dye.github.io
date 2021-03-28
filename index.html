@@ -192,18 +192,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -241,6 +241,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/03/28/Heap-Insertion-Comparison/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="colored-dye">
+      <meta itemprop="description" content="Come and have a cup of tea ~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="colored-dye's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/03/28/Heap-Insertion-Comparison/" class="post-title-link" itemprop="url">三种堆的插入效率比较</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-03-28 13:25:57 / 修改时间：13:52:06" itemprop="dateCreated datePublished" datetime="2021-03-28T13:25:57+08:00">2021-03-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/28/Heap-Insertion-Comparison/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -264,10 +345,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-03-26 22:56:54 / 修改时间：23:05:51" itemprop="dateCreated datePublished" datetime="2021-03-26T22:56:54+08:00">2021-03-26</time>
+      <time title="创建时间：2021-03-26 22:56:54" itemprop="dateCreated datePublished" datetime="2021-03-26T22:56:54+08:00">2021-03-26</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-03-28 13:52:33" itemprop="dateModified" datetime="2021-03-28T13:52:33+08:00">2021-03-28</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -289,27 +376,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>有从Github Git Clone一些项目的需求，比如说克隆<code>riscv-toolchain</code>的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。</p>
-<ol>
-<li><p>URL修改</p>
-<ol>
-<li><p>加后缀</p>
-<p> 将<code>github.com</code>改为<code>github.com.cnpmjs.org</code>. 这个似乎是和<code>npm</code>相关的，提供私有的npm registry.</p>
-</li>
-<li><p>镜像网站</p>
-<p> <code>https://hub.fastgit.org</code>.</p>
-</li>
-</ol>
-</li>
-<li><p> 利用码云<code>Gitee</code>，根据URL导入Github仓库。</p>
-</li>
-<li><p> 修改<code>hosts</code>文件（hhh其实不太管用）</p>
-</li>
-<li><p> Chrome插件</p>
-</li>
-<li><p> 使用代理</p>
-</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -358,10 +432,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-03-22 22:07:39 / 修改时间：22:22:30" itemprop="dateCreated datePublished" datetime="2021-03-22T22:07:39+08:00">2021-03-22</time>
+      <time title="创建时间：2021-03-22 22:07:39" itemprop="dateCreated datePublished" datetime="2021-03-22T22:07:39+08:00">2021-03-22</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-03-28 13:50:37" itemprop="dateModified" datetime="2021-03-28T13:50:37+08:00">2021-03-28</time>
+      </span>
 
   
 </div>
@@ -394,10 +474,14 @@
 </ol>
 </li>
 </ol>
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -454,7 +538,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-22 11:20:19" itemprop="dateModified" datetime="2021-03-22T11:20:19+08:00">2021-03-22</time>
+        <time title="修改时间：2021-03-28 13:51:41" itemprop="dateModified" datetime="2021-03-28T13:51:41+08:00">2021-03-28</time>
       </span>
 
   
@@ -468,8 +552,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>昨日重现吗hhh……还是爬回来继续坚持写博客咯~</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/meowshark.jpg" alt="meowshark_github_cdn"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/21/Test0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
