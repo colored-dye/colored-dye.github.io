@@ -35,6 +35,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo图片显示</title>
+    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+<ol>
+<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
+</li>
+<li><p>利用图床生成URL并引用外链。</p>
+<p> 图床又有几种常用的：</p>
+<ol>
+<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
+</li>
+<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
+<p> 在本机上还可以采用修改host文件的方式。先通过</p>
+<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
+<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
+</li>
+<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
+</li>
+<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
+</li>
+</ol>
+</li>
+</ol>
+<span id="more"></span>
+
+<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
+<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
+<p>最后插一个图片再次测试一下~</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三种堆的插入效率比较</title>
     <url>/2021/03/28/Heap-Insertion-Comparison/</url>
     <content><![CDATA[<p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
@@ -87,52 +121,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo图片显示</title>
-    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
-<ol>
-<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li><p>利用图床生成URL并引用外链。</p>
-<p> 图床又有几种常用的：</p>
-<ol>
-<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p> 在本机上还可以采用修改host文件的方式。先通过</p>
-<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
-<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
-</ol>
-</li>
-</ol>
-<span id="more"></span>
-
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Test0</title>
-    <url>/2021/03/21/Test0/</url>
-    <content><![CDATA[<p>昨日重现吗hhh……还是爬回来继续坚持写博客咯~</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/meowshark.jpg" alt="meowshark_github_cdn"></p>
-]]></content>
-      <tags>
-        <tag>随便写写</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>diary-1</title>
     <url>/2021/04/30/diary-1/</url>
     <content><![CDATA[<p>午后的阳光流入我的身体</p>
@@ -147,6 +135,18 @@
       </categories>
       <tags>
         <tag>diary?</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Test0</title>
+    <url>/2021/03/21/Test0/</url>
+    <content><![CDATA[<p>昨日重现吗hhh……还是爬回来继续坚持写博客咯~</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/meowshark.jpg" alt="meowshark_github_cdn"></p>
+]]></content>
+      <tags>
+        <tag>随便写写</tag>
       </tags>
   </entry>
   <entry>
