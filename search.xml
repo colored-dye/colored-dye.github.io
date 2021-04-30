@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Github Clone加速</title>
+    <url>/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/</url>
+    <content><![CDATA[<p>有从Github Git Clone一些项目的需求，比如说克隆<code>riscv-toolchain</code>的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。</p>
+<span id="more"></span>
+
+<ol>
+<li><p>URL修改</p>
+<ol>
+<li><p>加后缀</p>
+<p> 将<code>github.com</code>改为<code>github.com.cnpmjs.org</code>. 这个似乎是和<code>npm</code>相关的，提供私有的npm registry.</p>
+</li>
+<li><p>镜像网站</p>
+<p> <code>https://hub.fastgit.org</code>.</p>
+</li>
+</ol>
+</li>
+<li><p> 利用码云<code>Gitee</code>，根据URL导入Github仓库。</p>
+</li>
+<li><p> 修改<code>hosts</code>文件（hhh其实不太管用）</p>
+</li>
+<li><p> Chrome插件</p>
+</li>
+<li><p> 使用代理</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三种堆的插入效率比较</title>
     <url>/2021/03/28/Heap-Insertion-Comparison/</url>
     <content><![CDATA[<p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
@@ -53,52 +87,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Test0</title>
-    <url>/2021/03/21/Test0/</url>
-    <content><![CDATA[<p>昨日重现吗hhh……还是爬回来继续坚持写博客咯~</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/meowshark.jpg" alt="meowshark_github_cdn"></p>
-]]></content>
-      <tags>
-        <tag>随便写写</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Github Clone加速</title>
-    <url>/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/</url>
-    <content><![CDATA[<p>有从Github Git Clone一些项目的需求，比如说克隆<code>riscv-toolchain</code>的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。</p>
-<span id="more"></span>
-
-<ol>
-<li><p>URL修改</p>
-<ol>
-<li><p>加后缀</p>
-<p> 将<code>github.com</code>改为<code>github.com.cnpmjs.org</code>. 这个似乎是和<code>npm</code>相关的，提供私有的npm registry.</p>
-</li>
-<li><p>镜像网站</p>
-<p> <code>https://hub.fastgit.org</code>.</p>
-</li>
-</ol>
-</li>
-<li><p> 利用码云<code>Gitee</code>，根据URL导入Github仓库。</p>
-</li>
-<li><p> 修改<code>hosts</code>文件（hhh其实不太管用）</p>
-</li>
-<li><p> Chrome插件</p>
-</li>
-<li><p> 使用代理</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo图片显示</title>
     <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
     <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
@@ -133,9 +121,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Test0</title>
+    <url>/2021/03/21/Test0/</url>
+    <content><![CDATA[<p>昨日重现吗hhh……还是爬回来继续坚持写博客咯~</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/meowshark.jpg" alt="meowshark_github_cdn"></p>
+]]></content>
+      <tags>
+        <tag>随便写写</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>xv6-riscv学习0</title>
     <url>/2021/04/11/xv6-riscv-0/</url>
     <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
+<span id="more"></span>
+
 <p>至于选择xv6-riscv的原因，还是有一段孽缘的。当时在完成课程lab的时候就了解到了MIT的xv6教学用操作系统，并且在做页表lab时“借鉴”了很多代码XD。但是再后来，由于课程lab的结构和设计与xv6渐行渐远，就没法借鉴了。而现在就可以一门心思地钻研xv6啦。</p>
 <p>xv6有<code>x86</code>和<code>RISC-V</code>两个版本。今后的代码以<code>RISC-V</code>为主，但是<code>RISC-V</code>的配套文档没有中文版。不过基本的设计思想应该还是相近的，所以可以配合着阅读。官方给出的<code>RISC-V</code>文档需要用<code>make</code>和<code>tex</code>命令行编译，而且只能在类UNIX系统上跑，所以在网上白嫖了一份~链接如下。有一点乱码，等影响阅读的时候再自己编译吧。</p>
 <p>MIT的该课程网站：<a href="https://pdos.csail.mit.edu/6.S081/2020/">https://pdos.csail.mit.edu/6.S081/2020/</a></p>
