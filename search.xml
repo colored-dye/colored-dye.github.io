@@ -121,18 +121,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Test0</title>
-    <url>/2021/03/21/Test0/</url>
-    <content><![CDATA[<p>昨日重现吗hhh……还是爬回来继续坚持写博客咯~</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/meowshark.jpg" alt="meowshark_github_cdn"></p>
-]]></content>
-      <tags>
-        <tag>随便写写</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>diary-1</title>
     <url>/2021/04/30/diary-1/</url>
     <content><![CDATA[<p>午后的阳光流入我的身体</p>
@@ -213,7 +201,19 @@
 <p>书中是这样解释这段程序的功能的：<code>fork</code>之后，父进程和子进程共用管道<code>p[]</code>所指的文件描述符。子进程调用<code>close</code>和<code>dup</code>使得管道的读端为文件描述符0，关闭了<code>p[]</code>中的文件描述符，并调用<code>exec</code>运行<code>wc</code>。当<code>wc</code>从标准输入（即文件描述符0）读取输入时，它就会从管道中读。父进程关闭了管道的读端，向管道中写入“hello world!\n”，后关闭了管道的写端。</p>
 <p>关于管道，书中提到了一个神奇的用法。管道的右侧还可以包含管道！比如：<code>a | b | c |...</code>，从而可以构建一个进程树，在这样的树中，父节点需要等待所有的子节点执行完毕才能开始执行。</p>
 <p>书中还提到管道的一个优点是允许流水线的并行执行，然而采用文件重定向的方法就必须等前一个程序写入文件完成后才能让下一个程序执行。想一想还是挺有道理的，毕竟数据流的特点就是可以实时处理。</p>
-<h4 id="4-文件系统"><a href="#4-文件系统" class="headerlink" title="4. 文件系统"></a>4. 文件系统</h4>]]></content>
+<h4 id="4-文件系统"><a href="#4-文件系统" class="headerlink" title="4. 文件系统"></a>4. 文件系统</h4><p>与文件操作相关的系统调用有很多，如<code>chdir</code>, <code>open</code>, <code>mkdir</code>, <code>close</code>, <code>mknod</code>等。前四个还比较直接明了，第四个<code>mknod</code>创建一个指代着设备的特殊文件，与这个文件直接相关的是两个设备号：major device number和minor device number，暂且翻译成“主、次设备号”好了。一般的使用方式是：<code>mknod(&quot;/console&quot;, 1, 1)</code>.</p>
+<p>书中还提到了部分与文件系统相关的概念：<code>inode</code>和<code>link</code>。<code>inode</code>保存了文件的元数据(metadata)，包括文件类型（文件/目录/或设备）、文件内容在磁盘上的地址和指向该文件的链接数。每个inode可以有多个链接，而每个链接都包含了目录中的一个条目(entry)，条目中包含了文件名和inode号。所以文件名不是文件内容的一部分！</p>
+<p>记录一个文件的数据结构长这个样子：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DIR 		1	<span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_FILE		2	<span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DEVICE	 3	<span class="comment">// Device</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> dev;	<span class="comment">// File system&#x27;s disk device</span></span><br><span class="line">    uint ino;	<span class="comment">// Inode number</span></span><br><span class="line">    <span class="keyword">short</span> type;	<span class="comment">// Type of file</span></span><br><span class="line">    <span class="keyword">short</span> nlink;<span class="comment">// Number of links</span></span><br><span class="line">    uint64 size;<span class="comment">// Size of file in bytes</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于<code>link</code>系统调用，这里实现的应该是软链接(soft link)，即新创建的链接并不是保存在额外的文件中，而是直接指向了被引用的文件。以下是一段创建链接的示例：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">open(<span class="string">&quot;a&quot;</span>, O_CREATE | O_WRONLY);</span><br><span class="line">link(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在此之后，文件名“a”和“b”都指的是同一个文件，使用这两个文件名会得到相同的inode number，而对应的<code>struct stat</code>变量中的nlink值为2.</p>
+<p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
+]]></content>
       <categories>
         <category>xv6-riscv</category>
         <category>OS</category>
