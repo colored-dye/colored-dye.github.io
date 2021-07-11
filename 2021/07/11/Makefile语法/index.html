@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"colored-dye.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="Makefile中使用变量1234567891011121314151617181920212223objects &#x3D; main.o kbd.o command.o display.o \    insert.o search.o files.o utils.oedit : $(objects)    cc -o edit $(objects)main.o : main.c defs.h    c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Makefile语法">
+<meta property="og:url" content="https://colored-dye.github.io/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="colored-dye&#39;s Blog">
+<meta property="og:description" content="Makefile中使用变量1234567891011121314151617181920212223objects &#x3D; main.o kbd.o command.o display.o \    insert.o search.o files.o utils.oedit : $(objects)    cc -o edit $(objects)main.o : main.c defs.h    c">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-11T10:04:36.000Z">
+<meta property="article:modified_time" content="2021-07-11T10:45:51.511Z">
+<meta property="article:author" content="colored-dye">
+<meta property="article:tag" content="Makefile">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://colored-dye.github.io/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Makefile语法 | colored-dye's Blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">colored-dye's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Makefile%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">Makefile中使用变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A9make%E8%87%AA%E5%8A%A8%E6%8E%A8%E5%AF%BC"><span class="nav-number">2.</span> <span class="nav-text">让make自动推导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%B8%85%E7%A9%BA%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E8%A7%84%E5%88%99"><span class="nav-number">3.</span> <span class="nav-text">关于清空目标文件的规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%85%B6%E4%BB%96%E7%9A%84makefile"><span class="nav-number">4.</span> <span class="nav-text">引用其他的makefile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%90%9C%E5%AF%BB%EF%BC%9AVPATH"><span class="nav-number">5.</span> <span class="nav-text">文件搜寻：VPATH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%9B%AE%E6%A0%87"><span class="nav-number">6.</span> <span class="nav-text">多目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%A8%A1%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">静态模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E4%BE%9D%E8%B5%96"><span class="nav-number">8.</span> <span class="nav-text">自动生成依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC"><span class="nav-number">9.</span> <span class="nav-text">变量赋值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number"></span> <span class="nav-text">使用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">一、函数的调用语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">二、字符串处理函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E5%90%8D%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">三、文件名操作函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81foreach%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">四、foreach函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81if%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">五、if函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81call%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">六、call函数</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">colored-dye</p>
+  <div class="site-description" itemprop="description">Come and have a cup of tea ~</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="colored-dye">
+      <meta itemprop="description" content="Come and have a cup of tea ~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="colored-dye's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Makefile语法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-07-11 18:04:36 / 修改时间：18:45:51" itemprop="dateCreated datePublished" datetime="2021-07-11T18:04:36+08:00">2021-07-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Makefile/" itemprop="url" rel="index"><span itemprop="name">Makefile</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="Makefile中使用变量"><a href="#Makefile中使用变量" class="headerlink" title="Makefile中使用变量"></a>Makefile中使用变量</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">objects = main.o kbd.o command.o display.o \</span><br><span class="line">    insert.o search.o files.o utils.o</span><br><span class="line"></span><br><span class="line">edit : <span class="variable">$(objects)</span></span><br><span class="line">    cc -o edit <span class="variable">$(objects)</span></span><br><span class="line">main.o : main.c defs.h</span><br><span class="line">    cc -c main.c</span><br><span class="line">kbd.o : kbd.c defs.h command.h</span><br><span class="line">    cc -c kbd.c</span><br><span class="line">command.o : command.c defs.h command.h</span><br><span class="line">    cc -c command.c</span><br><span class="line">display.o : display.c defs.h buffer.h</span><br><span class="line">    cc -c display.c</span><br><span class="line">insert.o : insert.c defs.h buffer.h</span><br><span class="line">    cc -c insert.c</span><br><span class="line">search.o : search.c defs.h buffer.h</span><br><span class="line">    cc -c search.c</span><br><span class="line">files.o : files.c defs.h buffer.h command.h</span><br><span class="line">    cc -c files.c</span><br><span class="line">utils.o : utils.c defs.h</span><br><span class="line">    cc -c utils.c</span><br><span class="line">clean :</span><br><span class="line">    rm edit <span class="variable">$(objects)</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="让make自动推导"><a href="#让make自动推导" class="headerlink" title="让make自动推导"></a>让make自动推导</h4><p>只要make看到一个<code>.o</code>文件，就会自动把对应的<code>.c</code>文件加载到依赖关系中。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">objects = main.o kbd.o command.o display.o \</span><br><span class="line">    insert.o search.o files.o utils.o</span><br><span class="line"></span><br><span class="line">edit : <span class="variable">$(objects)</span></span><br><span class="line">    cc -o edit <span class="variable">$(objects)</span></span><br><span class="line"></span><br><span class="line">main.o : defs.h</span><br><span class="line">kbd.o : defs.h command.h</span><br><span class="line">command.o : defs.h command.h</span><br><span class="line">display.o : defs.h buffer.h</span><br><span class="line">insert.o : defs.h buffer.h</span><br><span class="line">search.o : defs.h buffer.h</span><br><span class="line">files.o : defs.h buffer.h command.h</span><br><span class="line">utils.o : defs.h</span><br><span class="line"></span><br><span class="line">.PHONY : clean</span><br><span class="line">clean :</span><br><span class="line">    rm edit <span class="variable">$(objects)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="关于清空目标文件的规则"><a href="#关于清空目标文件的规则" class="headerlink" title="关于清空目标文件的规则"></a>关于清空目标文件的规则</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	-rm edit <span class="variable">$(objects)</span></span><br></pre></td></tr></table></figure>
+
+<p><code>rm</code>命令前加了<code>-</code>的意思是，忽略问题，继续运行。</p>
+<h4 id="引用其他的makefile"><a href="#引用其他的makefile" class="headerlink" title="引用其他的makefile"></a>引用其他的makefile</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> foo.make *.mk <span class="variable">$(bar)</span></span><br></pre></td></tr></table></figure>
+
+<p>如果在当前目录下找不到，make还会再下面几个目录里找：</p>
+<ol>
+<li> 如果make执行时，有<code>-I</code>或<code>--include-dir</code>参数，那么make就会在这个参数所指定的目录下去寻找。</li>
+<li> 如果目录<code>&lt;prefix&gt;/include</code>（一般是：<code>/usr/local/bin</code>或<code>/usr/include</code>）存在的话，make也会去找。</li>
+</ol>
+<h4 id="文件搜寻：VPATH"><a href="#文件搜寻：VPATH" class="headerlink" title="文件搜寻：VPATH"></a>文件搜寻：<code>VPATH</code></h4><p>如果没有指明这个变量，make只会再当前目录寻找。</p>
+<p>一般可以定义为：<code>VPATH = src:../headers</code>，用冒号分隔。</p>
+<p>还可以用小写vpath设置，需要使用<code>%</code>字符，意思时匹配0或若干字符。</p>
+<p>如：<code>vpath %.h ../headers</code>.</p>
+<h4 id="多目标"><a href="#多目标" class="headerlink" title="多目标"></a>多目标</h4><p>自动化变量<code>$@</code>，表示目前规则中所有的目标的集合。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bigoutput littleoutput: text.g</span><br><span class="line">	generate text.g -<span class="variable">$(<span class="built_in">subst</span> output,,<span class="variable">$@</span>)</span> &gt; <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+
+<p><code>subst</code>为makefile的一个函数，表示替换字符串。</p>
+<h4 id="静态模式"><a href="#静态模式" class="headerlink" title="静态模式"></a>静态模式</h4><p>一个例子：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">objects = foo.o bar.o</span><br><span class="line"><span class="section">all: <span class="variable">$(objects)</span></span></span><br><span class="line"><span class="variable">$(objects)</span>: %.o: %.c</span><br><span class="line">	<span class="variable">$(CC)</span> -c <span class="variable">$(CFLAGS)</span> <span class="variable">$&lt;</span> -o <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+
+<p><code>$&lt;</code>表示第一个依赖文件，<code>$@</code>表示目标集。</p>
+<h4 id="自动生成依赖"><a href="#自动生成依赖" class="headerlink" title="自动生成依赖"></a>自动生成依赖</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc -M main.c</span><br></pre></td></tr></table></figure>
+
+<p>如果使用GNU的C/C++编译器，要用<code>-MM</code>参数，否则<code>-M</code>参数会把一些标准库的头文件也包含进来。</p>
+<h4 id="变量赋值"><a href="#变量赋值" class="headerlink" title="变量赋值"></a>变量赋值</h4><p><code>+=</code>: 追加：<code>objects += another.o</code>.</p>
+<p>如果变量之前没有定义过，<code>+=</code>会自动变成<code>=</code>. 如果前面有变量定义，<code>+=</code>会继承前一次的赋值符。</p>
+<p>所以分别以<code>:=</code>和<code>=</code>定义的变量，运用<code>+=</code>时，结果可能会有所不同。</p>
+<p>对于<code>=</code>，变量的值会是最终值：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = foo</span><br><span class="line">y = <span class="variable">$(x)</span> bar</span><br><span class="line">x = xyz</span><br></pre></td></tr></table></figure>
+
+<p>那么y会是<code>xyz bar</code>，而不是<code>foo bar</code>.</p>
+<p>而<code>:=</code>表示变量的值取决于其位置：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x := foo</span><br><span class="line">y := <span class="variable">$(x)</span> bar</span><br><span class="line">x := xyz</span><br></pre></td></tr></table></figure>
+
+<p>在这里，y的值会是<code>foo bar</code>而不是<code>xyz bar</code>.</p>
+<hr>
+<h3 id="使用函数"><a href="#使用函数" class="headerlink" title="使用函数"></a>使用函数</h3><h4 id="一、函数的调用语法"><a href="#一、函数的调用语法" class="headerlink" title="一、函数的调用语法"></a>一、函数的调用语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(&lt;function&gt; &lt;arguments&gt;)</span><br></pre></td></tr></table></figure>
+
+<p>或：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;&lt;function&gt; &lt;arguments&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;arguments&gt;</code>为函数的参数，参数间以逗号分隔，而函数名和参数之间以空格分隔。</p>
+<h4 id="二、字符串处理函数"><a href="#二、字符串处理函数" class="headerlink" title="二、字符串处理函数"></a>二、字符串处理函数</h4><ol>
+<li><p>subst</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(subst &lt;from&gt;,&lt;to&gt;,&lt;text&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> 字符串替换函数：将字串<code>&lt;text&gt;</code>中的<code>&lt;from&gt;</code>字串替换成<code>&lt;to&gt;</code>。</p>
+<p> 函数返回被替换过后的字符串。</p>
+</li>
+<li><p>patsubst</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(patsubst &lt;pattern&gt;,&lt;replacement&gt;,&lt;text&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> 模式字符串替换函数：查找 <code>&lt;text&gt;</code> 中的单词（单词以“空格”、“Tab”或“回车”“换行”分隔）是否符合模式<code>&lt;pattern&gt;</code> ，如果匹配的话，则以<code>&lt;replacement&gt;</code>替换。这里， 可以包括通配符 <code>%</code> ，表示任意长度的字串。如果<code>&lt;replacement&gt;</code>中也包含 <code>%</code> ，那么这个 <code>%</code> 将是 <code>&lt;pattern&gt;</code>中的那个 <code>%</code> 所代表的字串。（可以用 <code>\</code>来转义，以 <code>\%</code> 来表示真实含义的 <code>%</code> 字符）</p>
+<p> 返回：函数返回被替换过后的字符串。</p>
+<p> 示例：</p>
+<blockquote>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $(patsubst %.c,%.o,x.c.c bar.c)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p> 又如：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objects &#x3D; foo.o bar.o baz.o</span><br></pre></td></tr></table></figure>
+
+<p> 那么<code>$(objects:.o=.c)</code>和<code>$(oatsubst %.o,%.c,$(objects))</code>是一样的。</p>
+</li>
+<li><p>strip</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(strip &lt;string&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> 去空格函数：去掉<code>&lt;string&gt;</code>字串开头和结尾的空字符，返回被去掉空格的字符串值。</p>
+</li>
+<li><p>filter函数</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(filter &lt;pattern...&gt;,&lt;text&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> 过滤函数：以模式过滤<code>&lt;text&gt;</code>字符串中的单词，保留符合模式<code>&lt;pattern&gt;</code>的单词。可以有多个模式。返回符合模式<code>&lt;pattern&gt;</code>的字串。</p>
+<p> 示例：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sources :&#x3D; foo.c bar.c baz.s ugh.h</span><br><span class="line">foo: $(sources)</span><br><span class="line">	cc $(filter %.c %.s,$(sources)) -o foo</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="三、文件名操作函数"><a href="#三、文件名操作函数" class="headerlink" title="三、文件名操作函数"></a>三、文件名操作函数</h4><ol>
+<li><p>dir</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(dir &lt;names...&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> 去目录函数：从文件名序列<code>&lt;names&gt;</code>中取出目录部分。目录部分是指最后一个反斜杠之前的部分。如果没有反斜杠，则返回<code>./</code>。</p>
+</li>
+<li><p>notdir</p>
+<p> 取出文件名序列<code>&lt;names&gt;</code>中非目录部分。</p>
+</li>
+<li><p>suffix</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(suffix &lt;names...&gt;)</span><br></pre></td></tr></table></figure>
+
+<p> 取后缀函数：从文件名序列<code>&lt;names&gt;</code>中取出各个文件名的后缀。如果文件没有后缀，则返回空字串。</p>
+</li>
+</ol>
+<h4 id="四、foreach函数"><a href="#四、foreach函数" class="headerlink" title="四、foreach函数"></a>四、foreach函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(foreach &lt;var&gt;,&lt;list&gt;,&lt;text&gt;)</span><br></pre></td></tr></table></figure>
+
+<p>把参数<code>&lt;list&gt;</code>中的单词逐一取出放到参数<code>&lt;var&gt;</code>所指定的变量中，再执行<code>&lt;text&gt;</code>所包含的表达式。每一次<code>&lt;text&gt;</code>会返回一个字符串，以空格分隔。</p>
+<p>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">names :&#x3D; a b c d</span><br><span class="line">files :&#x3D; $(foreach n,$(names),$(n).o)</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>&lt;var&gt;</code>参数是一个<strong>临时的局部变量</strong>。</p>
+<h4 id="五、if函数"><a href="#五、if函数" class="headerlink" title="五、if函数"></a>五、if函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(if &lt;condition&gt;,&lt;then-part&gt;,&lt;else-part&gt;)</span><br></pre></td></tr></table></figure>
+
+<p>可以不包含else部分。</p>
+<h4 id="六、call函数"><a href="#六、call函数" class="headerlink" title="六、call函数"></a>六、call函数</h4><p>唯一一个可以用来创建新的参数化的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(call &lt;expression&gt;,&lt;parm1&gt;,&lt;parm2&gt;,...,&lt;parmn&gt;)</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;expression&gt;</code>参数中的变量会被参数<code>&lt;param1&gt;</code>,<code>&lt;param2&gt;</code>依次取代。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Makefile/" rel="tag"># Makefile</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/11/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F1/" rel="prev" title="正则表达式1">
+                  <i class="fa fa-chevron-left"></i> 正则表达式1
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">colored-dye</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
