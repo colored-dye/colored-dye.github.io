@@ -20,30 +20,37 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"colored-dye.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Come and have a cup of tea ~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="colored-dye&#39;s Blog">
-<meta property="og:url" content="https://colored-dye.github.io/index.html">
+<meta name="description" content="最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。由于数据规模达到了1000以上，手动复制粘贴十分费时耗力。此外，由于每年都有这样的工作，并且预期网站不会大改，所以为其编写程序很值得。而因为用户对Python并不太了解，所以需要制作单独的exe可执行文件。 计划 ：先用编写Python脚本文件，再利用工具将脚本编译为exe可执行文件。 0. 分析目标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫:提交表单数据">
+<meta property="og:url" content="https://colored-dye.github.io/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/index.html">
 <meta property="og:site_name" content="colored-dye&#39;s Blog">
-<meta property="og:description" content="Come and have a cup of tea ~">
+<meta property="og:description" content="最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。由于数据规模达到了1000以上，手动复制粘贴十分费时耗力。此外，由于每年都有这样的工作，并且预期网站不会大改，所以为其编写程序很值得。而因为用户对Python并不太了解，所以需要制作单独的exe可执行文件。 计划 ：先用编写Python脚本文件，再利用工具将脚本编译为exe可执行文件。 0. 分析目标">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result_source.png">
+<meta property="article:published_time" content="2021-08-29T08:00:29.000Z">
+<meta property="article:modified_time" content="2021-08-29T13:27:02.975Z">
 <meta property="article:author" content="colored-dye">
+<meta property="article:tag" content="Spider">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png">
 
 
-<link rel="canonical" href="https://colored-dye.github.io/">
+<link rel="canonical" href="https://colored-dye.github.io/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>colored-dye's Blog</title>
+<title>爬虫:提交表单数据 | colored-dye's Blog</title>
   
 
 
@@ -166,7 +173,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -179,6 +186,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-%E5%88%86%E6%9E%90%E7%9B%AE%E6%A0%87%E7%BD%91%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">0. 分析目标网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">1. 脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%BA%93"><span class="nav-number">2.0.1.</span> <span class="nav-text">(1) 库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%BB%A3%E7%A0%81"><span class="nav-number">2.0.2.</span> <span class="nav-text">(2) 代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%94%9F%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">2. 生成可执行文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%9B%B0%E9%9A%BE"><span class="nav-number">4.</span> <span class="nav-text">3. 困难</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -231,16 +239,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -253,9 +262,9 @@
       <meta itemprop="name" content="colored-dye's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">爬虫:提交表单数据</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          爬虫:提交表单数据
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -288,7 +297,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。由于数据规模达到了1000以上，手动复制粘贴十分费时耗力。此外，由于每年都有这样的工作，并且预期网站不会大改，所以为其编写程序很值得。而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
+        <p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。由于数据规模达到了1000以上，手动复制粘贴十分费时耗力。此外，由于每年都有这样的工作，并且预期网站不会大改，所以为其编写程序很值得。而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
 <p><strong>计划</strong> ：先用编写Python脚本文件，再利用工具将脚本编译为<code>exe</code>可执行文件。</p>
 <h3 id="0-分析目标网站"><a href="#0-分析目标网站" class="headerlink" title="0. 分析目标网站"></a>0. 分析目标网站</h3><p>目标网站是技术等级证书网站: <code>http://zscx.osta.org.cn</code>.</p>
 <p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png"></p>
@@ -327,7 +336,6 @@
 <h3 id="3-困难"><a href="#3-困难" class="headerlink" title="3. 困难"></a>3. 困难</h3><p>最大的困难是在测试POST表单数据时的编码问题。服务器接受的表单数据需要是URL编码的，所以需要调用<code>urllib.parse.urlencode()</code>方法(<code>urllib3</code>是这样的，但是<code>urllib</code>的使用方法是<code>urllib.urlencode()</code>).</p>
 <p>其次，我还复习了<code>xpath</code>的基本语法，用于解析HTML中的标签。</p>
 
-      
     </div>
 
     
@@ -335,738 +343,25 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/Spider/" rel="tag"># Spider</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Makefile语法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-07-11 18:04:36 / 修改时间：18:45:51" itemprop="dateCreated datePublished" datetime="2021-07-11T18:04:36+08:00">2021-07-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Makefile/" itemprop="url" rel="index"><span itemprop="name">Makefile</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h4 id="Makefile中使用变量"><a href="#Makefile中使用变量" class="headerlink" title="Makefile中使用变量"></a>Makefile中使用变量</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">objects = main.o kbd.o command.o display.o \</span><br><span class="line">    insert.o search.o files.o utils.o</span><br><span class="line"></span><br><span class="line">edit : <span class="variable">$(objects)</span></span><br><span class="line">    cc -o edit <span class="variable">$(objects)</span></span><br><span class="line">main.o : main.c defs.h</span><br><span class="line">    cc -c main.c</span><br><span class="line">kbd.o : kbd.c defs.h command.h</span><br><span class="line">    cc -c kbd.c</span><br><span class="line">command.o : command.c defs.h command.h</span><br><span class="line">    cc -c command.c</span><br><span class="line">display.o : display.c defs.h buffer.h</span><br><span class="line">    cc -c display.c</span><br><span class="line">insert.o : insert.c defs.h buffer.h</span><br><span class="line">    cc -c insert.c</span><br><span class="line">search.o : search.c defs.h buffer.h</span><br><span class="line">    cc -c search.c</span><br><span class="line">files.o : files.c defs.h buffer.h command.h</span><br><span class="line">    cc -c files.c</span><br><span class="line">utils.o : utils.c defs.h</span><br><span class="line">    cc -c utils.c</span><br><span class="line">clean :</span><br><span class="line">    rm edit <span class="variable">$(objects)</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/07/11/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/07/11/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F1/" class="post-title-link" itemprop="url">正则表达式1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-07-11 18:04:21 / 修改时间：18:45:36" itemprop="dateCreated datePublished" datetime="2021-07-11T18:04:21+08:00">2021-07-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Regular-Expression/" itemprop="url" rel="index"><span itemprop="name">Regular-Expression</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="常用的元字符"><a href="#常用的元字符" class="headerlink" title="常用的元字符"></a>常用的元字符</h3><table>
-<thead>
-<tr>
-<th align="center">代码</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.</code></td>
-<td align="center">匹配除换行符外的任意字符</td>
-</tr>
-<tr>
-<td align="center"><code>\w</code></td>
-<td align="center">匹配字母或数字或下划线或汉字</td>
-</tr>
-<tr>
-<td align="center"><code>\s</code></td>
-<td align="center">匹配任意的空白符</td>
-</tr>
-<tr>
-<td align="center"><code>\d</code></td>
-<td align="center">匹配数字</td>
-</tr>
-<tr>
-<td align="center"><code>\b</code></td>
-<td align="center">匹配单词的开始或结束</td>
-</tr>
-<tr>
-<td align="center"><code>^</code></td>
-<td align="center">匹配字符串的开始</td>
-</tr>
-<tr>
-<td align="center"><code>$</code></td>
-<td align="center">匹配字符串的结束</td>
-</tr>
-</tbody></table>
-<p>例如，寻找“hi”: <code>\bhi\b</code>；寻找“hi”后面不远处跟着“Lucy”: <code>\bhi\b.*\bLucy\b</code>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/11/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/" rel="prev" title="Makefile语法">
+                  <i class="fa fa-chevron-left"></i> Makefile语法
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/05/01/xv6-riscv-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/05/01/xv6-riscv-1/" class="post-title-link" itemprop="url">xv6-riscv学习1-Chapter1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-05-01 12:34:23" itemprop="dateCreated datePublished" datetime="2021-05-01T12:34:23+08:00">2021-05-01</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-23 21:16:40" itemprop="dateModified" datetime="2021-05-23T21:16:40+08:00">2021-05-23</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/xv6-riscv/" itemprop="url" rel="index"><span itemprop="name">xv6-riscv</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/xv6-riscv/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/xv6-riscv/OS/RISC-V/" itemprop="url" rel="index"><span itemprop="name">RISC-V</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="Chapter-1-Operating-System-Interfaces"><a href="#Chapter-1-Operating-System-Interfaces" class="headerlink" title="Chapter 1: Operating System Interfaces"></a>Chapter 1: Operating System Interfaces</h3><p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/05/01/xv6-riscv-1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+            <div class="post-nav-item">
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/04/30/diary-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/30/diary-1/" class="post-title-link" itemprop="url">diary-1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-30 14:06:14 / 修改时间：14:07:05" itemprop="dateCreated datePublished" datetime="2021-04-30T14:06:14+08:00">2021-04-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/diary/" itemprop="url" rel="index"><span itemprop="name">diary?</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/04/11/xv6-riscv-0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/11/xv6-riscv-0/" class="post-title-link" itemprop="url">xv6-riscv学习0</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-11 20:47:31 / 修改时间：21:02:54" itemprop="dateCreated datePublished" datetime="2021-04-11T20:47:31+08:00">2021-04-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/xv6-riscv/" itemprop="url" rel="index"><span itemprop="name">xv6-riscv</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/xv6-riscv/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/xv6-riscv/OS/RISC-V/" itemprop="url" rel="index"><span itemprop="name">RISC-V</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/11/xv6-riscv-0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/03/28/Heap-Insertion-Comparison/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/28/Heap-Insertion-Comparison/" class="post-title-link" itemprop="url">三种堆的插入效率比较</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-03-28 13:25:57 / 修改时间：13:52:06" itemprop="dateCreated datePublished" datetime="2021-03-28T13:25:57+08:00">2021-03-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/28/Heap-Insertion-Comparison/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/" class="post-title-link" itemprop="url">Github Clone加速</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-26 22:56:54" itemprop="dateCreated datePublished" datetime="2021-03-26T22:56:54+08:00">2021-03-26</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-28 13:52:33" itemprop="dateModified" datetime="2021-03-28T13:52:33+08:00">2021-03-28</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>有从Github Git Clone一些项目的需求，比如说克隆<code>riscv-toolchain</code>的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/26/Github-Clone%E5%8A%A0%E9%80%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="colored-dye">
-      <meta itemprop="description" content="Come and have a cup of tea ~">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="colored-dye's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" class="post-title-link" itemprop="url">Hexo图片显示</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-22 22:07:39" itemprop="dateCreated datePublished" datetime="2021-03-22T22:07:39+08:00">2021-03-22</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-28 13:50:37" itemprop="dateModified" datetime="2021-03-28T13:50:37+08:00">2021-03-28</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
-<ol>
-<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li><p>利用图床生成URL并引用外链。</p>
-<p> 图床又有几种常用的：</p>
-<ol>
-<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p> 在本机上还可以采用修改host文件的方式。先通过</p>
-<p> [ipaddress]: <a target="_blank" rel="noopener" href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
-<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
-</ol>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
