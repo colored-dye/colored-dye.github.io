@@ -87,6 +87,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo图片显示</title>
+    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+<ol>
+<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
+</li>
+<li><p>利用图床生成URL并引用外链。</p>
+<p> 图床又有几种常用的：</p>
+<ol>
+<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
+</li>
+<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
+<p> 在本机上还可以采用修改host文件的方式。先通过</p>
+<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
+<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
+</li>
+<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
+</li>
+<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
+</li>
+</ol>
+</li>
+</ol>
+<span id="more"></span>
+
+<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
+<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
+<p>最后插一个图片再次测试一下~</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Makefile语法</title>
     <url>/2021/07/11/Makefile%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<h4 id="Makefile中使用变量"><a href="#Makefile中使用变量" class="headerlink" title="Makefile中使用变量"></a>Makefile中使用变量</h4><figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">objects = main.o kbd.o command.o display.o \</span><br><span class="line">    insert.o search.o files.o utils.o</span><br><span class="line"></span><br><span class="line">edit : <span class="variable">$(objects)</span></span><br><span class="line">    cc -o edit <span class="variable">$(objects)</span></span><br><span class="line">main.o : main.c defs.h</span><br><span class="line">    cc -c main.c</span><br><span class="line">kbd.o : kbd.c defs.h command.h</span><br><span class="line">    cc -c kbd.c</span><br><span class="line">command.o : command.c defs.h command.h</span><br><span class="line">    cc -c command.c</span><br><span class="line">display.o : display.c defs.h buffer.h</span><br><span class="line">    cc -c display.c</span><br><span class="line">insert.o : insert.c defs.h buffer.h</span><br><span class="line">    cc -c insert.c</span><br><span class="line">search.o : search.c defs.h buffer.h</span><br><span class="line">    cc -c search.c</span><br><span class="line">files.o : files.c defs.h buffer.h command.h</span><br><span class="line">    cc -c files.c</span><br><span class="line">utils.o : utils.c defs.h</span><br><span class="line">    cc -c utils.c</span><br><span class="line">clean :</span><br><span class="line">    rm edit <span class="variable">$(objects)</span></span><br></pre></td></tr></table></figure>
@@ -210,82 +244,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo图片显示</title>
-    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
-<ol>
-<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li><p>利用图床生成URL并引用外链。</p>
-<p> 图床又有几种常用的：</p>
-<ol>
-<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p> 在本机上还可以采用修改host文件的方式。先通过</p>
-<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
-<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
-</ol>
-</li>
-</ol>
-<span id="more"></span>
-
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>diary-1</title>
-    <url>/2021/04/30/diary-1/</url>
-    <content><![CDATA[<p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
-]]></content>
-      <categories>
-        <category>diary?</category>
-      </categories>
-      <tags>
-        <tag>diary?</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>xv6-riscv学习0</title>
-    <url>/2021/04/11/xv6-riscv-0/</url>
-    <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
-<span id="more"></span>
-
-<p>至于选择xv6-riscv的原因，还是有一段孽缘的。当时在完成课程lab的时候就了解到了MIT的xv6教学用操作系统，并且在做页表lab时“借鉴”了很多代码XD。但是再后来，由于课程lab的结构和设计与xv6渐行渐远，就没法借鉴了。而现在就可以一门心思地钻研xv6啦。</p>
-<p>xv6有<code>x86</code>和<code>RISC-V</code>两个版本。今后的代码以<code>RISC-V</code>为主，但是<code>RISC-V</code>的配套文档没有中文版。不过基本的设计思想应该还是相近的，所以可以配合着阅读。官方给出的<code>RISC-V</code>文档需要用<code>make</code>和<code>tex</code>命令行编译，而且只能在类UNIX系统上跑，所以在网上白嫖了一份~链接如下。有一点乱码，等影响阅读的时候再自己编译吧。</p>
-<p>MIT的该课程网站：<a href="https://pdos.csail.mit.edu/6.S081/2020/">https://pdos.csail.mit.edu/6.S081/2020/</a></p>
-<p>老师在中后期的时候总是提到要给下一届的同学的lab加上文件系统，应该是和<code>QEMU</code>紧密相关的，这个也可以考虑考虑（等学完xv6的吧）。</p>
-<p>同时还有清华大学的操作系统课程lab，他们做的是用<code>Rust</code>语言写的<code>ros</code>。应该是由于<code>Rust</code>语言的特性使得其比较适合编写操作系统吧。不过<code>Rust+RISC-V</code>的组合真是前卫啊hhh.</p>
-<p>回到xv6来。简单翻阅了一下<code>xv6-riscv-book</code>，发现章节后面有相应的练习，而且多数是要求代码实现的。这个是一定要做的。尽管在做课程lab时极其痛苦，但是我还是深刻地感受到“Talk is cheap. Show me the code.”的正确。即使做不出来至少也要尝试几次。</p>
-<p>希望可以坚持下去……加油！</p>
-]]></content>
-      <categories>
-        <category>xv6-riscv</category>
-        <category>OS</category>
-        <category>RISC-V</category>
-      </categories>
-      <tags>
-        <tag>xv6-riscv</tag>
-        <tag>OS</tag>
-        <tag>RISC-V</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>xv6-riscv学习1-Chapter1</title>
     <url>/2021/05/01/xv6-riscv-1/</url>
     <content><![CDATA[<h3 id="Chapter-1-Operating-System-Interfaces"><a href="#Chapter-1-Operating-System-Interfaces" class="headerlink" title="Chapter 1: Operating System Interfaces"></a>Chapter 1: Operating System Interfaces</h3><p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
@@ -346,6 +304,108 @@
         <tag>xv6-riscv</tag>
         <tag>OS</tag>
         <tag>RISC-V</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>xv6-riscv学习0</title>
+    <url>/2021/04/11/xv6-riscv-0/</url>
+    <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
+<span id="more"></span>
+
+<p>至于选择xv6-riscv的原因，还是有一段孽缘的。当时在完成课程lab的时候就了解到了MIT的xv6教学用操作系统，并且在做页表lab时“借鉴”了很多代码XD。但是再后来，由于课程lab的结构和设计与xv6渐行渐远，就没法借鉴了。而现在就可以一门心思地钻研xv6啦。</p>
+<p>xv6有<code>x86</code>和<code>RISC-V</code>两个版本。今后的代码以<code>RISC-V</code>为主，但是<code>RISC-V</code>的配套文档没有中文版。不过基本的设计思想应该还是相近的，所以可以配合着阅读。官方给出的<code>RISC-V</code>文档需要用<code>make</code>和<code>tex</code>命令行编译，而且只能在类UNIX系统上跑，所以在网上白嫖了一份~链接如下。有一点乱码，等影响阅读的时候再自己编译吧。</p>
+<p>MIT的该课程网站：<a href="https://pdos.csail.mit.edu/6.S081/2020/">https://pdos.csail.mit.edu/6.S081/2020/</a></p>
+<p>老师在中后期的时候总是提到要给下一届的同学的lab加上文件系统，应该是和<code>QEMU</code>紧密相关的，这个也可以考虑考虑（等学完xv6的吧）。</p>
+<p>同时还有清华大学的操作系统课程lab，他们做的是用<code>Rust</code>语言写的<code>ros</code>。应该是由于<code>Rust</code>语言的特性使得其比较适合编写操作系统吧。不过<code>Rust+RISC-V</code>的组合真是前卫啊hhh.</p>
+<p>回到xv6来。简单翻阅了一下<code>xv6-riscv-book</code>，发现章节后面有相应的练习，而且多数是要求代码实现的。这个是一定要做的。尽管在做课程lab时极其痛苦，但是我还是深刻地感受到“Talk is cheap. Show me the code.”的正确。即使做不出来至少也要尝试几次。</p>
+<p>希望可以坚持下去……加油！</p>
+]]></content>
+      <categories>
+        <category>xv6-riscv</category>
+        <category>OS</category>
+        <category>RISC-V</category>
+      </categories>
+      <tags>
+        <tag>xv6-riscv</tag>
+        <tag>OS</tag>
+        <tag>RISC-V</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爬虫:提交表单数据</title>
+    <url>/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。由于数据规模达到了1000以上，手动复制粘贴十分费时耗力。此外，由于每年都有这样的工作，并且预期网站不会大改，所以为其编写程序很值得。而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
+<span id="more"></span>
+
+<p><strong>计划</strong> ：先用编写Python脚本文件，再利用工具将脚本编译为<code>exe</code>可执行文件。</p>
+<h3 id="0-分析目标网站"><a href="#0-分析目标网站" class="headerlink" title="0. 分析目标网站"></a>0. 分析目标网站</h3><p>目标网站是技术等级证书网站: <code>http://zscx.osta.org.cn</code>.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png"></p>
+<p>任务是根据一个人的名字和身份证号查询他/她所拥有的证书编号和职业资格类型。</p>
+<p>如果查询姓名为“hhh”、身份证号为“123”的证书，肯定是查询不到的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result.png"></p>
+<p>但是可以查看源代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result_source.png"></p>
+<p>提交的是<code>POST</code>类型的数据。</p>
+<p>请求头：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">POST /jiandingApp/command/buzhongxin/ecCertSearchAll HTTP/1.1</span><br><span class="line">Host: zscx.osta.org.cn</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://zscx.osta.org.cn/</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 89</span><br><span class="line">Origin: http://zscx.osta.org.cn</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=89F493D88940EEA188BC01D3939762D5; Hm_lvt_5e21f0d47312f3be133220d325fc2d4d=1629881339; Hm_lvt_52a88c3e9ecd4f7af925dc3400f43e25=1629881361; Hm_lpvt_5e21f0d47312f3be133220d325fc2d4d=1630238199; Hm_lpvt_52a88c3e9ecd4f7af925dc3400f43e25=1630238199</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
+
+<p>最重要的是<code>User-Agent</code>，用于模仿浏览器行为。<code>Accept</code>, <code>Referer</code>, <code>Content-Type</code>也需要。</p>
+<p>表单数据的格式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">tableName=CERT_T&amp;tableName1=000000&amp;CertificateID=&amp;CID=123&amp;Name=hhh&amp;x=256&amp;y=14&amp;province=-1</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-脚本"><a href="#1-脚本" class="headerlink" title="1. 脚本"></a>1. 脚本</h3><h5 id="1-库"><a href="#1-库" class="headerlink" title="(1) 库"></a>(1) 库</h5><p>脚本需要的库有：<code>requests</code>, <code>lxml</code>, <code>urllib</code>, <code>lxrd</code>, <code>lxwt</code>, <code>os</code>.</p>
+<ul>
+<li><p>  <code>requests</code>库用于向网站发送<code>POST</code>消息。</p>
+</li>
+<li><p>  <code>lxml</code>用于解析返回的HTML代码。</p>
+</li>
+<li><p>  <code>urllib</code>用于编码转换。</p>
+</li>
+<li><p>  <code>lxrd</code>用于excel表格读取，<code>lxwt</code>用于excel表格写入。</p>
+</li>
+<li><p>  <code>os</code>用于操作系统相关操作，这里只用了<code>os.system(&quot;pause&quot;)</code>.</p>
+</li>
+</ul>
+<h5 id="2-代码"><a href="#2-代码" class="headerlink" title="(2) 代码"></a>(2) 代码</h5><p>话不多说，上代码！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&#x27;tableName&#x27;</span>: <span class="string">&#x27;CERT_T&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;tableName1&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CertificateID&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CID&#x27;</span>: <span class="string">&#x27;000000000000000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;是谁呢&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;x&#x27;: &#x27;113&#x27;,</span></span><br><span class="line">    <span class="comment"># &#x27;y&#x27;: &#x27;31&#x27;,</span></span><br><span class="line">    <span class="string">&#x27;province&#x27;</span>: <span class="string">&#x27;-1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">phead = &#123;</span><br><span class="line">	<span class="comment"># &#x27;Host&#x27;: &#x27;zscx.osta.org.cn&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Cache-Control&#x27;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">	<span class="comment"># &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Origin&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn/&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://zscx.osta.org.cn/jiandingApp/command/buzhongxin/ecCertSearchAll&#x27;</span></span><br><span class="line"><span class="comment"># 下载超时</span></span><br><span class="line">timeOut = <span class="number">25</span></span><br><span class="line"><span class="comment"># 输出表格行</span></span><br><span class="line">Index = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">i, content, outsheet</span>):</span></span><br><span class="line">	<span class="keyword">global</span> Index</span><br><span class="line">	html = etree.HTML(content)</span><br><span class="line">	<span class="comment"># 无结果</span></span><br><span class="line">	res = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@id=&#x27;nores_con&#x27;]/div[@id=&#x27;nores_txt&#x27;]/h2/text()&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(res) != <span class="number">0</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:无结果&quot;</span>)</span><br><span class="line">		<span class="comment"># print(res)</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:查询成功&quot;</span>)</span><br><span class="line">		result = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@class=&#x27;table_1&#x27;]/table[@class=&#x27;tab_info1&#x27;]/tr/td/text()&quot;</span>)</span><br><span class="line">		<span class="comment"># print(&quot;证书编号: &#123;&#125;\n职业资格: &#123;&#125;&quot;.format(result[11], result[7]))</span></span><br><span class="line">		outsheet.write(Index, <span class="number">0</span>, payload[<span class="string">&#x27;Name&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">1</span>, payload[<span class="string">&#x27;CID&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">2</span>, result[<span class="number">7</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">3</span>, result[<span class="number">11</span>])</span><br><span class="line">		Index += <span class="number">1</span></span><br><span class="line">		<span class="comment"># print(&quot;Index: &#123;&#125;&quot;.format(Index))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">i, outsheet</span>):</span></span><br><span class="line">	p_utf8 = urllib.parse.urlencode(payload, encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	<span class="comment"># print(p_utf8)</span></span><br><span class="line">	res = requests.post(url, data=p_utf8, headers=phead, timeout=timeOut, allow_redirects=<span class="literal">True</span>)</span><br><span class="line">	parse(i, res.text, outsheet)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	infile = <span class="built_in">input</span>(<span class="string">&quot;请输入源文件名: &quot;</span>)</span><br><span class="line">	workbook = xlrd.open_workbook(infile)</span><br><span class="line">	sheet1 = workbook.sheets()[<span class="number">0</span>]</span><br><span class="line">	nrows = sheet1.nrows</span><br><span class="line">	print(<span class="string">&quot;数据行数: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(nrows-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">	output = xlwt.Workbook()</span><br><span class="line">	outsheet = output.add_sheet(<span class="string">&#x27;结果&#x27;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;姓名&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&quot;身份证号&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&quot;职业资格&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&quot;证书编号&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nrows-<span class="number">1</span>):</span><br><span class="line">		payload[<span class="string">&#x27;Name&#x27;</span>] = sheet1.row_values(i+<span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">		payload[<span class="string">&#x27;CID&#x27;</span>] =  sheet1.row_values(i+<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">		lookup(i+<span class="number">1</span>, outsheet)</span><br><span class="line">	</span><br><span class="line">	output.save(<span class="string">&quot;查询结果.xls&quot;</span>)</span><br><span class="line">	print(<span class="string">&quot;结束,共有&#123;&#125;条结果&quot;</span>.<span class="built_in">format</span>(Index-<span class="number">1</span>))</span><br><span class="line">	os.system(<span class="string">&quot;pause&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-生成可执行文件"><a href="#2-生成可执行文件" class="headerlink" title="2. 生成可执行文件"></a>2. 生成可执行文件</h3><p>这里用的是Python的<code>pyinstaller</code>工具，需要使用pip下载。</p>
+<p>在实际使用中遇到了点困难：<code>pyinstaller.exe</code>所在的路径不在PATH当中，所以还要先将对应的路径添加到环境变量中。</p>
+<p>之后运行<code>pyinstaller -F spider.py</code>. 可以在<code>dist</code>路径下找到可执行文件。</p>
+<h3 id="3-困难"><a href="#3-困难" class="headerlink" title="3. 困难"></a>3. 困难</h3><p>最大的困难是在测试POST表单数据时的编码问题。服务器接受的表单数据需要是URL编码的，所以需要调用<code>urllib.parse.urlencode()</code>方法(<code>urllib3</code>是这样的，但是<code>urllib</code>的使用方法是<code>urllib.urlencode()</code>).</p>
+<p>其次，我还复习了<code>xpath</code>的基本语法，用于解析HTML中的标签。</p>
+<hr>
+<h3 id="新问题"><a href="#新问题" class="headerlink" title="新问题"></a>新问题</h3><p>今天实战时发现了问题：当查询了1000条左右的数据后，程序崩溃了。进一步查询发现，原来是网站拒绝了我的访问。进一步查看源代码发现，提交的表单数据中还包含了我的IP地址。看来是网站采取了反爬虫手段，封禁了我的IP(QAQ)，希望不是永久封……</p>
+<p>我上网查了一下解决方法，大概有以下三种：</p>
+<ol>
+<li>  维护代理IP池，每次提交数据随机挑选IP。</li>
+<li>  延长每次提交之间的间隔。</li>
+<li>  更换<code>User-Agent</code>标签的内容。</li>
+</ol>
+<p>经过实际测试，只有第一种是实际有效的。</p>
+]]></content>
+      <categories>
+        <category>Spider</category>
+      </categories>
+      <tags>
+        <tag>Spider</tag>
       </tags>
   </entry>
   <entry>
@@ -505,66 +565,6 @@
       </categories>
       <tags>
         <tag>Regular-Expression</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爬虫:提交表单数据</title>
-    <url>/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。由于数据规模达到了1000以上，手动复制粘贴十分费时耗力。此外，由于每年都有这样的工作，并且预期网站不会大改，所以为其编写程序很值得。而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
-<span id="more"></span>
-
-<p><strong>计划</strong> ：先用编写Python脚本文件，再利用工具将脚本编译为<code>exe</code>可执行文件。</p>
-<h3 id="0-分析目标网站"><a href="#0-分析目标网站" class="headerlink" title="0. 分析目标网站"></a>0. 分析目标网站</h3><p>目标网站是技术等级证书网站: <code>http://zscx.osta.org.cn</code>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png"></p>
-<p>任务是根据一个人的名字和身份证号查询他/她所拥有的证书编号和职业资格类型。</p>
-<p>如果查询姓名为“hhh”、身份证号为“123”的证书，肯定是查询不到的：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result.png"></p>
-<p>但是可以查看源代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result_source.png"></p>
-<p>提交的是<code>POST</code>类型的数据。</p>
-<p>请求头：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">POST /jiandingApp/command/buzhongxin/ecCertSearchAll HTTP/1.1</span><br><span class="line">Host: zscx.osta.org.cn</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://zscx.osta.org.cn/</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 89</span><br><span class="line">Origin: http://zscx.osta.org.cn</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=89F493D88940EEA188BC01D3939762D5; Hm_lvt_5e21f0d47312f3be133220d325fc2d4d=1629881339; Hm_lvt_52a88c3e9ecd4f7af925dc3400f43e25=1629881361; Hm_lpvt_5e21f0d47312f3be133220d325fc2d4d=1630238199; Hm_lpvt_52a88c3e9ecd4f7af925dc3400f43e25=1630238199</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
-
-<p>最重要的是<code>User-Agent</code>，用于模仿浏览器行为。<code>Accept</code>, <code>Referer</code>, <code>Content-Type</code>也需要。</p>
-<p>表单数据的格式：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">tableName=CERT_T&amp;tableName1=000000&amp;CertificateID=&amp;CID=123&amp;Name=hhh&amp;x=256&amp;y=14&amp;province=-1</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-脚本"><a href="#1-脚本" class="headerlink" title="1. 脚本"></a>1. 脚本</h3><h5 id="1-库"><a href="#1-库" class="headerlink" title="(1) 库"></a>(1) 库</h5><p>脚本需要的库有：<code>requests</code>, <code>lxml</code>, <code>urllib</code>, <code>lxrd</code>, <code>lxwt</code>, <code>os</code>.</p>
-<ul>
-<li><p>  <code>requests</code>库用于向网站发送<code>POST</code>消息。</p>
-</li>
-<li><p>  <code>lxml</code>用于解析返回的HTML代码。</p>
-</li>
-<li><p>  <code>urllib</code>用于编码转换。</p>
-</li>
-<li><p>  <code>lxrd</code>用于excel表格读取，<code>lxwt</code>用于excel表格写入。</p>
-</li>
-<li><p>  <code>os</code>用于操作系统相关操作，这里只用了<code>os.system(&quot;pause&quot;)</code>.</p>
-</li>
-</ul>
-<h5 id="2-代码"><a href="#2-代码" class="headerlink" title="(2) 代码"></a>(2) 代码</h5><p>话不多说，上代码！</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&#x27;tableName&#x27;</span>: <span class="string">&#x27;CERT_T&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;tableName1&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CertificateID&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CID&#x27;</span>: <span class="string">&#x27;000000000000000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;是谁呢&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;x&#x27;: &#x27;113&#x27;,</span></span><br><span class="line">    <span class="comment"># &#x27;y&#x27;: &#x27;31&#x27;,</span></span><br><span class="line">    <span class="string">&#x27;province&#x27;</span>: <span class="string">&#x27;-1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">phead = &#123;</span><br><span class="line">	<span class="comment"># &#x27;Host&#x27;: &#x27;zscx.osta.org.cn&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Cache-Control&#x27;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">	<span class="comment"># &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Origin&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn/&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://zscx.osta.org.cn/jiandingApp/command/buzhongxin/ecCertSearchAll&#x27;</span></span><br><span class="line"><span class="comment"># 下载超时</span></span><br><span class="line">timeOut = <span class="number">25</span></span><br><span class="line"><span class="comment"># 输出表格行</span></span><br><span class="line">Index = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">i, content, outsheet</span>):</span></span><br><span class="line">	<span class="keyword">global</span> Index</span><br><span class="line">	html = etree.HTML(content)</span><br><span class="line">	<span class="comment"># 无结果</span></span><br><span class="line">	res = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@id=&#x27;nores_con&#x27;]/div[@id=&#x27;nores_txt&#x27;]/h2/text()&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(res) != <span class="number">0</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:无结果&quot;</span>)</span><br><span class="line">		<span class="comment"># print(res)</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:查询成功&quot;</span>)</span><br><span class="line">		result = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@class=&#x27;table_1&#x27;]/table[@class=&#x27;tab_info1&#x27;]/tr/td/text()&quot;</span>)</span><br><span class="line">		<span class="comment"># print(&quot;证书编号: &#123;&#125;\n职业资格: &#123;&#125;&quot;.format(result[11], result[7]))</span></span><br><span class="line">		outsheet.write(Index, <span class="number">0</span>, payload[<span class="string">&#x27;Name&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">1</span>, payload[<span class="string">&#x27;CID&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">2</span>, result[<span class="number">7</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">3</span>, result[<span class="number">11</span>])</span><br><span class="line">		Index += <span class="number">1</span></span><br><span class="line">		<span class="comment"># print(&quot;Index: &#123;&#125;&quot;.format(Index))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">i, outsheet</span>):</span></span><br><span class="line">	p_utf8 = urllib.parse.urlencode(payload, encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	<span class="comment"># print(p_utf8)</span></span><br><span class="line">	res = requests.post(url, data=p_utf8, headers=phead, timeout=timeOut, allow_redirects=<span class="literal">True</span>)</span><br><span class="line">	parse(i, res.text, outsheet)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	infile = <span class="built_in">input</span>(<span class="string">&quot;请输入源文件名: &quot;</span>)</span><br><span class="line">	workbook = xlrd.open_workbook(infile)</span><br><span class="line">	sheet1 = workbook.sheets()[<span class="number">0</span>]</span><br><span class="line">	nrows = sheet1.nrows</span><br><span class="line">	print(<span class="string">&quot;数据行数: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(nrows-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">	output = xlwt.Workbook()</span><br><span class="line">	outsheet = output.add_sheet(<span class="string">&#x27;结果&#x27;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;姓名&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&quot;身份证号&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&quot;职业资格&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&quot;证书编号&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nrows-<span class="number">1</span>):</span><br><span class="line">		payload[<span class="string">&#x27;Name&#x27;</span>] = sheet1.row_values(i+<span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">		payload[<span class="string">&#x27;CID&#x27;</span>] =  sheet1.row_values(i+<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">		lookup(i+<span class="number">1</span>, outsheet)</span><br><span class="line">	</span><br><span class="line">	output.save(<span class="string">&quot;查询结果.xls&quot;</span>)</span><br><span class="line">	print(<span class="string">&quot;结束,共有&#123;&#125;条结果&quot;</span>.<span class="built_in">format</span>(Index-<span class="number">1</span>))</span><br><span class="line">	os.system(<span class="string">&quot;pause&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-生成可执行文件"><a href="#2-生成可执行文件" class="headerlink" title="2. 生成可执行文件"></a>2. 生成可执行文件</h3><p>这里用的是Python的<code>pyinstaller</code>工具，需要使用pip下载。</p>
-<p>在实际使用中遇到了点困难：<code>pyinstaller.exe</code>所在的路径不在PATH当中，所以还要先将对应的路径添加到环境变量中。</p>
-<p>之后运行<code>pyinstaller -F spider.py</code>. 可以在<code>dist</code>路径下找到可执行文件。</p>
-<h3 id="3-困难"><a href="#3-困难" class="headerlink" title="3. 困难"></a>3. 困难</h3><p>最大的困难是在测试POST表单数据时的编码问题。服务器接受的表单数据需要是URL编码的，所以需要调用<code>urllib.parse.urlencode()</code>方法(<code>urllib3</code>是这样的，但是<code>urllib</code>的使用方法是<code>urllib.urlencode()</code>).</p>
-<p>其次，我还复习了<code>xpath</code>的基本语法，用于解析HTML中的标签。</p>
-<hr>
-<h3 id="新问题"><a href="#新问题" class="headerlink" title="新问题"></a>新问题</h3><p>今天实战时发现了问题：当查询了1000条左右的数据后，程序崩溃了。进一步查询发现，原来是网站拒绝了我的访问。进一步查看源代码发现，提交的表单数据中还包含了我的IP地址。看来是网站采取了反爬虫手段，封禁了我的IP(QAQ)，希望不是永久封……</p>
-<p>我上网查了一下解决方法，大概有以下三种：</p>
-<ol>
-<li>  维护代理IP池，每次提交数据随机挑选IP。</li>
-<li>  延长每次提交之间的间隔。</li>
-<li>  更换<code>User-Agent</code>标签的内容。</li>
-</ol>
-<p>经过实际测试，只有第一种是实际有效的。</p>
-]]></content>
-      <categories>
-        <category>Spider</category>
-      </categories>
-      <tags>
-        <tag>Spider</tag>
       </tags>
   </entry>
 </search>
