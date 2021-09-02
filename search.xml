@@ -35,6 +35,23 @@
       </tags>
   </entry>
   <entry>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三种堆的插入效率比较</title>
     <url>/2021/03/28/Heap-Insertion-Comparison/</url>
     <content><![CDATA[<p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
@@ -244,48 +261,6 @@
       </tags>
   </entry>
   <entry>
-    <title>diary-1</title>
-    <url>/2021/04/30/diary-1/</url>
-    <content><![CDATA[<p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
-]]></content>
-      <categories>
-        <category>diary?</category>
-      </categories>
-      <tags>
-        <tag>diary?</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>xv6-riscv学习0</title>
-    <url>/2021/04/11/xv6-riscv-0/</url>
-    <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
-<span id="more"></span>
-
-<p>至于选择xv6-riscv的原因，还是有一段孽缘的。当时在完成课程lab的时候就了解到了MIT的xv6教学用操作系统，并且在做页表lab时“借鉴”了很多代码XD。但是再后来，由于课程lab的结构和设计与xv6渐行渐远，就没法借鉴了。而现在就可以一门心思地钻研xv6啦。</p>
-<p>xv6有<code>x86</code>和<code>RISC-V</code>两个版本。今后的代码以<code>RISC-V</code>为主，但是<code>RISC-V</code>的配套文档没有中文版。不过基本的设计思想应该还是相近的，所以可以配合着阅读。官方给出的<code>RISC-V</code>文档需要用<code>make</code>和<code>tex</code>命令行编译，而且只能在类UNIX系统上跑，所以在网上白嫖了一份~链接如下。有一点乱码，等影响阅读的时候再自己编译吧。</p>
-<p>MIT的该课程网站：<a href="https://pdos.csail.mit.edu/6.S081/2020/">https://pdos.csail.mit.edu/6.S081/2020/</a></p>
-<p>老师在中后期的时候总是提到要给下一届的同学的lab加上文件系统，应该是和<code>QEMU</code>紧密相关的，这个也可以考虑考虑（等学完xv6的吧）。</p>
-<p>同时还有清华大学的操作系统课程lab，他们做的是用<code>Rust</code>语言写的<code>ros</code>。应该是由于<code>Rust</code>语言的特性使得其比较适合编写操作系统吧。不过<code>Rust+RISC-V</code>的组合真是前卫啊hhh.</p>
-<p>回到xv6来。简单翻阅了一下<code>xv6-riscv-book</code>，发现章节后面有相应的练习，而且多数是要求代码实现的。这个是一定要做的。尽管在做课程lab时极其痛苦，但是我还是深刻地感受到“Talk is cheap. Show me the code.”的正确。即使做不出来至少也要尝试几次。</p>
-<p>希望可以坚持下去……加油！</p>
-]]></content>
-      <categories>
-        <category>xv6-riscv</category>
-        <category>OS</category>
-        <category>RISC-V</category>
-      </categories>
-      <tags>
-        <tag>xv6-riscv</tag>
-        <tag>OS</tag>
-        <tag>RISC-V</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>xv6-riscv学习1-Chapter1</title>
     <url>/2021/05/01/xv6-riscv-1/</url>
     <content><![CDATA[<h3 id="Chapter-1-Operating-System-Interfaces"><a href="#Chapter-1-Operating-System-Interfaces" class="headerlink" title="Chapter 1: Operating System Interfaces"></a>Chapter 1: Operating System Interfaces</h3><p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
@@ -336,6 +311,31 @@
 
 <p>在此之后，文件名“a”和“b”都指的是同一个文件，使用这两个文件名会得到相同的inode number，而对应的<code>struct stat</code>变量中的nlink值为2.</p>
 <p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
+]]></content>
+      <categories>
+        <category>xv6-riscv</category>
+        <category>OS</category>
+        <category>RISC-V</category>
+      </categories>
+      <tags>
+        <tag>xv6-riscv</tag>
+        <tag>OS</tag>
+        <tag>RISC-V</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>xv6-riscv学习0</title>
+    <url>/2021/04/11/xv6-riscv-0/</url>
+    <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
+<span id="more"></span>
+
+<p>至于选择xv6-riscv的原因，还是有一段孽缘的。当时在完成课程lab的时候就了解到了MIT的xv6教学用操作系统，并且在做页表lab时“借鉴”了很多代码XD。但是再后来，由于课程lab的结构和设计与xv6渐行渐远，就没法借鉴了。而现在就可以一门心思地钻研xv6啦。</p>
+<p>xv6有<code>x86</code>和<code>RISC-V</code>两个版本。今后的代码以<code>RISC-V</code>为主，但是<code>RISC-V</code>的配套文档没有中文版。不过基本的设计思想应该还是相近的，所以可以配合着阅读。官方给出的<code>RISC-V</code>文档需要用<code>make</code>和<code>tex</code>命令行编译，而且只能在类UNIX系统上跑，所以在网上白嫖了一份~链接如下。有一点乱码，等影响阅读的时候再自己编译吧。</p>
+<p>MIT的该课程网站：<a href="https://pdos.csail.mit.edu/6.S081/2020/">https://pdos.csail.mit.edu/6.S081/2020/</a></p>
+<p>老师在中后期的时候总是提到要给下一届的同学的lab加上文件系统，应该是和<code>QEMU</code>紧密相关的，这个也可以考虑考虑（等学完xv6的吧）。</p>
+<p>同时还有清华大学的操作系统课程lab，他们做的是用<code>Rust</code>语言写的<code>ros</code>。应该是由于<code>Rust</code>语言的特性使得其比较适合编写操作系统吧。不过<code>Rust+RISC-V</code>的组合真是前卫啊hhh.</p>
+<p>回到xv6来。简单翻阅了一下<code>xv6-riscv-book</code>，发现章节后面有相应的练习，而且多数是要求代码实现的。这个是一定要做的。尽管在做课程lab时极其痛苦，但是我还是深刻地感受到“Talk is cheap. Show me the code.”的正确。即使做不出来至少也要尝试几次。</p>
+<p>希望可以坚持下去……加油！</p>
 ]]></content>
       <categories>
         <category>xv6-riscv</category>
