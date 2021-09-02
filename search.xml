@@ -35,23 +35,6 @@
       </tags>
   </entry>
   <entry>
-    <title>diary-1</title>
-    <url>/2021/04/30/diary-1/</url>
-    <content><![CDATA[<p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
-]]></content>
-      <categories>
-        <category>diary?</category>
-      </categories>
-      <tags>
-        <tag>diary?</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>三种堆的插入效率比较</title>
     <url>/2021/03/28/Heap-Insertion-Comparison/</url>
     <content><![CDATA[<p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
@@ -256,8 +239,28 @@
 <p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
 <p>最后插一个图片再次测试一下~</p>
 <img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
       </tags>
   </entry>
   <entry>
@@ -313,14 +316,14 @@
 <p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
 ]]></content>
       <categories>
-        <category>xv6-riscv</category>
         <category>OS</category>
         <category>RISC-V</category>
+        <category>xv6-riscv</category>
       </categories>
       <tags>
-        <tag>xv6-riscv</tag>
         <tag>OS</tag>
         <tag>RISC-V</tag>
+        <tag>xv6-riscv</tag>
       </tags>
   </entry>
   <entry>
@@ -338,14 +341,14 @@
 <p>希望可以坚持下去……加油！</p>
 ]]></content>
       <categories>
-        <category>xv6-riscv</category>
         <category>OS</category>
         <category>RISC-V</category>
+        <category>xv6-riscv</category>
       </categories>
       <tags>
-        <tag>xv6-riscv</tag>
         <tag>OS</tag>
         <tag>RISC-V</tag>
+        <tag>xv6-riscv</tag>
       </tags>
   </entry>
   <entry>
