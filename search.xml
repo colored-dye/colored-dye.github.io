@@ -52,43 +52,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo图片显示</title>
-    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
-<span id="more"></span>
-
-<ol>
-<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li><p>利用图床生成URL并引用外链。</p>
-<p> 图床又有几种常用的：</p>
-<ol>
-<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p> 在本机上还可以采用修改host文件的方式。先通过</p>
-<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
-<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
-</ol>
-</li>
-</ol>
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>三种堆的插入效率比较</title>
     <url>/2021/03/28/Heap-Insertion-Comparison/</url>
     <content><![CDATA[<p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
@@ -200,6 +163,86 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
+    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
+    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
+<span id="more"></span>
+
+<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
+<p>比如说下面这个矩阵：</p>
+<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
+
+<p>返回值的矩阵为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
+<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
+<hr>
+<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
+<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
+<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
+<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
+<li>  学习了C++<code>vector</code>变量初始化方法。</li>
+<li>  复习了BFS算法的思想和基本结构。</li>
+<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo图片显示</title>
+    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+<span id="more"></span>
+
+<ol>
+<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
+</li>
+<li><p>利用图床生成URL并引用外链。</p>
+<p> 图床又有几种常用的：</p>
+<ol>
+<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
+</li>
+<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
+<p> 在本机上还可以采用修改host文件的方式。先通过</p>
+<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
+<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
+</li>
+<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
+</li>
+<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
+<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
+<p>最后插一个图片再次测试一下~</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode-003-DP-02</title>
     <url>/2021/09/22/LeetCode-003-DP-02/</url>
     <content><![CDATA[<p>这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~</p>
@@ -273,49 +316,6 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> m, n;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;prefixSum, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(x &gt;= m)</span><br><span class="line">            x = m<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(y &gt;= n)</span><br><span class="line">            y = n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> prefixSum[x][y];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; matrixBlockSum(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; mat, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        m = mat.size(), n = mat[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; prefixSum(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i &amp;&amp; j)</span><br><span class="line">                    prefixSum[i][j] = prefixSum[i<span class="number">-1</span>][j] + prefixSum[i][j<span class="number">-1</span>] - prefixSum[i<span class="number">-1</span>][j<span class="number">-1</span>] + mat[i][j];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i &amp;&amp; !j)</span><br><span class="line">                    prefixSum[i][j] = prefixSum[i<span class="number">-1</span>][j] + mat[i][j];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(!i &amp;&amp; j)</span><br><span class="line">                    prefixSum[i][j] = prefixSum[i][j<span class="number">-1</span>] + mat[i][j];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    prefixSum[i][j] = mat[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                ans[i][j] = get(prefixSum, i+k, j+k) - get(prefixSum, i+k, j-k<span class="number">-1</span>) - get(prefixSum, i-k<span class="number">-1</span>, j+k) + get(prefixSum, i-k<span class="number">-1</span>, j-k<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>这里加了一个<code>get()</code>函数，用于处理<code>i+k</code>和<code>i-k-1</code>超出矩阵范围的情况。</p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
-    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
-    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
-<span id="more"></span>
-
-<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
-<p>比如说下面这个矩阵：</p>
-<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
-
-<p>返回值的矩阵为：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
-<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
-<hr>
-<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
-<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
-<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
-<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
-<li>  学习了C++<code>vector</code>变量初始化方法。</li>
-<li>  复习了BFS算法的思想和基本结构。</li>
-<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
-</ol>
 ]]></content>
       <categories>
         <category>Algorithm</category>
@@ -522,6 +522,23 @@
       </tags>
   </entry>
   <entry>
+    <title>PPL-Lab-Description</title>
+    <url>/2021/10/06/PPL-Lab-Description/</url>
+    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
+<span id="more"></span>
+
+<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
+<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
+<p>(MUA这个名字起得真妙hhh)</p>
+]]></content>
+      <categories>
+        <category>PPL</category>
+      </categories>
+      <tags>
+        <tag>PPL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OpenGL学习-01-坐标变换</title>
     <url>/2021/11/29/OpenGL-learn-01-rotation/</url>
     <content><![CDATA[<p>最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。</p>
@@ -571,23 +588,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PPL-Lab-Description</title>
-    <url>/2021/10/06/PPL-Lab-Description/</url>
-    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
-<span id="more"></span>
-
-<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
-<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
-<p>(MUA这个名字起得真妙hhh)</p>
-]]></content>
-      <categories>
-        <category>PPL</category>
-      </categories>
-      <tags>
-        <tag>PPL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RIME输入法配置</title>
     <url>/2021/10/27/RIME-input/</url>
     <content><![CDATA[<p>今天在新装的Manjaro Plasma KDE上安装了大名鼎鼎的RIME输入法~ 还算是成功，但是捣鼓了好一会儿QAQ 问题主要在配置文件上.</p>
@@ -611,6 +611,23 @@
       </categories>
       <tags>
         <tag>Tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
       </tags>
   </entry>
   <entry>
@@ -699,84 +716,6 @@
         <tag>OS</tag>
         <tag>RISC-V</tag>
         <tag>xv6-riscv</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爬虫:提交表单数据</title>
-    <url>/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。在需求方面，由于(1) 数据规模达到了1000以上，手动复制粘贴十分费时耗力；(2) 并且每年都有这样的工作；(3) 政府网站在相当长的一段时间内不会大改，所以为其编写程序很值得。在交换使用方面，而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
-<span id="more"></span>
-
-<p><strong>计划</strong> ：先用编写Python脚本文件，再利用工具将脚本编译为<code>exe</code>可执行文件。</p>
-<h3 id="0-分析目标网站"><a href="#0-分析目标网站" class="headerlink" title="0. 分析目标网站"></a>0. 分析目标网站</h3><p>目标网站是技术等级证书网站: <code>http://zscx.osta.org.cn</code>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png"></p>
-<p>任务是根据一个人的名字和身份证号查询他/她所拥有的证书编号和职业资格类型。</p>
-<p>如果查询姓名为“hhh”、身份证号为“123”的证书，肯定是查询不到的：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result.png"></p>
-<p>但是可以查看源代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result_source.png"></p>
-<p>提交的是<code>POST</code>类型的数据。</p>
-<p>请求头：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">POST /jiandingApp/command/buzhongxin/ecCertSearchAll HTTP/1.1</span><br><span class="line">Host: zscx.osta.org.cn</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://zscx.osta.org.cn/</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 89</span><br><span class="line">Origin: http://zscx.osta.org.cn</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=89F493D88xxx; Hm_lvt_5e21f0d47312f3be133220d325fc2xxx; Hm_lvt_52a88c3e9ecd4f7af925dc34xxxxx; Hm_lpvt_5e21f0d47312f3be133220d325xxxxx; Hm_lpvt_52a88c3e9ecd4f7af925dc3400f43xxxx</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
-
-<p>最重要的是<code>User-Agent</code>，用于模仿浏览器行为。<code>Accept</code>, <code>Referer</code>, <code>Content-Type</code>也需要。</p>
-<p>表单数据的格式：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">tableName=CERT_T&amp;tableName1=000000&amp;CertificateID=&amp;CID=123&amp;Name=hhh&amp;x=256&amp;y=14&amp;province=-1</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-脚本"><a href="#1-脚本" class="headerlink" title="1. 脚本"></a>1. 脚本</h3><h5 id="1-库"><a href="#1-库" class="headerlink" title="(1) 库"></a>(1) 库</h5><p>脚本需要的库有：<code>requests</code>, <code>lxml</code>, <code>urllib</code>, <code>lxrd</code>, <code>lxwt</code>, <code>os</code>.</p>
-<ul>
-<li><p>  <code>requests</code>库用于向网站发送<code>POST</code>消息。</p>
-</li>
-<li><p>  <code>lxml</code>用于解析返回的HTML代码。</p>
-</li>
-<li><p>  <code>urllib</code>用于编码转换。</p>
-</li>
-<li><p>  <code>lxrd</code>用于excel表格读取，<code>lxwt</code>用于excel表格写入。</p>
-</li>
-<li><p>  <code>os</code>用于操作系统相关操作，这里只用了<code>os.system(&quot;pause&quot;)</code>.</p>
-</li>
-</ul>
-<h5 id="2-代码"><a href="#2-代码" class="headerlink" title="(2) 代码"></a>(2) 代码</h5><p>话不多说，上代码！</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&#x27;tableName&#x27;</span>: <span class="string">&#x27;CERT_T&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;tableName1&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CertificateID&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CID&#x27;</span>: <span class="string">&#x27;000000000000000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;是谁呢&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;x&#x27;: &#x27;113&#x27;,</span></span><br><span class="line">    <span class="comment"># &#x27;y&#x27;: &#x27;31&#x27;,</span></span><br><span class="line">    <span class="string">&#x27;province&#x27;</span>: <span class="string">&#x27;-1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">phead = &#123;</span><br><span class="line">	<span class="comment"># &#x27;Host&#x27;: &#x27;zscx.osta.org.cn&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Cache-Control&#x27;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">	<span class="comment"># &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Origin&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn/&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://zscx.osta.org.cn/jiandingApp/command/buzhongxin/ecCertSearchAll&#x27;</span></span><br><span class="line"><span class="comment"># 下载超时</span></span><br><span class="line">timeOut = <span class="number">25</span></span><br><span class="line"><span class="comment"># 输出表格行</span></span><br><span class="line">Index = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">i, content, outsheet</span>):</span></span><br><span class="line">	<span class="keyword">global</span> Index</span><br><span class="line">	html = etree.HTML(content)</span><br><span class="line">	<span class="comment"># 无结果</span></span><br><span class="line">	res = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@id=&#x27;nores_con&#x27;]/div[@id=&#x27;nores_txt&#x27;]/h2/text()&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(res) != <span class="number">0</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:无结果&quot;</span>)</span><br><span class="line">		<span class="comment"># print(res)</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:查询成功&quot;</span>)</span><br><span class="line">		result = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@class=&#x27;table_1&#x27;]/table[@class=&#x27;tab_info1&#x27;]/tr/td/text()&quot;</span>)</span><br><span class="line">		<span class="comment"># print(&quot;证书编号: &#123;&#125;\n职业资格: &#123;&#125;&quot;.format(result[11], result[7]))</span></span><br><span class="line">		outsheet.write(Index, <span class="number">0</span>, payload[<span class="string">&#x27;Name&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">1</span>, payload[<span class="string">&#x27;CID&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">2</span>, result[<span class="number">7</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">3</span>, result[<span class="number">11</span>])</span><br><span class="line">		Index += <span class="number">1</span></span><br><span class="line">		<span class="comment"># print(&quot;Index: &#123;&#125;&quot;.format(Index))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">i, outsheet</span>):</span></span><br><span class="line">	p_utf8 = urllib.parse.urlencode(payload, encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	<span class="comment"># print(p_utf8)</span></span><br><span class="line">	res = requests.post(url, data=p_utf8, headers=phead, timeout=timeOut, allow_redirects=<span class="literal">True</span>)</span><br><span class="line">	parse(i, res.text, outsheet)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	infile = <span class="built_in">input</span>(<span class="string">&quot;请输入源文件名: &quot;</span>)</span><br><span class="line">	workbook = xlrd.open_workbook(infile)</span><br><span class="line">	sheet1 = workbook.sheets()[<span class="number">0</span>]</span><br><span class="line">	nrows = sheet1.nrows</span><br><span class="line">	print(<span class="string">&quot;数据行数: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(nrows-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">	output = xlwt.Workbook()</span><br><span class="line">	outsheet = output.add_sheet(<span class="string">&#x27;结果&#x27;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;姓名&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&quot;身份证号&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&quot;职业资格&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&quot;证书编号&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nrows-<span class="number">1</span>):</span><br><span class="line">		payload[<span class="string">&#x27;Name&#x27;</span>] = sheet1.row_values(i+<span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">		payload[<span class="string">&#x27;CID&#x27;</span>] =  sheet1.row_values(i+<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">		lookup(i+<span class="number">1</span>, outsheet)</span><br><span class="line">	</span><br><span class="line">	output.save(<span class="string">&quot;查询结果.xls&quot;</span>)</span><br><span class="line">	print(<span class="string">&quot;结束,共有&#123;&#125;条结果&quot;</span>.<span class="built_in">format</span>(Index-<span class="number">1</span>))</span><br><span class="line">	os.system(<span class="string">&quot;pause&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-生成可执行文件"><a href="#2-生成可执行文件" class="headerlink" title="2. 生成可执行文件"></a>2. 生成可执行文件</h3><p>这里用的是Python的<code>pyinstaller</code>工具，需要使用pip下载。</p>
-<p>在实际使用中遇到了点困难：<code>pyinstaller.exe</code>所在的路径不在PATH当中，所以还要先将对应的路径添加到环境变量中。</p>
-<p>之后运行<code>pyinstaller -F spider.py</code>. 可以在<code>dist</code>路径下找到可执行文件。</p>
-<h3 id="3-困难"><a href="#3-困难" class="headerlink" title="3. 困难"></a>3. 困难</h3><p>最大的困难是在测试POST表单数据时的编码问题。服务器接受的表单数据需要是URL编码的，所以需要调用<code>urllib.parse.urlencode()</code>方法(<code>urllib3</code>用法同上，但是<code>urllib</code>的使用方法是<code>urllib.urlencode()</code>).</p>
-<p>其次，我还复习了<code>xpath</code>的基本语法，用于解析HTML中的标签。</p>
-<hr>
-<h3 id="新问题"><a href="#新问题" class="headerlink" title="新问题"></a>新问题</h3><p>今天实战时发现了问题：当查询了1000条左右的数据后，程序崩溃了。进一步查询发现，原来是网站拒绝了我的访问。进一步查看源代码发现，提交的表单数据中还包含了我的IP地址。原因是网站采取了反爬虫手段，封禁了我的IP(QAQ)，希望不是永久封……</p>
-<p>我上网查了一下解决方法，大概有以下三种：</p>
-<ol>
-<li>  维护代理IP池，每次提交数据随机挑选IP。</li>
-<li>  延长每次提交之间的间隔。</li>
-<li>  更换<code>User-Agent</code>标签的内容。</li>
-</ol>
-<p>经过实际测试，只有第一种是实际有效的。我使用了<code>Clash</code>客户端上的<code>GlaDos</code>用于科学上网，并选择了<code>Global</code>模式以开启全局代理。每次准备60-200条不等的数据，并运行爬虫。当爬虫报错后，更换连接信道，重新运行。（是的，这种方法好麻烦……但是我懒得搞代理IP池管理了~(￣▽￣)~）</p>
-<h5 id="2020-09-04-更新："><a href="#2020-09-04-更新：" class="headerlink" title="2020/09/04 更新："></a>2020/09/04 更新：</h5><p>今天突然想起来被封这回事，于是再次尝试——IP解封辣！看来省事的办法就是每天间隔较长时间查询较少规模的数据~ <del>这样就可以把省下来的时间用来摸鱼咯</del></p>
-]]></content>
-      <categories>
-        <category>Spider</category>
-      </categories>
-      <tags>
-        <tag>Spider</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>diary-1</title>
-    <url>/2021/04/30/diary-1/</url>
-    <content><![CDATA[<p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
-]]></content>
-      <categories>
-        <category>diary?</category>
-      </categories>
-      <tags>
-        <tag>diary?</tag>
       </tags>
   </entry>
   <entry>
@@ -940,6 +879,67 @@
       </categories>
       <tags>
         <tag>Regular-Expression</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爬虫:提交表单数据</title>
+    <url>/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。在需求方面，由于(1) 数据规模达到了1000以上，手动复制粘贴十分费时耗力；(2) 并且每年都有这样的工作；(3) 政府网站在相当长的一段时间内不会大改，所以为其编写程序很值得。在交换使用方面，而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
+<span id="more"></span>
+
+<p><strong>计划</strong> ：先用编写Python脚本文件，再利用工具将脚本编译为<code>exe</code>可执行文件。</p>
+<h3 id="0-分析目标网站"><a href="#0-分析目标网站" class="headerlink" title="0. 分析目标网站"></a>0. 分析目标网站</h3><p>目标网站是技术等级证书网站: <code>http://zscx.osta.org.cn</code>.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png"></p>
+<p>任务是根据一个人的名字和身份证号查询他/她所拥有的证书编号和职业资格类型。</p>
+<p>如果查询姓名为“hhh”、身份证号为“123”的证书，肯定是查询不到的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result.png"></p>
+<p>但是可以查看源代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result_source.png"></p>
+<p>提交的是<code>POST</code>类型的数据。</p>
+<p>请求头：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">POST /jiandingApp/command/buzhongxin/ecCertSearchAll HTTP/1.1</span><br><span class="line">Host: zscx.osta.org.cn</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://zscx.osta.org.cn/</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 89</span><br><span class="line">Origin: http://zscx.osta.org.cn</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=89F493D88xxx; Hm_lvt_5e21f0d47312f3be133220d325fc2xxx; Hm_lvt_52a88c3e9ecd4f7af925dc34xxxxx; Hm_lpvt_5e21f0d47312f3be133220d325xxxxx; Hm_lpvt_52a88c3e9ecd4f7af925dc3400f43xxxx</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
+
+<p>最重要的是<code>User-Agent</code>，用于模仿浏览器行为。<code>Accept</code>, <code>Referer</code>, <code>Content-Type</code>也需要。</p>
+<p>表单数据的格式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">tableName=CERT_T&amp;tableName1=000000&amp;CertificateID=&amp;CID=123&amp;Name=hhh&amp;x=256&amp;y=14&amp;province=-1</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-脚本"><a href="#1-脚本" class="headerlink" title="1. 脚本"></a>1. 脚本</h3><h5 id="1-库"><a href="#1-库" class="headerlink" title="(1) 库"></a>(1) 库</h5><p>脚本需要的库有：<code>requests</code>, <code>lxml</code>, <code>urllib</code>, <code>lxrd</code>, <code>lxwt</code>, <code>os</code>.</p>
+<ul>
+<li><p>  <code>requests</code>库用于向网站发送<code>POST</code>消息。</p>
+</li>
+<li><p>  <code>lxml</code>用于解析返回的HTML代码。</p>
+</li>
+<li><p>  <code>urllib</code>用于编码转换。</p>
+</li>
+<li><p>  <code>lxrd</code>用于excel表格读取，<code>lxwt</code>用于excel表格写入。</p>
+</li>
+<li><p>  <code>os</code>用于操作系统相关操作，这里只用了<code>os.system(&quot;pause&quot;)</code>.</p>
+</li>
+</ul>
+<h5 id="2-代码"><a href="#2-代码" class="headerlink" title="(2) 代码"></a>(2) 代码</h5><p>话不多说，上代码！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&#x27;tableName&#x27;</span>: <span class="string">&#x27;CERT_T&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;tableName1&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CertificateID&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CID&#x27;</span>: <span class="string">&#x27;000000000000000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;是谁呢&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;x&#x27;: &#x27;113&#x27;,</span></span><br><span class="line">    <span class="comment"># &#x27;y&#x27;: &#x27;31&#x27;,</span></span><br><span class="line">    <span class="string">&#x27;province&#x27;</span>: <span class="string">&#x27;-1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">phead = &#123;</span><br><span class="line">	<span class="comment"># &#x27;Host&#x27;: &#x27;zscx.osta.org.cn&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Cache-Control&#x27;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">	<span class="comment"># &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Origin&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn/&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://zscx.osta.org.cn/jiandingApp/command/buzhongxin/ecCertSearchAll&#x27;</span></span><br><span class="line"><span class="comment"># 下载超时</span></span><br><span class="line">timeOut = <span class="number">25</span></span><br><span class="line"><span class="comment"># 输出表格行</span></span><br><span class="line">Index = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">i, content, outsheet</span>):</span></span><br><span class="line">	<span class="keyword">global</span> Index</span><br><span class="line">	html = etree.HTML(content)</span><br><span class="line">	<span class="comment"># 无结果</span></span><br><span class="line">	res = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@id=&#x27;nores_con&#x27;]/div[@id=&#x27;nores_txt&#x27;]/h2/text()&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(res) != <span class="number">0</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:无结果&quot;</span>)</span><br><span class="line">		<span class="comment"># print(res)</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:查询成功&quot;</span>)</span><br><span class="line">		result = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@class=&#x27;table_1&#x27;]/table[@class=&#x27;tab_info1&#x27;]/tr/td/text()&quot;</span>)</span><br><span class="line">		<span class="comment"># print(&quot;证书编号: &#123;&#125;\n职业资格: &#123;&#125;&quot;.format(result[11], result[7]))</span></span><br><span class="line">		outsheet.write(Index, <span class="number">0</span>, payload[<span class="string">&#x27;Name&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">1</span>, payload[<span class="string">&#x27;CID&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">2</span>, result[<span class="number">7</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">3</span>, result[<span class="number">11</span>])</span><br><span class="line">		Index += <span class="number">1</span></span><br><span class="line">		<span class="comment"># print(&quot;Index: &#123;&#125;&quot;.format(Index))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">i, outsheet</span>):</span></span><br><span class="line">	p_utf8 = urllib.parse.urlencode(payload, encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	<span class="comment"># print(p_utf8)</span></span><br><span class="line">	res = requests.post(url, data=p_utf8, headers=phead, timeout=timeOut, allow_redirects=<span class="literal">True</span>)</span><br><span class="line">	parse(i, res.text, outsheet)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	infile = <span class="built_in">input</span>(<span class="string">&quot;请输入源文件名: &quot;</span>)</span><br><span class="line">	workbook = xlrd.open_workbook(infile)</span><br><span class="line">	sheet1 = workbook.sheets()[<span class="number">0</span>]</span><br><span class="line">	nrows = sheet1.nrows</span><br><span class="line">	print(<span class="string">&quot;数据行数: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(nrows-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">	output = xlwt.Workbook()</span><br><span class="line">	outsheet = output.add_sheet(<span class="string">&#x27;结果&#x27;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;姓名&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&quot;身份证号&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&quot;职业资格&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&quot;证书编号&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nrows-<span class="number">1</span>):</span><br><span class="line">		payload[<span class="string">&#x27;Name&#x27;</span>] = sheet1.row_values(i+<span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">		payload[<span class="string">&#x27;CID&#x27;</span>] =  sheet1.row_values(i+<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">		lookup(i+<span class="number">1</span>, outsheet)</span><br><span class="line">	</span><br><span class="line">	output.save(<span class="string">&quot;查询结果.xls&quot;</span>)</span><br><span class="line">	print(<span class="string">&quot;结束,共有&#123;&#125;条结果&quot;</span>.<span class="built_in">format</span>(Index-<span class="number">1</span>))</span><br><span class="line">	os.system(<span class="string">&quot;pause&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-生成可执行文件"><a href="#2-生成可执行文件" class="headerlink" title="2. 生成可执行文件"></a>2. 生成可执行文件</h3><p>这里用的是Python的<code>pyinstaller</code>工具，需要使用pip下载。</p>
+<p>在实际使用中遇到了点困难：<code>pyinstaller.exe</code>所在的路径不在PATH当中，所以还要先将对应的路径添加到环境变量中。</p>
+<p>之后运行<code>pyinstaller -F spider.py</code>. 可以在<code>dist</code>路径下找到可执行文件。</p>
+<h3 id="3-困难"><a href="#3-困难" class="headerlink" title="3. 困难"></a>3. 困难</h3><p>最大的困难是在测试POST表单数据时的编码问题。服务器接受的表单数据需要是URL编码的，所以需要调用<code>urllib.parse.urlencode()</code>方法(<code>urllib3</code>用法同上，但是<code>urllib</code>的使用方法是<code>urllib.urlencode()</code>).</p>
+<p>其次，我还复习了<code>xpath</code>的基本语法，用于解析HTML中的标签。</p>
+<hr>
+<h3 id="新问题"><a href="#新问题" class="headerlink" title="新问题"></a>新问题</h3><p>今天实战时发现了问题：当查询了1000条左右的数据后，程序崩溃了。进一步查询发现，原来是网站拒绝了我的访问。进一步查看源代码发现，提交的表单数据中还包含了我的IP地址。原因是网站采取了反爬虫手段，封禁了我的IP(QAQ)，希望不是永久封……</p>
+<p>我上网查了一下解决方法，大概有以下三种：</p>
+<ol>
+<li>  维护代理IP池，每次提交数据随机挑选IP。</li>
+<li>  延长每次提交之间的间隔。</li>
+<li>  更换<code>User-Agent</code>标签的内容。</li>
+</ol>
+<p>经过实际测试，只有第一种是实际有效的。我使用了<code>Clash</code>客户端上的<code>GlaDos</code>用于科学上网，并选择了<code>Global</code>模式以开启全局代理。每次准备60-200条不等的数据，并运行爬虫。当爬虫报错后，更换连接信道，重新运行。（是的，这种方法好麻烦……但是我懒得搞代理IP池管理了~(￣▽￣)~）</p>
+<h5 id="2020-09-04-更新："><a href="#2020-09-04-更新：" class="headerlink" title="2020/09/04 更新："></a>2020/09/04 更新：</h5><p>今天突然想起来被封这回事，于是再次尝试——IP解封辣！看来省事的办法就是每天间隔较长时间查询较少规模的数据~ <del>这样就可以把省下来的时间用来摸鱼咯</del></p>
+]]></content>
+      <categories>
+        <category>Spider</category>
+      </categories>
+      <tags>
+        <tag>Spider</tag>
       </tags>
   </entry>
 </search>
