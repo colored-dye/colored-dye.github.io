@@ -35,6 +35,60 @@
       </tags>
   </entry>
   <entry>
+    <title>希腊字母表in Latex</title>
+    <url>/2021/12/29/Greek-alphabet/</url>
+    <content><![CDATA[<p>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</p>
+<span id="more"></span>
+
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/colored-dye/Pics@main/greek_letter_latex_00-1.jpg"></p>
+]]></content>
+      <categories>
+        <category>misc</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
+        <tag>Latex</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo图片显示</title>
+    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+<span id="more"></span>
+
+<ol>
+<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
+</li>
+<li><p>利用图床生成URL并引用外链。</p>
+<p> 图床又有几种常用的：</p>
+<ol>
+<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
+</li>
+<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
+<p> 在本机上还可以采用修改host文件的方式。先通过</p>
+<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
+<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
+</li>
+<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
+</li>
+<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
+<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
+<p>最后插一个图片再次测试一下~</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三种堆的插入效率比较</title>
     <url>/2021/03/28/Heap-Insertion-Comparison/</url>
     <content><![CDATA[<p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
@@ -87,75 +141,54 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo图片显示</title>
-    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+    <title>LeetCode-002-DP-01</title>
+    <url>/2021/09/15/LeetCode-002-DP-01/</url>
+    <content><![CDATA[<p>今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件，使得问题的解决略有复杂，但是基本的思路是一致的。</p>
 <span id="more"></span>
 
+<h4 id="Easy-Version"><a href="#Easy-Version" class="headerlink" title="Easy Version"></a>Easy Version</h4><p>最简单版本就是给出一系列非负数<code>prices[]</code>作为股价，但是有以下限定条件：</p>
 <ol>
-<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li><p>利用图床生成URL并引用外链。</p>
-<p> 图床又有几种常用的：</p>
+<li>  任意一天最多只能拥有一股。</li>
+<li>  某一天买下后，最早只能第二天卖。</li>
+</ol>
+<p>要求给出赚得最多的金额。</p>
+<p>将第$i$天的盈利记为$f(i)$，那么我们可以给出这样的转移方程：<br>$$<br>f(i) = f(i-1) + max(prices[i]-prices[i-1], 0)<br>$$<br>其实就是将所有的上升子序列的首末值加在一起就好了。</p>
+<h4 id="Normal-Version-With-Cooldown"><a href="#Normal-Version-With-Cooldown" class="headerlink" title="Normal Version: With Cooldown"></a>Normal Version: With Cooldown</h4><p>所谓的“Cooldown”就是指，某一天卖掉股票后，第二天就不能买了，最早第三天才能买。</p>
+<p>加了这个限定条件后，转移方程就不能像前一个那样简单了。我们需要明确，在股票交易的全程中，一共可能出现三种状态：</p>
 <ol>
-<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p> 在本机上还可以采用修改host文件的方式。先通过</p>
-<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
-<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
+<li>  <code>f[i][0]</code>: 刚刚卖掉，正处于冷冻期。</li>
+<li>  <code>f[i][1]</code>: 正持有股票。</li>
+<li>  <code>f[i][2]</code>: 不持有股票，并且不处于冷冻期。</li>
 </ol>
-</li>
+<p>对应于以上三种状态，我们可以得到如下的状态转移方程：</p>
+<ol>
+<li>  $f[i][0] = f[i-1][0] + prices[i]$ : 当天刚刚卖掉股票，所以收益等于前一天的收益加上卖掉股票的收益。</li>
+<li>  $f[i][1] = max(f[i-1][1], f[i-1][2]-prices[i])$ : 当前的股票有可能在第<code>i-1</code>天就已经持有，也有可能是当天买入的。如果是前者，就相当于在<code>f[i-1][2]</code>收益的基础上支出了。</li>
+<li>  $f[i][2] = max(f[i-1][0], f[i-1][2])$ : 既没有股票也不处于冷冻期，说明当天没有买股票，并且第<code>i-1</code>天也没有股票。</li>
 </ol>
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
-    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
-    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
-<span id="more"></span>
+<p>那么我们很容易想到，最终的收益是$max(f[n-1][0], f[n-1][1], f[n-1][2])$. 但是在最后一天持有股票是没有价值的，所以只需要计算$max(f[n-1][0], f[n-1][2])$即可。</p>
+<p>接下来还需要确定的就是这三个收益函数的初值。假如第0天买入，就相当于得到了负数的收益，那么<code>f[0][0] = 0</code>, <code>f[0][1] = -prices[0]</code>, <code>f[0][2] = 0</code>.</p>
+<p>接下来就可以照葫芦画瓢写代码啦：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (prices.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="comment">// f[i][0]: 手上不持有股票，并且处于冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="comment">// f[i][1]: 手上持有股票的最大收益</span></span><br><span class="line">        <span class="comment">// f[i][2]: 手上不持有股票，并且不在冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; f(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">3</span>));</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] + prices[i];</span><br><span class="line">            f[i][<span class="number">1</span>] = max(f[i - <span class="number">1</span>][<span class="number">1</span>], f[i - <span class="number">1</span>][<span class="number">2</span>] - prices[i]);</span><br><span class="line">            f[i][<span class="number">2</span>] = max(f[i - <span class="number">1</span>][<span class="number">0</span>], f[i - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max(f[n - <span class="number">1</span>][<span class="number">0</span>], f[n - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
-<p>比如说下面这个矩阵：</p>
-<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
+<h4 id="Another-Version-With-Transaction-Fee"><a href="#Another-Version-With-Transaction-Fee" class="headerlink" title="Another Version: With Transaction Fee"></a>Another Version: With Transaction Fee</h4><p>同样，我们需要分析几种可能出现的状态：</p>
+<ol>
+<li>  <code>f[i][0]</code> : 当天手里没有股票。</li>
+<li>  <code>f[i][1]</code> : 当天手里有股票。</li>
+</ol>
+<p>对应这两种状态，我们可以写出两个状态转移方程：</p>
+<ol>
+<li>  $f[i][0] = max(f[i-1][0], f[i-1][1] + prices[i] - fee)$ : 当天手里没有股票，可能是昨天已经卖掉，也可能是当天卖掉。对于后一种可能，除了获得相应的收益之外，还要支付交易费。交易费其实是针对一对买卖行为的，但是由于只能持有一股，所以只需要在卖掉时付费。</li>
+<li>  $f[i][1] = max(f[i-1][1], f[i-1][0] - prices[i])$ : 当天手里有股票，可能是前一天已经买入，也有可能是当天买入。</li>
+</ol>
+<p>所以可以得出，最后的最大收益为$max(f[n-1][0], f[n-1][1])$. 同样，最后一天持有股票没什么意义，所以结果就是$f[n-1][0]$.</p>
+<p>此外，还需要确定初值。如果第一天先买股票，那么<code>f[i][0] = 0</code>, <code>f[i][1] = -prices[0]</code>.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dp(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i] - fee);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>返回值的矩阵为：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
-<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
 <hr>
-<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
-<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
-<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
-<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
-<li>  学习了C++<code>vector</code>变量初始化方法。</li>
-<li>  复习了BFS算法的思想和基本结构。</li>
-<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
-</ol>
+<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>经过后两道题我们可以感受到，只要写出了状态转移方程，写出相应的代码就会很容易。所以在正确理解题意的基础上，需要我们认真仔细地给出递归形式的状态转移方程，而这些方程往往都遵循着动态规划类型题目的基本模式。（多刷一些题应该可以总结得差不多吧( •̀ ω •́ )✧</p>
 ]]></content>
       <categories>
         <category>Algorithm</category>
@@ -164,23 +197,6 @@
       <tags>
         <tag>Algorithm</tag>
         <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>希腊字母表in Latex</title>
-    <url>/2021/12/29/Greek-alphabet/</url>
-    <content><![CDATA[<p>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</p>
-<span id="more"></span>
-
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00.jpg"></p>
-<p><img src="https://cdn.jsdelivr.net/colored-dye/Pics@main/greek_letter_latex_00-1.jpg"></p>
-]]></content>
-      <categories>
-        <category>misc</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-        <tag>Latex</tag>
       </tags>
   </entry>
   <entry>
@@ -268,54 +284,38 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode-002-DP-01</title>
-    <url>/2021/09/15/LeetCode-002-DP-01/</url>
-    <content><![CDATA[<p>今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件，使得问题的解决略有复杂，但是基本的思路是一致的。</p>
+    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
+    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
+    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
 <span id="more"></span>
 
-<h4 id="Easy-Version"><a href="#Easy-Version" class="headerlink" title="Easy Version"></a>Easy Version</h4><p>最简单版本就是给出一系列非负数<code>prices[]</code>作为股价，但是有以下限定条件：</p>
-<ol>
-<li>  任意一天最多只能拥有一股。</li>
-<li>  某一天买下后，最早只能第二天卖。</li>
-</ol>
-<p>要求给出赚得最多的金额。</p>
-<p>将第$i$天的盈利记为$f(i)$，那么我们可以给出这样的转移方程：<br>$$<br>f(i) = f(i-1) + max(prices[i]-prices[i-1], 0)<br>$$<br>其实就是将所有的上升子序列的首末值加在一起就好了。</p>
-<h4 id="Normal-Version-With-Cooldown"><a href="#Normal-Version-With-Cooldown" class="headerlink" title="Normal Version: With Cooldown"></a>Normal Version: With Cooldown</h4><p>所谓的“Cooldown”就是指，某一天卖掉股票后，第二天就不能买了，最早第三天才能买。</p>
-<p>加了这个限定条件后，转移方程就不能像前一个那样简单了。我们需要明确，在股票交易的全程中，一共可能出现三种状态：</p>
-<ol>
-<li>  <code>f[i][0]</code>: 刚刚卖掉，正处于冷冻期。</li>
-<li>  <code>f[i][1]</code>: 正持有股票。</li>
-<li>  <code>f[i][2]</code>: 不持有股票，并且不处于冷冻期。</li>
-</ol>
-<p>对应于以上三种状态，我们可以得到如下的状态转移方程：</p>
-<ol>
-<li>  $f[i][0] = f[i-1][0] + prices[i]$ : 当天刚刚卖掉股票，所以收益等于前一天的收益加上卖掉股票的收益。</li>
-<li>  $f[i][1] = max(f[i-1][1], f[i-1][2]-prices[i])$ : 当前的股票有可能在第<code>i-1</code>天就已经持有，也有可能是当天买入的。如果是前者，就相当于在<code>f[i-1][2]</code>收益的基础上支出了。</li>
-<li>  $f[i][2] = max(f[i-1][0], f[i-1][2])$ : 既没有股票也不处于冷冻期，说明当天没有买股票，并且第<code>i-1</code>天也没有股票。</li>
-</ol>
-<p>那么我们很容易想到，最终的收益是$max(f[n-1][0], f[n-1][1], f[n-1][2])$. 但是在最后一天持有股票是没有价值的，所以只需要计算$max(f[n-1][0], f[n-1][2])$即可。</p>
-<p>接下来还需要确定的就是这三个收益函数的初值。假如第0天买入，就相当于得到了负数的收益，那么<code>f[0][0] = 0</code>, <code>f[0][1] = -prices[0]</code>, <code>f[0][2] = 0</code>.</p>
-<p>接下来就可以照葫芦画瓢写代码啦：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (prices.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="comment">// f[i][0]: 手上不持有股票，并且处于冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="comment">// f[i][1]: 手上持有股票的最大收益</span></span><br><span class="line">        <span class="comment">// f[i][2]: 手上不持有股票，并且不在冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; f(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">3</span>));</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] + prices[i];</span><br><span class="line">            f[i][<span class="number">1</span>] = max(f[i - <span class="number">1</span>][<span class="number">1</span>], f[i - <span class="number">1</span>][<span class="number">2</span>] - prices[i]);</span><br><span class="line">            f[i][<span class="number">2</span>] = max(f[i - <span class="number">1</span>][<span class="number">0</span>], f[i - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max(f[n - <span class="number">1</span>][<span class="number">0</span>], f[n - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
+<p>比如说下面这个矩阵：</p>
+<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
 
-<h4 id="Another-Version-With-Transaction-Fee"><a href="#Another-Version-With-Transaction-Fee" class="headerlink" title="Another Version: With Transaction Fee"></a>Another Version: With Transaction Fee</h4><p>同样，我们需要分析几种可能出现的状态：</p>
-<ol>
-<li>  <code>f[i][0]</code> : 当天手里没有股票。</li>
-<li>  <code>f[i][1]</code> : 当天手里有股票。</li>
-</ol>
-<p>对应这两种状态，我们可以写出两个状态转移方程：</p>
-<ol>
-<li>  $f[i][0] = max(f[i-1][0], f[i-1][1] + prices[i] - fee)$ : 当天手里没有股票，可能是昨天已经卖掉，也可能是当天卖掉。对于后一种可能，除了获得相应的收益之外，还要支付交易费。交易费其实是针对一对买卖行为的，但是由于只能持有一股，所以只需要在卖掉时付费。</li>
-<li>  $f[i][1] = max(f[i-1][1], f[i-1][0] - prices[i])$ : 当天手里有股票，可能是前一天已经买入，也有可能是当天买入。</li>
-</ol>
-<p>所以可以得出，最后的最大收益为$max(f[n-1][0], f[n-1][1])$. 同样，最后一天持有股票没什么意义，所以结果就是$f[n-1][0]$.</p>
-<p>此外，还需要确定初值。如果第一天先买股票，那么<code>f[i][0] = 0</code>, <code>f[i][1] = -prices[0]</code>.</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dp(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i] - fee);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>返回值的矩阵为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
+<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
+<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
 <hr>
-<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>经过后两道题我们可以感受到，只要写出了状态转移方程，写出相应的代码就会很容易。所以在正确理解题意的基础上，需要我们认真仔细地给出递归形式的状态转移方程，而这些方程往往都遵循着动态规划类型题目的基本模式。（多刷一些题应该可以总结得差不多吧( •̀ ω •́ )✧</p>
+<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
+<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
+<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
+<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
+<li>  学习了C++<code>vector</code>变量初始化方法。</li>
+<li>  复习了BFS算法的思想和基本结构。</li>
+<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
+</ol>
 ]]></content>
       <categories>
         <category>Algorithm</category>
@@ -571,6 +571,23 @@
       </tags>
   </entry>
   <entry>
+    <title>PPL-Lab-Description</title>
+    <url>/2021/10/06/PPL-Lab-Description/</url>
+    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
+<span id="more"></span>
+
+<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
+<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
+<p>(MUA这个名字起得真妙hhh)</p>
+]]></content>
+      <categories>
+        <category>PPL</category>
+      </categories>
+      <tags>
+        <tag>PPL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RIME输入法配置</title>
     <url>/2021/10/27/RIME-input/</url>
     <content><![CDATA[<p>今天在新装的Manjaro Plasma KDE上安装了大名鼎鼎的RIME输入法~ 还算是成功，但是捣鼓了好一会儿QAQ 问题主要在配置文件上.</p>
@@ -597,40 +614,6 @@
       </tags>
   </entry>
   <entry>
-    <title>diary-1</title>
-    <url>/2021/04/30/diary-1/</url>
-    <content><![CDATA[<p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
-]]></content>
-      <categories>
-        <category>diary?</category>
-      </categories>
-      <tags>
-        <tag>diary?</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PPL-Lab-Description</title>
-    <url>/2021/10/06/PPL-Lab-Description/</url>
-    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
-<span id="more"></span>
-
-<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
-<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
-<p>(MUA这个名字起得真妙hhh)</p>
-]]></content>
-      <categories>
-        <category>PPL</category>
-      </categories>
-      <tags>
-        <tag>PPL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>xv6-riscv学习0</title>
     <url>/2021/04/11/xv6-riscv-0/</url>
     <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
@@ -653,6 +636,147 @@
         <tag>OS</tag>
         <tag>RISC-V</tag>
         <tag>xv6-riscv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>xv6-riscv学习1-Chapter1</title>
+    <url>/2021/05/01/xv6-riscv-1/</url>
+    <content><![CDATA[<h3 id="Chapter-1-Operating-System-Interfaces"><a href="#Chapter-1-Operating-System-Interfaces" class="headerlink" title="Chapter 1: Operating System Interfaces"></a>Chapter 1: Operating System Interfaces</h3><p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
+<span id="more"></span>
+
+<p>在这里，接口与<strong>系统调用</strong> (<strong>system call</strong>)是紧密相关的。系统调用就是操作系统内核向用户程序提供的访问内核功能的接口。实际上，系统调用在操作系统分层模型的实现中是极其重要的。书中有一幅图呈现了user space和kernel space之间的关系：</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/xv6layered-view" style="zoom:50%;" />
+
+<p>这其实带来了一个问题：系统调用的功能是不是越复杂、越丰富越好呢？书中给出的答案是否定的，并给出了一个目标：“Design interfaces that rely on a few mechanisms that can be combined to provide much generality.”这大概就是说“大而全不如小而精”吧。</p>
+<p>同时可以注意到，上图中shell是在用户空间里的，也就是说shell在xv6系统中是用户程序。这样一来，其实可以使得用户更换shell变得很方便，只要使用同样的接口就可以了。现实中常用的Linux系统也都是这样的。</p>
+<p>接下来仍遵循书中的结构~</p>
+<h4 id="1-进程与内存"><a href="#1-进程与内存" class="headerlink" title="1. 进程与内存"></a>1. 进程与内存</h4><p>在操作系统中，一般会有多个进程“同时”运行，每个进程在内核中被分配有一个唯一的进程标识符(process identifier)，缩写<code>PID</code>。真正意义上的“同时”只有在多核CPU上才能实现，而对于单核CPU，操作系统会通过进程调度机制轮流执行各个进程，由于切换的速度非常快，给人的感觉就像是同时一样。</p>
+<p>创建新进程的方法一般通过<code>fork()</code>或<code>exec()</code>系统调用实现。<code>fork</code>会给新创建的子进程复制一份父进程的内存，内容完全一样，如果从标准的ELF格式来看的话，从text, data, bss到stack都是一样的。<code>fork</code>很特殊的一点是其有两个返回值：向父进程返回子进程的<code>PID</code>，向子进程返回0. </p>
+<p>一个经典的<code>fork</code>测试程序大致如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testfork</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;parent: child PID = %d\n&quot;</span>, pid);</span><br><span class="line">        pid = wait(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child %d terminates\n&quot;</span>, pid);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child exiting\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;fork error\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。</p>
+<p>而<code>exec</code>系统调用直接将文件加载到内存中，文件通常是ELF(Executable and Linkable Format)格式。在Linux系统中文件类型可以通过<code>file [filename]</code>命令查看。</p>
+<p>书中给了一小段程序用于帮助解释<code>exec</code>的功能：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *argv[<span class="number">3</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;echo&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">argv[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">exec(<span class="string">&quot;/bin/echo&quot;</span>, argv);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;exec error\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>之所以在<code>exec()</code>的下一行输出错误信息，是因为当exec执行成功时，会将当前进程的内存空间覆盖掉，原程序的代码自然就无法执行了。</p>
+<p><code>fork</code>如果每创建一个新进程时都复制父进程的所有内存，其实是很浪费时间的。现在大多数操作系统采取的是<strong>写时复制</strong>(<strong>copy-on-write</strong>) ，也就是说，子进程刚创建时，是与父进程共用地址空间的。如果子进程只进行读操作，那就是最划算的了。而当子进程需要写入一段内存时，才会给子进程将要写入的对应页表进行复制，其余部分仍共享。</p>
+<h4 id="2-I-O与文件描述符"><a href="#2-I-O与文件描述符" class="headerlink" title="2. I/O与文件描述符"></a>2. I/O与文件描述符</h4><p>文件描述符为文件、目录和设备提供了统一的表示方法，从而将它们都抽象为文件流的形式。所以，文件也是一个抽象，而系统为访问和操纵文件提供了统一的接口。</p>
+<p>每一个进程都会维护一个open-file table（不知道怎么翻译了XD），其中包含了这个进程所访问的文件描述符。</p>
+<p>关于<code>fork</code>和<code>exec</code>还有很特殊的特性：<code>fork</code>会复制父进程的file table给子进程，而<code>exec</code>会保留调用者进程的file table。这就使得<strong>I/O重定向</strong>(<strong>I/O redirection</strong>) 很容易实现：先fork，再exec.</p>
+<p>(其实这一节还有一些比较复杂的，但是我看不太懂就不贴上来了)</p>
+<h4 id="3-管道-Pipe"><a href="#3-管道-Pipe" class="headerlink" title="3. 管道(Pipe)"></a>3. 管道(Pipe)</h4><p><code>pipe</code>用于将一个进程的输出流作为另一个进程的输入流。如常用的：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-cache search vim | grep vim</span><br></pre></td></tr></table></figure>
+
+<p>其实有点类似于重定向，但是它在更广泛的意义上提供了进程间通信的方法。当需要传输的数据量不太大时，可以通过重定向来实现管道的功能，如<code>echo hello world | wc</code>可以实现为：<code>echo hello world &gt; /tmp/xyz; wc &lt; /tmp/xyz</code>. 但是管道的一个优点就是它可以传递任意长度的数据流。</p>
+<p>管道有一个写端、一个读端。当两个进程通过一个管道进行通信时，它们的读端和写端都是一样的。</p>
+<p>接下来的示例程序就有点复杂了：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> p[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">pipe(p);</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>)&#123;</span><br><span class="line">    close(<span class="number">0</span>);</span><br><span class="line">    dup(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">    exec(<span class="string">&quot;/bin/wc&quot;</span>, argv);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    write(p[<span class="number">1</span>], <span class="string">&quot;hello world!\n&quot;</span>, <span class="number">12</span>);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>书中是这样解释这段程序的功能的：<code>fork</code>之后，父进程和子进程共用管道<code>p[]</code>所指的文件描述符。子进程调用<code>close</code>和<code>dup</code>使得管道的读端为文件描述符0，关闭了<code>p[]</code>中的文件描述符，并调用<code>exec</code>运行<code>wc</code>。当<code>wc</code>从标准输入（即文件描述符0）读取输入时，它就会从管道中读。父进程关闭了管道的读端，向管道中写入“hello world!\n”，后关闭了管道的写端。</p>
+<p>关于管道，书中提到了一个神奇的用法。管道的右侧还可以包含管道！比如：<code>a | b | c |...</code>，从而可以构建一个进程树，在这样的树中，父节点需要等待所有的子节点执行完毕才能开始执行。</p>
+<p>书中还提到管道的一个优点是允许流水线的并行执行，然而采用文件重定向的方法就必须等前一个程序写入文件完成后才能让下一个程序执行。想一想还是挺有道理的，毕竟数据流的特点就是可以实时处理。</p>
+<h4 id="4-文件系统"><a href="#4-文件系统" class="headerlink" title="4. 文件系统"></a>4. 文件系统</h4><p>与文件操作相关的系统调用有很多，如<code>chdir</code>, <code>open</code>, <code>mkdir</code>, <code>close</code>, <code>mknod</code>等。前四个还比较直接明了，第四个<code>mknod</code>创建一个指代着设备的特殊文件，与这个文件直接相关的是两个设备号：major device number和minor device number，暂且翻译成“主、次设备号”好了。一般的使用方式是：<code>mknod(&quot;/console&quot;, 1, 1)</code>.</p>
+<p>书中还提到了部分与文件系统相关的概念：<code>inode</code>和<code>link</code>。<code>inode</code>保存了文件的元数据(metadata)，包括文件类型（文件/目录/或设备）、文件内容在磁盘上的地址和指向该文件的链接数。每个inode可以有多个链接，而每个链接都包含了目录中的一个条目(entry)，条目中包含了文件名和inode号。所以文件名不是文件内容的一部分！</p>
+<p>记录一个文件的数据结构长这个样子：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DIR 		1	<span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_FILE		2	<span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DEVICE	 3	<span class="comment">// Device</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> dev;	<span class="comment">// File system&#x27;s disk device</span></span><br><span class="line">    uint ino;	<span class="comment">// Inode number</span></span><br><span class="line">    <span class="keyword">short</span> type;	<span class="comment">// Type of file</span></span><br><span class="line">    <span class="keyword">short</span> nlink;<span class="comment">// Number of links</span></span><br><span class="line">    uint64 size;<span class="comment">// Size of file in bytes</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于<code>link</code>系统调用，这里实现的应该是软链接(soft link)，即新创建的链接并不是保存在额外的文件中，而是直接指向了被引用的文件。以下是一段创建链接的示例：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">open(<span class="string">&quot;a&quot;</span>, O_CREATE | O_WRONLY);</span><br><span class="line">link(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在此之后，文件名“a”和“b”都指的是同一个文件，使用这两个文件名会得到相同的inode number，而对应的<code>struct stat</code>变量中的nlink值为2.</p>
+<p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>RISC-V</category>
+        <category>xv6-riscv</category>
+      </categories>
+      <tags>
+        <tag>OS</tag>
+        <tag>RISC-V</tag>
+        <tag>xv6-riscv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爬虫:提交表单数据</title>
+    <url>/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。在需求方面，由于(1) 数据规模达到了1000以上，手动复制粘贴十分费时耗力；(2) 并且每年都有这样的工作；(3) 政府网站在相当长的一段时间内不会大改，所以为其编写程序很值得。在交换使用方面，而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
+<span id="more"></span>
+
+<p><strong>计划</strong> ：先用编写Python脚本文件，再利用工具将脚本编译为<code>exe</code>可执行文件。</p>
+<h3 id="0-分析目标网站"><a href="#0-分析目标网站" class="headerlink" title="0. 分析目标网站"></a>0. 分析目标网站</h3><p>目标网站是技术等级证书网站: <code>http://zscx.osta.org.cn</code>.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png"></p>
+<p>任务是根据一个人的名字和身份证号查询他/她所拥有的证书编号和职业资格类型。</p>
+<p>如果查询姓名为“hhh”、身份证号为“123”的证书，肯定是查询不到的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result.png"></p>
+<p>但是可以查看源代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result_source.png"></p>
+<p>提交的是<code>POST</code>类型的数据。</p>
+<p>请求头：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">POST /jiandingApp/command/buzhongxin/ecCertSearchAll HTTP/1.1</span><br><span class="line">Host: zscx.osta.org.cn</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://zscx.osta.org.cn/</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 89</span><br><span class="line">Origin: http://zscx.osta.org.cn</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=89F493D88xxx; Hm_lvt_5e21f0d47312f3be133220d325fc2xxx; Hm_lvt_52a88c3e9ecd4f7af925dc34xxxxx; Hm_lpvt_5e21f0d47312f3be133220d325xxxxx; Hm_lpvt_52a88c3e9ecd4f7af925dc3400f43xxxx</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
+
+<p>最重要的是<code>User-Agent</code>，用于模仿浏览器行为。<code>Accept</code>, <code>Referer</code>, <code>Content-Type</code>也需要。</p>
+<p>表单数据的格式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">tableName=CERT_T&amp;tableName1=000000&amp;CertificateID=&amp;CID=123&amp;Name=hhh&amp;x=256&amp;y=14&amp;province=-1</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-脚本"><a href="#1-脚本" class="headerlink" title="1. 脚本"></a>1. 脚本</h3><h5 id="1-库"><a href="#1-库" class="headerlink" title="(1) 库"></a>(1) 库</h5><p>脚本需要的库有：<code>requests</code>, <code>lxml</code>, <code>urllib</code>, <code>lxrd</code>, <code>lxwt</code>, <code>os</code>.</p>
+<ul>
+<li><p>  <code>requests</code>库用于向网站发送<code>POST</code>消息。</p>
+</li>
+<li><p>  <code>lxml</code>用于解析返回的HTML代码。</p>
+</li>
+<li><p>  <code>urllib</code>用于编码转换。</p>
+</li>
+<li><p>  <code>lxrd</code>用于excel表格读取，<code>lxwt</code>用于excel表格写入。</p>
+</li>
+<li><p>  <code>os</code>用于操作系统相关操作，这里只用了<code>os.system(&quot;pause&quot;)</code>.</p>
+</li>
+</ul>
+<h5 id="2-代码"><a href="#2-代码" class="headerlink" title="(2) 代码"></a>(2) 代码</h5><p>话不多说，上代码！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&#x27;tableName&#x27;</span>: <span class="string">&#x27;CERT_T&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;tableName1&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CertificateID&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CID&#x27;</span>: <span class="string">&#x27;000000000000000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;是谁呢&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;x&#x27;: &#x27;113&#x27;,</span></span><br><span class="line">    <span class="comment"># &#x27;y&#x27;: &#x27;31&#x27;,</span></span><br><span class="line">    <span class="string">&#x27;province&#x27;</span>: <span class="string">&#x27;-1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">phead = &#123;</span><br><span class="line">	<span class="comment"># &#x27;Host&#x27;: &#x27;zscx.osta.org.cn&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Cache-Control&#x27;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">	<span class="comment"># &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Origin&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn/&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://zscx.osta.org.cn/jiandingApp/command/buzhongxin/ecCertSearchAll&#x27;</span></span><br><span class="line"><span class="comment"># 下载超时</span></span><br><span class="line">timeOut = <span class="number">25</span></span><br><span class="line"><span class="comment"># 输出表格行</span></span><br><span class="line">Index = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">i, content, outsheet</span>):</span></span><br><span class="line">	<span class="keyword">global</span> Index</span><br><span class="line">	html = etree.HTML(content)</span><br><span class="line">	<span class="comment"># 无结果</span></span><br><span class="line">	res = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@id=&#x27;nores_con&#x27;]/div[@id=&#x27;nores_txt&#x27;]/h2/text()&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(res) != <span class="number">0</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:无结果&quot;</span>)</span><br><span class="line">		<span class="comment"># print(res)</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:查询成功&quot;</span>)</span><br><span class="line">		result = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@class=&#x27;table_1&#x27;]/table[@class=&#x27;tab_info1&#x27;]/tr/td/text()&quot;</span>)</span><br><span class="line">		<span class="comment"># print(&quot;证书编号: &#123;&#125;\n职业资格: &#123;&#125;&quot;.format(result[11], result[7]))</span></span><br><span class="line">		outsheet.write(Index, <span class="number">0</span>, payload[<span class="string">&#x27;Name&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">1</span>, payload[<span class="string">&#x27;CID&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">2</span>, result[<span class="number">7</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">3</span>, result[<span class="number">11</span>])</span><br><span class="line">		Index += <span class="number">1</span></span><br><span class="line">		<span class="comment"># print(&quot;Index: &#123;&#125;&quot;.format(Index))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">i, outsheet</span>):</span></span><br><span class="line">	p_utf8 = urllib.parse.urlencode(payload, encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	<span class="comment"># print(p_utf8)</span></span><br><span class="line">	res = requests.post(url, data=p_utf8, headers=phead, timeout=timeOut, allow_redirects=<span class="literal">True</span>)</span><br><span class="line">	parse(i, res.text, outsheet)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	infile = <span class="built_in">input</span>(<span class="string">&quot;请输入源文件名: &quot;</span>)</span><br><span class="line">	workbook = xlrd.open_workbook(infile)</span><br><span class="line">	sheet1 = workbook.sheets()[<span class="number">0</span>]</span><br><span class="line">	nrows = sheet1.nrows</span><br><span class="line">	print(<span class="string">&quot;数据行数: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(nrows-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">	output = xlwt.Workbook()</span><br><span class="line">	outsheet = output.add_sheet(<span class="string">&#x27;结果&#x27;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;姓名&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&quot;身份证号&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&quot;职业资格&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&quot;证书编号&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nrows-<span class="number">1</span>):</span><br><span class="line">		payload[<span class="string">&#x27;Name&#x27;</span>] = sheet1.row_values(i+<span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">		payload[<span class="string">&#x27;CID&#x27;</span>] =  sheet1.row_values(i+<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">		lookup(i+<span class="number">1</span>, outsheet)</span><br><span class="line">	</span><br><span class="line">	output.save(<span class="string">&quot;查询结果.xls&quot;</span>)</span><br><span class="line">	print(<span class="string">&quot;结束,共有&#123;&#125;条结果&quot;</span>.<span class="built_in">format</span>(Index-<span class="number">1</span>))</span><br><span class="line">	os.system(<span class="string">&quot;pause&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-生成可执行文件"><a href="#2-生成可执行文件" class="headerlink" title="2. 生成可执行文件"></a>2. 生成可执行文件</h3><p>这里用的是Python的<code>pyinstaller</code>工具，需要使用pip下载。</p>
+<p>在实际使用中遇到了点困难：<code>pyinstaller.exe</code>所在的路径不在PATH当中，所以还要先将对应的路径添加到环境变量中。</p>
+<p>之后运行<code>pyinstaller -F spider.py</code>. 可以在<code>dist</code>路径下找到可执行文件。</p>
+<h3 id="3-困难"><a href="#3-困难" class="headerlink" title="3. 困难"></a>3. 困难</h3><p>最大的困难是在测试POST表单数据时的编码问题。服务器接受的表单数据需要是URL编码的，所以需要调用<code>urllib.parse.urlencode()</code>方法(<code>urllib3</code>用法同上，但是<code>urllib</code>的使用方法是<code>urllib.urlencode()</code>).</p>
+<p>其次，我还复习了<code>xpath</code>的基本语法，用于解析HTML中的标签。</p>
+<hr>
+<h3 id="新问题"><a href="#新问题" class="headerlink" title="新问题"></a>新问题</h3><p>今天实战时发现了问题：当查询了1000条左右的数据后，程序崩溃了。进一步查询发现，原来是网站拒绝了我的访问。进一步查看源代码发现，提交的表单数据中还包含了我的IP地址。原因是网站采取了反爬虫手段，封禁了我的IP(QAQ)，希望不是永久封……</p>
+<p>我上网查了一下解决方法，大概有以下三种：</p>
+<ol>
+<li>  维护代理IP池，每次提交数据随机挑选IP。</li>
+<li>  延长每次提交之间的间隔。</li>
+<li>  更换<code>User-Agent</code>标签的内容。</li>
+</ol>
+<p>经过实际测试，只有第一种是实际有效的。我使用了<code>Clash</code>客户端上的<code>GlaDos</code>用于科学上网，并选择了<code>Global</code>模式以开启全局代理。每次准备60-200条不等的数据，并运行爬虫。当爬虫报错后，更换连接信道，重新运行。（是的，这种方法好麻烦……但是我懒得搞代理IP池管理了~(￣▽￣)~）</p>
+<h5 id="2020-09-04-更新："><a href="#2020-09-04-更新：" class="headerlink" title="2020/09/04 更新："></a>2020/09/04 更新：</h5><p>今天突然想起来被封这回事，于是再次尝试——IP解封辣！看来省事的办法就是每天间隔较长时间查询较少规模的数据~ <del>这样就可以把省下来的时间用来摸鱼咯</del></p>
+]]></content>
+      <categories>
+        <category>Spider</category>
+      </categories>
+      <tags>
+        <tag>Spider</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
       </tags>
   </entry>
   <entry>
@@ -816,130 +940,6 @@
       </categories>
       <tags>
         <tag>Regular-Expression</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>xv6-riscv学习1-Chapter1</title>
-    <url>/2021/05/01/xv6-riscv-1/</url>
-    <content><![CDATA[<h3 id="Chapter-1-Operating-System-Interfaces"><a href="#Chapter-1-Operating-System-Interfaces" class="headerlink" title="Chapter 1: Operating System Interfaces"></a>Chapter 1: Operating System Interfaces</h3><p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
-<span id="more"></span>
-
-<p>在这里，接口与<strong>系统调用</strong> (<strong>system call</strong>)是紧密相关的。系统调用就是操作系统内核向用户程序提供的访问内核功能的接口。实际上，系统调用在操作系统分层模型的实现中是极其重要的。书中有一幅图呈现了user space和kernel space之间的关系：</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/xv6layered-view" style="zoom:50%;" />
-
-<p>这其实带来了一个问题：系统调用的功能是不是越复杂、越丰富越好呢？书中给出的答案是否定的，并给出了一个目标：“Design interfaces that rely on a few mechanisms that can be combined to provide much generality.”这大概就是说“大而全不如小而精”吧。</p>
-<p>同时可以注意到，上图中shell是在用户空间里的，也就是说shell在xv6系统中是用户程序。这样一来，其实可以使得用户更换shell变得很方便，只要使用同样的接口就可以了。现实中常用的Linux系统也都是这样的。</p>
-<p>接下来仍遵循书中的结构~</p>
-<h4 id="1-进程与内存"><a href="#1-进程与内存" class="headerlink" title="1. 进程与内存"></a>1. 进程与内存</h4><p>在操作系统中，一般会有多个进程“同时”运行，每个进程在内核中被分配有一个唯一的进程标识符(process identifier)，缩写<code>PID</code>。真正意义上的“同时”只有在多核CPU上才能实现，而对于单核CPU，操作系统会通过进程调度机制轮流执行各个进程，由于切换的速度非常快，给人的感觉就像是同时一样。</p>
-<p>创建新进程的方法一般通过<code>fork()</code>或<code>exec()</code>系统调用实现。<code>fork</code>会给新创建的子进程复制一份父进程的内存，内容完全一样，如果从标准的ELF格式来看的话，从text, data, bss到stack都是一样的。<code>fork</code>很特殊的一点是其有两个返回值：向父进程返回子进程的<code>PID</code>，向子进程返回0. </p>
-<p>一个经典的<code>fork</code>测试程序大致如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testfork</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;parent: child PID = %d\n&quot;</span>, pid);</span><br><span class="line">        pid = wait(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child %d terminates\n&quot;</span>, pid);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child exiting\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;fork error\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。</p>
-<p>而<code>exec</code>系统调用直接将文件加载到内存中，文件通常是ELF(Executable and Linkable Format)格式。在Linux系统中文件类型可以通过<code>file [filename]</code>命令查看。</p>
-<p>书中给了一小段程序用于帮助解释<code>exec</code>的功能：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *argv[<span class="number">3</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;echo&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">argv[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">exec(<span class="string">&quot;/bin/echo&quot;</span>, argv);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;exec error\n&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>之所以在<code>exec()</code>的下一行输出错误信息，是因为当exec执行成功时，会将当前进程的内存空间覆盖掉，原程序的代码自然就无法执行了。</p>
-<p><code>fork</code>如果每创建一个新进程时都复制父进程的所有内存，其实是很浪费时间的。现在大多数操作系统采取的是<strong>写时复制</strong>(<strong>copy-on-write</strong>) ，也就是说，子进程刚创建时，是与父进程共用地址空间的。如果子进程只进行读操作，那就是最划算的了。而当子进程需要写入一段内存时，才会给子进程将要写入的对应页表进行复制，其余部分仍共享。</p>
-<h4 id="2-I-O与文件描述符"><a href="#2-I-O与文件描述符" class="headerlink" title="2. I/O与文件描述符"></a>2. I/O与文件描述符</h4><p>文件描述符为文件、目录和设备提供了统一的表示方法，从而将它们都抽象为文件流的形式。所以，文件也是一个抽象，而系统为访问和操纵文件提供了统一的接口。</p>
-<p>每一个进程都会维护一个open-file table（不知道怎么翻译了XD），其中包含了这个进程所访问的文件描述符。</p>
-<p>关于<code>fork</code>和<code>exec</code>还有很特殊的特性：<code>fork</code>会复制父进程的file table给子进程，而<code>exec</code>会保留调用者进程的file table。这就使得<strong>I/O重定向</strong>(<strong>I/O redirection</strong>) 很容易实现：先fork，再exec.</p>
-<p>(其实这一节还有一些比较复杂的，但是我看不太懂就不贴上来了)</p>
-<h4 id="3-管道-Pipe"><a href="#3-管道-Pipe" class="headerlink" title="3. 管道(Pipe)"></a>3. 管道(Pipe)</h4><p><code>pipe</code>用于将一个进程的输出流作为另一个进程的输入流。如常用的：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-cache search vim | grep vim</span><br></pre></td></tr></table></figure>
-
-<p>其实有点类似于重定向，但是它在更广泛的意义上提供了进程间通信的方法。当需要传输的数据量不太大时，可以通过重定向来实现管道的功能，如<code>echo hello world | wc</code>可以实现为：<code>echo hello world &gt; /tmp/xyz; wc &lt; /tmp/xyz</code>. 但是管道的一个优点就是它可以传递任意长度的数据流。</p>
-<p>管道有一个写端、一个读端。当两个进程通过一个管道进行通信时，它们的读端和写端都是一样的。</p>
-<p>接下来的示例程序就有点复杂了：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> p[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">pipe(p);</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>)&#123;</span><br><span class="line">    close(<span class="number">0</span>);</span><br><span class="line">    dup(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">    exec(<span class="string">&quot;/bin/wc&quot;</span>, argv);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    write(p[<span class="number">1</span>], <span class="string">&quot;hello world!\n&quot;</span>, <span class="number">12</span>);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>书中是这样解释这段程序的功能的：<code>fork</code>之后，父进程和子进程共用管道<code>p[]</code>所指的文件描述符。子进程调用<code>close</code>和<code>dup</code>使得管道的读端为文件描述符0，关闭了<code>p[]</code>中的文件描述符，并调用<code>exec</code>运行<code>wc</code>。当<code>wc</code>从标准输入（即文件描述符0）读取输入时，它就会从管道中读。父进程关闭了管道的读端，向管道中写入“hello world!\n”，后关闭了管道的写端。</p>
-<p>关于管道，书中提到了一个神奇的用法。管道的右侧还可以包含管道！比如：<code>a | b | c |...</code>，从而可以构建一个进程树，在这样的树中，父节点需要等待所有的子节点执行完毕才能开始执行。</p>
-<p>书中还提到管道的一个优点是允许流水线的并行执行，然而采用文件重定向的方法就必须等前一个程序写入文件完成后才能让下一个程序执行。想一想还是挺有道理的，毕竟数据流的特点就是可以实时处理。</p>
-<h4 id="4-文件系统"><a href="#4-文件系统" class="headerlink" title="4. 文件系统"></a>4. 文件系统</h4><p>与文件操作相关的系统调用有很多，如<code>chdir</code>, <code>open</code>, <code>mkdir</code>, <code>close</code>, <code>mknod</code>等。前四个还比较直接明了，第四个<code>mknod</code>创建一个指代着设备的特殊文件，与这个文件直接相关的是两个设备号：major device number和minor device number，暂且翻译成“主、次设备号”好了。一般的使用方式是：<code>mknod(&quot;/console&quot;, 1, 1)</code>.</p>
-<p>书中还提到了部分与文件系统相关的概念：<code>inode</code>和<code>link</code>。<code>inode</code>保存了文件的元数据(metadata)，包括文件类型（文件/目录/或设备）、文件内容在磁盘上的地址和指向该文件的链接数。每个inode可以有多个链接，而每个链接都包含了目录中的一个条目(entry)，条目中包含了文件名和inode号。所以文件名不是文件内容的一部分！</p>
-<p>记录一个文件的数据结构长这个样子：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DIR 		1	<span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_FILE		2	<span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DEVICE	 3	<span class="comment">// Device</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> dev;	<span class="comment">// File system&#x27;s disk device</span></span><br><span class="line">    uint ino;	<span class="comment">// Inode number</span></span><br><span class="line">    <span class="keyword">short</span> type;	<span class="comment">// Type of file</span></span><br><span class="line">    <span class="keyword">short</span> nlink;<span class="comment">// Number of links</span></span><br><span class="line">    uint64 size;<span class="comment">// Size of file in bytes</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>关于<code>link</code>系统调用，这里实现的应该是软链接(soft link)，即新创建的链接并不是保存在额外的文件中，而是直接指向了被引用的文件。以下是一段创建链接的示例：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">open(<span class="string">&quot;a&quot;</span>, O_CREATE | O_WRONLY);</span><br><span class="line">link(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>在此之后，文件名“a”和“b”都指的是同一个文件，使用这两个文件名会得到相同的inode number，而对应的<code>struct stat</code>变量中的nlink值为2.</p>
-<p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>RISC-V</category>
-        <category>xv6-riscv</category>
-      </categories>
-      <tags>
-        <tag>OS</tag>
-        <tag>RISC-V</tag>
-        <tag>xv6-riscv</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爬虫:提交表单数据</title>
-    <url>/2021/08/29/%E7%88%AC%E8%99%AB-%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<p>最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。在需求方面，由于(1) 数据规模达到了1000以上，手动复制粘贴十分费时耗力；(2) 并且每年都有这样的工作；(3) 政府网站在相当长的一段时间内不会大改，所以为其编写程序很值得。在交换使用方面，而因为用户对Python并不太了解，所以需要制作单独的<code>exe</code>可执行文件。</p>
-<span id="more"></span>
-
-<p><strong>计划</strong> ：先用编写Python脚本文件，再利用工具将脚本编译为<code>exe</code>可执行文件。</p>
-<h3 id="0-分析目标网站"><a href="#0-分析目标网站" class="headerlink" title="0. 分析目标网站"></a>0. 分析目标网站</h3><p>目标网站是技术等级证书网站: <code>http://zscx.osta.org.cn</code>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_front_page.png"></p>
-<p>任务是根据一个人的名字和身份证号查询他/她所拥有的证书编号和职业资格类型。</p>
-<p>如果查询姓名为“hhh”、身份证号为“123”的证书，肯定是查询不到的：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result.png"></p>
-<p>但是可以查看源代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/zscx_no_result_source.png"></p>
-<p>提交的是<code>POST</code>类型的数据。</p>
-<p>请求头：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">POST /jiandingApp/command/buzhongxin/ecCertSearchAll HTTP/1.1</span><br><span class="line">Host: zscx.osta.org.cn</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://zscx.osta.org.cn/</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 89</span><br><span class="line">Origin: http://zscx.osta.org.cn</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=89F493D88xxx; Hm_lvt_5e21f0d47312f3be133220d325fc2xxx; Hm_lvt_52a88c3e9ecd4f7af925dc34xxxxx; Hm_lpvt_5e21f0d47312f3be133220d325xxxxx; Hm_lpvt_52a88c3e9ecd4f7af925dc3400f43xxxx</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
-
-<p>最重要的是<code>User-Agent</code>，用于模仿浏览器行为。<code>Accept</code>, <code>Referer</code>, <code>Content-Type</code>也需要。</p>
-<p>表单数据的格式：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">tableName=CERT_T&amp;tableName1=000000&amp;CertificateID=&amp;CID=123&amp;Name=hhh&amp;x=256&amp;y=14&amp;province=-1</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-脚本"><a href="#1-脚本" class="headerlink" title="1. 脚本"></a>1. 脚本</h3><h5 id="1-库"><a href="#1-库" class="headerlink" title="(1) 库"></a>(1) 库</h5><p>脚本需要的库有：<code>requests</code>, <code>lxml</code>, <code>urllib</code>, <code>lxrd</code>, <code>lxwt</code>, <code>os</code>.</p>
-<ul>
-<li><p>  <code>requests</code>库用于向网站发送<code>POST</code>消息。</p>
-</li>
-<li><p>  <code>lxml</code>用于解析返回的HTML代码。</p>
-</li>
-<li><p>  <code>urllib</code>用于编码转换。</p>
-</li>
-<li><p>  <code>lxrd</code>用于excel表格读取，<code>lxwt</code>用于excel表格写入。</p>
-</li>
-<li><p>  <code>os</code>用于操作系统相关操作，这里只用了<code>os.system(&quot;pause&quot;)</code>.</p>
-</li>
-</ul>
-<h5 id="2-代码"><a href="#2-代码" class="headerlink" title="(2) 代码"></a>(2) 代码</h5><p>话不多说，上代码！</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&#x27;tableName&#x27;</span>: <span class="string">&#x27;CERT_T&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;tableName1&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CertificateID&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CID&#x27;</span>: <span class="string">&#x27;000000000000000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;是谁呢&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;x&#x27;: &#x27;113&#x27;,</span></span><br><span class="line">    <span class="comment"># &#x27;y&#x27;: &#x27;31&#x27;,</span></span><br><span class="line">    <span class="string">&#x27;province&#x27;</span>: <span class="string">&#x27;-1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">phead = &#123;</span><br><span class="line">	<span class="comment"># &#x27;Host&#x27;: &#x27;zscx.osta.org.cn&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;Connection&#x27;</span>: <span class="string">&#x27;keep-alive&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Cache-Control&#x27;</span>: <span class="string">&#x27;max-age=0&#x27;</span>,</span><br><span class="line">	<span class="comment"># &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;,</span></span><br><span class="line">	<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Origin&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;http://zscx.osta.org.cn/&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://zscx.osta.org.cn/jiandingApp/command/buzhongxin/ecCertSearchAll&#x27;</span></span><br><span class="line"><span class="comment"># 下载超时</span></span><br><span class="line">timeOut = <span class="number">25</span></span><br><span class="line"><span class="comment"># 输出表格行</span></span><br><span class="line">Index = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">i, content, outsheet</span>):</span></span><br><span class="line">	<span class="keyword">global</span> Index</span><br><span class="line">	html = etree.HTML(content)</span><br><span class="line">	<span class="comment"># 无结果</span></span><br><span class="line">	res = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@id=&#x27;nores_con&#x27;]/div[@id=&#x27;nores_txt&#x27;]/h2/text()&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(res) != <span class="number">0</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:无结果&quot;</span>)</span><br><span class="line">		<span class="comment"># print(res)</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		print(i, <span class="string">&quot;:查询成功&quot;</span>)</span><br><span class="line">		result = html.xpath(<span class="string">&quot;/html/body/div[@id=&#x27;wrap&#x27;]/div[@id=&#x27;center_jg&#x27;]/div[@class=&#x27;jg_con_2&#x27;]/div[@class=&#x27;zscxsj&#x27;]/div[@class=&#x27;zscxsj_1 back_f5&#x27;]/div[@class=&#x27;table_1&#x27;]/table[@class=&#x27;tab_info1&#x27;]/tr/td/text()&quot;</span>)</span><br><span class="line">		<span class="comment"># print(&quot;证书编号: &#123;&#125;\n职业资格: &#123;&#125;&quot;.format(result[11], result[7]))</span></span><br><span class="line">		outsheet.write(Index, <span class="number">0</span>, payload[<span class="string">&#x27;Name&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">1</span>, payload[<span class="string">&#x27;CID&#x27;</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">2</span>, result[<span class="number">7</span>])</span><br><span class="line">		outsheet.write(Index, <span class="number">3</span>, result[<span class="number">11</span>])</span><br><span class="line">		Index += <span class="number">1</span></span><br><span class="line">		<span class="comment"># print(&quot;Index: &#123;&#125;&quot;.format(Index))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lookup</span>(<span class="params">i, outsheet</span>):</span></span><br><span class="line">	p_utf8 = urllib.parse.urlencode(payload, encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">	<span class="comment"># print(p_utf8)</span></span><br><span class="line">	res = requests.post(url, data=p_utf8, headers=phead, timeout=timeOut, allow_redirects=<span class="literal">True</span>)</span><br><span class="line">	parse(i, res.text, outsheet)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">	infile = <span class="built_in">input</span>(<span class="string">&quot;请输入源文件名: &quot;</span>)</span><br><span class="line">	workbook = xlrd.open_workbook(infile)</span><br><span class="line">	sheet1 = workbook.sheets()[<span class="number">0</span>]</span><br><span class="line">	nrows = sheet1.nrows</span><br><span class="line">	print(<span class="string">&quot;数据行数: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(nrows-<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">	output = xlwt.Workbook()</span><br><span class="line">	outsheet = output.add_sheet(<span class="string">&#x27;结果&#x27;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&quot;姓名&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&quot;身份证号&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&quot;职业资格&quot;</span>)</span><br><span class="line">	outsheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&quot;证书编号&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nrows-<span class="number">1</span>):</span><br><span class="line">		payload[<span class="string">&#x27;Name&#x27;</span>] = sheet1.row_values(i+<span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">		payload[<span class="string">&#x27;CID&#x27;</span>] =  sheet1.row_values(i+<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">		lookup(i+<span class="number">1</span>, outsheet)</span><br><span class="line">	</span><br><span class="line">	output.save(<span class="string">&quot;查询结果.xls&quot;</span>)</span><br><span class="line">	print(<span class="string">&quot;结束,共有&#123;&#125;条结果&quot;</span>.<span class="built_in">format</span>(Index-<span class="number">1</span>))</span><br><span class="line">	os.system(<span class="string">&quot;pause&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-生成可执行文件"><a href="#2-生成可执行文件" class="headerlink" title="2. 生成可执行文件"></a>2. 生成可执行文件</h3><p>这里用的是Python的<code>pyinstaller</code>工具，需要使用pip下载。</p>
-<p>在实际使用中遇到了点困难：<code>pyinstaller.exe</code>所在的路径不在PATH当中，所以还要先将对应的路径添加到环境变量中。</p>
-<p>之后运行<code>pyinstaller -F spider.py</code>. 可以在<code>dist</code>路径下找到可执行文件。</p>
-<h3 id="3-困难"><a href="#3-困难" class="headerlink" title="3. 困难"></a>3. 困难</h3><p>最大的困难是在测试POST表单数据时的编码问题。服务器接受的表单数据需要是URL编码的，所以需要调用<code>urllib.parse.urlencode()</code>方法(<code>urllib3</code>用法同上，但是<code>urllib</code>的使用方法是<code>urllib.urlencode()</code>).</p>
-<p>其次，我还复习了<code>xpath</code>的基本语法，用于解析HTML中的标签。</p>
-<hr>
-<h3 id="新问题"><a href="#新问题" class="headerlink" title="新问题"></a>新问题</h3><p>今天实战时发现了问题：当查询了1000条左右的数据后，程序崩溃了。进一步查询发现，原来是网站拒绝了我的访问。进一步查看源代码发现，提交的表单数据中还包含了我的IP地址。原因是网站采取了反爬虫手段，封禁了我的IP(QAQ)，希望不是永久封……</p>
-<p>我上网查了一下解决方法，大概有以下三种：</p>
-<ol>
-<li>  维护代理IP池，每次提交数据随机挑选IP。</li>
-<li>  延长每次提交之间的间隔。</li>
-<li>  更换<code>User-Agent</code>标签的内容。</li>
-</ol>
-<p>经过实际测试，只有第一种是实际有效的。我使用了<code>Clash</code>客户端上的<code>GlaDos</code>用于科学上网，并选择了<code>Global</code>模式以开启全局代理。每次准备60-200条不等的数据，并运行爬虫。当爬虫报错后，更换连接信道，重新运行。（是的，这种方法好麻烦……但是我懒得搞代理IP池管理了~(￣▽￣)~）</p>
-<h5 id="2020-09-04-更新："><a href="#2020-09-04-更新：" class="headerlink" title="2020/09/04 更新："></a>2020/09/04 更新：</h5><p>今天突然想起来被封这回事，于是再次尝试——IP解封辣！看来省事的办法就是每天间隔较长时间查询较少规模的数据~ <del>这样就可以把省下来的时间用来摸鱼咯</del></p>
-]]></content>
-      <categories>
-        <category>Spider</category>
-      </categories>
-      <tags>
-        <tag>Spider</tag>
       </tags>
   </entry>
 </search>
