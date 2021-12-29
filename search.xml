@@ -35,83 +35,20 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo图片显示</title>
-    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+    <title>希腊字母表in Latex</title>
+    <url>/2021/12/29/Greek-alphabet/</url>
+    <content><![CDATA[<p>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</p>
 <span id="more"></span>
 
-<ol>
-<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li><p>利用图床生成URL并引用外链。</p>
-<p> 图床又有几种常用的：</p>
-<ol>
-<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p> 在本机上还可以采用修改host文件的方式。先通过</p>
-<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
-<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
-</ol>
-</li>
-</ol>
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
-    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
-    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
-<span id="more"></span>
-
-<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
-<p>比如说下面这个矩阵：</p>
-<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
-
-<p>返回值的矩阵为：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
-<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
-<hr>
-<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
-<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
-<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
-<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
-<li>  学习了C++<code>vector</code>变量初始化方法。</li>
-<li>  复习了BFS算法的思想和基本结构。</li>
-<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
-</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/colored-dye/Pics@main/greek_letter_latex_00-1.jpg"></p>
 ]]></content>
       <categories>
-        <category>Algorithm</category>
-        <category>LeetCode</category>
+        <category>misc</category>
       </categories>
       <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
+        <tag>misc</tag>
+        <tag>Latex</tag>
       </tags>
   </entry>
   <entry>
@@ -167,71 +104,38 @@
       </tags>
   </entry>
   <entry>
-    <title>希腊字母表in Latex</title>
-    <url>/2021/12/29/Greek-alphabet/</url>
-    <content><![CDATA[<p>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</p>
+    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
+    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
+    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
 <span id="more"></span>
 
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00.jpg"></p>
-<p><img src="https://cdn.jsdelivr.net/colored-dye/Pics@main/greek_letter_latex_00-1.jpg"></p>
-]]></content>
-      <categories>
-        <category>misc</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-        <tag>Latex</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode-002-DP-01</title>
-    <url>/2021/09/15/LeetCode-002-DP-01/</url>
-    <content><![CDATA[<p>今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件，使得问题的解决略有复杂，但是基本的思路是一致的。</p>
-<span id="more"></span>
+<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
+<p>比如说下面这个矩阵：</p>
+<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
 
-<h4 id="Easy-Version"><a href="#Easy-Version" class="headerlink" title="Easy Version"></a>Easy Version</h4><p>最简单版本就是给出一系列非负数<code>prices[]</code>作为股价，但是有以下限定条件：</p>
-<ol>
-<li>  任意一天最多只能拥有一股。</li>
-<li>  某一天买下后，最早只能第二天卖。</li>
-</ol>
-<p>要求给出赚得最多的金额。</p>
-<p>将第$i$天的盈利记为$f(i)$，那么我们可以给出这样的转移方程：<br>$$<br>f(i) = f(i-1) + max(prices[i]-prices[i-1], 0)<br>$$<br>其实就是将所有的上升子序列的首末值加在一起就好了。</p>
-<h4 id="Normal-Version-With-Cooldown"><a href="#Normal-Version-With-Cooldown" class="headerlink" title="Normal Version: With Cooldown"></a>Normal Version: With Cooldown</h4><p>所谓的“Cooldown”就是指，某一天卖掉股票后，第二天就不能买了，最早第三天才能买。</p>
-<p>加了这个限定条件后，转移方程就不能像前一个那样简单了。我们需要明确，在股票交易的全程中，一共可能出现三种状态：</p>
-<ol>
-<li>  <code>f[i][0]</code>: 刚刚卖掉，正处于冷冻期。</li>
-<li>  <code>f[i][1]</code>: 正持有股票。</li>
-<li>  <code>f[i][2]</code>: 不持有股票，并且不处于冷冻期。</li>
-</ol>
-<p>对应于以上三种状态，我们可以得到如下的状态转移方程：</p>
-<ol>
-<li>  $f[i][0] = f[i-1][0] + prices[i]$ : 当天刚刚卖掉股票，所以收益等于前一天的收益加上卖掉股票的收益。</li>
-<li>  $f[i][1] = max(f[i-1][1], f[i-1][2]-prices[i])$ : 当前的股票有可能在第<code>i-1</code>天就已经持有，也有可能是当天买入的。如果是前者，就相当于在<code>f[i-1][2]</code>收益的基础上支出了。</li>
-<li>  $f[i][2] = max(f[i-1][0], f[i-1][2])$ : 既没有股票也不处于冷冻期，说明当天没有买股票，并且第<code>i-1</code>天也没有股票。</li>
-</ol>
-<p>那么我们很容易想到，最终的收益是$max(f[n-1][0], f[n-1][1], f[n-1][2])$. 但是在最后一天持有股票是没有价值的，所以只需要计算$max(f[n-1][0], f[n-1][2])$即可。</p>
-<p>接下来还需要确定的就是这三个收益函数的初值。假如第0天买入，就相当于得到了负数的收益，那么<code>f[0][0] = 0</code>, <code>f[0][1] = -prices[0]</code>, <code>f[0][2] = 0</code>.</p>
-<p>接下来就可以照葫芦画瓢写代码啦：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (prices.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="comment">// f[i][0]: 手上不持有股票，并且处于冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="comment">// f[i][1]: 手上持有股票的最大收益</span></span><br><span class="line">        <span class="comment">// f[i][2]: 手上不持有股票，并且不在冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; f(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">3</span>));</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] + prices[i];</span><br><span class="line">            f[i][<span class="number">1</span>] = max(f[i - <span class="number">1</span>][<span class="number">1</span>], f[i - <span class="number">1</span>][<span class="number">2</span>] - prices[i]);</span><br><span class="line">            f[i][<span class="number">2</span>] = max(f[i - <span class="number">1</span>][<span class="number">0</span>], f[i - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max(f[n - <span class="number">1</span>][<span class="number">0</span>], f[n - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>返回值的矩阵为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="Another-Version-With-Transaction-Fee"><a href="#Another-Version-With-Transaction-Fee" class="headerlink" title="Another Version: With Transaction Fee"></a>Another Version: With Transaction Fee</h4><p>同样，我们需要分析几种可能出现的状态：</p>
-<ol>
-<li>  <code>f[i][0]</code> : 当天手里没有股票。</li>
-<li>  <code>f[i][1]</code> : 当天手里有股票。</li>
-</ol>
-<p>对应这两种状态，我们可以写出两个状态转移方程：</p>
-<ol>
-<li>  $f[i][0] = max(f[i-1][0], f[i-1][1] + prices[i] - fee)$ : 当天手里没有股票，可能是昨天已经卖掉，也可能是当天卖掉。对于后一种可能，除了获得相应的收益之外，还要支付交易费。交易费其实是针对一对买卖行为的，但是由于只能持有一股，所以只需要在卖掉时付费。</li>
-<li>  $f[i][1] = max(f[i-1][1], f[i-1][0] - prices[i])$ : 当天手里有股票，可能是前一天已经买入，也有可能是当天买入。</li>
-</ol>
-<p>所以可以得出，最后的最大收益为$max(f[n-1][0], f[n-1][1])$. 同样，最后一天持有股票没什么意义，所以结果就是$f[n-1][0]$.</p>
-<p>此外，还需要确定初值。如果第一天先买股票，那么<code>f[i][0] = 0</code>, <code>f[i][1] = -prices[0]</code>.</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dp(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i] - fee);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
-
+<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
+<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
 <hr>
-<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>经过后两道题我们可以感受到，只要写出了状态转移方程，写出相应的代码就会很容易。所以在正确理解题意的基础上，需要我们认真仔细地给出递归形式的状态转移方程，而这些方程往往都遵循着动态规划类型题目的基本模式。（多刷一些题应该可以总结得差不多吧( •̀ ω •́ )✧</p>
+<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
+<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
+<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
+<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
+<li>  学习了C++<code>vector</code>变量初始化方法。</li>
+<li>  复习了BFS算法的思想和基本结构。</li>
+<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
+</ol>
 ]]></content>
       <categories>
         <category>Algorithm</category>
@@ -240,6 +144,43 @@
       <tags>
         <tag>Algorithm</tag>
         <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo图片显示</title>
+    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+<span id="more"></span>
+
+<ol>
+<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
+</li>
+<li><p>利用图床生成URL并引用外链。</p>
+<p> 图床又有几种常用的：</p>
+<ol>
+<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
+</li>
+<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
+<p> 在本机上还可以采用修改host文件的方式。先通过</p>
+<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
+<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
+</li>
+<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
+</li>
+<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
+<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
+<p>最后插一个图片再次测试一下~</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -327,6 +268,92 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode-002-DP-01</title>
+    <url>/2021/09/15/LeetCode-002-DP-01/</url>
+    <content><![CDATA[<p>今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件，使得问题的解决略有复杂，但是基本的思路是一致的。</p>
+<span id="more"></span>
+
+<h4 id="Easy-Version"><a href="#Easy-Version" class="headerlink" title="Easy Version"></a>Easy Version</h4><p>最简单版本就是给出一系列非负数<code>prices[]</code>作为股价，但是有以下限定条件：</p>
+<ol>
+<li>  任意一天最多只能拥有一股。</li>
+<li>  某一天买下后，最早只能第二天卖。</li>
+</ol>
+<p>要求给出赚得最多的金额。</p>
+<p>将第$i$天的盈利记为$f(i)$，那么我们可以给出这样的转移方程：<br>$$<br>f(i) = f(i-1) + max(prices[i]-prices[i-1], 0)<br>$$<br>其实就是将所有的上升子序列的首末值加在一起就好了。</p>
+<h4 id="Normal-Version-With-Cooldown"><a href="#Normal-Version-With-Cooldown" class="headerlink" title="Normal Version: With Cooldown"></a>Normal Version: With Cooldown</h4><p>所谓的“Cooldown”就是指，某一天卖掉股票后，第二天就不能买了，最早第三天才能买。</p>
+<p>加了这个限定条件后，转移方程就不能像前一个那样简单了。我们需要明确，在股票交易的全程中，一共可能出现三种状态：</p>
+<ol>
+<li>  <code>f[i][0]</code>: 刚刚卖掉，正处于冷冻期。</li>
+<li>  <code>f[i][1]</code>: 正持有股票。</li>
+<li>  <code>f[i][2]</code>: 不持有股票，并且不处于冷冻期。</li>
+</ol>
+<p>对应于以上三种状态，我们可以得到如下的状态转移方程：</p>
+<ol>
+<li>  $f[i][0] = f[i-1][0] + prices[i]$ : 当天刚刚卖掉股票，所以收益等于前一天的收益加上卖掉股票的收益。</li>
+<li>  $f[i][1] = max(f[i-1][1], f[i-1][2]-prices[i])$ : 当前的股票有可能在第<code>i-1</code>天就已经持有，也有可能是当天买入的。如果是前者，就相当于在<code>f[i-1][2]</code>收益的基础上支出了。</li>
+<li>  $f[i][2] = max(f[i-1][0], f[i-1][2])$ : 既没有股票也不处于冷冻期，说明当天没有买股票，并且第<code>i-1</code>天也没有股票。</li>
+</ol>
+<p>那么我们很容易想到，最终的收益是$max(f[n-1][0], f[n-1][1], f[n-1][2])$. 但是在最后一天持有股票是没有价值的，所以只需要计算$max(f[n-1][0], f[n-1][2])$即可。</p>
+<p>接下来还需要确定的就是这三个收益函数的初值。假如第0天买入，就相当于得到了负数的收益，那么<code>f[0][0] = 0</code>, <code>f[0][1] = -prices[0]</code>, <code>f[0][2] = 0</code>.</p>
+<p>接下来就可以照葫芦画瓢写代码啦：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (prices.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="comment">// f[i][0]: 手上不持有股票，并且处于冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="comment">// f[i][1]: 手上持有股票的最大收益</span></span><br><span class="line">        <span class="comment">// f[i][2]: 手上不持有股票，并且不在冷冻期中的累计最大收益</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; f(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">3</span>));</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            f[i][<span class="number">0</span>] = f[i - <span class="number">1</span>][<span class="number">0</span>] + prices[i];</span><br><span class="line">            f[i][<span class="number">1</span>] = max(f[i - <span class="number">1</span>][<span class="number">1</span>], f[i - <span class="number">1</span>][<span class="number">2</span>] - prices[i]);</span><br><span class="line">            f[i][<span class="number">2</span>] = max(f[i - <span class="number">1</span>][<span class="number">0</span>], f[i - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max(f[n - <span class="number">1</span>][<span class="number">0</span>], f[n - <span class="number">1</span>][<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Another-Version-With-Transaction-Fee"><a href="#Another-Version-With-Transaction-Fee" class="headerlink" title="Another Version: With Transaction Fee"></a>Another Version: With Transaction Fee</h4><p>同样，我们需要分析几种可能出现的状态：</p>
+<ol>
+<li>  <code>f[i][0]</code> : 当天手里没有股票。</li>
+<li>  <code>f[i][1]</code> : 当天手里有股票。</li>
+</ol>
+<p>对应这两种状态，我们可以写出两个状态转移方程：</p>
+<ol>
+<li>  $f[i][0] = max(f[i-1][0], f[i-1][1] + prices[i] - fee)$ : 当天手里没有股票，可能是昨天已经卖掉，也可能是当天卖掉。对于后一种可能，除了获得相应的收益之外，还要支付交易费。交易费其实是针对一对买卖行为的，但是由于只能持有一股，所以只需要在卖掉时付费。</li>
+<li>  $f[i][1] = max(f[i-1][1], f[i-1][0] - prices[i])$ : 当天手里有股票，可能是前一天已经买入，也有可能是当天买入。</li>
+</ol>
+<p>所以可以得出，最后的最大收益为$max(f[n-1][0], f[n-1][1])$. 同样，最后一天持有股票没什么意义，所以结果就是$f[n-1][0]$.</p>
+<p>此外，还需要确定初值。如果第一天先买股票，那么<code>f[i][0] = 0</code>, <code>f[i][1] = -prices[0]</code>.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices, <span class="keyword">int</span> fee)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dp(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span>));</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>, dp[<span class="number">0</span>][<span class="number">1</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = max(dp[i - <span class="number">1</span>][<span class="number">0</span>], dp[i - <span class="number">1</span>][<span class="number">1</span>] + prices[i] - fee);</span><br><span class="line">            dp[i][<span class="number">1</span>] = max(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>] - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>经过后两道题我们可以感受到，只要写出了状态转移方程，写出相应的代码就会很容易。所以在正确理解题意的基础上，需要我们认真仔细地给出递归形式的状态转移方程，而这些方程往往都遵循着动态规划类型题目的基本模式。（多刷一些题应该可以总结得差不多吧( •̀ ω •́ )✧</p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode-005-Binary Search</title>
+    <url>/2021/10/04/LeetCode-005-Binary-Search/</url>
+    <content><![CDATA[<p>当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~</p>
+<span id="more"></span>
+
+<h4 id="1-Search-in-Rotated-Sorted-Array"><a href="#1-Search-in-Rotated-Sorted-Array" class="headerlink" title="1. Search in Rotated Sorted Array"></a>1. Search in Rotated Sorted Array</h4><p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/">https://leetcode-cn.com/problems/search-in-rotated-sorted-array/</a></p>
+<p>题目的说法有一点别扭：所谓的“rotated”到底是什么意思呢？这个翻转可与红黑树的红黑树没有半毛钱关系，就将它理解为是将一个数组<code>arr[n]</code>向左循环移位<code>k</code>次即可($1 \le k \lt n$).</p>
+<p>一个数组初始时已经按照升序排好序了，然后经过上述的“翻转”过程后作为输入。比如说，一个数组本来是<code>[1, 2, 3, 4, 5]</code>，结果给我们的是<code>[4, 5, 1, 2, 3]</code>。要求我们在$O(logn)$的时间复杂度下，找到目标元素在数组中的下标，如果找不到就返回-1.</p>
+<p>既然是$O(logn)$的时间复杂度，很容易想到的就是二分查找。但是由于给定数组的特殊结构，我们需要对二分查找的算法加亿点改动。</p>
+<p>首先可以得到这样一个结论：任何一个翻转过的数组，从中间分开成两部分中总有其中一个是排好序的。比如说给定<code>[5, 6, 7, 1, 2]</code>，可以把他从中间分成两部分：<code>[5, 6]</code>和<code>[7, 1, 2]</code>。而分辨一个数组是翻转数组还是有序数组很简单：只需要比较首末两个元素的大小。如果<code>arr[0] &lt;= arr[n-1]</code>，那么就是有序的，反之就是无序的。</p>
+<p>我们接下来要做的，就是想办法找到一个包含着目标元素、且有序的子序列(sub-array)。</p>
+<p>首先找到有序的那一半序列。如果目标在有序的一部分中，就可以将范围缩小到有序的那一半中；反之，就需要继续在翻转序列中缩小范围。其实与二分查找的思想别无二致。</p>
+<p>放代码~</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> (target == nums[<span class="number">0</span>]) ? <span class="number">0</span> : <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> left, right, mid;</span><br><span class="line">        left = <span class="number">0</span>, right = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">            mid = (left + right) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= nums[mid])&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= target &amp;&amp; target &lt; nums[mid])</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - <span class="number">1</span>])</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left &lt;= right)</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中很tricky的地方就是等号的位置。需要仔细的思考和测试才能决定。比如说<code>if(nums[0] &lt;= nums[mid])</code>这里的小于等号，如果换成小于号，就无法处理<code>[3, 1]</code>这样的情况。类似地还有<code>if(nums[0] &lt;= target &amp;&amp; target&lt; nums[mid])</code>和<code>if(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - 1])</code>当中的小于等于号，都是为了能够处理边界位置。</p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode-004 最长回文子串</title>
     <url>/2021/09/23/LeetCode-004-Longest-Palindromic-Substring/</url>
     <content><![CDATA[<p>最长回文子串(<a href="https://leetcode-cn.com/problems/longest-palindromic-substring/">https://leetcode-cn.com/problems/longest-palindromic-substring/</a>) 是一道很经典的题目~ 我们比较容易想到的就是动态规划的方法，但是在动态规划的基础上可以进一步（其实是进两步）优化！本文主要就来介绍最长回文子串的三种解题思路~</p>
@@ -368,82 +395,6 @@
       <tags>
         <tag>Algorithm</tag>
         <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode-005-Binary Search</title>
-    <url>/2021/10/04/LeetCode-005-Binary-Search/</url>
-    <content><![CDATA[<p>当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~</p>
-<span id="more"></span>
-
-<h4 id="1-Search-in-Rotated-Sorted-Array"><a href="#1-Search-in-Rotated-Sorted-Array" class="headerlink" title="1. Search in Rotated Sorted Array"></a>1. Search in Rotated Sorted Array</h4><p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/">https://leetcode-cn.com/problems/search-in-rotated-sorted-array/</a></p>
-<p>题目的说法有一点别扭：所谓的“rotated”到底是什么意思呢？这个翻转可与红黑树的红黑树没有半毛钱关系，就将它理解为是将一个数组<code>arr[n]</code>向左循环移位<code>k</code>次即可($1 \le k \lt n$).</p>
-<p>一个数组初始时已经按照升序排好序了，然后经过上述的“翻转”过程后作为输入。比如说，一个数组本来是<code>[1, 2, 3, 4, 5]</code>，结果给我们的是<code>[4, 5, 1, 2, 3]</code>。要求我们在$O(logn)$的时间复杂度下，找到目标元素在数组中的下标，如果找不到就返回-1.</p>
-<p>既然是$O(logn)$的时间复杂度，很容易想到的就是二分查找。但是由于给定数组的特殊结构，我们需要对二分查找的算法加亿点改动。</p>
-<p>首先可以得到这样一个结论：任何一个翻转过的数组，从中间分开成两部分中总有其中一个是排好序的。比如说给定<code>[5, 6, 7, 1, 2]</code>，可以把他从中间分成两部分：<code>[5, 6]</code>和<code>[7, 1, 2]</code>。而分辨一个数组是翻转数组还是有序数组很简单：只需要比较首末两个元素的大小。如果<code>arr[0] &lt;= arr[n-1]</code>，那么就是有序的，反之就是无序的。</p>
-<p>我们接下来要做的，就是想办法找到一个包含着目标元素、且有序的子序列(sub-array)。</p>
-<p>首先找到有序的那一半序列。如果目标在有序的一部分中，就可以将范围缩小到有序的那一半中；反之，就需要继续在翻转序列中缩小范围。其实与二分查找的思想别无二致。</p>
-<p>放代码~</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> (target == nums[<span class="number">0</span>]) ? <span class="number">0</span> : <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> left, right, mid;</span><br><span class="line">        left = <span class="number">0</span>, right = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">            mid = (left + right) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= nums[mid])&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= target &amp;&amp; target &lt; nums[mid])</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - <span class="number">1</span>])</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left &lt;= right)</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>其中很tricky的地方就是等号的位置。需要仔细的思考和测试才能决定。比如说<code>if(nums[0] &lt;= nums[mid])</code>这里的小于等号，如果换成小于号，就无法处理<code>[3, 1]</code>这样的情况。类似地还有<code>if(nums[0] &lt;= target &amp;&amp; target&lt; nums[mid])</code>和<code>if(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - 1])</code>当中的小于等于号，都是为了能够处理边界位置。</p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OpenGL学习-01-坐标变换</title>
-    <url>/2021/11/29/OpenGL-learn-01-rotation/</url>
-    <content><![CDATA[<p>最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。</p>
-<span id="more"></span>
-
-<h4 id="0-热身"><a href="#0-热身" class="headerlink" title="0. 热身"></a>0. 热身</h4><p>既然要做3D模型显示，那么就要不得不考虑到这些问题：</p>
-<ul>
-<li>  模型的基本要素都有哪些？模型文件的组织是怎样的？</li>
-<li>  如何才能在2D的界面上显示3D图形？</li>
-<li>  怎样实现3D图形在空间上的操控？</li>
-</ul>
-<p>上面这些问题较为浅显，当然，还会有“怎样把Qt和OpenGL结合在一起”这样的问题。上面的这些问题，我想要稍微深入一些讨论，所以会分多篇文章发出来(挖坑警告)。我可以先回答一下最后这个小问题。</p>
-<p>Qt为OpenGL提供了一个内部的封装，<code>QOpenGLWidget</code>，它是<code>QWidget</code>的派生类。为了能够利用到这个类，用户需要在其基础上再做一个继承，自己定义一个派生类。如果要用到OpenGL函数，还要包含<code>QOpenGLFunctions</code>。与此同时<code>QOpenGLWidget</code>有三个属性为<code>protected</code>的虚函数是要求用户必须在自己的派生类上实现的：<code>initializeGL</code>, <code>resizeGL</code>和<code>paintGL</code>，功能顾名思义。一般来说，需要在<code>initializeGL</code>中配置好上下文、功能开关、着色器等，在<code>paintGL</code>中绘制图形，在<code>resizeGL</code>中做好窗口大小调整。</p>
-<h4 id="1-坐标体系"><a href="#1-坐标体系" class="headerlink" title="1. 坐标体系"></a>1. 坐标体系</h4><p>我们可以将自己创建的派生类，不妨命名为<code>MyOpenGLWidget</code>，嵌入为Qt工程中的一个普通Widget，再将这个widget提升为<code>MyOpenGLWidget</code>。好了，我们刚刚创建的这个小widget就相当于一个显示窗口~</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-01.png"></p>
-<p>这里我直接将<code>centralWidget</code>设置为了<code>MyOpenGLWidget</code>。</p>
-<p>一般来说，整个显示空间的坐标原点对应的就是显示窗口的中心点，在这里就是我们的<code>MyOpenGLWidget</code>的中心点。我们可以想象面前有一个小房间，我们只能通过这个小窗口看到里面的物体。我们实际看到的平面图形，其实就是三维物体相对于我们所处的视野平面的正投影。</p>
-<p>在OpenGL的世界里，我们可以认为有这样三个主体：世界坐标轴(XYZ)，物体，以及观察者。所谓“观察者”更专业的说法是“摄像机(camera)”。下面分别对坐标轴和摄像机做一下说明。</p>
-<p>OpenGL的坐标系是右手坐标系。垂直屏幕向外的方向是Z轴正方向，指向屏幕右侧是X轴正方向，指向屏幕上方是Y轴正方向。一般在不做任何设置的情况下，摄像机位于Z轴&gt;0的某个位置，看向原点。</p>
-<p>摄像机有三个属性：位置、视野正方向和上方方向。通过调整这三个参数，可以改变窗口的显示效果。其实这三个向量构建了以摄像机自身为原点的一个坐标系。</p>
-<h4 id="2-模型旋转"><a href="#2-模型旋转" class="headerlink" title="2. 模型旋转"></a>2. 模型旋转</h4><p>模型旋转的功能实现无非有两种思路：旋转模型本身，和旋转摄像机。我一开始的思路就是旋转摄像机。这样做带来的好处是，当我们载入多个模型时，不用对每一个shader都进行旋转矩阵的计算，只需要变换摄像机的位置，并且将摄像机的朝向固定在一点、令摄像机到固定点的距离恒定即可。但是这方面的资料较少，并且在初期实验时我对坐标体系没什么理解，所以在NG数次后，走上了旋转模型的道路。</p>
-<p>在OpenGL的世界里，旋转是通过将位置向量左乘一个旋转矩阵实现的。位置向量是一个4x1的向量，长这个样子：<br>$$<br>pos = \left[<br>\begin{matrix}<br>x \ y \ z \ 1.0<br>\end{matrix}<br>\right]<br>$$<br>至于最下面的哪个1.0是做什么的，我也不清楚(笑)，先不去管它，只要把它当作是一种convention就好辣~ 类似地，位移矩阵是一个4x4的矩阵，它是在一个单位矩阵的基础上略加修改得来的：<br>$$<br>translate = \left[<br>\begin{matrix}<br>1 &amp; 0 &amp; 0 &amp; T_x \<br>0 &amp; 1 &amp; 0 &amp; T_y \<br>0 &amp; 0 &amp; 1 &amp; T_z \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>可以看到，对角线上是1，而最后一列的前三个数构成了$(T_x, T_y, T_z)$的位移向量。想象一下，$translate \times pos$，我们可以得到这样的向量：$(x+T_x, y+T_y, z+T_z, 1.0)^T$，恰好达到了位移的目的。</p>
-<p>缩放矩阵，依然是在单位矩阵的基础上做一些变换：<br>$$<br>scale = \left[<br>\begin{matrix}<br>S_x &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; S_y &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; S_z &amp; 0\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>类似地，$scale \times pos = (xS_x, yS_y, zS_z, 1.0)^T$. 一般来说如果要保持原有图形的形状不变，缩放的三个分量都是一样的；反之，不同的分量比例可以实现图形的拉伸。</p>
-<p>最后，就是旋转矩阵！旋转矩阵稍微不那么直观。我们先从二维开始。将一个向量$v=(x, y)^T$逆时针旋转$\theta$，我们需要在$v$的左边乘上这样一个矩阵：<br>$$<br>\left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{matrix}<br>\right]<br>$$<br>其实这是可以推导的。如果我们将这个公式拓展到三维，那么这个旋转矩阵就会长这个样子：<br>$$<br>rotate = \left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>这样看来，上面的二维旋转就可以看作是将一个点绕着z轴旋转。</p>
-<p>介绍完平移、缩放、旋转这三种矩阵坐标变换之后，就可以实现比较全面的坐标变换了~ 所谓坐标变换，就是将平移矩阵、缩放矩阵和旋转矩阵与坐标向量左乘，但是不同的相乘顺序会达到不同的效果。</p>
-<p>先讨论平移和旋转的先后问题：先平移后旋转会导致旋转中心改变，反之旋转中心会保持在世界原点。即：</p>
-<ul>
-<li>  $translation \times rotation \times position$旋转中心改变.</li>
-<li>  $rotation \times translation \times position$旋转中心不变.</li>
-</ul>
-<p>再来看看平移和缩放的顺序问题。一般来说都是先平移后缩放，否则平移的距离也会乘上缩放的倍数。</p>
-<p>至于缩放与旋转的先后，应该问题不大，我还没有试过QwQ.</p>
-<p>目前本项目中我用到的shader program如下：</p>
-<figure class="highlight glsl"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330</span></span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">vec3</span> posVertex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> view;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> projection;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> rotation;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> translation;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> scale;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">gl_Position</span> = projection * view * rotation * scale * translation * <span class="type">vec4</span>(posVertex, <span class="number">1.0</span>f);</span><br><span class="line">  <span class="built_in">gl_PointSize</span> = <span class="number">3.0</span>f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我这里所做的是先平移、再缩放、再旋转，从而达到平移模型位置而旋转中心不变的效果。最终的效果图如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-02.gif"></p>
-<h5 id="遇到的奇怪问题-："><a href="#遇到的奇怪问题-：" class="headerlink" title="遇到的奇怪问题*："></a>遇到的奇怪问题*：</h5><p>使用<code>QMatrix4x4</code>的<code>translate</code>、<code>rotate</code>方法时，功能是正常的。</p>
-<p>但是使用glm库的rotate函数时，旋转矩阵会变得过于灵敏，需要将旋转角缩小到1/50才能基本正常。最严重的是，在交叉进行互相垂直的方向旋转时，会发生闪烁，并且会突然丧失所有模型。</p>
-<p>目前打算先用着<code>QMatrix</code>，并注意调试一下<code>glm</code>库的相应功能。总感觉<code>glm</code>才是OpenGL正统(笑)，争取最后还是用上<code>glm</code>库。</p>
-]]></content>
-      <categories>
-        <category>OpenGL</category>
-      </categories>
-      <tags>
-        <tag>OpenGL</tag>
       </tags>
   </entry>
   <entry>
@@ -571,20 +522,52 @@
       </tags>
   </entry>
   <entry>
-    <title>diary-1</title>
-    <url>/2021/04/30/diary-1/</url>
-    <content><![CDATA[<p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
+    <title>OpenGL学习-01-坐标变换</title>
+    <url>/2021/11/29/OpenGL-learn-01-rotation/</url>
+    <content><![CDATA[<p>最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。</p>
+<span id="more"></span>
+
+<h4 id="0-热身"><a href="#0-热身" class="headerlink" title="0. 热身"></a>0. 热身</h4><p>既然要做3D模型显示，那么就要不得不考虑到这些问题：</p>
+<ul>
+<li>  模型的基本要素都有哪些？模型文件的组织是怎样的？</li>
+<li>  如何才能在2D的界面上显示3D图形？</li>
+<li>  怎样实现3D图形在空间上的操控？</li>
+</ul>
+<p>上面这些问题较为浅显，当然，还会有“怎样把Qt和OpenGL结合在一起”这样的问题。上面的这些问题，我想要稍微深入一些讨论，所以会分多篇文章发出来(挖坑警告)。我可以先回答一下最后这个小问题。</p>
+<p>Qt为OpenGL提供了一个内部的封装，<code>QOpenGLWidget</code>，它是<code>QWidget</code>的派生类。为了能够利用到这个类，用户需要在其基础上再做一个继承，自己定义一个派生类。如果要用到OpenGL函数，还要包含<code>QOpenGLFunctions</code>。与此同时<code>QOpenGLWidget</code>有三个属性为<code>protected</code>的虚函数是要求用户必须在自己的派生类上实现的：<code>initializeGL</code>, <code>resizeGL</code>和<code>paintGL</code>，功能顾名思义。一般来说，需要在<code>initializeGL</code>中配置好上下文、功能开关、着色器等，在<code>paintGL</code>中绘制图形，在<code>resizeGL</code>中做好窗口大小调整。</p>
+<h4 id="1-坐标体系"><a href="#1-坐标体系" class="headerlink" title="1. 坐标体系"></a>1. 坐标体系</h4><p>我们可以将自己创建的派生类，不妨命名为<code>MyOpenGLWidget</code>，嵌入为Qt工程中的一个普通Widget，再将这个widget提升为<code>MyOpenGLWidget</code>。好了，我们刚刚创建的这个小widget就相当于一个显示窗口~</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-01.png"></p>
+<p>这里我直接将<code>centralWidget</code>设置为了<code>MyOpenGLWidget</code>。</p>
+<p>一般来说，整个显示空间的坐标原点对应的就是显示窗口的中心点，在这里就是我们的<code>MyOpenGLWidget</code>的中心点。我们可以想象面前有一个小房间，我们只能通过这个小窗口看到里面的物体。我们实际看到的平面图形，其实就是三维物体相对于我们所处的视野平面的正投影。</p>
+<p>在OpenGL的世界里，我们可以认为有这样三个主体：世界坐标轴(XYZ)，物体，以及观察者。所谓“观察者”更专业的说法是“摄像机(camera)”。下面分别对坐标轴和摄像机做一下说明。</p>
+<p>OpenGL的坐标系是右手坐标系。垂直屏幕向外的方向是Z轴正方向，指向屏幕右侧是X轴正方向，指向屏幕上方是Y轴正方向。一般在不做任何设置的情况下，摄像机位于Z轴&gt;0的某个位置，看向原点。</p>
+<p>摄像机有三个属性：位置、视野正方向和上方方向。通过调整这三个参数，可以改变窗口的显示效果。其实这三个向量构建了以摄像机自身为原点的一个坐标系。</p>
+<h4 id="2-模型旋转"><a href="#2-模型旋转" class="headerlink" title="2. 模型旋转"></a>2. 模型旋转</h4><p>模型旋转的功能实现无非有两种思路：旋转模型本身，和旋转摄像机。我一开始的思路就是旋转摄像机。这样做带来的好处是，当我们载入多个模型时，不用对每一个shader都进行旋转矩阵的计算，只需要变换摄像机的位置，并且将摄像机的朝向固定在一点、令摄像机到固定点的距离恒定即可。但是这方面的资料较少，并且在初期实验时我对坐标体系没什么理解，所以在NG数次后，走上了旋转模型的道路。</p>
+<p>在OpenGL的世界里，旋转是通过将位置向量左乘一个旋转矩阵实现的。位置向量是一个4x1的向量，长这个样子：<br>$$<br>pos = \left[<br>\begin{matrix}<br>x \ y \ z \ 1.0<br>\end{matrix}<br>\right]<br>$$<br>至于最下面的哪个1.0是做什么的，我也不清楚(笑)，先不去管它，只要把它当作是一种convention就好辣~ 类似地，位移矩阵是一个4x4的矩阵，它是在一个单位矩阵的基础上略加修改得来的：<br>$$<br>translate = \left[<br>\begin{matrix}<br>1 &amp; 0 &amp; 0 &amp; T_x \<br>0 &amp; 1 &amp; 0 &amp; T_y \<br>0 &amp; 0 &amp; 1 &amp; T_z \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>可以看到，对角线上是1，而最后一列的前三个数构成了$(T_x, T_y, T_z)$的位移向量。想象一下，$translate \times pos$，我们可以得到这样的向量：$(x+T_x, y+T_y, z+T_z, 1.0)^T$，恰好达到了位移的目的。</p>
+<p>缩放矩阵，依然是在单位矩阵的基础上做一些变换：<br>$$<br>scale = \left[<br>\begin{matrix}<br>S_x &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; S_y &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; S_z &amp; 0\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>类似地，$scale \times pos = (xS_x, yS_y, zS_z, 1.0)^T$. 一般来说如果要保持原有图形的形状不变，缩放的三个分量都是一样的；反之，不同的分量比例可以实现图形的拉伸。</p>
+<p>最后，就是旋转矩阵！旋转矩阵稍微不那么直观。我们先从二维开始。将一个向量$v=(x, y)^T$逆时针旋转$\theta$，我们需要在$v$的左边乘上这样一个矩阵：<br>$$<br>\left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{matrix}<br>\right]<br>$$<br>其实这是可以推导的。如果我们将这个公式拓展到三维，那么这个旋转矩阵就会长这个样子：<br>$$<br>rotate = \left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>这样看来，上面的二维旋转就可以看作是将一个点绕着z轴旋转。</p>
+<p>介绍完平移、缩放、旋转这三种矩阵坐标变换之后，就可以实现比较全面的坐标变换了~ 所谓坐标变换，就是将平移矩阵、缩放矩阵和旋转矩阵与坐标向量左乘，但是不同的相乘顺序会达到不同的效果。</p>
+<p>先讨论平移和旋转的先后问题：先平移后旋转会导致旋转中心改变，反之旋转中心会保持在世界原点。即：</p>
+<ul>
+<li>  $translation \times rotation \times position$旋转中心改变.</li>
+<li>  $rotation \times translation \times position$旋转中心不变.</li>
+</ul>
+<p>再来看看平移和缩放的顺序问题。一般来说都是先平移后缩放，否则平移的距离也会乘上缩放的倍数。</p>
+<p>至于缩放与旋转的先后，应该问题不大，我还没有试过QwQ.</p>
+<p>目前本项目中我用到的shader program如下：</p>
+<figure class="highlight glsl"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330</span></span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">vec3</span> posVertex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> view;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> projection;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> rotation;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> translation;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> scale;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">gl_Position</span> = projection * view * rotation * scale * translation * <span class="type">vec4</span>(posVertex, <span class="number">1.0</span>f);</span><br><span class="line">  <span class="built_in">gl_PointSize</span> = <span class="number">3.0</span>f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我这里所做的是先平移、再缩放、再旋转，从而达到平移模型位置而旋转中心不变的效果。最终的效果图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-02.gif"></p>
+<h5 id="遇到的奇怪问题-："><a href="#遇到的奇怪问题-：" class="headerlink" title="遇到的奇怪问题*："></a>遇到的奇怪问题*：</h5><p>使用<code>QMatrix4x4</code>的<code>translate</code>、<code>rotate</code>方法时，功能是正常的。</p>
+<p>但是使用glm库的rotate函数时，旋转矩阵会变得过于灵敏，需要将旋转角缩小到1/50才能基本正常。最严重的是，在交叉进行互相垂直的方向旋转时，会发生闪烁，并且会突然丧失所有模型。</p>
+<p>目前打算先用着<code>QMatrix</code>，并注意调试一下<code>glm</code>库的相应功能。总感觉<code>glm</code>才是OpenGL正统(笑)，争取最后还是用上<code>glm</code>库。</p>
 ]]></content>
       <categories>
-        <category>diary?</category>
+        <category>OpenGL</category>
       </categories>
       <tags>
-        <tag>diary?</tag>
+        <tag>OpenGL</tag>
       </tags>
   </entry>
   <entry>
@@ -611,48 +594,6 @@
       </categories>
       <tags>
         <tag>Tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PPL-Lab-Description</title>
-    <url>/2021/10/06/PPL-Lab-Description/</url>
-    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
-<span id="more"></span>
-
-<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
-<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
-<p>(MUA这个名字起得真妙hhh)</p>
-]]></content>
-      <categories>
-        <category>PPL</category>
-      </categories>
-      <tags>
-        <tag>PPL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>xv6-riscv学习0</title>
-    <url>/2021/04/11/xv6-riscv-0/</url>
-    <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
-<span id="more"></span>
-
-<p>至于选择xv6-riscv的原因，还是有一段孽缘的。当时在完成课程lab的时候就了解到了MIT的xv6教学用操作系统，并且在做页表lab时“借鉴”了很多代码XD。但是再后来，由于课程lab的结构和设计与xv6渐行渐远，就没法借鉴了。而现在就可以一门心思地钻研xv6啦。</p>
-<p>xv6有<code>x86</code>和<code>RISC-V</code>两个版本。今后的代码以<code>RISC-V</code>为主，但是<code>RISC-V</code>的配套文档没有中文版。不过基本的设计思想应该还是相近的，所以可以配合着阅读。官方给出的<code>RISC-V</code>文档需要用<code>make</code>和<code>tex</code>命令行编译，而且只能在类UNIX系统上跑，所以在网上白嫖了一份~链接如下。有一点乱码，等影响阅读的时候再自己编译吧。</p>
-<p>MIT的该课程网站：<a href="https://pdos.csail.mit.edu/6.S081/2020/">https://pdos.csail.mit.edu/6.S081/2020/</a></p>
-<p>老师在中后期的时候总是提到要给下一届的同学的lab加上文件系统，应该是和<code>QEMU</code>紧密相关的，这个也可以考虑考虑（等学完xv6的吧）。</p>
-<p>同时还有清华大学的操作系统课程lab，他们做的是用<code>Rust</code>语言写的<code>ros</code>。应该是由于<code>Rust</code>语言的特性使得其比较适合编写操作系统吧。不过<code>Rust+RISC-V</code>的组合真是前卫啊hhh.</p>
-<p>回到xv6来。简单翻阅了一下<code>xv6-riscv-book</code>，发现章节后面有相应的练习，而且多数是要求代码实现的。这个是一定要做的。尽管在做课程lab时极其痛苦，但是我还是深刻地感受到“Talk is cheap. Show me the code.”的正确。即使做不出来至少也要尝试几次。</p>
-<p>希望可以坚持下去……加油！</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>RISC-V</category>
-        <category>xv6-riscv</category>
-      </categories>
-      <tags>
-        <tag>OS</tag>
-        <tag>RISC-V</tag>
-        <tag>xv6-riscv</tag>
       </tags>
   </entry>
   <entry>
@@ -819,56 +760,35 @@
       </tags>
   </entry>
   <entry>
-    <title>xv6-riscv学习1-Chapter1</title>
-    <url>/2021/05/01/xv6-riscv-1/</url>
-    <content><![CDATA[<h3 id="Chapter-1-Operating-System-Interfaces"><a href="#Chapter-1-Operating-System-Interfaces" class="headerlink" title="Chapter 1: Operating System Interfaces"></a>Chapter 1: Operating System Interfaces</h3><p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>xv6-riscv学习0</title>
+    <url>/2021/04/11/xv6-riscv-0/</url>
+    <content><![CDATA[<p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p>
 <span id="more"></span>
 
-<p>在这里，接口与<strong>系统调用</strong> (<strong>system call</strong>)是紧密相关的。系统调用就是操作系统内核向用户程序提供的访问内核功能的接口。实际上，系统调用在操作系统分层模型的实现中是极其重要的。书中有一幅图呈现了user space和kernel space之间的关系：</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/xv6layered-view" style="zoom:50%;" />
-
-<p>这其实带来了一个问题：系统调用的功能是不是越复杂、越丰富越好呢？书中给出的答案是否定的，并给出了一个目标：“Design interfaces that rely on a few mechanisms that can be combined to provide much generality.”这大概就是说“大而全不如小而精”吧。</p>
-<p>同时可以注意到，上图中shell是在用户空间里的，也就是说shell在xv6系统中是用户程序。这样一来，其实可以使得用户更换shell变得很方便，只要使用同样的接口就可以了。现实中常用的Linux系统也都是这样的。</p>
-<p>接下来仍遵循书中的结构~</p>
-<h4 id="1-进程与内存"><a href="#1-进程与内存" class="headerlink" title="1. 进程与内存"></a>1. 进程与内存</h4><p>在操作系统中，一般会有多个进程“同时”运行，每个进程在内核中被分配有一个唯一的进程标识符(process identifier)，缩写<code>PID</code>。真正意义上的“同时”只有在多核CPU上才能实现，而对于单核CPU，操作系统会通过进程调度机制轮流执行各个进程，由于切换的速度非常快，给人的感觉就像是同时一样。</p>
-<p>创建新进程的方法一般通过<code>fork()</code>或<code>exec()</code>系统调用实现。<code>fork</code>会给新创建的子进程复制一份父进程的内存，内容完全一样，如果从标准的ELF格式来看的话，从text, data, bss到stack都是一样的。<code>fork</code>很特殊的一点是其有两个返回值：向父进程返回子进程的<code>PID</code>，向子进程返回0. </p>
-<p>一个经典的<code>fork</code>测试程序大致如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testfork</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;parent: child PID = %d\n&quot;</span>, pid);</span><br><span class="line">        pid = wait(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child %d terminates\n&quot;</span>, pid);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child exiting\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;fork error\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。</p>
-<p>而<code>exec</code>系统调用直接将文件加载到内存中，文件通常是ELF(Executable and Linkable Format)格式。在Linux系统中文件类型可以通过<code>file [filename]</code>命令查看。</p>
-<p>书中给了一小段程序用于帮助解释<code>exec</code>的功能：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *argv[<span class="number">3</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;echo&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">argv[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">exec(<span class="string">&quot;/bin/echo&quot;</span>, argv);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;exec error\n&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>之所以在<code>exec()</code>的下一行输出错误信息，是因为当exec执行成功时，会将当前进程的内存空间覆盖掉，原程序的代码自然就无法执行了。</p>
-<p><code>fork</code>如果每创建一个新进程时都复制父进程的所有内存，其实是很浪费时间的。现在大多数操作系统采取的是<strong>写时复制</strong>(<strong>copy-on-write</strong>) ，也就是说，子进程刚创建时，是与父进程共用地址空间的。如果子进程只进行读操作，那就是最划算的了。而当子进程需要写入一段内存时，才会给子进程将要写入的对应页表进行复制，其余部分仍共享。</p>
-<h4 id="2-I-O与文件描述符"><a href="#2-I-O与文件描述符" class="headerlink" title="2. I/O与文件描述符"></a>2. I/O与文件描述符</h4><p>文件描述符为文件、目录和设备提供了统一的表示方法，从而将它们都抽象为文件流的形式。所以，文件也是一个抽象，而系统为访问和操纵文件提供了统一的接口。</p>
-<p>每一个进程都会维护一个open-file table（不知道怎么翻译了XD），其中包含了这个进程所访问的文件描述符。</p>
-<p>关于<code>fork</code>和<code>exec</code>还有很特殊的特性：<code>fork</code>会复制父进程的file table给子进程，而<code>exec</code>会保留调用者进程的file table。这就使得<strong>I/O重定向</strong>(<strong>I/O redirection</strong>) 很容易实现：先fork，再exec.</p>
-<p>(其实这一节还有一些比较复杂的，但是我看不太懂就不贴上来了)</p>
-<h4 id="3-管道-Pipe"><a href="#3-管道-Pipe" class="headerlink" title="3. 管道(Pipe)"></a>3. 管道(Pipe)</h4><p><code>pipe</code>用于将一个进程的输出流作为另一个进程的输入流。如常用的：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-cache search vim | grep vim</span><br></pre></td></tr></table></figure>
-
-<p>其实有点类似于重定向，但是它在更广泛的意义上提供了进程间通信的方法。当需要传输的数据量不太大时，可以通过重定向来实现管道的功能，如<code>echo hello world | wc</code>可以实现为：<code>echo hello world &gt; /tmp/xyz; wc &lt; /tmp/xyz</code>. 但是管道的一个优点就是它可以传递任意长度的数据流。</p>
-<p>管道有一个写端、一个读端。当两个进程通过一个管道进行通信时，它们的读端和写端都是一样的。</p>
-<p>接下来的示例程序就有点复杂了：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> p[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">pipe(p);</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>)&#123;</span><br><span class="line">    close(<span class="number">0</span>);</span><br><span class="line">    dup(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">    exec(<span class="string">&quot;/bin/wc&quot;</span>, argv);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    write(p[<span class="number">1</span>], <span class="string">&quot;hello world!\n&quot;</span>, <span class="number">12</span>);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>书中是这样解释这段程序的功能的：<code>fork</code>之后，父进程和子进程共用管道<code>p[]</code>所指的文件描述符。子进程调用<code>close</code>和<code>dup</code>使得管道的读端为文件描述符0，关闭了<code>p[]</code>中的文件描述符，并调用<code>exec</code>运行<code>wc</code>。当<code>wc</code>从标准输入（即文件描述符0）读取输入时，它就会从管道中读。父进程关闭了管道的读端，向管道中写入“hello world!\n”，后关闭了管道的写端。</p>
-<p>关于管道，书中提到了一个神奇的用法。管道的右侧还可以包含管道！比如：<code>a | b | c |...</code>，从而可以构建一个进程树，在这样的树中，父节点需要等待所有的子节点执行完毕才能开始执行。</p>
-<p>书中还提到管道的一个优点是允许流水线的并行执行，然而采用文件重定向的方法就必须等前一个程序写入文件完成后才能让下一个程序执行。想一想还是挺有道理的，毕竟数据流的特点就是可以实时处理。</p>
-<h4 id="4-文件系统"><a href="#4-文件系统" class="headerlink" title="4. 文件系统"></a>4. 文件系统</h4><p>与文件操作相关的系统调用有很多，如<code>chdir</code>, <code>open</code>, <code>mkdir</code>, <code>close</code>, <code>mknod</code>等。前四个还比较直接明了，第四个<code>mknod</code>创建一个指代着设备的特殊文件，与这个文件直接相关的是两个设备号：major device number和minor device number，暂且翻译成“主、次设备号”好了。一般的使用方式是：<code>mknod(&quot;/console&quot;, 1, 1)</code>.</p>
-<p>书中还提到了部分与文件系统相关的概念：<code>inode</code>和<code>link</code>。<code>inode</code>保存了文件的元数据(metadata)，包括文件类型（文件/目录/或设备）、文件内容在磁盘上的地址和指向该文件的链接数。每个inode可以有多个链接，而每个链接都包含了目录中的一个条目(entry)，条目中包含了文件名和inode号。所以文件名不是文件内容的一部分！</p>
-<p>记录一个文件的数据结构长这个样子：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DIR 		1	<span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_FILE		2	<span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DEVICE	 3	<span class="comment">// Device</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> dev;	<span class="comment">// File system&#x27;s disk device</span></span><br><span class="line">    uint ino;	<span class="comment">// Inode number</span></span><br><span class="line">    <span class="keyword">short</span> type;	<span class="comment">// Type of file</span></span><br><span class="line">    <span class="keyword">short</span> nlink;<span class="comment">// Number of links</span></span><br><span class="line">    uint64 size;<span class="comment">// Size of file in bytes</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>关于<code>link</code>系统调用，这里实现的应该是软链接(soft link)，即新创建的链接并不是保存在额外的文件中，而是直接指向了被引用的文件。以下是一段创建链接的示例：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">open(<span class="string">&quot;a&quot;</span>, O_CREATE | O_WRONLY);</span><br><span class="line">link(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>在此之后，文件名“a”和“b”都指的是同一个文件，使用这两个文件名会得到相同的inode number，而对应的<code>struct stat</code>变量中的nlink值为2.</p>
-<p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
+<p>至于选择xv6-riscv的原因，还是有一段孽缘的。当时在完成课程lab的时候就了解到了MIT的xv6教学用操作系统，并且在做页表lab时“借鉴”了很多代码XD。但是再后来，由于课程lab的结构和设计与xv6渐行渐远，就没法借鉴了。而现在就可以一门心思地钻研xv6啦。</p>
+<p>xv6有<code>x86</code>和<code>RISC-V</code>两个版本。今后的代码以<code>RISC-V</code>为主，但是<code>RISC-V</code>的配套文档没有中文版。不过基本的设计思想应该还是相近的，所以可以配合着阅读。官方给出的<code>RISC-V</code>文档需要用<code>make</code>和<code>tex</code>命令行编译，而且只能在类UNIX系统上跑，所以在网上白嫖了一份~链接如下。有一点乱码，等影响阅读的时候再自己编译吧。</p>
+<p>MIT的该课程网站：<a href="https://pdos.csail.mit.edu/6.S081/2020/">https://pdos.csail.mit.edu/6.S081/2020/</a></p>
+<p>老师在中后期的时候总是提到要给下一届的同学的lab加上文件系统，应该是和<code>QEMU</code>紧密相关的，这个也可以考虑考虑（等学完xv6的吧）。</p>
+<p>同时还有清华大学的操作系统课程lab，他们做的是用<code>Rust</code>语言写的<code>ros</code>。应该是由于<code>Rust</code>语言的特性使得其比较适合编写操作系统吧。不过<code>Rust+RISC-V</code>的组合真是前卫啊hhh.</p>
+<p>回到xv6来。简单翻阅了一下<code>xv6-riscv-book</code>，发现章节后面有相应的练习，而且多数是要求代码实现的。这个是一定要做的。尽管在做课程lab时极其痛苦，但是我还是深刻地感受到“Talk is cheap. Show me the code.”的正确。即使做不出来至少也要尝试几次。</p>
+<p>希望可以坚持下去……加油！</p>
 ]]></content>
       <categories>
         <category>OS</category>
@@ -879,6 +799,23 @@
         <tag>OS</tag>
         <tag>RISC-V</tag>
         <tag>xv6-riscv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PPL-Lab-Description</title>
+    <url>/2021/10/06/PPL-Lab-Description/</url>
+    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
+<span id="more"></span>
+
+<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
+<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
+<p>(MUA这个名字起得真妙hhh)</p>
+]]></content>
+      <categories>
+        <category>PPL</category>
+      </categories>
+      <tags>
+        <tag>PPL</tag>
       </tags>
   </entry>
   <entry>
@@ -940,6 +877,69 @@
       </categories>
       <tags>
         <tag>Spider</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>xv6-riscv学习1-Chapter1</title>
+    <url>/2021/05/01/xv6-riscv-1/</url>
+    <content><![CDATA[<h3 id="Chapter-1-Operating-System-Interfaces"><a href="#Chapter-1-Operating-System-Interfaces" class="headerlink" title="Chapter 1: Operating System Interfaces"></a>Chapter 1: Operating System Interfaces</h3><p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
+<span id="more"></span>
+
+<p>在这里，接口与<strong>系统调用</strong> (<strong>system call</strong>)是紧密相关的。系统调用就是操作系统内核向用户程序提供的访问内核功能的接口。实际上，系统调用在操作系统分层模型的实现中是极其重要的。书中有一幅图呈现了user space和kernel space之间的关系：</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/xv6layered-view" style="zoom:50%;" />
+
+<p>这其实带来了一个问题：系统调用的功能是不是越复杂、越丰富越好呢？书中给出的答案是否定的，并给出了一个目标：“Design interfaces that rely on a few mechanisms that can be combined to provide much generality.”这大概就是说“大而全不如小而精”吧。</p>
+<p>同时可以注意到，上图中shell是在用户空间里的，也就是说shell在xv6系统中是用户程序。这样一来，其实可以使得用户更换shell变得很方便，只要使用同样的接口就可以了。现实中常用的Linux系统也都是这样的。</p>
+<p>接下来仍遵循书中的结构~</p>
+<h4 id="1-进程与内存"><a href="#1-进程与内存" class="headerlink" title="1. 进程与内存"></a>1. 进程与内存</h4><p>在操作系统中，一般会有多个进程“同时”运行，每个进程在内核中被分配有一个唯一的进程标识符(process identifier)，缩写<code>PID</code>。真正意义上的“同时”只有在多核CPU上才能实现，而对于单核CPU，操作系统会通过进程调度机制轮流执行各个进程，由于切换的速度非常快，给人的感觉就像是同时一样。</p>
+<p>创建新进程的方法一般通过<code>fork()</code>或<code>exec()</code>系统调用实现。<code>fork</code>会给新创建的子进程复制一份父进程的内存，内容完全一样，如果从标准的ELF格式来看的话，从text, data, bss到stack都是一样的。<code>fork</code>很特殊的一点是其有两个返回值：向父进程返回子进程的<code>PID</code>，向子进程返回0. </p>
+<p>一个经典的<code>fork</code>测试程序大致如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testfork</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;parent: child PID = %d\n&quot;</span>, pid);</span><br><span class="line">        pid = wait(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child %d terminates\n&quot;</span>, pid);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child exiting\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;fork error\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。</p>
+<p>而<code>exec</code>系统调用直接将文件加载到内存中，文件通常是ELF(Executable and Linkable Format)格式。在Linux系统中文件类型可以通过<code>file [filename]</code>命令查看。</p>
+<p>书中给了一小段程序用于帮助解释<code>exec</code>的功能：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *argv[<span class="number">3</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;echo&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">argv[<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">exec(<span class="string">&quot;/bin/echo&quot;</span>, argv);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;exec error\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>之所以在<code>exec()</code>的下一行输出错误信息，是因为当exec执行成功时，会将当前进程的内存空间覆盖掉，原程序的代码自然就无法执行了。</p>
+<p><code>fork</code>如果每创建一个新进程时都复制父进程的所有内存，其实是很浪费时间的。现在大多数操作系统采取的是<strong>写时复制</strong>(<strong>copy-on-write</strong>) ，也就是说，子进程刚创建时，是与父进程共用地址空间的。如果子进程只进行读操作，那就是最划算的了。而当子进程需要写入一段内存时，才会给子进程将要写入的对应页表进行复制，其余部分仍共享。</p>
+<h4 id="2-I-O与文件描述符"><a href="#2-I-O与文件描述符" class="headerlink" title="2. I/O与文件描述符"></a>2. I/O与文件描述符</h4><p>文件描述符为文件、目录和设备提供了统一的表示方法，从而将它们都抽象为文件流的形式。所以，文件也是一个抽象，而系统为访问和操纵文件提供了统一的接口。</p>
+<p>每一个进程都会维护一个open-file table（不知道怎么翻译了XD），其中包含了这个进程所访问的文件描述符。</p>
+<p>关于<code>fork</code>和<code>exec</code>还有很特殊的特性：<code>fork</code>会复制父进程的file table给子进程，而<code>exec</code>会保留调用者进程的file table。这就使得<strong>I/O重定向</strong>(<strong>I/O redirection</strong>) 很容易实现：先fork，再exec.</p>
+<p>(其实这一节还有一些比较复杂的，但是我看不太懂就不贴上来了)</p>
+<h4 id="3-管道-Pipe"><a href="#3-管道-Pipe" class="headerlink" title="3. 管道(Pipe)"></a>3. 管道(Pipe)</h4><p><code>pipe</code>用于将一个进程的输出流作为另一个进程的输入流。如常用的：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-cache search vim | grep vim</span><br></pre></td></tr></table></figure>
+
+<p>其实有点类似于重定向，但是它在更广泛的意义上提供了进程间通信的方法。当需要传输的数据量不太大时，可以通过重定向来实现管道的功能，如<code>echo hello world | wc</code>可以实现为：<code>echo hello world &gt; /tmp/xyz; wc &lt; /tmp/xyz</code>. 但是管道的一个优点就是它可以传递任意长度的数据流。</p>
+<p>管道有一个写端、一个读端。当两个进程通过一个管道进行通信时，它们的读端和写端都是一样的。</p>
+<p>接下来的示例程序就有点复杂了：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> p[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">pipe(p);</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>)&#123;</span><br><span class="line">    close(<span class="number">0</span>);</span><br><span class="line">    dup(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">    exec(<span class="string">&quot;/bin/wc&quot;</span>, argv);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    close(p[<span class="number">0</span>]);</span><br><span class="line">    write(p[<span class="number">1</span>], <span class="string">&quot;hello world!\n&quot;</span>, <span class="number">12</span>);</span><br><span class="line">    close(p[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>书中是这样解释这段程序的功能的：<code>fork</code>之后，父进程和子进程共用管道<code>p[]</code>所指的文件描述符。子进程调用<code>close</code>和<code>dup</code>使得管道的读端为文件描述符0，关闭了<code>p[]</code>中的文件描述符，并调用<code>exec</code>运行<code>wc</code>。当<code>wc</code>从标准输入（即文件描述符0）读取输入时，它就会从管道中读。父进程关闭了管道的读端，向管道中写入“hello world!\n”，后关闭了管道的写端。</p>
+<p>关于管道，书中提到了一个神奇的用法。管道的右侧还可以包含管道！比如：<code>a | b | c |...</code>，从而可以构建一个进程树，在这样的树中，父节点需要等待所有的子节点执行完毕才能开始执行。</p>
+<p>书中还提到管道的一个优点是允许流水线的并行执行，然而采用文件重定向的方法就必须等前一个程序写入文件完成后才能让下一个程序执行。想一想还是挺有道理的，毕竟数据流的特点就是可以实时处理。</p>
+<h4 id="4-文件系统"><a href="#4-文件系统" class="headerlink" title="4. 文件系统"></a>4. 文件系统</h4><p>与文件操作相关的系统调用有很多，如<code>chdir</code>, <code>open</code>, <code>mkdir</code>, <code>close</code>, <code>mknod</code>等。前四个还比较直接明了，第四个<code>mknod</code>创建一个指代着设备的特殊文件，与这个文件直接相关的是两个设备号：major device number和minor device number，暂且翻译成“主、次设备号”好了。一般的使用方式是：<code>mknod(&quot;/console&quot;, 1, 1)</code>.</p>
+<p>书中还提到了部分与文件系统相关的概念：<code>inode</code>和<code>link</code>。<code>inode</code>保存了文件的元数据(metadata)，包括文件类型（文件/目录/或设备）、文件内容在磁盘上的地址和指向该文件的链接数。每个inode可以有多个链接，而每个链接都包含了目录中的一个条目(entry)，条目中包含了文件名和inode号。所以文件名不是文件内容的一部分！</p>
+<p>记录一个文件的数据结构长这个样子：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DIR 		1	<span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_FILE		2	<span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_DEVICE	 3	<span class="comment">// Device</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> dev;	<span class="comment">// File system&#x27;s disk device</span></span><br><span class="line">    uint ino;	<span class="comment">// Inode number</span></span><br><span class="line">    <span class="keyword">short</span> type;	<span class="comment">// Type of file</span></span><br><span class="line">    <span class="keyword">short</span> nlink;<span class="comment">// Number of links</span></span><br><span class="line">    uint64 size;<span class="comment">// Size of file in bytes</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于<code>link</code>系统调用，这里实现的应该是软链接(soft link)，即新创建的链接并不是保存在额外的文件中，而是直接指向了被引用的文件。以下是一段创建链接的示例：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">open(<span class="string">&quot;a&quot;</span>, O_CREATE | O_WRONLY);</span><br><span class="line">link(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在此之后，文件名“a”和“b”都指的是同一个文件，使用这两个文件名会得到相同的inode number，而对应的<code>struct stat</code>变量中的nlink值为2.</p>
+<p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>RISC-V</category>
+        <category>xv6-riscv</category>
+      </categories>
+      <tags>
+        <tag>OS</tag>
+        <tag>RISC-V</tag>
+        <tag>xv6-riscv</tag>
       </tags>
   </entry>
 </search>
