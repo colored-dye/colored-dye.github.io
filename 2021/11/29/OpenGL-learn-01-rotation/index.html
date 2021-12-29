@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"colored-dye.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenGL学习-01-坐标变换">
+<meta property="og:url" content="https://colored-dye.github.io/2021/11/29/OpenGL-learn-01-rotation/index.html">
+<meta property="og:site_name" content="colored-dye&#39;s Blog">
+<meta property="og:description" content="最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-01.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-02.gif">
+<meta property="article:published_time" content="2021-11-29T15:21:31.000Z">
+<meta property="article:modified_time" content="2021-12-03T14:35:41.079Z">
+<meta property="article:author" content="colored-dye">
+<meta property="article:tag" content="OpenGL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-01.png">
+
+
+<link rel="canonical" href="https://colored-dye.github.io/2021/11/29/OpenGL-learn-01-rotation/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>OpenGL学习-01-坐标变换 | colored-dye's Blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">colored-dye's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-%E7%83%AD%E8%BA%AB"><span class="nav-number">1.</span> <span class="nav-text">0. 热身</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">1. 坐标体系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%A8%A1%E5%9E%8B%E6%97%8B%E8%BD%AC"><span class="nav-number">3.</span> <span class="nav-text">2. 模型旋转</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E5%A5%87%E6%80%AA%E9%97%AE%E9%A2%98-%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">遇到的奇怪问题*：</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="colored-dye"
+      src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/avatar.jpg">
+  <p class="site-author-name" itemprop="name">colored-dye</p>
+  <div class="site-description" itemprop="description">Come and have a cup of tea ~</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/11/29/OpenGL-learn-01-rotation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/avatar.jpg">
+      <meta itemprop="name" content="colored-dye">
+      <meta itemprop="description" content="Come and have a cup of tea ~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="colored-dye's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenGL学习-01-坐标变换
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-29 23:21:31" itemprop="dateCreated datePublished" datetime="2021-11-29T23:21:31+08:00">2021-11-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-03 22:35:41" itemprop="dateModified" datetime="2021-12-03T22:35:41+08:00">2021-12-03</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OpenGL/" itemprop="url" rel="index"><span itemprop="name">OpenGL</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。</p>
+<span id="more"></span>
+
+<h4 id="0-热身"><a href="#0-热身" class="headerlink" title="0. 热身"></a>0. 热身</h4><p>既然要做3D模型显示，那么就要不得不考虑到这些问题：</p>
+<ul>
+<li>  模型的基本要素都有哪些？模型文件的组织是怎样的？</li>
+<li>  如何才能在2D的界面上显示3D图形？</li>
+<li>  怎样实现3D图形在空间上的操控？</li>
+</ul>
+<p>上面这些问题较为浅显，当然，还会有“怎样把Qt和OpenGL结合在一起”这样的问题。上面的这些问题，我想要稍微深入一些讨论，所以会分多篇文章发出来(挖坑警告)。我可以先回答一下最后这个小问题。</p>
+<p>Qt为OpenGL提供了一个内部的封装，<code>QOpenGLWidget</code>，它是<code>QWidget</code>的派生类。为了能够利用到这个类，用户需要在其基础上再做一个继承，自己定义一个派生类。如果要用到OpenGL函数，还要包含<code>QOpenGLFunctions</code>。与此同时<code>QOpenGLWidget</code>有三个属性为<code>protected</code>的虚函数是要求用户必须在自己的派生类上实现的：<code>initializeGL</code>, <code>resizeGL</code>和<code>paintGL</code>，功能顾名思义。一般来说，需要在<code>initializeGL</code>中配置好上下文、功能开关、着色器等，在<code>paintGL</code>中绘制图形，在<code>resizeGL</code>中做好窗口大小调整。</p>
+<h4 id="1-坐标体系"><a href="#1-坐标体系" class="headerlink" title="1. 坐标体系"></a>1. 坐标体系</h4><p>我们可以将自己创建的派生类，不妨命名为<code>MyOpenGLWidget</code>，嵌入为Qt工程中的一个普通Widget，再将这个widget提升为<code>MyOpenGLWidget</code>。好了，我们刚刚创建的这个小widget就相当于一个显示窗口~</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-01.png"></p>
+<p>这里我直接将<code>centralWidget</code>设置为了<code>MyOpenGLWidget</code>。</p>
+<p>一般来说，整个显示空间的坐标原点对应的就是显示窗口的中心点，在这里就是我们的<code>MyOpenGLWidget</code>的中心点。我们可以想象面前有一个小房间，我们只能通过这个小窗口看到里面的物体。我们实际看到的平面图形，其实就是三维物体相对于我们所处的视野平面的正投影。</p>
+<p>在OpenGL的世界里，我们可以认为有这样三个主体：世界坐标轴(XYZ)，物体，以及观察者。所谓“观察者”更专业的说法是“摄像机(camera)”。下面分别对坐标轴和摄像机做一下说明。</p>
+<p>OpenGL的坐标系是右手坐标系。垂直屏幕向外的方向是Z轴正方向，指向屏幕右侧是X轴正方向，指向屏幕上方是Y轴正方向。一般在不做任何设置的情况下，摄像机位于Z轴&gt;0的某个位置，看向原点。</p>
+<p>摄像机有三个属性：位置、视野正方向和上方方向。通过调整这三个参数，可以改变窗口的显示效果。其实这三个向量构建了以摄像机自身为原点的一个坐标系。</p>
+<h4 id="2-模型旋转"><a href="#2-模型旋转" class="headerlink" title="2. 模型旋转"></a>2. 模型旋转</h4><p>模型旋转的功能实现无非有两种思路：旋转模型本身，和旋转摄像机。我一开始的思路就是旋转摄像机。这样做带来的好处是，当我们载入多个模型时，不用对每一个shader都进行旋转矩阵的计算，只需要变换摄像机的位置，并且将摄像机的朝向固定在一点、令摄像机到固定点的距离恒定即可。但是这方面的资料较少，并且在初期实验时我对坐标体系没什么理解，所以在NG数次后，走上了旋转模型的道路。</p>
+<p>在OpenGL的世界里，旋转是通过将位置向量左乘一个旋转矩阵实现的。位置向量是一个4x1的向量，长这个样子：<br>$$<br>pos = \left[<br>\begin{matrix}<br>x \ y \ z \ 1.0<br>\end{matrix}<br>\right]<br>$$<br>至于最下面的哪个1.0是做什么的，我也不清楚(笑)，先不去管它，只要把它当作是一种convention就好辣~ 类似地，位移矩阵是一个4x4的矩阵，它是在一个单位矩阵的基础上略加修改得来的：<br>$$<br>translate = \left[<br>\begin{matrix}<br>1 &amp; 0 &amp; 0 &amp; T_x \<br>0 &amp; 1 &amp; 0 &amp; T_y \<br>0 &amp; 0 &amp; 1 &amp; T_z \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>可以看到，对角线上是1，而最后一列的前三个数构成了$(T_x, T_y, T_z)$的位移向量。想象一下，$translate \times pos$，我们可以得到这样的向量：$(x+T_x, y+T_y, z+T_z, 1.0)^T$，恰好达到了位移的目的。</p>
+<p>缩放矩阵，依然是在单位矩阵的基础上做一些变换：<br>$$<br>scale = \left[<br>\begin{matrix}<br>S_x &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; S_y &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; S_z &amp; 0\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>类似地，$scale \times pos = (xS_x, yS_y, zS_z, 1.0)^T$. 一般来说如果要保持原有图形的形状不变，缩放的三个分量都是一样的；反之，不同的分量比例可以实现图形的拉伸。</p>
+<p>最后，就是旋转矩阵！旋转矩阵稍微不那么直观。我们先从二维开始。将一个向量$v=(x, y)^T$逆时针旋转$\theta$，我们需要在$v$的左边乘上这样一个矩阵：<br>$$<br>\left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{matrix}<br>\right]<br>$$<br>其实这是可以推导的。如果我们将这个公式拓展到三维，那么这个旋转矩阵就会长这个样子：<br>$$<br>rotate = \left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>这样看来，上面的二维旋转就可以看作是将一个点绕着z轴旋转。</p>
+<p>介绍完平移、缩放、旋转这三种矩阵坐标变换之后，就可以实现比较全面的坐标变换了~ 所谓坐标变换，就是将平移矩阵、缩放矩阵和旋转矩阵与坐标向量左乘，但是不同的相乘顺序会达到不同的效果。</p>
+<p>先讨论平移和旋转的先后问题：先平移后旋转会导致旋转中心改变，反之旋转中心会保持在世界原点。即：</p>
+<ul>
+<li>  $translation \times rotation \times position$旋转中心改变.</li>
+<li>  $rotation \times translation \times position$旋转中心不变.</li>
+</ul>
+<p>再来看看平移和缩放的顺序问题。一般来说都是先平移后缩放，否则平移的距离也会乘上缩放的倍数。</p>
+<p>至于缩放与旋转的先后，应该问题不大，我还没有试过QwQ.</p>
+<p>目前本项目中我用到的shader program如下：</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 330</span></span><br><span class="line"><span class="keyword">layout</span>(<span class="keyword">location</span> = <span class="number">0</span>) <span class="keyword">in</span> <span class="type">vec3</span> posVertex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> view;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> projection;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> rotation;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> translation;</span><br><span class="line"><span class="keyword">uniform</span> <span class="type">mat4</span> scale;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> main()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">gl_Position</span> = projection * view * rotation * scale * translation * <span class="type">vec4</span>(posVertex, <span class="number">1.0</span>f);</span><br><span class="line">  <span class="built_in">gl_PointSize</span> = <span class="number">3.0</span>f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我这里所做的是先平移、再缩放、再旋转，从而达到平移模型位置而旋转中心不变的效果。最终的效果图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-02.gif"></p>
+<h5 id="遇到的奇怪问题-："><a href="#遇到的奇怪问题-：" class="headerlink" title="遇到的奇怪问题*："></a>遇到的奇怪问题*：</h5><p>使用<code>QMatrix4x4</code>的<code>translate</code>、<code>rotate</code>方法时，功能是正常的。</p>
+<p>但是使用glm库的rotate函数时，旋转矩阵会变得过于灵敏，需要将旋转角缩小到1/50才能基本正常。最严重的是，在交叉进行互相垂直的方向旋转时，会发生闪烁，并且会突然丧失所有模型。</p>
+<p>目前打算先用着<code>QMatrix</code>，并注意调试一下<code>glm</code>库的相应功能。总感觉<code>glm</code>才是OpenGL正统(笑)，争取最后还是用上<code>glm</code>库。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OpenGL/" rel="tag"># OpenGL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/27/RIME-input/" rel="prev" title="RIME输入法配置">
+                  <i class="fa fa-chevron-left"></i> RIME输入法配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/29/Greek-alphabet/" rel="next" title="希腊字母表in Latex">
+                  希腊字母表in Latex <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">colored-dye</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '01b491144f0fb92c202d',
+      clientSecret: 'c9b013d13c8ea62b9ca30ab01e2fcf07386175fd',
+      repo        : 'colored-dye.github.io',
+      owner       : 'colored-dye',
+      admin       : ['colored-dye'],
+      id          : 'bd407e2e1f2e9225624b1eeb254f37a8',
+      proxy       : 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"colored-dye.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-003-DP-02">
+<meta property="og:url" content="https://colored-dye.github.io/2021/09/22/LeetCode-003-DP-02/index.html">
+<meta property="og:site_name" content="colored-dye&#39;s Blog">
+<meta property="og:description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/LeetCode-003/mat.png">
+<meta property="article:published_time" content="2021-09-22T06:48:18.000Z">
+<meta property="article:modified_time" content="2021-09-23T12:01:55.229Z">
+<meta property="article:author" content="colored-dye">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/LeetCode-003/mat.png">
+
+
+<link rel="canonical" href="https://colored-dye.github.io/2021/09/22/LeetCode-003-DP-02/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>LeetCode-003-DP-02 | colored-dye's Blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">colored-dye's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Word-Break"><span class="nav-number">1.</span> <span class="nav-text">1. Word Break</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Decode-Ways"><span class="nav-number">2.</span> <span class="nav-text">2.  Decode Ways</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Matrix-Block-Sum"><span class="nav-number">3.</span> <span class="nav-text">3. Matrix Block Sum</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="colored-dye"
+      src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/avatar.jpg">
+  <p class="site-author-name" itemprop="name">colored-dye</p>
+  <div class="site-description" itemprop="description">Come and have a cup of tea ~</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2021/09/22/LeetCode-003-DP-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/avatar.jpg">
+      <meta itemprop="name" content="colored-dye">
+      <meta itemprop="description" content="Come and have a cup of tea ~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="colored-dye's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-003-DP-02
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-22 14:48:18" itemprop="dateCreated datePublished" datetime="2021-09-22T14:48:18+08:00">2021-09-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-09-23 20:01:55" itemprop="dateModified" datetime="2021-09-23T20:01:55+08:00">2021-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~</p>
+<span id="more"></span>
+
+<h5 id="1-Word-Break"><a href="#1-Word-Break" class="headerlink" title="1. Word Break"></a>1. Word Break</h5><p>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/word-break/">https://leetcode-cn.com/problems/word-break/</a></p>
+<p>这道题先给出了一个字符串<code>s</code>和一个“字典”向量<code>wordDict[]</code>，要求使用给出的字典对字符串进行匹配。如果字符串能且仅能完全被字典中的字符串表示，那么要求结果返回<code>true</code>，否则返回<code>false</code>. 需要注意的是，字典中的字符串可以使用多次。  </p>
+<p>这里题目给出了一个非常有意思的样例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;catsandog&quot;</span><br><span class="line">wordDict &#x3D; [</span><br><span class="line">	&quot;cats&quot;, &quot;dog&quot;, &quot;sand&quot;, &quot;and&quot;, &quot;cat&quot;</span><br><span class="line">]</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+
+<p>像“catsandog”这样的，前一个字符串的最后一个字符作为后一个字符串开头的字符，的字符串是不符合要求的。</p>
+<p>我们可以用一个布尔类型的<code>dp[]</code>数组，<code>dp[i]</code>的含义是：下标从0到<code>i-1</code>的字符串是否可以被字典表示。为了得到<code>dp[i]</code>，我们需要依次检验<code>0 ~ j-1</code>和<code>j ~ i-1</code> ($1 \le j \le i$) 是否能被字典表示。如果<code>dp[j] == false</code>，那么就不需要检验<code>j ~ i-1</code>子串了。</p>
+<p>初值<code>dp[0]</code>表示空字符串，应当为<code>true</code>，否则下面代码就无法检验从0开始的子串了。</p>
+<p>抛代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordBreak</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordDictSet</span><span class="params">(wordDict.begin(), wordDict.end())</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">dp</span><span class="params">(s.size() + <span class="number">1</span>)</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=s.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=i; j&gt;=<span class="number">0</span>; j--)&#123;</span><br><span class="line">                <span class="keyword">if</span>(dp[j] &amp;&amp; wordDictSet.find(s.substr(j, i-j)) != wordDictSet.end())&#123;</span><br><span class="line">                    dp[i] = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[s.size()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在题解的用户评论里，我看到有人提到一种优化：在上面的解法的基础上，其实不需要检查<code>0 ~ i-1</code>的所有子串，只需要看<code>i - maxlen ~ i-1</code>就好了，其中<code>maxlen</code>为字典里最大子串长度。对应到代码里，只需要替换一下循环的条件即可：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=i; j&gt;=<span class="number">0</span> &amp;&amp; j &gt; i-maxlen; j--)&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-Decode-Ways"><a href="#2-Decode-Ways" class="headerlink" title="2.  Decode Ways"></a>2.  Decode Ways</h5><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/decode-ways">https://leetcode-cn.com/problems/decode-ways</a></p>
+<p>A-Z的26个字母可以被依次编码为1~26的数字，但是给出一个数字串，我们不能保证解码的结果唯一（其实这里涉及到编码学的问题了，因为不太懂所以不做展开OwO）。比如给出“10921”，可以按照“10 9 2 1”、“10 9 21”解码，但是“0”无法对应任何字母。</p>
+<p>题目要求判断给出的一个数字串可以以多少种不同的方式解码。</p>
+<p>这道题在当初学动态规划时做过类似的，但是当时的题编码是从0到25，不存在无法解码的情况。但是基本的思路是一致的。</p>
+<p>我们可以把解码的几种情形列举一下：</p>
+<ol>
+<li>  “0”：不能解码。</li>
+<li>  “x”：1~9，都可以单独解码为一个字母。</li>
+<li>  “1x”：10~19的任何数字都可以解码为一个字母。</li>
+<li>“2x”：这里又有两种情况：<ol>
+<li>  20~26：单独解码为一个字母。</li>
+<li>  27~29：只能解码为两个字母。</li>
+</ol>
+</li>
+</ol>
+<p>如果使用数组<code>dp[n]</code>，其中<code>dp[i]</code>表示<code>0 ~ i</code>的解码方式数量，那么可以给出下面的状态转移方程：</p>
+<ol>
+<li><code>s[i] == 0</code><ol>
+<li>  <code>s[i-1] == 1 / 2</code>：$dp[i] = dp[i-2]$，0必须与前面的数字组合。</li>
+<li>  <code>s[i-1] &gt;= 2</code>：$dp[i] = 0$，错误编码。</li>
+</ol>
+</li>
+<li><code>s[i] != 0</code><ol>
+<li>  <code>s[i-1] == 1</code>：$dp[i] = dp[i-1] + dp[i-2]$，对应情况3.</li>
+<li>  <code>s[i-1] == 2 &amp;&amp; s[i] &lt;= 6</code>：$dp[i] = dp[i-1] + dp[i-2]$，对应情况4.1.</li>
+<li>  <code>s[i-1] == 2 &amp;&amp; s[i] &gt;= 7 </code>或<code>s[i-1] == 0</code>或<code>s[i-1] &gt;= 3</code>：$dp[i] = dp[i-1]$，其他情况，编码方式不增加。</li>
+</ol>
+</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numDecodings</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 102427</span></span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">if</span>(s[<span class="number">0</span>] != <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">            dp[<span class="number">0</span>] = dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">2</span>, j=<span class="number">1</span>; i&lt;=n; i++, j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[j] == <span class="string">&#x27;0&#x27;</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[j<span class="number">-1</span>] &gt;= <span class="string">&#x27;1&#x27;</span> &amp;&amp; s[j<span class="number">-1</span>] &lt;= <span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">                    dp[i] = dp[i<span class="number">-2</span>];</span><br><span class="line">                <span class="keyword">else</span> dp[i] = <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(s[j<span class="number">-1</span>] == <span class="string">&#x27;1&#x27;</span>)&#123;</span><br><span class="line">                    dp[i] = dp[i<span class="number">-1</span>] + dp[i<span class="number">-2</span>];</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(s[j<span class="number">-1</span>] == <span class="string">&#x27;2&#x27;</span> &amp;&amp; s[j] &lt;= <span class="string">&#x27;6&#x27;</span>)</span><br><span class="line">                    dp[i] = dp[i<span class="number">-2</span>] + dp[i<span class="number">-1</span>];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    dp[i] = dp[i<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-Matrix-Block-Sum"><a href="#3-Matrix-Block-Sum" class="headerlink" title="3. Matrix Block Sum"></a>3. Matrix Block Sum</h5><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/matrix-block-sum">https://leetcode-cn.com/problems/matrix-block-sum</a></p>
+<p>题目给出mxn的矩阵<code>mat[][]</code>，并给定一个常数<code>k</code>，要求返回一个相同规模的矩阵<code>answer[][]</code>，其中<code>answer[i][j]</code>是满足下列条件的所有<code>mat[r][c]</code>的和：</p>
+<ul>
+<li>  $i - k \le r \le i + k$.</li>
+<li>  $j - k \le c \le j + k$.</li>
+<li>  $(r, c)$是矩阵中合法的下标.</li>
+</ul>
+<p>其实就是求<code>mat[][]</code>中以<code>(r, c)</code>为中心的、边长为<code>2k</code>的正方形内所有元素的和。</p>
+<p>这道题的特殊之处在于介绍了 <strong>“前缀和(Prefix Sum)”</strong> 的算法。下面先来介绍一下前缀和到底是什么。</p>
+<p>最简单的就是一维前缀和，比如给出数组<code>arr[n]</code>，那么我们可以得到相应的前缀和数组<code>sum[n]</code>，其中$sum[i] = \sum_{0 \le j \le i}{arr[j]}$. 而求<code>sum[]</code>的过程很自然地可以运用到动态规划的思想，因为$sum[i] = sum[i-1] + arr[i]$.</p>
+<p>二维前缀和可以表示成<code>sum[m][n]</code>，对应的初始矩阵是<code>mat[m][n]</code>. 仿照一维前缀和可以写出：$sum[i][j] = \sum_{0 \le p \le i, 0 \le q \le j}{mat[p][q]}$. 二维前缀和同样可以运用动态规划思想。为了解决这个问题，我们可以用几何语言来表示。</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/LeetCode-003/mat.png" style="zoom:50%;" />
+
+<p>如上图所示，蓝色部分为<code>dp[i-1][j-1]</code>，为了求较大的<code>dp[i][j]</code>，我们可以适当利用一下容斥原理。蓝色和绿色部分为<code>dp[i][j-1]</code>，蓝色和红色部分为<code>dp[i-1][j]</code>，所以<code>dp[i][j] = dp[i-1][j] + dp[i][j-1] - dp[i-1][j-1] + mat[i][j]</code>.</p>
+<p>以上的公式只适用于一般情况。当<code>i == 0</code>时，<code>dp[i][j] = dp[i][j-1] + mat[i][j]</code>；当<code>j == 0</code>时，<code>dp[i][j] = dp[i-1][j] + mat[i][j]</code>.</p>
+<p>而前缀和的用处，主要在于利用已求得的前缀和，在$O(1)$的时间内求出想要的单项结果。这对于静态查询是很有效的。</p>
+<p>接下来回到原题上来~ 我们想要得到的是某个元素周围、边长为<code>2k</code>的正方形范围内的所有元素和，那么我们可以给出这样的公式：</p>
+<p>$$<br>answer[i][j] = dp[i+k][j+k] - dp[i+k][j-k-1] - dp[i-k-1][j+k] + dp[i-k-1][j-k-1]<br>$$</p>
+<p>在以上前缀和以及公式的基础上，写出代码就很简单了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> m, n;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;prefixSum, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x &lt; <span class="number">0</span> || y &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(x &gt;= m)</span><br><span class="line">            x = m<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(y &gt;= n)</span><br><span class="line">            y = n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> prefixSum[x][y];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; matrixBlockSum(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; mat, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        m = mat.size(), n = mat[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; prefixSum(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i &amp;&amp; j)</span><br><span class="line">                    prefixSum[i][j] = prefixSum[i<span class="number">-1</span>][j] + prefixSum[i][j<span class="number">-1</span>] - prefixSum[i<span class="number">-1</span>][j<span class="number">-1</span>] + mat[i][j];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i &amp;&amp; !j)</span><br><span class="line">                    prefixSum[i][j] = prefixSum[i<span class="number">-1</span>][j] + mat[i][j];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(!i &amp;&amp; j)</span><br><span class="line">                    prefixSum[i][j] = prefixSum[i][j<span class="number">-1</span>] + mat[i][j];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    prefixSum[i][j] = mat[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                ans[i][j] = get(prefixSum, i+k, j+k) - get(prefixSum, i+k, j-k<span class="number">-1</span>) - get(prefixSum, i-k<span class="number">-1</span>, j+k) + get(prefixSum, i-k<span class="number">-1</span>, j-k<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这里加了一个<code>get()</code>函数，用于处理<code>i+k</code>和<code>i-k-1</code>超出矩阵范围的情况。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/15/LeetCode-002-DP-01/" rel="prev" title="LeetCode-002-DP-01">
+                  <i class="fa fa-chevron-left"></i> LeetCode-002-DP-01
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/23/LeetCode-004-Longest-Palindromic-Substring/" rel="next" title="LeetCode-004 最长回文子串">
+                  LeetCode-004 最长回文子串 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">colored-dye</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'none'
+      },
+      options: {
+        renderActions: {
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '01b491144f0fb92c202d',
+      clientSecret: 'c9b013d13c8ea62b9ca30ab01e2fcf07386175fd',
+      repo        : 'colored-dye.github.io',
+      owner       : 'colored-dye',
+      admin       : ['colored-dye'],
+      id          : 'a6219d4fb519fafc492d7e8ff4088d55',
+      proxy       : 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
