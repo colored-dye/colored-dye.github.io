@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-01.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/opengl-01-02.gif">
 <meta property="article:published_time" content="2021-11-29T15:21:31.000Z">
-<meta property="article:modified_time" content="2021-12-03T14:35:41.079Z">
+<meta property="article:modified_time" content="2022-01-19T13:25:54.358Z">
 <meta property="article:author" content="colored-dye">
 <meta property="article:tag" content="OpenGL">
 <meta name="twitter:card" content="summary">
@@ -204,7 +204,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -286,7 +286,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-03 22:35:41" itemprop="dateModified" datetime="2021-12-03T22:35:41+08:00">2021-12-03</time>
+        <time title="修改时间：2022-01-19 21:25:54" itemprop="dateModified" datetime="2022-01-19T21:25:54+08:00">2022-01-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -334,9 +334,9 @@
 <p>OpenGL的坐标系是右手坐标系。垂直屏幕向外的方向是Z轴正方向，指向屏幕右侧是X轴正方向，指向屏幕上方是Y轴正方向。一般在不做任何设置的情况下，摄像机位于Z轴&gt;0的某个位置，看向原点。</p>
 <p>摄像机有三个属性：位置、视野正方向和上方方向。通过调整这三个参数，可以改变窗口的显示效果。其实这三个向量构建了以摄像机自身为原点的一个坐标系。</p>
 <h4 id="2-模型旋转"><a href="#2-模型旋转" class="headerlink" title="2. 模型旋转"></a>2. 模型旋转</h4><p>模型旋转的功能实现无非有两种思路：旋转模型本身，和旋转摄像机。我一开始的思路就是旋转摄像机。这样做带来的好处是，当我们载入多个模型时，不用对每一个shader都进行旋转矩阵的计算，只需要变换摄像机的位置，并且将摄像机的朝向固定在一点、令摄像机到固定点的距离恒定即可。但是这方面的资料较少，并且在初期实验时我对坐标体系没什么理解，所以在NG数次后，走上了旋转模型的道路。</p>
-<p>在OpenGL的世界里，旋转是通过将位置向量左乘一个旋转矩阵实现的。位置向量是一个4x1的向量，长这个样子：<br>$$<br>pos = \left[<br>\begin{matrix}<br>x \ y \ z \ 1.0<br>\end{matrix}<br>\right]<br>$$<br>至于最下面的哪个1.0是做什么的，我也不清楚(笑)，先不去管它，只要把它当作是一种convention就好辣~ 类似地，位移矩阵是一个4x4的矩阵，它是在一个单位矩阵的基础上略加修改得来的：<br>$$<br>translate = \left[<br>\begin{matrix}<br>1 &amp; 0 &amp; 0 &amp; T_x \<br>0 &amp; 1 &amp; 0 &amp; T_y \<br>0 &amp; 0 &amp; 1 &amp; T_z \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>可以看到，对角线上是1，而最后一列的前三个数构成了$(T_x, T_y, T_z)$的位移向量。想象一下，$translate \times pos$，我们可以得到这样的向量：$(x+T_x, y+T_y, z+T_z, 1.0)^T$，恰好达到了位移的目的。</p>
-<p>缩放矩阵，依然是在单位矩阵的基础上做一些变换：<br>$$<br>scale = \left[<br>\begin{matrix}<br>S_x &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; S_y &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; S_z &amp; 0\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>类似地，$scale \times pos = (xS_x, yS_y, zS_z, 1.0)^T$. 一般来说如果要保持原有图形的形状不变，缩放的三个分量都是一样的；反之，不同的分量比例可以实现图形的拉伸。</p>
-<p>最后，就是旋转矩阵！旋转矩阵稍微不那么直观。我们先从二维开始。将一个向量$v=(x, y)^T$逆时针旋转$\theta$，我们需要在$v$的左边乘上这样一个矩阵：<br>$$<br>\left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{matrix}<br>\right]<br>$$<br>其实这是可以推导的。如果我们将这个公式拓展到三维，那么这个旋转矩阵就会长这个样子：<br>$$<br>rotate = \left[<br>\begin{matrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{matrix}<br>\right]<br>$$<br>这样看来，上面的二维旋转就可以看作是将一个点绕着z轴旋转。</p>
+<p>在OpenGL的世界里，旋转是通过将位置向量左乘一个旋转矩阵实现的。位置向量是一个4x1的向量，长这个样子：<br>$$<br>\begin{bmatrix}<br>x \ y \ z \ 1.0<br>\end{bmatrix}<br>$$<br>至于最下面的哪个1.0是做什么的，我也不清楚(笑)，先不去管它，只要把它当作是一种convention就好辣~ 类似地，位移矩阵是一个4x4的矩阵，它是在一个单位矩阵的基础上略加修改得来的：<br>$$<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 &amp; T_x \<br>0 &amp; 1 &amp; 0 &amp; T_y \<br>0 &amp; 0 &amp; 1 &amp; T_z \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$<br>可以看到，对角线上是1，而最后一列的前三个数构成了$(T_x, T_y, T_z)$的位移向量。想象一下，$translate \times pos$，我们可以得到这样的向量：$(x+T_x, y+T_y, z+T_z, 1.0)^T$，恰好达到了位移的目的。</p>
+<p>缩放矩阵，依然是在单位矩阵的基础上做一些变换：<br>$$<br>\begin{bmatrix}<br>S_x &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; S_y &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; S_z &amp; 0\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$<br>类似地，$scale \times pos = (xS_x, yS_y, zS_z, 1.0)^T$. 一般来说如果要保持原有图形的形状不变，缩放的三个分量都是一样的；反之，不同的分量比例可以实现图形的拉伸。</p>
+<p>最后，就是旋转矩阵！旋转矩阵稍微不那么直观。我们先从二维开始。将一个向量$v=(x, y)^T$逆时针旋转$\theta$，我们需要在$v$的左边乘上这样一个矩阵：<br>$$<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{bmatrix}<br>$$<br>其实这是可以推导的。如果我们将这个公式拓展到三维，那么这个旋转矩阵就会长这个样子：<br>$$<br>rotate =<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>$$<br>这样看来，上面的二维旋转就可以看作是将一个点绕着z轴旋转。</p>
 <p>介绍完平移、缩放、旋转这三种矩阵坐标变换之后，就可以实现比较全面的坐标变换了~ 所谓坐标变换，就是将平移矩阵、缩放矩阵和旋转矩阵与坐标向量左乘，但是不同的相乘顺序会达到不同的效果。</p>
 <p>先讨论平移和旋转的先后问题：先平移后旋转会导致旋转中心改变，反之旋转中心会保持在世界原点。即：</p>
 <ul>
