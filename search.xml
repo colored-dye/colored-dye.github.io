@@ -35,57 +35,22 @@
       </tags>
   </entry>
   <entry>
-    <title>希腊字母表in Latex</title>
-    <url>/2021/12/29/Greek-alphabet/</url>
-    <content><![CDATA[<p>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</p>
+    <title>Go语言学习01</title>
+    <url>/2022/01/23/Go-01/</url>
+    <content><![CDATA[<p>最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~</p>
 <span id="more"></span>
 
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00.jpg"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00-1.jpg"></p>
+<h4 id="1-println和fmt-Println的区别"><a href="#1-println和fmt-Println的区别" class="headerlink" title="1. println和fmt.Println的区别"></a>1. <code>println</code>和<code>fmt.Println</code>的区别</h4><p>参考资料：<a href="https://blog.csdn.net/lenfranky/article/details/102898190">https://blog.csdn.net/lenfranky/article/details/102898190</a></p>
+<p>在开始学习任何一门新语言的时候，首先要做的就是“Hello, world!”辣~ 但是Go官方学习指南给的示例代码却需要先引入包<code>fmt</code>，再调用<code>fmt.Println(&quot;Hello, world!&quot;)</code>. 个人感觉这个<code>fmt.Println</code>的写法不太优雅，于是在编辑器里尝试性地输了<code>printf</code>、<code>println</code>等等写法，发现<code>println</code>的用法是存在的。</p>
+<p>这就很奇怪了。既然已经有了简洁的<code>println</code>写法，为什么还非要用<code>fmt</code>包呢？参考资料告诉我们，这两个函数的主要差别在于：<code>println</code>主要用于调试，因为其不需要依赖项；而<code>fmt.Println</code>主要用于生产环境，更具有通用性。更深来讲，<code>println</code>是向<code>stderr</code>流写，而<code>fmt.Println</code>是向<code>stdout</code>写。</p>
+<p>参考文章还指出，如果两者混用有可能会发生输出顺序乱序的情况。</p>
 ]]></content>
       <categories>
-        <category>misc</category>
+        <category>Programming-Languages</category>
       </categories>
       <tags>
-        <tag>misc</tag>
-        <tag>Latex</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo图片显示</title>
-    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
-    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
-<span id="more"></span>
-
-<ol>
-<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li><p>利用图床生成URL并引用外链。</p>
-<p> 图床又有几种常用的：</p>
-<ol>
-<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p> 在本机上还可以采用修改host文件的方式。先通过</p>
-<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
-<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
-</ol>
-</li>
-</ol>
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
+        <tag>Programming-Languages</tag>
+        <tag>Go</tag>
       </tags>
   </entry>
   <entry>
@@ -141,46 +106,57 @@
       </tags>
   </entry>
   <entry>
-    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
-    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
-    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
+    <title>希腊字母表in Latex</title>
+    <url>/2021/12/29/Greek-alphabet/</url>
+    <content><![CDATA[<p>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</p>
 <span id="more"></span>
 
-<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
-<p>比如说下面这个矩阵：</p>
-<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
-
-<p>返回值的矩阵为：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
-<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
-<hr>
-<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
-<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
-<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
-<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
-<li>  学习了C++<code>vector</code>变量初始化方法。</li>
-<li>  复习了BFS算法的思想和基本结构。</li>
-<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
-</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/greek_letter_latex_00-1.jpg"></p>
 ]]></content>
       <categories>
-        <category>Algorithm</category>
-        <category>LeetCode</category>
+        <category>misc</category>
       </categories>
       <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
+        <tag>misc</tag>
+        <tag>Latex</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo图片显示</title>
+    <url>/2021/03/22/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</url>
+    <content><![CDATA[<p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
+<span id="more"></span>
+
+<ol>
+<li><p> 作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
+</li>
+<li><p>利用图床生成URL并引用外链。</p>
+<p> 图床又有几种常用的：</p>
+<ol>
+<li><p> <code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
+</li>
+<li><p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
+<p> 在本机上还可以采用修改host文件的方式。先通过</p>
+<p> [ipaddress]: <a href="http://www.ipaddress.com/">www.ipaddress.com</a></p>
+<p> 查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
+</li>
+<li><p> 七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
+</li>
+<li><p> 腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
+<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
+<p>最后插一个图片再次测试一下~</p>
+<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Kotaro_Holding_Guitar" style="zoom: 33%;" />]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -232,6 +208,49 @@
 
 <hr>
 <h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>经过后两道题我们可以感受到，只要写出了状态转移方程，写出相应的代码就会很容易。所以在正确理解题意的基础上，需要我们认真仔细地给出递归形式的状态转移方程，而这些方程往往都遵循着动态规划类型题目的基本模式。（多刷一些题应该可以总结得差不多吧( •̀ ω •́ )✧</p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
+    <url>/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/</url>
+    <content><![CDATA[<p>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~</p>
+<span id="more"></span>
+
+<h4 id="01Matrix"><a href="#01Matrix" class="headerlink" title="01Matrix"></a>01Matrix</h4><p>第一道题叫做“01Matrix” (<a href="https://leetcode-cn.com/problems/01-matrix/">https://leetcode-cn.com/problems/01-matrix/</a>). 顾名思义，题目给出m×n的矩阵<code>mat[][]</code>，矩阵中的每个元素都是0或1.要求给出一个相同规模的矩阵，暂且命名为<code>ret[][]</code>，<code>ret[i][j]</code>的含义是<code>mat[i][j]</code>到最近的0元素的距离。这个距离不是直线距离，而是一个一个格子走的距离。</p>
+<p>比如说下面这个矩阵：</p>
+<img src="https://assets.leetcode.com/uploads/2021/04/24/01-2-grid.jpg" style="zoom:67%;" />
+
+<p>返回值的矩阵为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">ret[][] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我最初的思路是对每一个元素都进行一次完整的BFS，但是题解给出的思路有点类似动态规划。话不多说，先上代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; dist(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; seen(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 将所有的 0 添加进初始队列中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.emplace(i, j);</span><br><span class="line">                    seen[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广度优先搜索</span></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> d = <span class="number">0</span>; d &lt; <span class="number">4</span>; ++d) &#123;</span><br><span class="line">                <span class="keyword">int</span> ni = i + dx[d];</span><br><span class="line">                <span class="keyword">int</span> nj = j + dy[d];</span><br><span class="line">                <span class="keyword">if</span> (ni &gt;= <span class="number">0</span> &amp;&amp; ni &lt; m &amp;&amp; nj &gt;= <span class="number">0</span> &amp;&amp; nj &lt; n &amp;&amp; !seen[ni][nj]) &#123;</span><br><span class="line">                    dist[ni][nj] = dist[i][j] + <span class="number">1</span>;</span><br><span class="line">                    q.emplace(ni, nj);</span><br><span class="line">                    seen[ni][nj] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码使用了<code>dist[][]</code>和<code>seen[][]</code>矩阵，前者是返回值，而后者表示某一元素是否已被计算，以避免重复。</p>
+<p>代码的关键之处在于，先将所有的0元素入队并标记已处理，再按队列顺序依次处理每次出队的元素周围（四个方向上）的元素，而这些新加入的元素在距离上一定是比当前元素大1的。即：$dist[ni][nj] = dist[i][j] + 1, \forall (ni, nj) adjacent \space to (i, j)$. 或者也可以把0元素看作一个整体，BFS的过程其实就是“一层一层”地远离这个整体同时记录距离的过程。</p>
+<hr>
+<h4 id="Rotten-Oranges"><a href="#Rotten-Oranges" class="headerlink" title="Rotten Oranges"></a>Rotten Oranges</h4><p>接下来来看另一道题：“Rotten Oranges” (<a href="https://leetcode-cn.com/problems/rotting-oranges/">https://leetcode-cn.com/problems/rotting-oranges/</a>). 同样，题目给出了mxn的矩阵，其中至少有一个烂橘子，有几个新鲜橘子，还有几个空位什么都不放。烂橘子每分钟可以把四个方向上相邻的新鲜橘子变成烂橘子，随着时间推移，会有越来越多的橘子烂掉，但是也有可能有一些橘子不会烂。如果橘子可以全烂掉，就需要给出所需的时间；否则就返回-1.(2表示烂橘子，1表示新鲜橘子，0表示空位)</p>
+<p>联系之前的01矩阵问题，其中<code>dist[][]</code>矩阵中的最大值其实就是所需的时间，那么便有了题解中的答案：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> dis[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> dir_x[<span class="number">4</span>]=&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dir_y[<span class="number">4</span>]=&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;Q;</span><br><span class="line">        <span class="built_in">memset</span>(dis, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dis));</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n=(<span class="keyword">int</span>)grid.size(), m=(<span class="keyword">int</span>)grid[<span class="number">0</span>].size(), ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    Q.push(<span class="built_in">make_pair</span>(i, j));</span><br><span class="line">                    dis[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (grid[i][j] == <span class="number">1</span>) cnt += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty())&#123;</span><br><span class="line">            <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; x = Q.front();Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> tx = x.first + dir_x[i];</span><br><span class="line">                <span class="keyword">int</span> ty = x.second + dir_y[i];</span><br><span class="line">                <span class="keyword">if</span> (tx &lt; <span class="number">0</span>|| tx &gt;= n || ty &lt; <span class="number">0</span>|| ty &gt;= m|| ~dis[tx][ty] || !grid[tx][ty]) <span class="keyword">continue</span>;</span><br><span class="line">                dis[tx][ty] = dis[x.first][x.second] + <span class="number">1</span>;</span><br><span class="line">                Q.push(<span class="built_in">make_pair</span>(tx, ty));</span><br><span class="line">                <span class="keyword">if</span> (grid[tx][ty] == <span class="number">1</span>)&#123;</span><br><span class="line">                    cnt -= <span class="number">1</span>;</span><br><span class="line">                    ans = dis[tx][ty];</span><br><span class="line">                    <span class="keyword">if</span> (!cnt) <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt ? <span class="number">-1</span> : ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>总体思路是总将烂橘子入队，并逐渐记录传播的距离（也就是时间）。</p>
+<p>我的结构与题解不太一样，但是基本思路是一致的：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orangesRotting</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m = grid.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n = grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmpnum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; rotten(grid);</span><br><span class="line">        <span class="keyword">int</span> minutes = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">int</span> i, j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j])&#123;</span><br><span class="line">                    <span class="keyword">if</span>(grid[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        tmpnum++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    num++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> old_tmpnum = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpnum &lt; num &amp;&amp; old_tmpnum != tmpnum)&#123;</span><br><span class="line">            old_tmpnum = tmpnum;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                        q.emplace(i, j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">                <span class="keyword">auto</span> [i, j] = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">int</span> d;</span><br><span class="line">                <span class="keyword">if</span>(rotten[i][j] == <span class="number">2</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(d=<span class="number">0</span>; d&lt;<span class="number">4</span>; d++)&#123;</span><br><span class="line">                        <span class="keyword">int</span> x = i + dx[d];</span><br><span class="line">                        <span class="keyword">int</span> y = j + dy[d];</span><br><span class="line">                        <span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n &amp;&amp; rotten[x][y] == <span class="number">1</span>)&#123;</span><br><span class="line">                            rotten[x][y] = <span class="number">2</span>;</span><br><span class="line">                            tmpnum++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            minutes++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(old_tmpnum == tmpnum)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> minutes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码其实有一点问题：我用了<code>tmpnum</code>变量记录上一轮循环中烂橘子的数量，当进行最后一轮循环时，橘子数量不会增加，以此作为结束判定条件之一。但是这样一来就会多进行一轮计算（至少答案提交是正确的<del>，就是慢了点</del>(～￣▽￣)～</p>
+<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><ol>
+<li>  学习了C++<code>vector</code>变量初始化方法。</li>
+<li>  复习了BFS算法的思想和基本结构。</li>
+<li>  学习解题思路转换（1到0的距离问题转化成0到1的距离问题）。</li>
+</ol>
 ]]></content>
       <categories>
         <category>Algorithm</category>
@@ -327,6 +346,33 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode-005-Binary Search</title>
+    <url>/2021/10/04/LeetCode-005-Binary-Search/</url>
+    <content><![CDATA[<p>当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~</p>
+<span id="more"></span>
+
+<h4 id="1-Search-in-Rotated-Sorted-Array"><a href="#1-Search-in-Rotated-Sorted-Array" class="headerlink" title="1. Search in Rotated Sorted Array"></a>1. Search in Rotated Sorted Array</h4><p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/">https://leetcode-cn.com/problems/search-in-rotated-sorted-array/</a></p>
+<p>题目的说法有一点别扭：所谓的“rotated”到底是什么意思呢？这个翻转可与红黑树的红黑树没有半毛钱关系，就将它理解为是将一个数组<code>arr[n]</code>向左循环移位<code>k</code>次即可($1 \le k \lt n$).</p>
+<p>一个数组初始时已经按照升序排好序了，然后经过上述的“翻转”过程后作为输入。比如说，一个数组本来是<code>[1, 2, 3, 4, 5]</code>，结果给我们的是<code>[4, 5, 1, 2, 3]</code>。要求我们在$O(logn)$的时间复杂度下，找到目标元素在数组中的下标，如果找不到就返回-1.</p>
+<p>既然是$O(logn)$的时间复杂度，很容易想到的就是二分查找。但是由于给定数组的特殊结构，我们需要对二分查找的算法加亿点改动。</p>
+<p>首先可以得到这样一个结论：任何一个翻转过的数组，从中间分开成两部分中总有其中一个是排好序的。比如说给定<code>[5, 6, 7, 1, 2]</code>，可以把他从中间分成两部分：<code>[5, 6]</code>和<code>[7, 1, 2]</code>。而分辨一个数组是翻转数组还是有序数组很简单：只需要比较首末两个元素的大小。如果<code>arr[0] &lt;= arr[n-1]</code>，那么就是有序的，反之就是无序的。</p>
+<p>我们接下来要做的，就是想办法找到一个包含着目标元素、且有序的子序列(sub-array)。</p>
+<p>首先找到有序的那一半序列。如果目标在有序的一部分中，就可以将范围缩小到有序的那一半中；反之，就需要继续在翻转序列中缩小范围。其实与二分查找的思想别无二致。</p>
+<p>放代码~</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> (target == nums[<span class="number">0</span>]) ? <span class="number">0</span> : <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> left, right, mid;</span><br><span class="line">        left = <span class="number">0</span>, right = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">            mid = (left + right) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= nums[mid])&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= target &amp;&amp; target &lt; nums[mid])</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - <span class="number">1</span>])</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left &lt;= right)</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其中很tricky的地方就是等号的位置。需要仔细的思考和测试才能决定。比如说<code>if(nums[0] &lt;= nums[mid])</code>这里的小于等号，如果换成小于号，就无法处理<code>[3, 1]</code>这样的情况。类似地还有<code>if(nums[0] &lt;= target &amp;&amp; target&lt; nums[mid])</code>和<code>if(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - 1])</code>当中的小于等于号，都是为了能够处理边界位置。</p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode-004 最长回文子串</title>
     <url>/2021/09/23/LeetCode-004-Longest-Palindromic-Substring/</url>
     <content><![CDATA[<p>最长回文子串(<a href="https://leetcode-cn.com/problems/longest-palindromic-substring/">https://leetcode-cn.com/problems/longest-palindromic-substring/</a>) 是一道很经典的题目~ 我们比较容易想到的就是动态规划的方法，但是在动态规划的基础上可以进一步（其实是进两步）优化！本文主要就来介绍最长回文子串的三种解题思路~</p>
@@ -360,70 +406,6 @@
 <p><code>i</code>关于<code>j</code>的对称点<code>2*j-i</code>处的臂长<code>n = arm_len[2*j-i]</code>，那么可以推测得出，<code>i</code>处的臂长至少为<code>min(j+len-i, n)</code>，并在此基础上进行臂长的扩展。</p>
 <p>代码中加了<code>‘#’</code>的特殊处理，是为了使得算法适用于偶数长度的字符串，因为偶数长度的字符串会添加奇数个<code>‘#’</code>，而奇数长度的字符串会添加偶数个<code>‘#’</code>，从而避免了算法不适用的问题。</p>
 <h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>前两个算法的思路基本相同，并且比较直观易懂，而第三个算法明显较复杂、难以理解，尤其是利用对称点求最小可能臂长的思想，技巧性太强了QAQ。就个人来讲，从第一种算法到第二种算法的空间复杂度优化是很值得借鉴的。</p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode-006-265th周赛记录</title>
-    <url>/2021/10/31/LeetCode-006-Weekly-Contest/</url>
-    <content><![CDATA[<p>在CC98的@27rabbit的鼓励下，我还是鼓起勇气，第一次去参加了Leetcode周赛~QwQ 做题过程很波折，在这里记录一下向大神们学习到的新知识~</p>
-<span id="more"></span>
-
-<p>第一道题大概是测试考生是不是机器人的hhh. 第二道题稍微有些难度，题目给出一个单链表，要求找到临界点之间的最小和最大距离。所谓临界点，对应数学上的概念应该是极值点，有极大值和极小值。我的做法是记录两个相邻结点之间的差值，如果符号相反就记为极值点，并从第一个极值点开始记录最新的两个极值点之间的距离，这些距离之和就是结果的最大距离，最小值就是结果的最小距离。</p>
-<p>重点在我没做出来的3、4两题上QAQ. </p>
-<h4 id="转化数字的最小运算数"><a href="#转化数字的最小运算数" class="headerlink" title="转化数字的最小运算数"></a>转化数字的最小运算数</h4><p><a href="https://leetcode-cn.com/problems/minimum-operations-to-convert-number/">https://leetcode-cn.com/problems/minimum-operations-to-convert-number/</a></p>
-<p>题目给出一个数组<code>nums[]</code>，还有两个整数<code>start</code>和<code>goal</code>。要求从<code>start</code>开始，利用<code>nums[]</code>中的任意数、以任意次数和任意顺序，通过加、减、异或任意运算，获得<code>goal</code>，最终得到这个过程中需要的最小运算次数。</p>
-<p>看到这里我一下子就来劲了：暴力破解呗。然后就大刀阔斧地写出了引起<code>stack overflow</code>的算法：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> start, <span class="keyword">int</span> goal)</span> </span>&#123;</span><br><span class="line">        Found = <span class="literal">false</span>;</span><br><span class="line">        temp = <span class="number">0</span>;</span><br><span class="line">        n = start;</span><br><span class="line">        ans = <span class="number">-1</span>;</span><br><span class="line">        BackTrack(nums, goal);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> temp, ans;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">bool</span> Found;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">BackTrack</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> goal)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == goal)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ans == <span class="number">-1</span>)</span><br><span class="line">                ans = temp;</span><br><span class="line">            <span class="keyword">else</span> ans = min(ans, temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;nums.size(); i++)&#123;</span><br><span class="line">            temp ++;</span><br><span class="line">            n += nums[i];</span><br><span class="line">            BackTrack(nums, goal);</span><br><span class="line">            n -= nums[i];</span><br><span class="line">            n -= nums[i];</span><br><span class="line">            BackTrack(nums, goal);</span><br><span class="line">            n += nums[i];</span><br><span class="line">            n ^= nums[i];</span><br><span class="line">            BackTrack(nums, goal);</span><br><span class="line">            n ^= nums[i];</span><br><span class="line">            temp --;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>为什么会爆栈呢？一眼就可以看出，只要结果不等于<code>goal</code>，程序就会一直递归地执行第一条加法的<code>BackTrack()</code>。但是在此基础上实在不好给出其他的退出条件。大概也许这个思路就是错误的。</p>
-<p>在结束后，我开始研究起来大神的代码。我选中的是排名第二的 @汪乐平 的代码，因为他用的时间最短。他的代码是这样子的：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> d[<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> start, <span class="keyword">int</span> goal)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(d,<span class="number">-1</span>,<span class="keyword">sizeof</span>(d));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        q.push(start);</span><br><span class="line">        d[start]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i,j,ans;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            i=q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c:nums)</span><br><span class="line">            &#123;</span><br><span class="line">                j=i+c;</span><br><span class="line">                <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> d[i]+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!~d[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    d[j]=d[i]+<span class="number">1</span>;</span><br><span class="line">                    q.push(j);</span><br><span class="line">                &#125;</span><br><span class="line">                j=i-c;</span><br><span class="line">                <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> d[i]+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!~d[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    d[j]=d[i]+<span class="number">1</span>;</span><br><span class="line">                    q.push(j);</span><br><span class="line">                &#125;</span><br><span class="line">                j=i^c;</span><br><span class="line">                <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> d[i]+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!~d[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    d[j]=d[i]+<span class="number">1</span>;</span><br><span class="line">                    q.push(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>一眼看上去就是一个BFS。还有一个<code>d[1005]</code>的数组，因为大于1000的数是无效的，直接忽略就可以了（这么说来<code>d[1001]</code>就够了，实测确实如此）。<code>d[i]</code>记录的是从<code>start</code>获得该数所需要的运算次数，默认为<code>-1</code>。</p>
-<p>这样一来题目的结构就一目了然了。初始情况下将<code>start</code>入栈，此后每一轮循环都弹出顶部的值，对其与<code>nums[]</code>中的每一个数进行三则运算，将每一个数所需要的运算次数记录下来，并将结果入栈。这样采取循环的结构而非递归，能够大幅节约函数调用所需要的栈空间。</p>
-<p>代码中<code>!~d[j]</code>的奇怪表示令我很不熟悉，经过一番思考，才明白这是判断<code>d[j]</code>是否为-1.</p>
-<p>其实还可以对代码进行一下优化。我们只需要记录某一个数是否是经过运算得来的，并不需要显式地一一记录所需要的运算次数。因为每一轮外循环都只进行了一次运算。所以只需要一个计数变量记录即可。</p>
-<p>简单优化后的代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">bool</span> d[<span class="number">1001</span>];</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> start, <span class="keyword">int</span> goal)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(d,<span class="literal">false</span>,<span class="keyword">sizeof</span>(d));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        q.push(start);</span><br><span class="line">        d[start] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> i,j,ans;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> size = q.size();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;size; k++)&#123;</span><br><span class="line">                i=q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c:nums)</span><br><span class="line">                &#123;</span><br><span class="line">                    j=i+c;</span><br><span class="line">                    <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> count;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!d[j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        d[j]=<span class="literal">true</span>;</span><br><span class="line">                        q.push(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                    j=i-c;</span><br><span class="line">                    <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> count;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!d[j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        d[j]=<span class="literal">true</span>;</span><br><span class="line">                        q.push(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                    j=i^c;</span><br><span class="line">                    <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> count;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!d[j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        d[j]=<span class="literal">true</span>;</span><br><span class="line">                        q.push(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>表面上是多加了一层循环，其实只是将弹栈的操作放到了中层循环而已。之所以这样做，是因为本轮开始时栈中元素经过运算的次数是相同的。如果额外加上一个计数变量来记录应该也是可以的。</p>
-<p>小小总结：BFS+动态规划，解决看似不可能の暴力破解问题！</p>
-<h4 id="同源字符串检测"><a href="#同源字符串检测" class="headerlink" title="同源字符串检测"></a>同源字符串检测</h4><p>To be continued…</p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCod</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode-005-Binary Search</title>
-    <url>/2021/10/04/LeetCode-005-Binary-Search/</url>
-    <content><![CDATA[<p>当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~</p>
-<span id="more"></span>
-
-<h4 id="1-Search-in-Rotated-Sorted-Array"><a href="#1-Search-in-Rotated-Sorted-Array" class="headerlink" title="1. Search in Rotated Sorted Array"></a>1. Search in Rotated Sorted Array</h4><p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/">https://leetcode-cn.com/problems/search-in-rotated-sorted-array/</a></p>
-<p>题目的说法有一点别扭：所谓的“rotated”到底是什么意思呢？这个翻转可与红黑树的红黑树没有半毛钱关系，就将它理解为是将一个数组<code>arr[n]</code>向左循环移位<code>k</code>次即可($1 \le k \lt n$).</p>
-<p>一个数组初始时已经按照升序排好序了，然后经过上述的“翻转”过程后作为输入。比如说，一个数组本来是<code>[1, 2, 3, 4, 5]</code>，结果给我们的是<code>[4, 5, 1, 2, 3]</code>。要求我们在$O(logn)$的时间复杂度下，找到目标元素在数组中的下标，如果找不到就返回-1.</p>
-<p>既然是$O(logn)$的时间复杂度，很容易想到的就是二分查找。但是由于给定数组的特殊结构，我们需要对二分查找的算法加亿点改动。</p>
-<p>首先可以得到这样一个结论：任何一个翻转过的数组，从中间分开成两部分中总有其中一个是排好序的。比如说给定<code>[5, 6, 7, 1, 2]</code>，可以把他从中间分成两部分：<code>[5, 6]</code>和<code>[7, 1, 2]</code>。而分辨一个数组是翻转数组还是有序数组很简单：只需要比较首末两个元素的大小。如果<code>arr[0] &lt;= arr[n-1]</code>，那么就是有序的，反之就是无序的。</p>
-<p>我们接下来要做的，就是想办法找到一个包含着目标元素、且有序的子序列(sub-array)。</p>
-<p>首先找到有序的那一半序列。如果目标在有序的一部分中，就可以将范围缩小到有序的那一半中；反之，就需要继续在翻转序列中缩小范围。其实与二分查找的思想别无二致。</p>
-<p>放代码~</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums.size() == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> (target == nums[<span class="number">0</span>]) ? <span class="number">0</span> : <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> left, right, mid;</span><br><span class="line">        left = <span class="number">0</span>, right = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">            mid = (left + right) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= nums[mid])&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[<span class="number">0</span>] &lt;= target &amp;&amp; target &lt; nums[mid])</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - <span class="number">1</span>])</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left &lt;= right)</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>其中很tricky的地方就是等号的位置。需要仔细的思考和测试才能决定。比如说<code>if(nums[0] &lt;= nums[mid])</code>这里的小于等号，如果换成小于号，就无法处理<code>[3, 1]</code>这样的情况。类似地还有<code>if(nums[0] &lt;= target &amp;&amp; target&lt; nums[mid])</code>和<code>if(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - 1])</code>当中的小于等于号，都是为了能够处理边界位置。</p>
 ]]></content>
       <categories>
         <category>Algorithm</category>
@@ -559,6 +541,43 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode-006-265th周赛记录</title>
+    <url>/2021/10/31/LeetCode-006-Weekly-Contest/</url>
+    <content><![CDATA[<p>在CC98的@27rabbit的鼓励下，我还是鼓起勇气，第一次去参加了Leetcode周赛~QwQ 做题过程很波折，在这里记录一下向大神们学习到的新知识~</p>
+<span id="more"></span>
+
+<p>第一道题大概是测试考生是不是机器人的hhh. 第二道题稍微有些难度，题目给出一个单链表，要求找到临界点之间的最小和最大距离。所谓临界点，对应数学上的概念应该是极值点，有极大值和极小值。我的做法是记录两个相邻结点之间的差值，如果符号相反就记为极值点，并从第一个极值点开始记录最新的两个极值点之间的距离，这些距离之和就是结果的最大距离，最小值就是结果的最小距离。</p>
+<p>重点在我没做出来的3、4两题上QAQ. </p>
+<h4 id="转化数字的最小运算数"><a href="#转化数字的最小运算数" class="headerlink" title="转化数字的最小运算数"></a>转化数字的最小运算数</h4><p><a href="https://leetcode-cn.com/problems/minimum-operations-to-convert-number/">https://leetcode-cn.com/problems/minimum-operations-to-convert-number/</a></p>
+<p>题目给出一个数组<code>nums[]</code>，还有两个整数<code>start</code>和<code>goal</code>。要求从<code>start</code>开始，利用<code>nums[]</code>中的任意数、以任意次数和任意顺序，通过加、减、异或任意运算，获得<code>goal</code>，最终得到这个过程中需要的最小运算次数。</p>
+<p>看到这里我一下子就来劲了：暴力破解呗。然后就大刀阔斧地写出了引起<code>stack overflow</code>的算法：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> start, <span class="keyword">int</span> goal)</span> </span>&#123;</span><br><span class="line">        Found = <span class="literal">false</span>;</span><br><span class="line">        temp = <span class="number">0</span>;</span><br><span class="line">        n = start;</span><br><span class="line">        ans = <span class="number">-1</span>;</span><br><span class="line">        BackTrack(nums, goal);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> temp, ans;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">bool</span> Found;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">BackTrack</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> goal)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == goal)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ans == <span class="number">-1</span>)</span><br><span class="line">                ans = temp;</span><br><span class="line">            <span class="keyword">else</span> ans = min(ans, temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;nums.size(); i++)&#123;</span><br><span class="line">            temp ++;</span><br><span class="line">            n += nums[i];</span><br><span class="line">            BackTrack(nums, goal);</span><br><span class="line">            n -= nums[i];</span><br><span class="line">            n -= nums[i];</span><br><span class="line">            BackTrack(nums, goal);</span><br><span class="line">            n += nums[i];</span><br><span class="line">            n ^= nums[i];</span><br><span class="line">            BackTrack(nums, goal);</span><br><span class="line">            n ^= nums[i];</span><br><span class="line">            temp --;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>为什么会爆栈呢？一眼就可以看出，只要结果不等于<code>goal</code>，程序就会一直递归地执行第一条加法的<code>BackTrack()</code>。但是在此基础上实在不好给出其他的退出条件。大概也许这个思路就是错误的。</p>
+<p>在结束后，我开始研究起来大神的代码。我选中的是排名第二的 @汪乐平 的代码，因为他用的时间最短。他的代码是这样子的：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> d[<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> start, <span class="keyword">int</span> goal)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(d,<span class="number">-1</span>,<span class="keyword">sizeof</span>(d));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        q.push(start);</span><br><span class="line">        d[start]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i,j,ans;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            i=q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c:nums)</span><br><span class="line">            &#123;</span><br><span class="line">                j=i+c;</span><br><span class="line">                <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> d[i]+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!~d[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    d[j]=d[i]+<span class="number">1</span>;</span><br><span class="line">                    q.push(j);</span><br><span class="line">                &#125;</span><br><span class="line">                j=i-c;</span><br><span class="line">                <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> d[i]+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!~d[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    d[j]=d[i]+<span class="number">1</span>;</span><br><span class="line">                    q.push(j);</span><br><span class="line">                &#125;</span><br><span class="line">                j=i^c;</span><br><span class="line">                <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> d[i]+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!~d[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    d[j]=d[i]+<span class="number">1</span>;</span><br><span class="line">                    q.push(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>一眼看上去就是一个BFS。还有一个<code>d[1005]</code>的数组，因为大于1000的数是无效的，直接忽略就可以了（这么说来<code>d[1001]</code>就够了，实测确实如此）。<code>d[i]</code>记录的是从<code>start</code>获得该数所需要的运算次数，默认为<code>-1</code>。</p>
+<p>这样一来题目的结构就一目了然了。初始情况下将<code>start</code>入栈，此后每一轮循环都弹出顶部的值，对其与<code>nums[]</code>中的每一个数进行三则运算，将每一个数所需要的运算次数记录下来，并将结果入栈。这样采取循环的结构而非递归，能够大幅节约函数调用所需要的栈空间。</p>
+<p>代码中<code>!~d[j]</code>的奇怪表示令我很不熟悉，经过一番思考，才明白这是判断<code>d[j]</code>是否为-1.</p>
+<p>其实还可以对代码进行一下优化。我们只需要记录某一个数是否是经过运算得来的，并不需要显式地一一记录所需要的运算次数。因为每一轮外循环都只进行了一次运算。所以只需要一个计数变量记录即可。</p>
+<p>简单优化后的代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">bool</span> d[<span class="number">1001</span>];</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> start, <span class="keyword">int</span> goal)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(d,<span class="literal">false</span>,<span class="keyword">sizeof</span>(d));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        q.push(start);</span><br><span class="line">        d[start] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> i,j,ans;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> size = q.size();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;size; k++)&#123;</span><br><span class="line">                i=q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c:nums)</span><br><span class="line">                &#123;</span><br><span class="line">                    j=i+c;</span><br><span class="line">                    <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> count;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!d[j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        d[j]=<span class="literal">true</span>;</span><br><span class="line">                        q.push(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                    j=i-c;</span><br><span class="line">                    <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> count;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!d[j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        d[j]=<span class="literal">true</span>;</span><br><span class="line">                        q.push(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                    j=i^c;</span><br><span class="line">                    <span class="keyword">if</span>(j==goal)<span class="keyword">return</span> count;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=<span class="number">0</span>&amp;&amp;j&lt;=<span class="number">1000</span>&amp;&amp;!d[j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        d[j]=<span class="literal">true</span>;</span><br><span class="line">                        q.push(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>表面上是多加了一层循环，其实只是将弹栈的操作放到了中层循环而已。之所以这样做，是因为本轮开始时栈中元素经过运算的次数是相同的。如果额外加上一个计数变量来记录应该也是可以的。</p>
+<p>小小总结：BFS+动态规划，解决看似不可能の暴力破解问题！</p>
+<h4 id="同源字符串检测"><a href="#同源字符串检测" class="headerlink" title="同源字符串检测"></a>同源字符串检测</h4><p>To be continued…</p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCod</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OpenGL学习-01-坐标变换</title>
     <url>/2021/11/29/OpenGL-learn-01-rotation/</url>
     <content><![CDATA[<p>最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。</p>
@@ -605,6 +624,49 @@
       </categories>
       <tags>
         <tag>OpenGL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>diary-1</title>
+    <url>/2021/04/30/diary-1/</url>
+    <content><![CDATA[<p>午后的阳光流入我的身体</p>
+<p>像融化的奶油冰淇淋</p>
+<p>闭上眼睛品味一下——</p>
+<p>呀，是香草味的~</p>
+<p>还有一点</p>
+<p>樟树花的香气</p>
+]]></content>
+      <categories>
+        <category>diary?</category>
+      </categories>
+      <tags>
+        <tag>diary?</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RIME输入法配置</title>
+    <url>/2021/10/27/RIME-input/</url>
+    <content><![CDATA[<p>今天在新装的Manjaro Plasma KDE上安装了大名鼎鼎的RIME输入法~ 还算是成功，但是捣鼓了好一会儿QAQ 问题主要在配置文件上.</p>
+<span id="more"></span>
+
+<h4 id="1-安装工具"><a href="#1-安装工具" class="headerlink" title="1. 安装工具"></a>1. 安装工具</h4><p>这里采用的是<code>fcitx5 + rime</code>的组合~</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime</span><br></pre></td></tr></table></figure>
+
+<p>需要重启~</p>
+<h4 id="2-设置启动"><a href="#2-设置启动" class="headerlink" title="2. 设置启动"></a>2. 设置启动</h4><p>在<code>~/.xprofile</code>文件中添加以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx5</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODEUL=fcitx5</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">&quot;@im=fcitx5&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在Manjaro KDE中可以直接在Settings菜单中添加<code>fcitx5</code>的启动项，或者也可以在<code>~/.xprofile</code>中插入: <code>fcitx5 &amp;</code>.</p>
+<h4 id="3-配置文件"><a href="#3-配置文件" class="headerlink" title="3. 配置文件"></a>3. 配置文件</h4><p>这里直接用了 @闲耘 的配置（感谢！），我为了适配加了一些的改动~</p>
+<p><a href="https://hub.fastgit.org/colored-dye/rime">https://hub.fastgit.org/colored-dye/rime</a></p>
+<p>而这里是其他用户的使用心得：</p>
+<p><a href="https://jdhao.github.io/2019/02/18/rime_configuration_intro/">https://jdhao.github.io/2019/02/18/rime_configuration_intro/</a></p>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>Tools</tag>
       </tags>
   </entry>
   <entry>
@@ -677,66 +739,6 @@
       </categories>
       <tags>
         <tag>OpenGL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RIME输入法配置</title>
-    <url>/2021/10/27/RIME-input/</url>
-    <content><![CDATA[<p>今天在新装的Manjaro Plasma KDE上安装了大名鼎鼎的RIME输入法~ 还算是成功，但是捣鼓了好一会儿QAQ 问题主要在配置文件上.</p>
-<span id="more"></span>
-
-<h4 id="1-安装工具"><a href="#1-安装工具" class="headerlink" title="1. 安装工具"></a>1. 安装工具</h4><p>这里采用的是<code>fcitx5 + rime</code>的组合~</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime</span><br></pre></td></tr></table></figure>
-
-<p>需要重启~</p>
-<h4 id="2-设置启动"><a href="#2-设置启动" class="headerlink" title="2. 设置启动"></a>2. 设置启动</h4><p>在<code>~/.xprofile</code>文件中添加以下内容：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx5</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODEUL=fcitx5</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">&quot;@im=fcitx5&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>在Manjaro KDE中可以直接在Settings菜单中添加<code>fcitx5</code>的启动项，或者也可以在<code>~/.xprofile</code>中插入: <code>fcitx5 &amp;</code>.</p>
-<h4 id="3-配置文件"><a href="#3-配置文件" class="headerlink" title="3. 配置文件"></a>3. 配置文件</h4><p>这里直接用了 @闲耘 的配置（感谢！），我为了适配加了一些的改动~</p>
-<p><a href="https://hub.fastgit.org/colored-dye/rime">https://hub.fastgit.org/colored-dye/rime</a></p>
-<p>而这里是其他用户的使用心得：</p>
-<p><a href="https://jdhao.github.io/2019/02/18/rime_configuration_intro/">https://jdhao.github.io/2019/02/18/rime_configuration_intro/</a></p>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-      <tags>
-        <tag>Tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PPL-Lab-Description</title>
-    <url>/2021/10/06/PPL-Lab-Description/</url>
-    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
-<span id="more"></span>
-
-<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
-<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
-<p>(MUA这个名字起得真妙hhh)</p>
-]]></content>
-      <categories>
-        <category>PPL</category>
-      </categories>
-      <tags>
-        <tag>PPL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>diary-1</title>
-    <url>/2021/04/30/diary-1/</url>
-    <content><![CDATA[<p>午后的阳光流入我的身体</p>
-<p>像融化的奶油冰淇淋</p>
-<p>闭上眼睛品味一下——</p>
-<p>呀，是香草味的~</p>
-<p>还有一点</p>
-<p>樟树花的香气</p>
-]]></content>
-      <categories>
-        <category>diary?</category>
-      </categories>
-      <tags>
-        <tag>diary?</tag>
       </tags>
   </entry>
   <entry>
@@ -825,6 +827,23 @@
         <tag>OS</tag>
         <tag>RISC-V</tag>
         <tag>xv6-riscv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PPL-Lab-Description</title>
+    <url>/2021/10/06/PPL-Lab-Description/</url>
+    <content><![CDATA[<p>这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~</p>
+<span id="more"></span>
+
+<p>MUA Git Repository: <a href="https://git.zju.edu.cn/ppl-course/mua">https://git.zju.edu.cn/ppl-course/mua</a></p>
+<p>MUA Specification: <a href="https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md">https://git.zju.edu.cn/ppl-course/mua/-/blob/main/mua-specification.md</a></p>
+<p>(MUA这个名字起得真妙hhh)</p>
+]]></content>
+      <categories>
+        <category>Programming-Languages</category>
+      </categories>
+      <tags>
+        <tag>Programming-Languages</tag>
       </tags>
   </entry>
   <entry>

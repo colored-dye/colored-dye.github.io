@@ -23,18 +23,22 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"colored-dye.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Come and have a cup of tea ~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="colored-dye&#39;s Blog">
-<meta property="og:url" content="https://colored-dye.github.io/tags/LeetCode/index.html">
+<meta name="description" content="最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言学习01">
+<meta property="og:url" content="https://colored-dye.github.io/2022/01/23/Go-01/index.html">
 <meta property="og:site_name" content="colored-dye&#39;s Blog">
-<meta property="og:description" content="Come and have a cup of tea ~">
+<meta property="og:description" content="最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-23T08:38:13.000Z">
+<meta property="article:modified_time" content="2022-01-23T08:51:14.089Z">
 <meta property="article:author" content="colored-dye">
+<meta property="article:tag" content="Programming-Languages">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://colored-dye.github.io/tags/LeetCode/">
+<link rel="canonical" href="https://colored-dye.github.io/2022/01/23/Go-01/">
 
 
 <script class="page-configurations">
@@ -42,11 +46,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>标签: LeetCode | colored-dye's Blog</title>
+<title>Go语言学习01 | colored-dye's Blog</title>
   
 
 
@@ -169,7 +173,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -182,6 +186,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-println%E5%92%8Cfmt-Println%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">1. println和fmt.Println的区别</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -237,131 +242,112 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">LeetCode
-          <small>标签</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://colored-dye.github.io/2022/01/23/Go-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/avatar.jpg">
+      <meta itemprop="name" content="colored-dye">
+      <meta itemprop="description" content="Come and have a cup of tea ~">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="colored-dye's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言学习01
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="创建时间：2022-01-23 16:38:13 / 修改时间：16:51:14" itemprop="dateCreated datePublished" datetime="2022-01-23T16:38:13+08:00">2022-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Programming-Languages/" itemprop="url" rel="index"><span itemprop="name">Programming-Languages</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~</p>
+<span id="more"></span>
+
+<h4 id="1-println和fmt-Println的区别"><a href="#1-println和fmt-Println的区别" class="headerlink" title="1. println和fmt.Println的区别"></a>1. <code>println</code>和<code>fmt.Println</code>的区别</h4><p>参考资料：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lenfranky/article/details/102898190">https://blog.csdn.net/lenfranky/article/details/102898190</a></p>
+<p>在开始学习任何一门新语言的时候，首先要做的就是“Hello, world!”辣~ 但是Go官方学习指南给的示例代码却需要先引入包<code>fmt</code>，再调用<code>fmt.Println(&quot;Hello, world!&quot;)</code>. 个人感觉这个<code>fmt.Println</code>的写法不太优雅，于是在编辑器里尝试性地输了<code>printf</code>、<code>println</code>等等写法，发现<code>println</code>的用法是存在的。</p>
+<p>这就很奇怪了。既然已经有了简洁的<code>println</code>写法，为什么还非要用<code>fmt</code>包呢？参考资料告诉我们，这两个函数的主要差别在于：<code>println</code>主要用于调试，因为其不需要依赖项；而<code>fmt.Println</code>主要用于生产环境，更具有通用性。更深来讲，<code>println</code>是向<code>stderr</code>流写，而<code>fmt.Println</code>是向<code>stdout</code>写。</p>
+<p>参考文章还指出，如果两者混用有可能会发生输出顺序乱序的情况。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-10-04T19:30:42+08:00"
-              content="2021-10-04">
-          10-04
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/10/04/LeetCode-005-Binary-Search/" itemprop="url">
-            <span itemprop="name">LeetCode-005-Binary Search</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Programming-Languages/" rel="tag"># Programming-Languages</a>
+              <a href="/tags/Go/" rel="tag"># Go</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/19/OpenGL-learn-02-shader/" rel="prev" title="OpenGL-learn-02-着色器和光照">
+                  <i class="fa fa-chevron-left"></i> OpenGL-learn-02-着色器和光照
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-09-23T20:07:24+08:00"
-              content="2021-09-23">
-          09-23
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/23/LeetCode-004-Longest-Palindromic-Substring/" itemprop="url">
-            <span itemprop="name">LeetCode-004 最长回文子串</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-09-22T14:48:18+08:00"
-              content="2021-09-22">
-          09-22
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/22/LeetCode-003-DP-02/" itemprop="url">
-            <span itemprop="name">LeetCode-003-DP-02</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-09-15T22:22:04+08:00"
-              content="2021-09-15">
-          09-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/15/LeetCode-002-DP-01/" itemprop="url">
-            <span itemprop="name">LeetCode-002-DP-01</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-09-15T16:53:38+08:00"
-              content="2021-09-15">
-          09-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/09/15/LeetCode-001-BFS-01Matrix-RottenOranges/" itemprop="url">
-            <span itemprop="name">LeetCode做题记录001 BFS: 01Matrix&RottenOranges</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
-
+    <div class="comments gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -444,6 +430,26 @@
   
 
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '01b491144f0fb92c202d',
+      clientSecret: 'c9b013d13c8ea62b9ca30ab01e2fcf07386175fd',
+      repo        : 'colored-dye.github.io',
+      owner       : 'colored-dye',
+      admin       : ['colored-dye'],
+      id          : 'fc01ccc777ad0af8152ba57aa01783af',
+      proxy       : 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
