@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenGL on colored-dye&#39;s Blog</title>
+    <link>http://localhost:1313/categories/opengl/</link>
+    <description>Recent content in OpenGL on colored-dye&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 19 Jan 2022 15:46:23 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/opengl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenGL-learn-02-着色器和光照</title>
+      <link>http://localhost:1313/2022/01/opengl-learn-02-%E7%9D%80%E8%89%B2%E5%99%A8%E5%92%8C%E5%85%89%E7%85%A7/</link>
+      <pubDate>Wed, 19 Jan 2022 15:46:23 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2022/01/opengl-learn-02-%E7%9D%80%E8%89%B2%E5%99%A8%E5%92%8C%E5%85%89%E7%85%A7/</guid>
+      <description>正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Q</description>
+    </item>
+    
+    <item>
+      <title>OpenGL学习-01-坐标变换</title>
+      <link>http://localhost:1313/2021/11/opengl%E5%AD%A6%E4%B9%A0-01-%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/</link>
+      <pubDate>Mon, 29 Nov 2021 23:21:31 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/11/opengl%E5%AD%A6%E4%B9%A0-01-%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/</guid>
+      <description>最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看</description>
+    </item>
+    
+  </channel>
+</rss>

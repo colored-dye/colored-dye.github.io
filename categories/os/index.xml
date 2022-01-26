@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OS on colored-dye&#39;s Blog</title>
+    <link>http://localhost:1313/categories/os/</link>
+    <description>Recent content in OS on colored-dye&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 01 May 2021 12:34:23 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/os/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>xv6-riscv学习1-Chapter1</title>
+      <link>http://localhost:1313/2021/05/xv6-riscv%E5%AD%A6%E4%B9%A01-chapter1/</link>
+      <pubDate>Sat, 01 May 2021 12:34:23 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/05/xv6-riscv%E5%AD%A6%E4%B9%A01-chapter1/</guid>
+      <description>Chapter 1: Operating System Interfaces 第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功</description>
+    </item>
+    
+    <item>
+      <title>xv6-riscv学习0</title>
+      <link>http://localhost:1313/2021/04/xv6-riscv%E5%AD%A6%E4%B9%A00/</link>
+      <pubDate>Sun, 11 Apr 2021 20:47:31 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/04/xv6-riscv%E5%AD%A6%E4%B9%A00/</guid>
+      <description>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心</description>
+    </item>
+    
+  </channel>
+</rss>

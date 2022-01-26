@@ -6,112 +6,166 @@
     <description>Recent content in Tags on colored-dye&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 10 Jul 2018 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jan 2022 16:38:13 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>preview</title>
-      <link>http://localhost:1313/tags/preview/</link>
-      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      <title>Go</title>
+      <link>http://localhost:1313/tags/go/</link>
+      <pubDate>Sun, 23 Jan 2022 16:38:13 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/preview/</guid>
+      <guid>http://localhost:1313/tags/go/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-3</title>
-      <link>http://localhost:1313/tags/tag-3/</link>
-      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      <title>Programming-Languages</title>
+      <link>http://localhost:1313/tags/programming-languages/</link>
+      <pubDate>Sun, 23 Jan 2022 16:38:13 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/tag-3/</guid>
+      <guid>http://localhost:1313/tags/programming-languages/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Theme preview</title>
-      <link>http://localhost:1313/tags/theme-preview/</link>
-      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      <title>OpenGL</title>
+      <link>http://localhost:1313/tags/opengl/</link>
+      <pubDate>Wed, 19 Jan 2022 15:46:23 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/theme-preview/</guid>
+      <guid>http://localhost:1313/tags/opengl/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>English</title>
-      <link>http://localhost:1313/tags/english/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      <title>Latex</title>
+      <link>http://localhost:1313/tags/latex/</link>
+      <pubDate>Wed, 29 Dec 2021 22:57:24 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/english/</guid>
+      <guid>http://localhost:1313/tags/latex/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-2</title>
-      <link>http://localhost:1313/tags/tag-2/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      <title>misc</title>
+      <link>http://localhost:1313/tags/misc/</link>
+      <pubDate>Wed, 29 Dec 2021 22:57:24 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/tag-2/</guid>
+      <guid>http://localhost:1313/tags/misc/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-4</title>
-      <link>http://localhost:1313/tags/tag-4/</link>
-      <pubDate>Wed, 30 Aug 2017 01:53:34 +0800</pubDate>
+      <title>Algorithm</title>
+      <link>http://localhost:1313/tags/algorithm/</link>
+      <pubDate>Sun, 31 Oct 2021 16:01:32 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/tag-4/</guid>
+      <guid>http://localhost:1313/tags/algorithm/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>日本語</title>
-      <link>http://localhost:1313/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</link>
-      <pubDate>Wed, 30 Aug 2017 01:53:34 +0800</pubDate>
+      <title>LeetCod</title>
+      <link>http://localhost:1313/tags/leetcod/</link>
+      <pubDate>Sun, 31 Oct 2021 16:01:32 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</guid>
+      <guid>http://localhost:1313/tags/leetcod/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-1</title>
-      <link>http://localhost:1313/tags/tag-1/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <title>Tools</title>
+      <link>http://localhost:1313/tags/tools/</link>
+      <pubDate>Wed, 27 Oct 2021 22:36:45 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/tag-1/</guid>
+      <guid>http://localhost:1313/tags/tools/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>中文</title>
-      <link>http://localhost:1313/tags/%E4%B8%AD%E6%96%87/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <title>LeetCode</title>
+      <link>http://localhost:1313/tags/leetcode/</link>
+      <pubDate>Mon, 04 Oct 2021 19:30:42 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/%E4%B8%AD%E6%96%87/</guid>
+      <guid>http://localhost:1313/tags/leetcode/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>shortcodes</title>
-      <link>http://localhost:1313/tags/shortcodes/</link>
-      <pubDate>Tue, 30 Aug 2016 16:01:23 +0800</pubDate>
+      <title>Spider</title>
+      <link>http://localhost:1313/tags/spider/</link>
+      <pubDate>Sun, 29 Aug 2021 16:00:29 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/shortcodes/</guid>
+      <guid>http://localhost:1313/tags/spider/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Syntax Highlighting</title>
-      <link>http://localhost:1313/tags/syntax-highlighting/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
+      <title>Makefile</title>
+      <link>http://localhost:1313/tags/makefile/</link>
+      <pubDate>Sun, 11 Jul 2021 18:04:36 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/syntax-highlighting/</guid>
+      <guid>http://localhost:1313/tags/makefile/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-5</title>
-      <link>http://localhost:1313/tags/tag-5/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
+      <title>Regular-Expression</title>
+      <link>http://localhost:1313/tags/regular-expression/</link>
+      <pubDate>Sun, 11 Jul 2021 18:04:21 +0000</pubDate>
       
-      <guid>http://localhost:1313/tags/tag-5/</guid>
+      <guid>http://localhost:1313/tags/regular-expression/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OS</title>
+      <link>http://localhost:1313/tags/os/</link>
+      <pubDate>Sat, 01 May 2021 12:34:23 +0000</pubDate>
+      
+      <guid>http://localhost:1313/tags/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RISC-V</title>
+      <link>http://localhost:1313/tags/risc-v/</link>
+      <pubDate>Sat, 01 May 2021 12:34:23 +0000</pubDate>
+      
+      <guid>http://localhost:1313/tags/risc-v/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xv6-riscv</title>
+      <link>http://localhost:1313/tags/xv6-riscv/</link>
+      <pubDate>Sat, 01 May 2021 12:34:23 +0000</pubDate>
+      
+      <guid>http://localhost:1313/tags/xv6-riscv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>diary?</title>
+      <link>http://localhost:1313/tags/diary/</link>
+      <pubDate>Fri, 30 Apr 2021 14:06:14 +0000</pubDate>
+      
+      <guid>http://localhost:1313/tags/diary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>http://localhost:1313/tags/git/</link>
+      <pubDate>Fri, 26 Mar 2021 22:56:54 +0000</pubDate>
+      
+      <guid>http://localhost:1313/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hexo</title>
+      <link>http://localhost:1313/tags/hexo/</link>
+      <pubDate>Mon, 22 Mar 2021 22:07:39 +0000</pubDate>
+      
+      <guid>http://localhost:1313/tags/hexo/</guid>
       <description></description>
     </item>
     

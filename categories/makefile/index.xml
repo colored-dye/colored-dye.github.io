@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Makefile on colored-dye&#39;s Blog</title>
+    <link>http://localhost:1313/categories/makefile/</link>
+    <description>Recent content in Makefile on colored-dye&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 11 Jul 2021 18:04:36 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/makefile/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Makefile语法</title>
+      <link>http://localhost:1313/2021/07/makefile%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Sun, 11 Jul 2021 18:04:36 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/07/makefile%E8%AF%AD%E6%B3%95/</guid>
+      <description>Makefile在C/C++工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Li</description>
+    </item>
+    
+  </channel>
+</rss>

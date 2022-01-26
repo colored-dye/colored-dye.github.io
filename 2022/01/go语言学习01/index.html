@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go语言学习01 - colored-dye&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="colored-dye" /><meta name="description" content="最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/01/go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A001/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go语言学习01" />
+<meta property="og:description" content="最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/01/go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A001/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-23T16:38:13+00:00" />
+<meta property="article:modified_time" content="2022-01-23T16:38:13+00:00" />
+
+<meta itemprop="name" content="Go语言学习01">
+<meta itemprop="description" content="最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而"><meta itemprop="datePublished" content="2022-01-23T16:38:13+00:00" />
+<meta itemprop="dateModified" content="2022-01-23T16:38:13+00:00" />
+<meta itemprop="wordCount" content="805">
+<meta itemprop="keywords" content="Programming-Languages,Go," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go语言学习01"/>
+<meta name="twitter:description" content="最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">colored-dye</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">colored-dye</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go语言学习01</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-23 </span>
+        <div class="post-category">
+            <a href="/categories/programming-languages/"> Programming-Languages </a>
+            </div>
+          <span class="more-meta"> 805 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~</p>
+<!-- more -->
+<h4 id="1-println和fmtprintln的区别">1. <code>println</code>和<code>fmt.Println</code>的区别</h4>
+<p>参考资料：https://blog.csdn.net/lenfranky/article/details/102898190</p>
+<p>在开始学习任何一门新语言的时候，首先要做的就是“Hello, world!”辣~ 但是Go官方学习指南给的示例代码却需要先引入包<code>fmt</code>，再调用<code>fmt.Println(&quot;Hello, world!&quot;)</code>. 个人感觉这个<code>fmt.Println</code>的写法不太优雅，于是在编辑器里尝试性地输了<code>printf</code>、<code>println</code>等等写法，发现<code>println</code>的用法是存在的。</p>
+<p>这就很奇怪了。既然已经有了简洁的<code>println</code>写法，为什么还非要用<code>fmt</code>包呢？参考资料告诉我们，这两个函数的主要差别在于：<code>println</code>主要用于调试，因为其不需要依赖项；而<code>fmt.Println</code>主要用于生产环境，更具有通用性。更深来讲，<code>println</code>是向<code>stderr</code>流写，而<code>fmt.Println</code>是向<code>stdout</code>写。</p>
+<p>参考文章还指出，如果两者混用有可能会发生输出顺序乱序的情况。</p>
+<h4 id="2-面向对象编程">2. 面向对象编程</h4>
+<p>面向对象有三个核心概念：封装，继承和多态。</p>
+<h5 id="1-封装">(1) 封装</h5>
+<p>Go语言中没有类的概念，有的只是结构体和方法。结构体的定义与C十分类似，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Perceptron</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">input</span>   <span class="p">[][]</span><span class="kt">float64</span>
+	<span class="nx">output</span>  <span class="p">[]</span><span class="kt">float64</span>
+	<span class="nx">weights</span> <span class="p">[]</span><span class="kt">float64</span>
+	<span class="nx">bias</span>    <span class="kt">float64</span>
+	<span class="nx">epochs</span>  <span class="kt">int</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>关于方法，Go方法是作用在“接收者(Receiver)”上的函数，所谓“接收者”就是某一类型的变量。定义方法的一般格式为：<code>func (receiver_ptr receiver_type) methodName(parameter_list) return_value {...}</code>. 一个例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Perceptron</span><span class="p">)</span> <span class="nf">forward</span><span class="p">(</span><span class="nx">x</span> <span class="p">[]</span><span class="kt">float64</span><span class="p">)</span> <span class="p">(</span><span class="nx">sum</span> <span class="kt">float64</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="nf">dotProduct</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">weights</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span> <span class="o">+</span> <span class="nx">p</span><span class="p">.</span><span class="nx">bias</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以注意到，接收者参数一般用指针传递。如果要使用某方法，只需要<code>p.forward(x)</code>即可，与大多数支持面向对象的语言调用方法的方式一致。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">colored-dye</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-01-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/programming-languages/">Programming-Languages</a>
+          <a href="/tags/go/">Go</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2022/01/opengl-learn-02-%E7%9D%80%E8%89%B2%E5%99%A8%E5%92%8C%E5%85%89%E7%85%A7/">
+            <span class="next-text nav-default">OpenGL-learn-02-着色器和光照</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2022-01-23 16:38:13 \u002b0000 UTC',
+        title: 'Go语言学习01',
+        clientID: '01b491144f0fb92c202d',
+        clientSecret: 'c9b013d13c8ea62b9ca30ab01e2fcf07386175fd',
+        repo: 'colored-dye.github.io',
+        owner: 'colored-dye',
+        admin: ['colored-dye'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:baoyuntai@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/colored-dye" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

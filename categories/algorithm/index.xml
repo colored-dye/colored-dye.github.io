@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on colored-dye&#39;s Blog</title>
+    <link>http://localhost:1313/categories/algorithm/</link>
+    <description>Recent content in Algorithm on colored-dye&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 31 Oct 2021 16:01:32 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode-006-265th周赛记录</title>
+      <link>http://localhost:1313/2021/10/leetcode-006-265th%E5%91%A8%E8%B5%9B%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 31 Oct 2021 16:01:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/10/leetcode-006-265th%E5%91%A8%E8%B5%9B%E8%AE%B0%E5%BD%95/</guid>
+      <description>在CC98的@27rabbit的鼓励下，我还是鼓起勇气，第一次去参加了Leetcode周赛~QwQ 做题过程很波折，在这里记录一下向大神们学习</description>
+    </item>
+    
+    <item>
+      <title>LeetCode-005-Binary Search</title>
+      <link>http://localhost:1313/2021/10/leetcode-005-binary-search/</link>
+      <pubDate>Mon, 04 Oct 2021 19:30:42 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/10/leetcode-005-binary-search/</guid>
+      <description>当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二</description>
+    </item>
+    
+    <item>
+      <title>LeetCode-004 最长回文子串</title>
+      <link>http://localhost:1313/2021/09/leetcode-004-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</link>
+      <pubDate>Thu, 23 Sep 2021 20:07:24 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/09/leetcode-004-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</guid>
+      <description>最长回文子串(https://leetcode-cn.com/problems/longest-palindromic-substring/</description>
+    </item>
+    
+    <item>
+      <title>LeetCode-003-DP-02</title>
+      <link>http://localhost:1313/2021/09/leetcode-003-dp-02/</link>
+      <pubDate>Wed, 22 Sep 2021 14:48:18 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/09/leetcode-003-dp-02/</guid>
+      <description>这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~ 1. Word Break 链接：https://leetcode-cn.com/probl</description>
+    </item>
+    
+    <item>
+      <title>LeetCode-002-DP-01</title>
+      <link>http://localhost:1313/2021/09/leetcode-002-dp-01/</link>
+      <pubDate>Wed, 15 Sep 2021 22:22:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/09/leetcode-002-dp-01/</guid>
+      <description>今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件</description>
+    </item>
+    
+    <item>
+      <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
+      <link>http://localhost:1313/2021/09/leetcode%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95001-bfs-01matrixrottenoranges/</link>
+      <pubDate>Wed, 15 Sep 2021 16:53:38 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/09/leetcode%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95001-bfs-01matrixrottenoranges/</guid>
+      <description>最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关</description>
+    </item>
+    
+    <item>
+      <title>三种堆的插入效率比较</title>
+      <link>http://localhost:1313/2021/03/%E4%B8%89%E7%A7%8D%E5%A0%86%E7%9A%84%E6%8F%92%E5%85%A5%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/</link>
+      <pubDate>Sun, 28 Mar 2021 13:25:57 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/03/%E4%B8%89%E7%A7%8D%E5%A0%86%E7%9A%84%E6%8F%92%E5%85%A5%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/</guid>
+      <description>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。 问题描述 问题是这样的： In the first three weeks we have been trying everything to maintain</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>misc on colored-dye&#39;s Blog</title>
+    <link>http://localhost:1313/tags/misc/</link>
+    <description>Recent content in misc on colored-dye&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 29 Dec 2021 22:57:24 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/misc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>希腊字母表in Latex</title>
+      <link>http://localhost:1313/2021/12/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%A1%A8in-latex/</link>
+      <pubDate>Wed, 29 Dec 2021 22:57:24 +0000</pubDate>
+      
+      <guid>http://localhost:1313/2021/12/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%A1%A8in-latex/</guid>
+      <description>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</description>
+    </item>
+    
+  </channel>
+</rss>
