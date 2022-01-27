@@ -6,7 +6,16 @@
     <description>Recent content in Categories on colored-dye&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 23 Jan 2022 16:38:13 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Jan 2022 15:01:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo</title>
+      <link>http://localhost:1313/categories/hugo/</link>
+      <pubDate>Thu, 27 Jan 2022 15:01:41 +0800</pubDate>
+      
+      <guid>http://localhost:1313/categories/hugo/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Programming-Languages</title>
       <link>http://localhost:1313/categories/programming-languages/</link>

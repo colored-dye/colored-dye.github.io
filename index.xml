@@ -6,7 +6,7 @@
     <description>Recent content on colored-dye&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 23 Jan 2022 16:38:13 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Jan 2022 15:01:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/</link>
@@ -14,6 +14,15 @@
       
       <guid>http://localhost:1313/about/</guid>
       <description>colored-dye’s Blog，记录知识和生活，欢迎围观和讨论~ v(o゜▽゜)o☆ Email: baoyuntai@outlook.com GitHub: https://github.com/colored-dye</description>
+    </item>
+    
+    <item>
+      <title>Hugo代码块复制功能</title>
+      <link>http://localhost:1313/hugo-codecopy/</link>
+      <pubDate>Thu, 27 Jan 2022 15:01:41 +0800</pubDate>
+      
+      <guid>http://localhost:1313/hugo-codecopy/</guid>
+      <description>&lt;p&gt;今天刚刚把博客从Hexo框架迁移到Hugo啦！期间遇到了一些问题，大多数都比较顺利地解决了。稍微麻烦一点的就是为代码块添加复制功能。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -161,11 +170,11 @@
     </item>
     
     <item>
-      <title>diary-1</title>
-      <link>http://localhost:1313/2021/04/diary-1/</link>
+      <title>日记1</title>
+      <link>http://localhost:1313/2021/04/%E6%97%A5%E8%AE%B01/</link>
       <pubDate>Fri, 30 Apr 2021 14:06:14 +0000</pubDate>
       
-      <guid>http://localhost:1313/2021/04/diary-1/</guid>
+      <guid>http://localhost:1313/2021/04/%E6%97%A5%E8%AE%B01/</guid>
       <description>午后的阳光流入我的身体 像融化的奶油冰淇淋 闭上眼睛品味一下—— 呀，是香草味的~ 还有一点 樟树花的香气</description>
     </item>
     

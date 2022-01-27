@@ -38,6 +38,7 @@
 
 <link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/add-copy-btn.css">
 
 
 <meta property="og:title" content="OpenGL学习-01-坐标变换" />
@@ -45,12 +46,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/11/opengl%E5%AD%A6%E4%B9%A0-01-%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-11-29T23:21:31+00:00" />
-<meta property="article:modified_time" content="2022-01-27T11:06:14+08:00" />
+<meta property="article:modified_time" content="2022-01-27T13:35:45+08:00" />
 
 <meta itemprop="name" content="OpenGL学习-01-坐标变换">
 <meta itemprop="description" content="最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。"><meta itemprop="datePublished" content="2021-11-29T23:21:31+00:00" />
-<meta itemprop="dateModified" content="2022-01-27T11:06:14+08:00" />
-<meta itemprop="wordCount" content="2617">
+<meta itemprop="dateModified" content="2022-01-27T13:35:45+08:00" />
+<meta itemprop="wordCount" content="2611">
 <meta itemprop="keywords" content="OpenGL," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="OpenGL学习-01-坐标变换"/>
 <meta name="twitter:description" content="最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。"/>
@@ -137,7 +138,7 @@
         <div class="post-category">
             <a href="/categories/opengl/"> OpenGL </a>
             </div>
-          <span class="more-meta"> 约 2617 字 </span>
+          <span class="more-meta"> 约 2611 字 </span>
           <span class="more-meta"> 预计阅读 6 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -192,18 +193,18 @@
 <p>摄像机有三个属性：位置、视野正方向和上方方向。通过调整这三个参数，可以改变窗口的显示效果。其实这三个向量构建了以摄像机自身为原点的一个坐标系。</p>
 <h4 id="2-模型旋转">2. 模型旋转</h4>
 <p>模型旋转的功能实现无非有两种思路：旋转模型本身，和旋转摄像机。我一开始的思路就是旋转摄像机。这样做带来的好处是，当我们载入多个模型时，不用对每一个shader都进行旋转矩阵的计算，只需要变换摄像机的位置，并且将摄像机的朝向固定在一点、令摄像机到固定点的距离恒定即可。但是这方面的资料较少，并且在初期实验时我对坐标体系没什么理解，所以在NG数次后，走上了旋转模型的道路。</p>
-<p>在OpenGL的世界里，旋转是通过将位置向量左乘一个旋转矩阵实现的。位置向量是一个4x1的向量，长这个样子：
+<p>在OpenGL的世界里，旋转是通过将位置向量左乘一个旋转矩阵实现的。位置向量是一个4x1的向量：
 $$
 \begin{bmatrix}
-x \ y \ z \ 1.0
+x \newline y \newline z \newline 1.0
 \end{bmatrix}
 $$
 至于最下面的哪个1.0是做什么的，我也不清楚(笑)，先不去管它，只要把它当作是一种convention就好辣~ 类似地，位移矩阵是一个4x4的矩阵，它是在一个单位矩阵的基础上略加修改得来的：
 $$
 \begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; T_x \
-0 &amp; 1 &amp; 0 &amp; T_y \
-0 &amp; 0 &amp; 1 &amp; T_z \
+1 &amp; 0 &amp; 0 &amp; T_x \newline
+0 &amp; 1 &amp; 0 &amp; T_y \newline
+0 &amp; 0 &amp; 1 &amp; T_z \newline
 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
 $$
@@ -211,9 +212,9 @@ $$
 <p>缩放矩阵，依然是在单位矩阵的基础上做一些变换：
 $$
 \begin{bmatrix}
-S_x &amp; 0 &amp; 0 &amp; 0 \
-0 &amp; S_y &amp; 0 &amp; 0 \
-0 &amp; 0 &amp; S_z &amp; 0\
+S_x &amp; 0 &amp; 0 &amp; 0 \newline
+0 &amp; S_y &amp; 0 &amp; 0 \newline
+0 &amp; 0 &amp; S_z &amp; 0\newline
 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
 $$
@@ -221,7 +222,7 @@ $$
 <p>最后，就是旋转矩阵！旋转矩阵稍微不那么直观。我们先从二维开始。将一个向量$v=(x, y)^T$逆时针旋转$\theta$，我们需要在$v$的左边乘上这样一个矩阵：
 $$
 \begin{bmatrix}
-cos\theta &amp; -sin\theta \
+cos\theta &amp; -sin\theta \newline
 sin\theta &amp; cos\theta
 \end{bmatrix}
 $$
@@ -229,9 +230,9 @@ $$
 $$
 rotate =
 \begin{bmatrix}
-cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \
-sin\theta &amp; cos\theta &amp; 0 &amp; 0 \
-0 &amp; 0 &amp; 1 &amp; 0 \
+cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \newline
+sin\theta &amp; cos\theta &amp; 0 &amp; 0 \newline
+0 &amp; 0 &amp; 1 &amp; 0 \newline
 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
 $$
@@ -411,6 +412,7 @@ $$
 
 
 
+<script src="/js/add-copy-btn.js"></script>
 
 
 </body>
