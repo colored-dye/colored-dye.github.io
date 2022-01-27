@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -16,7 +16,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="colored-dye" /><meta name="description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~ 1. Word Break 链接：https://leetcode-cn.com/probl" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="colored-dye" /><meta name="description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~
+" /><meta name="keywords" content="colored-dye, blog" />
 
 
 
@@ -40,19 +41,19 @@
 
 
 <meta property="og:title" content="LeetCode-003-DP-02" />
-<meta property="og:description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~ 1. Word Break 链接：https://leetcode-cn.com/probl" />
+<meta property="og:description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/09/leetcode-003-dp-02/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-09-22T14:48:18+00:00" />
-<meta property="article:modified_time" content="2021-09-22T14:48:18+00:00" />
+<meta property="article:modified_time" content="2022-01-27T11:05:19+08:00" />
 
 <meta itemprop="name" content="LeetCode-003-DP-02">
-<meta itemprop="description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~ 1. Word Break 链接：https://leetcode-cn.com/probl"><meta itemprop="datePublished" content="2021-09-22T14:48:18+00:00" />
-<meta itemprop="dateModified" content="2021-09-22T14:48:18+00:00" />
+<meta itemprop="description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~"><meta itemprop="datePublished" content="2021-09-22T14:48:18+00:00" />
+<meta itemprop="dateModified" content="2022-01-27T11:05:19+08:00" />
 <meta itemprop="wordCount" content="2281">
 <meta itemprop="keywords" content="Algorithm,LeetCode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="LeetCode-003-DP-02"/>
-<meta name="twitter:description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~ 1. Word Break 链接：https://leetcode-cn.com/probl"/>
+<meta name="twitter:description" content="这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -137,14 +138,14 @@
             <a href="/categories/algorithm/"> Algorithm </a>
             <a href="/categories/leetcode/"> LeetCode </a>
             </div>
-          <span class="more-meta"> 2281 words </span>
-          <span class="more-meta"> 5 mins read </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+          <span class="more-meta"> 约 2281 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
+  <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
@@ -152,7 +153,17 @@
       <ul>
         <li>
           <ul>
-            <li></li>
+            <li>
+              <ul>
+                <li>
+                  <ul>
+                    <li><a href="#1-word-break">1. Word Break</a></li>
+                    <li><a href="#2--decode-ways">2.  Decode Ways</a></li>
+                    <li><a href="#3-matrix-block-sum">3. Matrix Block Sum</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -163,7 +174,6 @@
 </div>
     <div class="post-content">
       <p>这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~</p>
-<!-- more -->
 <h5 id="1-word-break">1. Word Break</h5>
 <p>链接：https://leetcode-cn.com/problems/word-break/</p>
 <p>这道题先给出了一个字符串<code>s</code>和一个“字典”向量<code>wordDict[]</code>，要求使用给出的字典对字符串进行匹配。如果字符串能且仅能完全被字典中的字符串表示，那么要求结果返回<code>true</code>，否则返回<code>false</code>. 需要注意的是，字典中的字符串可以使用多次。</p>
@@ -351,7 +361,7 @@ Output: false
 <p>这道题的特殊之处在于介绍了 <strong>“前缀和(Prefix Sum)”</strong> 的算法。下面先来介绍一下前缀和到底是什么。</p>
 <p>最简单的就是一维前缀和，比如给出数组<code>arr[n]</code>，那么我们可以得到相应的前缀和数组<code>sum[n]</code>，其中$sum[i] = \sum_{0 \le j \le i}{arr[j]}$. 而求<code>sum[]</code>的过程很自然地可以运用到动态规划的思想，因为$sum[i] = sum[i-1] + arr[i]$.</p>
 <p>二维前缀和可以表示成<code>sum[m][n]</code>，对应的初始矩阵是<code>mat[m][n]</code>. 仿照一维前缀和可以写出：$sum[i][j] = \sum_{0 \le p \le i, 0 \le q \le j}{mat[p][q]}$. 二维前缀和同样可以运用动态规划思想。为了解决这个问题，我们可以用几何语言来表示。</p>
-<img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/LeetCode-003/mat.png" style="zoom:50%;" />
+<!-- raw HTML omitted -->
 <p>如上图所示，蓝色部分为<code>dp[i-1][j-1]</code>，为了求较大的<code>dp[i][j]</code>，我们可以适当利用一下容斥原理。蓝色和绿色部分为<code>dp[i][j-1]</code>，蓝色和红色部分为<code>dp[i-1][j]</code>，所以<code>dp[i][j] = dp[i-1][j] + dp[i][j-1] - dp[i-1][j-1] + mat[i][j]</code>.</p>
 <p>以上的公式只适用于一般情况。当<code>i == 0</code>时，<code>dp[i][j] = dp[i][j-1] + mat[i][j]</code>；当<code>j == 0</code>时，<code>dp[i][j] = dp[i-1][j] + mat[i][j]</code>.</p>
 <p>而前缀和的用处，主要在于利用已求得的前缀和，在$O(1)$的时间内求出想要的单项结果。这对于静态查询是很有效的。</p>
@@ -445,18 +455,17 @@ $$</p>
 </code></pre></td></tr></table>
 </div>
 </div><p>这里加了一个<code>get()</code>函数，用于处理<code>i+k</code>和<code>i-k-1</code>超出矩阵范围的情况。</p>
-
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">Author</span>
+    <span class="item-title">文章作者</span>
     <span class="item-content">colored-dye</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">LastMod</span>
+    <span class="item-title">上次更新</span>
     <span class="item-content">
-        2021-09-22
+        2022-01-27
         
     </span>
   </p>
@@ -472,11 +481,11 @@ $$</p>
         <a class="prev" href="/2021/09/leetcode-004-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">LeetCode-004 最长回文子串</span>
-            <span class="prev-text nav-mobile">Prev</span>
+            <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/2021/09/leetcode-002-dp-01/">
             <span class="next-text nav-default">LeetCode-002-DP-01</span>
-            <span class="next-text nav-mobile">Next</span>
+            <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -517,23 +526,23 @@ $$</p>
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    Theme - 
+    主题 - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
-    2021 - 
+    2020 - 
     2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>

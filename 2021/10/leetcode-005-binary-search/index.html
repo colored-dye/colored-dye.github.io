@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -16,7 +16,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="colored-dye" /><meta name="description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="colored-dye" /><meta name="description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~
+" /><meta name="keywords" content="colored-dye, blog" />
 
 
 
@@ -40,19 +41,19 @@
 
 
 <meta property="og:title" content="LeetCode-005-Binary Search" />
-<meta property="og:description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二" />
+<meta property="og:description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/10/leetcode-005-binary-search/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-10-04T19:30:42+00:00" />
-<meta property="article:modified_time" content="2021-10-04T19:30:42+00:00" />
+<meta property="article:modified_time" content="2022-01-27T11:05:44+08:00" />
 
 <meta itemprop="name" content="LeetCode-005-Binary Search">
-<meta itemprop="description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二"><meta itemprop="datePublished" content="2021-10-04T19:30:42+00:00" />
-<meta itemprop="dateModified" content="2021-10-04T19:30:42+00:00" />
+<meta itemprop="description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~"><meta itemprop="datePublished" content="2021-10-04T19:30:42+00:00" />
+<meta itemprop="dateModified" content="2022-01-27T11:05:44+08:00" />
 <meta itemprop="wordCount" content="946">
 <meta itemprop="keywords" content="Algorithm,LeetCode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="LeetCode-005-Binary Search"/>
-<meta name="twitter:description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二"/>
+<meta name="twitter:description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -137,14 +138,14 @@
             <a href="/categories/algorithm/"> Algorithm </a>
             <a href="/categories/leetcode/"> LeetCode </a>
             </div>
-          <span class="more-meta"> 946 words </span>
-          <span class="more-meta"> 2 mins read </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+          <span class="more-meta"> 约 946 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
+  <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
@@ -152,7 +153,11 @@
       <ul>
         <li>
           <ul>
-            <li></li>
+            <li>
+              <ul>
+                <li><a href="#1-search-in-rotated-sorted-array">1. Search in Rotated Sorted Array</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -163,7 +168,6 @@
 </div>
     <div class="post-content">
       <p>当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~</p>
-<!-- more -->
 <h4 id="1-search-in-rotated-sorted-array">1. Search in Rotated Sorted Array</h4>
 <p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/">https://leetcode-cn.com/problems/search-in-rotated-sorted-array/</a></p>
 <p>题目的说法有一点别扭：所谓的“rotated”到底是什么意思呢？这个翻转可与红黑树的红黑树没有半毛钱关系，就将它理解为是将一个数组<code>arr[n]</code>向左循环移位<code>k</code>次即可($1 \le k \lt n$).</p>
@@ -238,18 +242,17 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>其中很tricky的地方就是等号的位置。需要仔细的思考和测试才能决定。比如说<code>if(nums[0] &lt;= nums[mid])</code>这里的小于等号，如果换成小于号，就无法处理<code>[3, 1]</code>这样的情况。类似地还有<code>if(nums[0] &lt;= target &amp;&amp; target&lt; nums[mid])</code>和<code>if(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - 1])</code>当中的小于等于号，都是为了能够处理边界位置。</p>
-
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">Author</span>
+    <span class="item-title">文章作者</span>
     <span class="item-content">colored-dye</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">LastMod</span>
+    <span class="item-title">上次更新</span>
     <span class="item-content">
-        2021-10-04
+        2022-01-27
         
     </span>
   </p>
@@ -265,11 +268,11 @@
         <a class="prev" href="/2021/10/ppl-lab-description/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">PPL-Lab-Description</span>
-            <span class="prev-text nav-mobile">Prev</span>
+            <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/2021/09/leetcode-004-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">
             <span class="next-text nav-default">LeetCode-004 最长回文子串</span>
-            <span class="next-text nav-mobile">Next</span>
+            <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -310,23 +313,23 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    Theme - 
+    主题 - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
-    2021 - 
+    2020 - 
     2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>

@@ -13,7 +13,7 @@
       <pubDate>Fri, 26 Mar 2021 22:56:54 +0000</pubDate>
       
       <guid>http://localhost:1313/2021/03/github-clone%E5%8A%A0%E9%80%9F/</guid>
-      <description>有从Github Git Clone一些项目的需求，比如说克隆riscv-toolchain的Repository，但是6G多的仓库下起来实在是太慢</description>
+      <description>&lt;p&gt;有从Github Git Clone一些项目的需求，比如说克隆&lt;code&gt;riscv-toolchain&lt;/code&gt;的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -13,7 +13,7 @@
       <pubDate>Sun, 11 Jul 2021 18:04:36 +0000</pubDate>
       
       <guid>http://localhost:1313/2021/07/makefile%E8%AF%AD%E6%B3%95/</guid>
-      <description>Makefile在C/C++工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Li</description>
+      <description>&lt;p&gt;Makefile在C/C++工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Linux相关的工程和IDE的工程管理中也会接触到很多Makefile，但是后者的可读性往往很差（那是后话了）&lt;/p&gt;</description>
     </item>
     
   </channel>
