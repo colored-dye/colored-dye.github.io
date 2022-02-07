@@ -4,7 +4,6 @@ document.querySelectorAll('pre > code').forEach(function (codeBlock) {
     flag = false;
   }
   var button = document.createElement('button');
-  // button.className = 'copy-code-button';
   button.className = 'highlight-copy-btn';
   button.type = 'button';
   button.innerText = 'Copy';
@@ -17,14 +16,8 @@ document.querySelectorAll('pre > code').forEach(function (codeBlock) {
     while (highlight.className != 'highlight') {
       highlight = highlight.parentNode;
     }
-    var has_button = false;
-    if (highlight.lastChild.className == 'highlight-copy-btn')
-        has_button = true;
-    if (has_button == false)
-      highlight.appendChild(button);
-    // } else {
-    //   pre.parentNode.insertBefore(button, pre);
-    // }
+
+    highlight.appendChild(button);
   }
 });
 function addCopyButtons(clipboard) {
@@ -34,7 +27,6 @@ function addCopyButtons(clipboard) {
       flag = false;
     }
     var button = document.createElement('button');
-    // button.className = 'copy-code-button';
     button.className = 'highlight-copy-btn';
     button.type = 'button';
     button.innerText = 'Copy';
@@ -57,22 +49,11 @@ function addCopyButtons(clipboard) {
 
     if (flag) {
       var pre = codeBlock.parentNode;
-      // if (pre.parentNode.classList.contains('highlight')) {
-      // var highlight = pre.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-      // var highlight = pre;
-      // highlight.parentNode.insertBefore(button, highlight);
       var highlight = pre.parentNode;
       while (highlight.className != 'highlight') {
         highlight = highlight.parentNode;
       }
-      var has_button = false;
-      if (highlight.lastChild.className == 'highlight-copy-btn')
-        has_button = true;
-      if (has_button == false)
-        highlight.appendChild(button);
-      // } else {
-      //   pre.parentNode.insertBefore(button, pre);
-      // }
+      highlight.appendChild(button);
     }
   });
 }
