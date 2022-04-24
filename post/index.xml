@@ -6,7 +6,16 @@
     <description>Recent content in Posts on colored-dye&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Jan 2022 15:01:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Mar 2022 21:45:33 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CoLinux-Cooperative Linux 01: 总览</title>
+      <link>http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/</link>
+      <pubDate>Sat, 19 Mar 2022 21:45:33 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.colinux.org/&#34;&gt;CoLinux(Cooperative Linux)&lt;/a&gt;是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Hugo代码块复制功能</title>
       <link>http://localhost:1313/2022/01/hugo%E4%BB%A3%E7%A0%81%E5%9D%97%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD/</link>

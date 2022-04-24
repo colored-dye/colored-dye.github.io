@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CoLinux on colored-dye&#39;s Blog</title>
+    <link>http://localhost:1313/categories/colinux/</link>
+    <description>Recent content in CoLinux on colored-dye&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 Mar 2022 21:45:33 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/colinux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CoLinux-Cooperative Linux 01: 总览</title>
+      <link>http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/</link>
+      <pubDate>Sat, 19 Mar 2022 21:45:33 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.colinux.org/&#34;&gt;CoLinux(Cooperative Linux)&lt;/a&gt;是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
