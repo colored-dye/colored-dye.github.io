@@ -46,12 +46,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-03-19T21:45:33+08:00" />
-<meta property="article:modified_time" content="2022-03-26T16:42:52+08:00" />
+<meta property="article:modified_time" content="2022-04-29T23:18:35+08:00" />
 
 <meta itemprop="name" content="CoLinux-Cooperative Linux 01: 总览">
 <meta itemprop="description" content="CoLinux(Cooperative Linux)是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。"><meta itemprop="datePublished" content="2022-03-19T21:45:33+08:00" />
-<meta itemprop="dateModified" content="2022-03-26T16:42:52+08:00" />
-<meta itemprop="wordCount" content="1654">
+<meta itemprop="dateModified" content="2022-04-29T23:18:35+08:00" />
+<meta itemprop="wordCount" content="2795">
 <meta itemprop="keywords" content="CoLinux,OS," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CoLinux-Cooperative Linux 01: 总览"/>
 <meta name="twitter:description" content="CoLinux(Cooperative Linux)是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。"/>
@@ -139,8 +139,8 @@
             <a href="/categories/colinux/"> CoLinux </a>
             <a href="/categories/os/"> OS </a>
             </div>
-          <span class="more-meta"> 约 1654 字 </span>
-          <span class="more-meta"> 预计阅读 4 分钟 </span>
+          <span class="more-meta"> 约 2795 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -156,6 +156,10 @@
     <li><a href="#3-design-overview">3. Design Overview</a>
       <ul>
         <li><a href="#31-minimum-changes">3.1 Minimum changes</a></li>
+        <li><a href="#32-device-driver">3.2 Device Driver</a></li>
+        <li><a href="#33-pseudo-physical-ram">3.3 Pseudo Physical RAM</a></li>
+        <li><a href="#34-context-switching">3.4 Context Switching</a></li>
+        <li><a href="#35-interrupt-handling-and-forwarding">3.5 Interrupt Handling and Forwarding</a></li>
       </ul>
     </li>
   </ul>
@@ -201,6 +205,59 @@
 <p>这一部分介绍了上下文切换、转发硬件中断、硬件地址转化和虚拟物理内存。</p>
 <h2 id="31-minimum-changes">3.1 Minimum changes</h2>
 <p>这里作者将修改后的代码与原本的Linux内核做了一个比较，结果还是很惊人的：之改动了50个文件、3828处插入和74处删除。这很大程度上体现了这一设计的可扩展性和与Linux内核的兼容性。</p>
+<h2 id="32-device-driver">3.2 Device Driver</h2>
+<p>这里就是最开始所说的“Linux as a Port”的由来：CoLinux的驱动端口用于访问内核模式，并使用宿主操作系统提供的内核原语，包括页表分配、输出debug信息、与用户空间交互等。这些相关功能的代码是操作系统无关的。</p>
+<p>在CoLinux开始运行时，会首先从vmlinux加载内核镜像，但是其本身不包含任何跨平台的工具，只是单纯的内核镜像文件，可以在任何相同CPU架构的机器上运行。在具体的宿主操作系统上，CoLinux VM的实例就是一个驱动，在Linux上是一个文件描述符，在Windows上是一个设备句柄。也就是说，CoLinux的最高管理权限还是归宿主操作系统所有的。当其异常退出时，资源会被宿主操作系统回收。</p>
+<p>我认为这一小节所表达的意思是：CoLinux的跨平台特性，主要是通过驱动实现的。这个结论在本节中没有明文指出，但是综合多方面来看就是这个意思 😜</p>
+<h2 id="33-pseudo-physical-ram">3.3 Pseudo Physical RAM</h2>
+<p>在原生的Linux系统中，MM(Memory Manager)默认整个物理内存空间都是可用的。而在CoLinux中这显然是无法实现的，因为那一部分系统启动需要的地址一半已经被宿主操作系统占用了。所以CoLinux在启动之初所能操纵的只是宿主操作系统给它分配的一段内存区域，让它将其当作是所有的物理内存空间。</p>
+<p>分配内存时使用的具体的API是操作系统特定的：Linux中是<code>alloc_pages()</code>，Windows中是<code>MmAllocatePagesForMdl()</code>.</p>
+<p>VM地址空间有着特定的地址不变的区域：页表映射到<code>0xfef00000</code>，从PPRAM(Pseudo-Physical RAM)映射到物理地址，用来为用户空间创建PTE和<code>vmalloc()</code>；还有一段映射表在<code>0xff000000</code>，从物理地址映射到PPRAM，用来加速page fault等需要地址翻译的事件。</p>
+<p>为了实现PPRAM，只需要在Linux内核代码中MMU相关部分作很少的修改。文中展示的是Linux-2.4.23的内核代码，路径为<code>linux/include/asm-i386/pgtable-2level.h</code>，顾名思义这个是针对两层页表相关参数的定义。下图是https://elixir.bootlin.com上面的代码。文中删去了第61行。</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="o">---</span> <span class="n">linux</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="k">asm</span><span class="o">-</span><span class="n">i386</span><span class="o">/</span><span class="n">pgtable</span><span class="o">-</span><span class="mi">2l</span><span class="n">evel</span><span class="p">.</span><span class="n">h</span> <span class="mi">2004</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">20</span> <span class="mi">08</span><span class="o">:</span><span class="mo">04</span><span class="o">:</span><span class="mf">01.000000000</span> <span class="o">+</span><span class="mo">0300</span>
+<span class="o">+++</span> <span class="n">linux</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="k">asm</span><span class="o">-</span><span class="n">i386</span><span class="o">/</span><span class="n">pgtable</span><span class="o">-</span><span class="mi">2l</span><span class="n">evel</span><span class="p">.</span><span class="n">h</span> <span class="mi">2004</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">09</span> <span class="mi">16</span><span class="o">:</span><span class="mi">54</span><span class="o">:</span><span class="mf">09.000000000</span> <span class="o">+</span><span class="mo">0300</span>
+<span class="err">@@</span> <span class="o">-</span><span class="mi">58</span><span class="p">,</span><span class="mi">8</span> <span class="o">+</span><span class="mi">58</span><span class="p">,</span><span class="mi">14</span> <span class="err">@@</span>
+<span class="p">}</span>
+<span class="cp">#define ptep_get_and_clear(xp) __pte(xchg(&amp;(xp)-&gt;pte_low, 0))
+</span><span class="cp">#define pte_same(a, b) ((a).pte_low == (b).pte_low)
+</span><span class="cp"></span><span class="o">-</span><span class="err">#</span><span class="n">define</span> <span class="n">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">mem_map</span><span class="o">+</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)(((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span> <span class="o">&gt;&gt;</span> <span class="n">PAGE_SHIFT</span><span class="p">))))</span>
+<span class="cp">#define pte_none(x) (!(x).pte_low)
+</span><span class="cp"></span><span class="o">+</span>
+<span class="o">+</span><span class="err">#</span><span class="n">ifndef</span> <span class="n">CONFIG_COOPERATIVE</span>
+<span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="n">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">mem_map</span><span class="o">+</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)(((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span> <span class="o">&gt;&gt;</span> <span class="n">PAGE_SHIFT</span><span class="p">))))</span>
+<span class="cp">#define __mk_pte(page_nr,pgprot) __pte(((page_nr) &lt;&lt; PAGE_SHIFT) | pgprot_val(pgprot))
+</span><span class="cp"></span><span class="o">+</span><span class="err">#</span><span class="k">else</span>
+<span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="n">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">CO_VA_PAGE</span><span class="p">((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span><span class="p">)</span>
+<span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="n">__mk_pte</span><span class="p">(</span><span class="n">page_nr</span><span class="p">,</span><span class="n">pgprot</span><span class="p">)</span> <span class="n">__pte</span><span class="p">((</span><span class="n">CO_PA</span><span class="p">(</span><span class="n">page_nr</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">PAGE_MASK</span><span class="p">)</span> <span class="o">|</span> <span class="n">pgprot_val</span><span class="p">(</span><span class="n">pgprot</span><span class="p">))</span>
+<span class="o">+</span><span class="err">#</span><span class="n">endif</span>
+<span class="cp">#endif </span><span class="cm">/* _I386_PGTABLE_2LEVEL_H */</span><span class="cp">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到，修改部分使用<code>CONFIG_COOPERATIVE</code>宏作为选项参数，准备了两套<code>pte_page</code>和<code>__mk_ptr</code>. 后者返回一个PTE，而前者接受这个PTE并返回对应的页结构。此外需要修改的还有<code>pmd_page</code>和<code>load_cr3</code>.</p>
+<h2 id="34-context-switching">3.4 Context Switching</h2>
+<h2 id="35-interrupt-handling-and-forwarding">3.5 Interrupt Handling and Forwarding</h2>
 <p>(在这里挖一个坑：我想在源代码devel-64bit的基础上，将它迁移到64位平台上QAQ 感觉会是一个大工程)</p>
     </div>
 
@@ -212,7 +269,7 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2022-03-26
+        2022-04-29
         
     </span>
   </p>
