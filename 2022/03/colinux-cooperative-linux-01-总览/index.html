@@ -46,12 +46,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-03-19T21:45:33+08:00" />
-<meta property="article:modified_time" content="2022-04-29T23:18:35+08:00" />
+<meta property="article:modified_time" content="2022-06-27T21:02:37+08:00" />
 
 <meta itemprop="name" content="CoLinux-Cooperative Linux 01: 总览">
 <meta itemprop="description" content="CoLinux(Cooperative Linux)是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。"><meta itemprop="datePublished" content="2022-03-19T21:45:33+08:00" />
-<meta itemprop="dateModified" content="2022-04-29T23:18:35+08:00" />
-<meta itemprop="wordCount" content="2795">
+<meta itemprop="dateModified" content="2022-06-27T21:02:37+08:00" />
+<meta itemprop="wordCount" content="3418">
 <meta itemprop="keywords" content="CoLinux,OS," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CoLinux-Cooperative Linux 01: 总览"/>
 <meta name="twitter:description" content="CoLinux(Cooperative Linux)是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。"/>
@@ -139,8 +139,8 @@
             <a href="/categories/colinux/"> CoLinux </a>
             <a href="/categories/os/"> OS </a>
             </div>
-          <span class="more-meta"> 约 2795 字 </span>
-          <span class="more-meta"> 预计阅读 6 分钟 </span>
+          <span class="more-meta"> 约 3418 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -160,6 +160,13 @@
         <li><a href="#33-pseudo-physical-ram">3.3 Pseudo Physical RAM</a></li>
         <li><a href="#34-context-switching">3.4 Context Switching</a></li>
         <li><a href="#35-interrupt-handling-and-forwarding">3.5 Interrupt Handling and Forwarding</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-benchmarks-and-performance">4. Benchmarks and Performance</a></li>
+    <li><a href="#5-planned-features">5. Planned Features</a>
+      <ul>
+        <li><a href="#51-suspension">5.1 Suspension</a></li>
+        <li><a href="#52-miscellaneous">5.2 Miscellaneous</a></li>
       </ul>
     </li>
   </ul>
@@ -257,8 +264,22 @@
 </div>
 </div><p>可以看到，修改部分使用<code>CONFIG_COOPERATIVE</code>宏作为选项参数，准备了两套<code>pte_page</code>和<code>__mk_ptr</code>. 后者返回一个PTE，而前者接受这个PTE并返回对应的页结构。此外需要修改的还有<code>pmd_page</code>和<code>load_cr3</code>.</p>
 <h2 id="34-context-switching">3.4 Context Switching</h2>
+<p><code>colinux-daemon</code>维护着自己和子进程的上下文，可以看作是“Super Process”，频繁地在Linux内核和宿主kernel之间做着上下文切换。为了做到这一点，作者采用的设计是在客户机和宿主机中间用一个中间地址空间(称其为“Passage Page”)作为桥梁，这个中间地址空间同时存在于客户机和宿主机的地址空间中。从而将同一物理地址的代码映射到不同的虚拟地址。当上下文切换发生时，CR3首先指向中间地址空间中，然后EIP通过跳转指令指向passage code在中间地址空间中的另一处映射，最后，CR3会指向另一内核的顶层页表入口处。</p>
+<p>发生上下文切换时，当前状态会保存在中间地址空间中，包括通用寄存器、段寄存器、中断描述符表寄存器(IDTR)、全局描述符表(GDTR)、本地描述符寄存器(LDR)、TR、FPU/MMX/SSE寄存器等。同时中断会被禁用。</p>
+<p>当发生硬件中断时，控制总要交给宿主机，而宿主机应当把coLinux当作一个普通的进程一样分配时间片。</p>
 <h2 id="35-interrupt-handling-and-forwarding">3.5 Interrupt Handling and Forwarding</h2>
-<p>(在这里挖一个坑：我想在源代码devel-64bit的基础上，将它迁移到64位平台上QAQ 感觉会是一个大工程)</p>
+<p>coLinux中必须设置好中断向量表以处理硬件中断，其中内部异常(0x0 - 0x1F)和系统调用(0x80)被保留，其余的都指向特殊的代理：ISR(Interrupt Service Routines). 当硬件中断发生时，控制会通过中间地址空间交给宿主内核，而宿主内核会通过IDT来检查ISR的相对地址。</p>
+<h1 id="4-benchmarks-and-performance">4. Benchmarks and Performance</h1>
+<p>比较了原生Linux、UML(User-Mode Linux)和coLinux，结果coLinux的表现位于两者之间😆.</p>
+<h1 id="5-planned-features">5. Planned Features</h1>
+<h2 id="51-suspension">5.1 Suspension</h2>
+<p>基本思路就是保存全部的内部状态，如将伪物理内存线性化等。</p>
+<h2 id="52-miscellaneous">5.2 Miscellaneous</h2>
+<ul>
+<li>Virtual frame buffer support</li>
+<li>Incorporating features from UML, e.g. humfs.</li>
+<li>Support for more host OSes.</li>
+</ul>
     </div>
 
     <div class="post-copyright">
@@ -269,7 +290,7 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2022-04-29
+        2022-06-27
         
     </span>
   </p>
