@@ -1,15 +1,19 @@
 ---
 title: "About"
 date: 2017-08-20T21:38:52+08:00
-lastmod: 2022-01-27T10:30:00+08:00
+lastmod: 2022-09-23T23:30:00+08:00
 menu: "main"
 weight: 50
 
 ---
 
-colored-dye’s Blog，记录知识和生活，欢迎围观和讨论\~ v(o゜▽゜)o☆
+Ciao\~ I am Yuntai Bao, an undergraduate currently studying in Zhejiang University. My major is Information Security, but my research interest lies in systems design, especially operating system. I am currently trying to migrate the old project “CoLinux” to 64-bit Windows platforms like Windows 10. Meanwhile, I am taking the MIT 6.824 course online for a glimpse into the world of distributed systems.
 
-Email: baoyuntai@outlook.com
 
-GitHub: https://github.com/colored-dye
+
+----
+
+Contact info: Email at: baoyuntai@outlook.com
+
+GitHub Homepage: https://github.com/colored-dye
 
