@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Java 01: JavaSE - colored-dye&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="colored-dye" /><meta name="description" content="0. 数据类型/关键字 char 在保存Unicode字符时，有时需要1个char，有时需要多个char. 所以Unicode的基本单位是“code poin" /><meta name="keywords" content="colored-dye, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/10/java-01-javase/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/add-copy-btn.css">
+
+
+<meta property="og:title" content="Java 01: JavaSE" />
+<meta property="og:description" content="0. 数据类型/关键字 char 在保存Unicode字符时，有时需要1个char，有时需要多个char. 所以Unicode的基本单位是“code poin" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/10/java-01-javase/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-10-20T09:19:24+08:00" />
+<meta property="article:modified_time" content="2022-10-20T16:40:14+08:00" />
+
+<meta itemprop="name" content="Java 01: JavaSE">
+<meta itemprop="description" content="0. 数据类型/关键字 char 在保存Unicode字符时，有时需要1个char，有时需要多个char. 所以Unicode的基本单位是“code poin"><meta itemprop="datePublished" content="2022-10-20T09:19:24+08:00" />
+<meta itemprop="dateModified" content="2022-10-20T16:40:14+08:00" />
+<meta itemprop="wordCount" content="2101">
+<meta itemprop="keywords" content="Java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java 01: JavaSE"/>
+<meta name="twitter:description" content="0. 数据类型/关键字 char 在保存Unicode字符时，有时需要1个char，有时需要多个char. 所以Unicode的基本单位是“code poin"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">colored-dye</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">colored-dye</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Java 01: JavaSE</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-10-20 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 约 2101 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0-数据类型关键字">0. 数据类型/关键字</a></li>
+        <li><a href="#1-运算符和表达式">1. 运算符和表达式</a></li>
+        <li><a href="#2-字符串类">2. 字符串类</a></li>
+        <li><a href="#3-input--output">3. Input &amp; Output</a></li>
+        <li><a href="#4-控制流">4. 控制流</a></li>
+        <li><a href="#5-array">5. Array</a></li>
+        <li><a href="#6-java运行环境">6. Java运行环境</a></li>
+        <li><a href="#7-oop">7. OOP</a></li>
+        <li><a href="#8-反射">8. 反射</a></li>
+        <li><a href="#9-容器">9. 容器</a></li>
+        <li><a href="#10-io-stream">10. IO Stream</a></li>
+        <li><a href="#11-多线程">11. 多线程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="0-数据类型关键字">0. 数据类型/关键字</h2>
+<ol>
+<li>
+<p><code>char</code></p>
+<p>在保存Unicode字符时，有时需要1个<code>char</code>，有时需要多个<code>char</code>. 所以Unicode的基本单位是“code point”，以“U+”开头，共分为17个“code plane”，其中经典的字符(U+0000 - U+FFFF)在第一个code plane中。</p>
+<p><code>char</code>描述的就是UTF-16编码中的“code unit”.</p>
+</li>
+<li>
+<p><code>strictfp</code></p>
+<p>要求一个方法或一个类中的所有方法在所有的浮点数运算中执行严格的浮点数运算。如果不添加这个关键字，则Java会将浮点数运算的中间结果截断，以避免指数溢出，但是这一操作会影响执行效率。</p>
+</li>
+<li>
+<p><code>short</code>, <code>int</code>, <code>long</code></p>
+<p>Java无unsigned类型。</p>
+</li>
+<li>
+<p><code>BigInteger</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">BigInteger</span> <span class="n">a</span> <span class="o">=</span> <span class="n">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+<span class="n">BigInteger</span> <span class="n">b</span> <span class="o">=</span> <span class="n">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">BigInteger</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li></li>
+</ol>
+<h2 id="1-运算符和表达式">1. 运算符和表达式</h2>
+<ol>
+<li>
+<p>算术右移和逻辑右移</p>
+<p><code>&gt;&gt;&gt;</code>是逻辑右移，<code>&gt;&gt;</code>是算术右移。</p>
+</li>
+<li>
+<p>运算符连接性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作符</th>
+<th style="text-align:center">连接性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">[] . () (method call) Left to right</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">! ~ ++ &ndash; + (unary) - (unary) () (cast) new</td>
+<td style="text-align:center"><strong>Right to left</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">* / %</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">+ -</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">&laquo; &raquo; &raquo;&gt;</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt; &lt;= &gt; &gt;= instanceof</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">== !=</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">|</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;&amp;</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">||</td>
+<td style="text-align:center">Left to right</td>
+</tr>
+<tr>
+<td style="text-align:center">?:</td>
+<td style="text-align:center"><strong>Right to left</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">= += -= *= /= %= &amp;= = ^= &laquo;= &raquo;= &raquo;&gt;=</td>
+<td style="text-align:center"><strong>Right to left</strong></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h2 id="2-字符串类">2. 字符串类</h2>
+<p><code>String</code>类是Unicode字符序列，不可变。</p>
+<ol>
+<li>
+<p>Substring: <code>String t = s.substring(start, len);</code></p>
+</li>
+<li>
+<p>Concatenation:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">r</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">,</span> <span class="n">s3</span><span class="o">,</span> <span class="n">s4</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Equality: 不能直接使用<code>==</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">s</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+<span class="n">s</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+<span class="n">s</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">t</span><span class="o">);</span> <span class="c1">// 类似于strcmp(s, t)
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>空字符串：<code>s.equals(&quot;&quot;);</code> / <code>s.length() == 0</code></p>
+</li>
+<li>
+<p>Index: <code>s.charAt(i)</code></p>
+</li>
+<li>
+<p>Code points and code units:</p>
+<p><code>length()</code>方法返回的是UTF-16编码的code unit数量，即<code>char</code>的数量。</p>
+<p><code>codePointCount(start, len)</code>方法返回的是UTF-16编码的code point个数。</p>
+<p><code>offsetByCodePoint(index, offset)</code>返回的是从index处偏移offset个code point的索引。</p>
+</li>
+<li>
+<p>构建字符串：<code>StringBuilder</code>/<code>StringBuffer</code>.</p>
+<p><code>StringBuffer</code>适合多线程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">StringBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+<span class="n">builder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="kt">char</span><span class="o">/</span><span class="n">String</span><span class="o">);</span>
+<span class="n">builder</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">offset</span><span class="o">,</span> <span class="kt">char</span><span class="o">/</span><span class="n">String</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="c1">// StringBuffer用法类似
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="3-input--output">3. Input &amp; Output</h2>
+<ol>
+<li>
+<p>Input: <code>java.util.Scanner</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Scanner</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">next</span><span class="o">();</span> <span class="c1">// delimited by whitespace
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+<span class="k">while</span><span class="o">(</span><span class="n">in</span><span class="o">.</span><span class="na">hasNext</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>File input &amp; output</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Scanner</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;1.txt&#34;</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+<span class="n">PrintWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrintWriter</span><span class="o">(</span><span class="s">&#34;2.txt&#34;</span><span class="o">,</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="4-控制流">4. 控制流</h2>
+<ol>
+<li>
+<p>循环</p>
+<p>可以<code>break label;</code>，跳出嵌套循环。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nl">label1:</span>
+<span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+    <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(...)</span> <span class="o">{</span>
+            <span class="k">break</span> <span class="n">label1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li></li>
+</ol>
+<h2 id="5-array">5. Array</h2>
+<ol>
+<li>
+<p>Ragged arrays</p>
+<p>可以创建多维不同长度的数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span><span class="o">[][]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">2</span><span class="o">][];</span>
+<span class="n">a</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">10</span><span class="o">];</span>
+<span class="n">a</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">3</span><span class="o">];</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Array copying</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span><span class="o">[]</span> <span class="n">copied</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Array sorting</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li></li>
+</ol>
+<h2 id="6-java运行环境">6. Java运行环境</h2>
+<ol>
+<li>
+<p>命令行参数</p>
+<p>第0个参数不是类名，而是类之后的第一个参数。</p>
+</li>
+<li>
+<p>Static import</p>
+<p>加上<code>static</code>后import，就不需要前缀了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import static</span> <span class="nn">java.lang.System.*</span><span class="o">;</span>
+<span class="c1">//...
+</span><span class="c1"></span><span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello&#34;</span><span class="o">);</span>
+<span class="c1">//...
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Package</p>
+<p>在代码第一行写<code>package xxx;</code>，并将代码文件按照路径保存。</p>
+<p>如<code>Employee.java</code>是<code>package com.horstmann.corejava</code>的类，则路径为<code>cpm/horstmann/corejava/Employee.java</code>.</p>
+</li>
+<li></li>
+</ol>
+<h2 id="7-oop">7. OOP</h2>
+<ol>
+<li>
+<p>类与类之间的关系</p>
+<ol>
+<li>
+<p>Dependence: 使用关系</p>
+<p><code>Order</code>类使用<code>Account</code>类的信息。</p>
+</li>
+<li>
+<p>Aggregation: 包含关系</p>
+<p><code>Order</code>类包含有<code>Item</code>类的对象。</p>
+</li>
+<li>
+<p>Inheritance: 继承关系</p>
+<p><code>RushOrder</code>类是<code>Order</code>类的派生类。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Mutator and Accessor Methods</p>
+<p>两种方法的区别在于是否会改变对象本身。Accessor method类似于C++中的<code>const</code>方法。</p>
+</li>
+<li>
+<p>Constructor</p>
+<ul>
+<li>
+<p>在一个构造器内部可以调用重载的另一个构造器。</p>
+</li>
+<li>
+<p>派生类可以调用父类构造器：<code>super(...);</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Initialization Blocks</p>
+<p>在类内部定义的一个代码块，在构造器调用之前调用它。</p>
+<p>也可以将其修饰为<code>static</code>，则只会在第一个实例创建时调用一次。</p>
+</li>
+<li>
+<p>Final instance fields</p>
+<p>要求在构造器结束运行时必须设置这个成员。</p>
+</li>
+<li>
+<p>Destruction and finalize method</p>
+<p><code>finalize</code>方法会在对象资源释放前调用，但是无法保证gc何时回收。</p>
+</li>
+<li>
+<p>权限</p>
+<p>private &lt; default &lt; protected &lt; public.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">范围</th>
+<th style="text-align:center">同一类</th>
+<th style="text-align:center">同包中类</th>
+<th style="text-align:center">不同包子类</th>
+<th style="text-align:center">其他包中类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">private</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">default</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">protected</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">public</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Class path</p>
+<p>设置搜索class文件的路径。</p>
+<p><code>java -cp xxx:xxx:xxx</code> MyClass</p>
+</li>
+<li>
+<p>Overriding methods(Polymorphism)</p>
+<p>基类指针指向派生类，自动调用的是派生类的同名方法。</p>
+</li>
+<li>
+<p>阻止继承：Final classes/methods</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Executive</span> <span class="n">entends</span> <span class="n">Manager</span> <span class="o">{</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果用<code>final</code>修饰方法，则这个方法无法被子类重载。</p>
+</li>
+<li>
+<p><code>instanceof</code>: 判断一个对象是否是一个类的实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span><span class="o">(</span><span class="n">staff</span> <span class="k">instanceof</span> <span class="n">Manager</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>常用于在强制类型转换前检查。</p>
+</li>
+<li>
+<p>Abstract Classes</p>
+<p>抽象类可以定义抽象方法，强制要求其派生类实现该方法。</p>
+</li>
+<li></li>
+</ol>
+<h2 id="8-反射">8. 反射</h2>
+<p>反射指的是程序可以分析类的能力。可以用来：</p>
+<ul>
+<li>在运行时分析类的能力</li>
+<li>在运行时查看对象，如写出单个适用于所有类的<code>toString()</code>方法</li>
+<li>实现通用的数组操纵代码</li>
+<li>像C++中操纵函数指针一样利用Method对象</li>
+</ul>
+<ol>
+<li>
+<p><code>Class</code>类</p>
+<p>Java运行时会为所有对象维护runtime type identification，用来跟踪每个对象属于哪个类。</p>
+<p><code>Class</code>类用于描述一个类型/类。</p>
+<p>可以通过类名获得一个对应<code>Class</code>类的对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">cl</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.util.Random&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li></li>
+</ol>
+<h2 id="9-容器">9. 容器</h2>
+<ol>
+<li>
+<p>Generic Array Lists</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">staff</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;();</span>
+<span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">staff</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span> <span class="c1">// 可以自动推断类型
+</span><span class="c1"></span><span class="n">staff</span><span class="o">.</span><span class="na">ensureCapacity</span><span class="o">(</span><span class="n">100</span><span class="o">);</span> <span class="c1">// 预分配内存
+</span><span class="c1"></span><span class="n">staff</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="s">&#34;foo&#34;</span><span class="o">,</span> <span class="o">...));</span>
+<span class="n">Employee</span> <span class="n">e</span> <span class="o">=</span> <span class="n">staff</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+<span class="n">staff</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">obj</span><span class="o">);</span>
+<span class="n">staff</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>Boxing</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">3</span><span class="o">);</span> <span class="c1">// 实际为list.add(Integer.valueOf(3));
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="c1">// 实际为list.get(i).intValue();
+</span></code></pre></td></tr></table>
+</div>
+</div><p>第二行的行为叫作auto-boxing，第三行为auto-unboxing.</p>
+</li>
+<li>
+<p>Enumeration class</p>
+<p>枚举类型也可以实现为类。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Size</span> <span class="o">{</span>
+	<span class="n">SMALL</span><span class="o">(</span><span class="s">&#34;S&#34;</span><span class="o">),</span> <span class="n">MEDIUM</span><span class="o">(</span><span class="s">&#34;M&#34;</span><span class="o">),</span> <span class="n">LARGE</span><span class="o">(</span><span class="s">&#34;L&#34;</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="n">String</span> <span class="n">abbr</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nf">Size</span><span class="o">(</span><span class="n">String</span> <span class="n">abbr</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">abbr</span> <span class="o">=</span> <span class="n">abbr</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>所有的枚举类型都会继承<code>toString()</code>方法，可以将类型转换为枚举常量的名字。</p>
+<p><code>Size.values()</code>方法会返回所有枚举值的array.</p>
+</li>
+<li></li>
+</ol>
+<h2 id="10-io-stream">10. IO Stream</h2>
+<h2 id="11-多线程">11. 多线程</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">colored-dye</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-10-20
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/2022/11/gentoo%E5%9F%BA%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85systemd/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Gentoo基本系统安装(systemd)</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/2022/10/%E5%B1%B1%E9%87%8D%E6%B0%B4%E5%A4%8D%E7%96%91%E6%97%A0%E8%B7%AF%E6%9F%B3%E6%9A%97%E8%8A%B1%E6%98%8E%E5%8F%88%E4%B8%80%E6%9D%91%E8%AE%B0%E6%88%91%E7%9A%84%E4%BF%9D%E7%A0%94%E5%8E%86%E7%A8%8B/">
+            <span class="next-text nav-default">山重水复疑无路，柳暗花明又一村——记我的保研历程</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2022-10-20 09:19:24 \u002b0800 CST',
+        title: 'Java 01: JavaSE',
+        clientID: '01b491144f0fb92c202d',
+        clientSecret: 'c9b013d13c8ea62b9ca30ab01e2fcf07386175fd',
+        repo: 'colored-dye.github.io',
+        owner: 'colored-dye',
+        admin: ['colored-dye'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:baoyuntai@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/colored-dye" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+<script src="/js/add-copy-btn.js"></script>
+
+
+</body>
+</html>

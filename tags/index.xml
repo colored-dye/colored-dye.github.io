@@ -6,7 +6,43 @@
     <description>Recent content in Tags on colored-dye&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 13 Oct 2022 19:31:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Nov 2022 12:41:47 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gentoo</title>
+      <link>http://localhost:1313/tags/gentoo/</link>
+      <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/gentoo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://localhost:1313/tags/linux/</link>
+      <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>折腾</title>
+      <link>http://localhost:1313/tags/%E6%8A%98%E8%85%BE/</link>
+      <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/%E6%8A%98%E8%85%BE/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>http://localhost:1313/tags/java/</link>
+      <pubDate>Thu, 20 Oct 2022 09:19:24 +0800</pubDate>
+      
+      <guid>http://localhost:1313/tags/java/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>daily</title>
       <link>http://localhost:1313/tags/daily/</link>

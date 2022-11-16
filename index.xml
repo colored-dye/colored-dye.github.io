@@ -6,7 +6,7 @@
     <description>Recent content on colored-dye&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 13 Oct 2022 19:31:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Nov 2022 12:41:47 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/</link>
@@ -16,6 +16,24 @@
       <description>Ciao~ I am Yuntai Bao, an undergraduate currently studying in Zhejiang University. My major is Information Security, but my research interest lies in systems design, especially operating system. I am currently trying to migrate the old project “CoLinux” to 64-bit Windows platforms like Windows 10. Meanwhile, I am taking the MIT 6.824 course online for a glimpse into the world of distributed systems.
  Contact info: Email at: baoyuntai@outlook.com
 GitHub Homepage: https://github.</description>
+    </item>
+    
+    <item>
+      <title>Gentoo基本系统安装(systemd)</title>
+      <link>http://localhost:1313/2022/11/gentoo%E5%9F%BA%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85systemd/</link>
+      <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/11/gentoo%E5%9F%BA%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85systemd/</guid>
+      <description>在我的“因为嫌麻烦而一直没有做的事情”的清单上少了一项，因为这几天我安装了Gentoo系统~ 很久以前就听说了Gentoo Linux，它与Ar</description>
+    </item>
+    
+    <item>
+      <title>Java 01: JavaSE</title>
+      <link>http://localhost:1313/2022/10/java-01-javase/</link>
+      <pubDate>Thu, 20 Oct 2022 09:19:24 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/10/java-01-javase/</guid>
+      <description>0. 数据类型/关键字 char 在保存Unicode字符时，有时需要1个char，有时需要多个char. 所以Unicode的基本单位是“code poin</description>
     </item>
     
     <item>
