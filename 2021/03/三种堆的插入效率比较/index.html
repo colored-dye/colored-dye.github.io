@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/03/%E4%B8%89%E7%A7%8D%E5%A0%86%E7%9A%84%E6%8F%92%E5%85%A5%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/" />
@@ -36,7 +36,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/add-copy-btn.css">
 
@@ -47,11 +47,10 @@
 <meta property="og:url" content="http://localhost:1313/2021/03/%E4%B8%89%E7%A7%8D%E5%A0%86%E7%9A%84%E6%8F%92%E5%85%A5%E6%95%88%E7%8E%87%E6%AF%94%E8%BE%83/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-03-28T13:25:57+00:00" />
 <meta property="article:modified_time" content="2022-01-27T11:04:44+08:00" />
-
 <meta itemprop="name" content="三种堆的插入效率比较">
 <meta itemprop="description" content="这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。"><meta itemprop="datePublished" content="2021-03-28T13:25:57+00:00" />
 <meta itemprop="dateModified" content="2022-01-27T11:04:44+08:00" />
-<meta itemprop="wordCount" content="1762">
+<meta itemprop="wordCount" content="1772">
 <meta itemprop="keywords" content="Algorithm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="三种堆的插入效率比较"/>
 <meta name="twitter:description" content="这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。"/>
@@ -138,7 +137,7 @@
         <div class="post-category">
             <a href="/categories/algorithm/"> Algorithm </a>
             </div>
-          <span class="more-meta"> 约 1762 字 </span>
+          <span class="more-meta"> 约 1772 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -286,112 +285,112 @@
 </span><span class="lnt">105
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// main.c
-</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;Ordinary_Heap.c&#34;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&#34;Leftist_Heap.c&#34;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&#34;Skew_Heap.c&#34;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-	<span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">&#34;0: increase, 1: decrease, 2: random&#34;</span><span class="p">);</span>
-	<span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">&#34;Please wait...&#34;</span><span class="p">);</span>
-	<span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="o">*</span><span class="n">output</span><span class="p">;</span>
-	<span class="k">switch</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
-		<span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
-			<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;increase.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
-   			<span class="n">output</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;Result_increase.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
-   			<span class="k">break</span><span class="p">;</span>
-   		<span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-			<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;decrease.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
-   			<span class="n">output</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;Result_decrease.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
-   			<span class="k">break</span><span class="p">;</span>
-   		<span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
-			<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
-   			<span class="n">output</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;Result_random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
-   			<span class="k">break</span><span class="p">;</span>
-   		<span class="k">default</span><span class="o">:</span>
-   			<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
-   			<span class="n">output</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;Result_random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
-   			<span class="k">break</span><span class="p">;</span>
-	<span class="p">}</span>
-
-	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">){</span>
-		<span class="n">puts</span><span class="p">(</span><span class="s">&#34;Cannot open file!&#34;</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-	<span class="p">}</span>
-	
-	<span class="kt">int</span> <span class="n">M</span><span class="p">;</span>
-	<span class="k">for</span><span class="p">(</span><span class="n">M</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">M</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">M</span><span class="o">++</span><span class="p">){</span>
-		<span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
-	    <span class="n">clock_t</span> <span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">;</span>
-	    <span class="kt">double</span> <span class="n">time</span><span class="p">;</span>
-	    <span class="cm">/* Leftist Heap */</span>
-	    <span class="n">LHeap</span> <span class="n">LH</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-	    <span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="n">i</span><span class="p">;</span>
-	    <span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
-	    <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
-	    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-	        <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
-	        <span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
-	        <span class="n">LH</span> <span class="o">=</span> <span class="n">LInsert</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LH</span><span class="p">);</span>
-	    <span class="p">}</span>
-	    <span class="n">finish</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
-	    <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">finish</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">CLOCKS_PER_SEC</span><span class="p">;</span>
-	    <span class="c1">//LLevelOrderTraversal(LH, N);
-</span><span class="c1"></span>	    <span class="n">fprintf</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s">&#34;%d    %f    &#34;</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
-	    <span class="cm">/* Leftist Heap ends */</span>
-	
-	    <span class="cm">/* Skew Heap */</span>
-	    <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
-	     <span class="n">SHeap</span> <span class="n">SH</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-	<span class="c1">//     int N, i;
-</span><span class="c1"></span>	     <span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
-	     <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
-	     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-	         <span class="n">ElementType</span> <span class="n">t</span><span class="p">;</span>
-	         <span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
-	         <span class="n">SH</span> <span class="o">=</span> <span class="n">SInsert</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">SH</span><span class="p">);</span>
-	     <span class="p">}</span>
-	     <span class="n">finish</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
-	     <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">finish</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">CLOCKS_PER_SEC</span><span class="p">;</span>
-	     <span class="c1">//SLevelOrderTraversal(SH, N);
-</span><span class="c1"></span>	     <span class="n">fprintf</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s">&#34;%f    &#34;</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
-	    <span class="cm">/* Skew Heap ends */</span>
-	
-	    <span class="cm">/* Ordinary Heap */</span>
-	    <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
-	     <span class="n">Heap</span> <span class="n">OH</span> <span class="o">=</span> <span class="p">(</span><span class="n">Heap</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">heap_struct</span><span class="p">));</span>
-	     <span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Capacity</span><span class="p">);</span>
-	     <span class="n">OH</span><span class="o">-&gt;</span><span class="n">Elements</span> <span class="o">=</span> <span class="p">(</span><span class="n">ElementType</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">ElementType</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
-	     <span class="n">OH</span><span class="o">-&gt;</span><span class="n">Size</span> <span class="o">=</span> <span class="n">OH</span><span class="o">-&gt;</span><span class="n">Capacity</span><span class="p">;</span>
-	     <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
-	     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-	         <span class="n">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-	     <span class="p">}</span>
-	     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Size</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
-	         <span class="n">Percolate_down</span><span class="p">(</span><span class="n">OH</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-	     <span class="p">}</span>
-	     <span class="n">finish</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
-	    <span class="c1">// for(i=1; i&lt;=OH-&gt;Size; i++)
-</span><span class="c1"></span>	    <span class="c1">//     printf(&#34;%d &#34;, OH-&gt;Elements[i]);
-</span><span class="c1"></span>	     <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">finish</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">CLOCKS_PER_SEC</span><span class="p">;</span>
-	     <span class="n">fprintf</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s">&#34;%f</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
-	     <span class="n">free</span><span class="p">(</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">);</span>
-	     <span class="n">free</span><span class="p">(</span><span class="n">OH</span><span class="p">);</span>
-	    <span class="cm">/* Ordinary Heap ends */</span>
-	<span class="p">}</span>
-	
-	<span class="n">puts</span><span class="p">(</span><span class="s">&#34;Please check </span><span class="se">\&#34;</span><span class="s">Result_xxx.txt</span><span class="se">\&#34;</span><span class="s"> for the results generated.&#34;</span><span class="p">);</span>
-
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="c1">// main.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;Ordinary_Heap.c&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Leftist_Heap.c&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Skew_Heap.c&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">puts</span><span class="p">(</span><span class="s">&#34;0: increase, 1: decrease, 2: random&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Please wait...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="o">*</span><span class="n">output</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">switch</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;increase.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="n">output</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;Result_increase.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   		<span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;decrease.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="n">output</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;Result_decrease.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   		<span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="n">output</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;Result_random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   		<span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">   			<span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="n">output</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;Result_random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Cannot open file!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">M</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(</span><span class="n">M</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">M</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">M</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	    <span class="kt">clock_t</span> <span class="n">start</span><span class="p">,</span> <span class="n">finish</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="kt">double</span> <span class="n">time</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="cm">/* Leftist Heap */</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">LHeap</span> <span class="n">LH</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="nf">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">start</span> <span class="o">=</span> <span class="nf">clock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	        <span class="kt">int</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	        <span class="nf">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	        <span class="n">LH</span> <span class="o">=</span> <span class="nf">LInsert</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LH</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">finish</span> <span class="o">=</span> <span class="nf">clock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">finish</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">CLOCKS_PER_SEC</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="c1">//LLevelOrderTraversal(LH, N);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="nf">fprintf</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s">&#34;%d    %f    &#34;</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	    <span class="cm">/* Leftist Heap ends */</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	    <span class="cm">/* Skew Heap */</span>
+</span></span><span class="line"><span class="cl">	    <span class="nf">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">SHeap</span> <span class="n">SH</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//     int N, i;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	     <span class="nf">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">start</span> <span class="o">=</span> <span class="nf">clock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	         <span class="n">ElementType</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	         <span class="nf">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	         <span class="n">SH</span> <span class="o">=</span> <span class="nf">SInsert</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">SH</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">finish</span> <span class="o">=</span> <span class="nf">clock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">finish</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">CLOCKS_PER_SEC</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	     <span class="c1">//SLevelOrderTraversal(SH, N);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	     <span class="nf">fprintf</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s">&#34;%f    &#34;</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	    <span class="cm">/* Skew Heap ends */</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	    <span class="cm">/* Ordinary Heap */</span>
+</span></span><span class="line"><span class="cl">	    <span class="nf">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">Heap</span> <span class="n">OH</span> <span class="o">=</span> <span class="p">(</span><span class="n">Heap</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">heap_struct</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">	     <span class="nf">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Capacity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">OH</span><span class="o">-&gt;</span><span class="n">Elements</span> <span class="o">=</span> <span class="p">(</span><span class="n">ElementType</span><span class="o">*</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">ElementType</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">OH</span><span class="o">-&gt;</span><span class="n">Size</span> <span class="o">=</span> <span class="n">OH</span><span class="o">-&gt;</span><span class="n">Capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">start</span> <span class="o">=</span> <span class="nf">clock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	         <span class="nf">fscanf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">	     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	     <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Size</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	         <span class="nf">Percolate_down</span><span class="p">(</span><span class="n">OH</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	     <span class="n">finish</span> <span class="o">=</span> <span class="nf">clock</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	    <span class="c1">// for(i=1; i&lt;=OH-&gt;Size; i++)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="c1">//     printf(&#34;%d &#34;, OH-&gt;Elements[i]);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	     <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">(</span><span class="n">finish</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">CLOCKS_PER_SEC</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	     <span class="nf">fprintf</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s">&#34;%f</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">time</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="nf">free</span><span class="p">(</span><span class="n">OH</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	     <span class="nf">free</span><span class="p">(</span><span class="n">OH</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	    <span class="cm">/* Ordinary Heap ends */</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Please check </span><span class="se">\&#34;</span><span class="s">Result_xxx.txt</span><span class="se">\&#34;</span><span class="s"> for the results generated.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fclose</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Leftist Heap:</p>
 <div class="highlight"><div class="chroma">
@@ -483,92 +482,92 @@
 </span><span class="lnt">85
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// Leftist_Heap.c
-</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">typedef</span> <span class="kt">int</span> <span class="n">ElementType</span><span class="p">;</span>
-
-<span class="k">struct</span> <span class="n">lheap_node</span><span class="p">{</span>
-    <span class="n">ElementType</span> <span class="n">Element</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">lheap_node</span> <span class="o">*</span><span class="n">Left</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">lheap_node</span> <span class="o">*</span><span class="n">Right</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">Npl</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">lheap_node</span> <span class="o">*</span><span class="n">LHeap</span><span class="p">;</span>
-
-<span class="n">LHeap</span> <span class="nf">LMerge</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">);</span>
-<span class="n">LHeap</span> <span class="nf">LMerge1</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">);</span>
-<span class="n">LHeap</span> <span class="nf">LInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H</span><span class="p">);</span>
-<span class="n">ElementType</span> <span class="nf">LDeletemin</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">LLevelOrderTraversal</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">);</span>
-
-
-<span class="n">LHeap</span> <span class="nf">LMerge</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H1</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H2</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">&lt;</span> <span class="n">H2</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">LMerge1</span><span class="p">(</span><span class="n">H1</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
-    <span class="k">else</span> <span class="k">return</span> <span class="n">LMerge1</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span> <span class="n">H1</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="n">LHeap</span> <span class="nf">LMerge1</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">H2</span><span class="p">;</span>
-    <span class="k">else</span><span class="p">{</span>
-        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="n">LMerge</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">&lt;</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="o">-&gt;</span><span class="n">Npl</span><span class="p">){</span>
-            <span class="n">LHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
-            <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
-            <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">ElementType</span> <span class="nf">LDeletemin</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">ElementType</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">;</span>
-    <span class="n">LHeap</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">H</span><span class="p">;</span>
-    <span class="n">H</span> <span class="o">=</span> <span class="n">LMerge</span><span class="p">(</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">,</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">);</span>
-    <span class="n">free</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">LHeap</span> <span class="nf">LInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">LHeap</span> <span class="n">tH</span> <span class="o">=</span> <span class="p">(</span><span class="n">LHeap</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">lheap_node</span><span class="p">));</span>
-    <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">=</span> <span class="n">X</span><span class="p">;</span>
-    <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">LMerge</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">tH</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kt">void</span> <span class="nf">LLevelOrderTraversal</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">LHeap</span> <span class="n">Q</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
-        <span class="n">Q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">size</span><span class="o">++</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">tail</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">size</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
-        <span class="n">LHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">head</span><span class="p">];</span>
-        <span class="n">head</span> <span class="o">=</span> <span class="p">(</span><span class="n">head</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
-        <span class="n">size</span><span class="o">--</span><span class="p">;</span>
-
-        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">);</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;. &#34;</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
-            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
-            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
-            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
-            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
-            <span class="n">size</span><span class="o">+=</span><span class="mi">2</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="c1">// Leftist_Heap.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">int</span> <span class="n">ElementType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">lheap_node</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ElementType</span> <span class="n">Element</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">lheap_node</span> <span class="o">*</span><span class="n">Left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">lheap_node</span> <span class="o">*</span><span class="n">Right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">Npl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">lheap_node</span> <span class="o">*</span><span class="n">LHeap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">LHeap</span> <span class="nf">LMerge</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">LHeap</span> <span class="nf">LMerge1</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">LHeap</span> <span class="nf">LInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">ElementType</span> <span class="nf">LDeletemin</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">LLevelOrderTraversal</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">LHeap</span> <span class="nf">LMerge</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H1</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">&lt;</span> <span class="n">H2</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">LMerge1</span><span class="p">(</span><span class="n">H1</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">return</span> <span class="nf">LMerge1</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span> <span class="n">H1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">LHeap</span> <span class="nf">LMerge1</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">H2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="nf">LMerge</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">&lt;</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="o">-&gt;</span><span class="n">Npl</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">ElementType</span> <span class="nf">LDeletemin</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ElementType</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LHeap</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">H</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">H</span> <span class="o">=</span> <span class="nf">LMerge</span><span class="p">(</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">,</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">free</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">LHeap</span> <span class="nf">LInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">LHeap</span> <span class="n">H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LHeap</span> <span class="n">tH</span> <span class="o">=</span> <span class="p">(</span><span class="n">LHeap</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">lheap_node</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">=</span> <span class="n">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tH</span><span class="o">-&gt;</span><span class="n">Npl</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">LMerge</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">tH</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">LLevelOrderTraversal</span><span class="p">(</span><span class="n">LHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LHeap</span> <span class="n">Q</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">size</span><span class="o">++</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">tail</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">size</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">head</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">head</span> <span class="o">=</span> <span class="p">(</span><span class="n">head</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">size</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;. &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">size</span><span class="o">+=</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Skew Heap:</p>
 <div class="highlight"><div class="chroma">
@@ -644,76 +643,76 @@
 </span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// Skew_Heap.c
-</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">typedef</span> <span class="kt">int</span> <span class="n">ElementType</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">sheap_node</span><span class="p">{</span>
-    <span class="n">ElementType</span> <span class="n">Element</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">sheap_node</span> <span class="o">*</span><span class="n">Left</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">sheap_node</span> <span class="o">*</span><span class="n">Right</span><span class="p">;</span>
-<span class="p">}</span> <span class="o">*</span><span class="n">SHeap</span><span class="p">;</span>
-
-<span class="n">SHeap</span> <span class="nf">SMerge</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">);</span>
-<span class="n">SHeap</span> <span class="nf">SMerge1</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">);</span>
-<span class="n">SHeap</span> <span class="nf">SInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H</span><span class="p">);</span>
-<span class="kt">void</span> <span class="nf">SLevelOrderTraversal</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">);</span>
-
-<span class="n">SHeap</span> <span class="nf">SMerge</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H1</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H2</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">&lt;</span> <span class="n">H2</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">SMerge1</span><span class="p">(</span><span class="n">H1</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
-    <span class="k">else</span> <span class="k">return</span> <span class="n">SMerge1</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span> <span class="n">H1</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="n">SHeap</span> <span class="nf">SMerge1</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">H2</span><span class="p">;</span>
-    <span class="k">else</span><span class="p">{</span>
-        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="n">SMerge</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
-        
-        <span class="n">SHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
-        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
-        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">SHeap</span> <span class="nf">SInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">SHeap</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHeap</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">sheap_node</span><span class="p">));</span>
-    <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">=</span> <span class="n">X</span><span class="p">;</span>
-    <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">SMerge</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">tmp</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kt">void</span> <span class="nf">SLevelOrderTraversal</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">SHeap</span> <span class="n">Q</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
-        <span class="n">Q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">size</span><span class="o">++</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">tail</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">size</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
-        <span class="n">SHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">head</span><span class="p">];</span>
-        <span class="n">head</span> <span class="o">=</span> <span class="p">(</span><span class="n">head</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
-        <span class="n">size</span><span class="o">--</span><span class="p">;</span>
-
-        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">);</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;. &#34;</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
-            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
-            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
-            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
-            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
-            <span class="n">size</span><span class="o">+=</span><span class="mi">2</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="c1">// Skew_Heap.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">int</span> <span class="n">ElementType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">sheap_node</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ElementType</span> <span class="n">Element</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sheap_node</span> <span class="o">*</span><span class="n">Left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sheap_node</span> <span class="o">*</span><span class="n">Right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="o">*</span><span class="n">SHeap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">SHeap</span> <span class="nf">SMerge</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SHeap</span> <span class="nf">SMerge1</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SHeap</span> <span class="nf">SInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">SLevelOrderTraversal</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">SHeap</span> <span class="nf">SMerge</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H1</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>  <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">&lt;</span> <span class="n">H2</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">SMerge1</span><span class="p">(</span><span class="n">H1</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">return</span> <span class="nf">SMerge1</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span> <span class="n">H1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">SHeap</span> <span class="nf">SMerge1</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H1</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">H2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="nf">SMerge</span><span class="p">(</span><span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">,</span> <span class="n">H2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">SHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">H1</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">H1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">SHeap</span> <span class="nf">SInsert</span><span class="p">(</span><span class="n">ElementType</span> <span class="n">X</span><span class="p">,</span> <span class="n">SHeap</span> <span class="n">H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SHeap</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">SHeap</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">sheap_node</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">Element</span> <span class="o">=</span> <span class="n">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">Left</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">-&gt;</span><span class="n">Right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">SMerge</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">tmp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">SLevelOrderTraversal</span><span class="p">(</span><span class="n">SHeap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SHeap</span> <span class="n">Q</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">size</span><span class="o">++</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="n">tail</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">size</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SHeap</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">head</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">head</span> <span class="o">=</span> <span class="p">(</span><span class="n">head</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">size</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;. &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tail</span> <span class="o">=</span> <span class="p">(</span><span class="n">tail</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Q</span><span class="p">[</span><span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">size</span><span class="o">+=</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Ordinary Heap:</p>
 <div class="highlight"><div class="chroma">
@@ -751,38 +750,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// Ordinary_Heap.c
-</span><span class="c1"></span><span class="k">typedef</span> <span class="kt">int</span> <span class="n">ElementType</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">heap_struct</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">Capacity</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">Size</span><span class="p">;</span>
-    <span class="n">ElementType</span> <span class="o">*</span><span class="n">Elements</span><span class="p">;</span>
-<span class="p">};</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">heap_struct</span> <span class="o">*</span><span class="n">Heap</span><span class="p">;</span>
-<span class="kt">void</span> <span class="nf">Percolate_down</span><span class="p">(</span><span class="n">Heap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">ElementType</span> <span class="n">key</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">child</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">p</span><span class="p">;</span> <span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="o">&lt;=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Size</span><span class="p">;</span> <span class="n">i</span><span class="o">=</span><span class="n">child</span><span class="p">){</span>
-        <span class="n">child</span><span class="o">=</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">child</span><span class="o">&lt;</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Size</span> <span class="o">&amp;&amp;</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="p">])</span>
-            <span class="n">child</span><span class="o">++</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="p">]</span><span class="o">&lt;</span><span class="n">key</span><span class="p">)</span>
-            <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="p">];</span>
-        <span class="k">else</span> <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">key</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kt">void</span> <span class="nf">Percolate_up</span><span class="p">(</span><span class="n">Heap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">ElementType</span> <span class="n">key</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">p</span><span class="p">;</span> <span class="n">key</span><span class="o">&lt;</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">];</span> <span class="n">i</span><span class="o">/=</span><span class="mi">2</span><span class="p">){</span>   <span class="c1">// H-&gt;Elements[0]=min(H-&gt;Elements[1~H-&gt;Size])
-</span><span class="c1"></span>        <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">key</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="c1">// Ordinary_Heap.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="kt">int</span> <span class="n">ElementType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">heap_struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">Capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">Size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ElementType</span> <span class="o">*</span><span class="n">Elements</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">heap_struct</span> <span class="o">*</span><span class="n">Heap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Percolate_down</span><span class="p">(</span><span class="n">Heap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ElementType</span> <span class="n">key</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">child</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">p</span><span class="p">;</span> <span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="o">&lt;=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Size</span><span class="p">;</span> <span class="n">i</span><span class="o">=</span><span class="n">child</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">child</span><span class="o">=</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">child</span><span class="o">&lt;</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Size</span> <span class="o">&amp;&amp;</span> <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">child</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="p">]</span><span class="o">&lt;</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">child</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Percolate_up</span><span class="p">(</span><span class="n">Heap</span> <span class="n">H</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ElementType</span> <span class="n">key</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">p</span><span class="p">;</span> <span class="n">key</span><span class="o">&lt;</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">];</span> <span class="n">i</span><span class="o">/=</span><span class="mi">2</span><span class="p">){</span>   <span class="c1">// H-&gt;Elements[0]=min(H-&gt;Elements[1~H-&gt;Size])
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">H</span><span class="o">-&gt;</span><span class="n">Elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后还有一个生成大量测试数据的小程序：</p>
 <div class="highlight"><div class="chroma">
@@ -820,38 +819,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// TestCaseGenerator.c
-</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#define NUM (100000)
-</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">// Random
-</span><span class="c1"></span>    <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-    <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">NUM</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">rand</span><span class="p">());</span>
-    <span class="p">}</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-
-    <span class="c1">// Increasing
-</span><span class="c1"></span>    <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;increase.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
-    <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">NUM</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-
-    <span class="c1">//Decreasing
-</span><span class="c1"></span>    <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;decrease.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
-    <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">NUM</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="c1">// TestCaseGenerator.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define NUM (100000)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Random
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;random.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">NUM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="nf">rand</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Increasing
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;increase.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">NUM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//Decreasing
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;decrease.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">NUM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果要改变数据的规模，只要修改宏就好了。</p>
 <hr>
@@ -956,7 +955,7 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>
 
@@ -980,7 +979,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2022/01/opengl-learn-02-%E7%9D%80%E8%89%B2%E5%99%A8%E5%92%8C%E5%85%89%E7%85%A7/" />
@@ -36,7 +36,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/add-copy-btn.css">
 
@@ -47,7 +47,6 @@
 <meta property="og:url" content="http://localhost:1313/2022/01/opengl-learn-02-%E7%9D%80%E8%89%B2%E5%99%A8%E5%92%8C%E5%85%89%E7%85%A7/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-01-19T15:46:23+00:00" />
 <meta property="article:modified_time" content="2022-01-27T11:06:22+08:00" />
-
 <meta itemprop="name" content="OpenGL-learn-02-着色器和光照">
 <meta itemprop="description" content="正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Qt带来了一定的困难。本文主要介绍一下我用到的Qt-OpenGL在着色器和光照渲染方面的功能~"><meta itemprop="datePublished" content="2022-01-19T15:46:23+00:00" />
 <meta itemprop="dateModified" content="2022-01-27T11:06:22+08:00" />
@@ -201,16 +200,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="p">{</span>
-    <span class="c1">//...
-</span><span class="c1"></span>    <span class="n">w</span><span class="o">-&gt;</span><span class="n">makeCurrent</span><span class="p">();</span>
-    <span class="n">VAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLVertexArrayObject</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
-    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">();</span>
-    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
-    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
-    <span class="n">w</span><span class="o">-&gt;</span><span class="n">doneCurrent</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">w</span><span class="o">-&gt;</span><span class="n">makeCurrent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">VAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLVertexArrayObject</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">w</span><span class="o">-&gt;</span><span class="n">doneCurrent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中<code>w</code>是<code>QOpenGLWidget</code>类型的变量指针。如果不这样做，就相当于在OpenGL上下文之外创建了VAO。后续绑定VAO时，系统就找不到VAO以及与其绑定的buffer对象了。</p>
 <p>为了让我们自定义的<code>MyOpenGLWidget</code>能够同兼顾<code>QOpenGLWidget</code>和上下文，我这里进行了一个多继承：</p>
@@ -220,9 +219,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">MyOpenGLWidget</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QOpenGLWidget</span><span class="p">,</span> <span class="k">public</span> <span class="n">QOpenGLExtraFunctions</span>
-    <span class="p">...</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyOpenGLWidget</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QOpenGLWidget</span><span class="p">,</span> <span class="k">public</span> <span class="n">QOpenGLExtraFunctions</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>后面如果要传递上下文，就只需要传递<code>MyOpenGLWidget</code>对象指针即可。</p>
 <h3 id="2-vao与vbo-ebo">2. VAO与VBO, EBO</h3>
@@ -235,11 +234,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">VAO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
-<span class="n">VBO</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">();</span>
-<span class="n">VBO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
-<span class="c1">// Prepare data
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">VAO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">VBO</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">VBO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Prepare data
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>当然良好的代码习惯是在分配内存后将这两个对象<code>release</code>掉，就像原生OpenGL中所做的那样。一个比较直接（但并不正确）的做法如下：</p>
 <div class="highlight"><div class="chroma">
@@ -249,10 +248,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">//...
-</span><span class="c1"></span><span class="n">VBO</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
-<span class="n">VAO</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">VBO</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">VAO</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这种想法很正常，按照先入后出的原则。但是在这里，如果先释放了VBO，就会导致VAO绑定的VBO缓冲区数据丢失。所以VBO应该在<strong>VAO释放之后</strong>再释放，或者根本就不释放。</p>
 <h3 id="3-着色器">3. 着色器</h3>
@@ -270,15 +269,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">QOpenGLShaderProgram</span> <span class="o">*</span><span class="n">shader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLShaderProgram</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
-<span class="n">shader</span><span class="o">-&gt;</span><span class="n">addShaderFromSourceFile</span><span class="p">(</span><span class="n">QOpenGLShader</span><span class="o">::</span><span class="n">Vertex</span><span class="p">,</span> <span class="s">&#34;...&#34;</span><span class="p">);</span>
-<span class="n">shader</span><span class="o">-&gt;</span><span class="n">addShaderFromSourceFile</span><span class="p">(</span><span class="n">QOpenGLShader</span><span class="o">::</span><span class="n">Fragment</span><span class="p">,</span> <span class="s">&#34;...&#34;</span><span class="p">);</span>
-<span class="k">if</span><span class="p">(</span><span class="n">shader</span><span class="o">-&gt;</span><span class="n">link</span><span class="p">()){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Shader link success</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Shader link failure</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">QOpenGLShaderProgram</span> <span class="o">*</span><span class="n">shader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLShaderProgram</span><span class="p">(</span><span class="n">parent</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">shader</span><span class="o">-&gt;</span><span class="n">addShaderFromSourceFile</span><span class="p">(</span><span class="n">QOpenGLShader</span><span class="o">::</span><span class="n">Vertex</span><span class="p">,</span> <span class="s">&#34;...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">shader</span><span class="o">-&gt;</span><span class="n">addShaderFromSourceFile</span><span class="p">(</span><span class="n">QOpenGLShader</span><span class="o">::</span><span class="n">Fragment</span><span class="p">,</span> <span class="s">&#34;...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">shader</span><span class="o">-&gt;</span><span class="n">link</span><span class="p">()){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Shader link success</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Shader link failure</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中的<code>addShaderFromSourceFile()</code>方法还可以替换成<code>addShaderFromSourceCode()</code>，只不过着色器程序需要写成字符串。</p>
 <p>为了能够更好地使用着色器类，我对<code>QOpenGLShaderProgram</code>进行了继承，定义了<code>Shader</code>类，其中只包含了一个函数上下文指针。</p>
@@ -316,34 +315,34 @@
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">context</span><span class="o">-&gt;</span><span class="n">makeCurrent</span><span class="p">();</span>
-
-<span class="k">if</span><span class="p">(</span><span class="n">VAO</span><span class="p">){</span>
-    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">destroy</span><span class="p">();</span>
-    <span class="k">delete</span> <span class="n">VAO</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">VAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLVertexArrayObject</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
-<span class="n">QOpenGLVertexArrayObject</span><span class="o">::</span><span class="n">Binder</span><span class="p">{</span><span class="n">VAO</span><span class="p">};</span>
-
-<span class="k">if</span><span class="p">(</span><span class="n">VBO</span><span class="p">){</span>
-    <span class="n">VBO</span><span class="o">-&gt;</span><span class="n">destroy</span><span class="p">();</span>
-    <span class="k">delete</span> <span class="n">VBO</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">VBO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLBuffer</span><span class="p">(</span><span class="n">QOpenGLBuffer</span><span class="o">::</span><span class="n">VertexBuffer</span><span class="p">);</span>
-<span class="n">VBO</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">();</span>
-<span class="n">VBO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
-<span class="n">VBO</span><span class="o">-&gt;</span><span class="n">allocate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vertices</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Vertex</span><span class="p">));</span>
-<span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">setAttributeBuffer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Vertex</span><span class="p">));</span>
-<span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">enableAttributeArray</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">setAttributeBuffer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Vertex</span><span class="p">));</span>
-<span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">enableAttributeArray</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">if</span><span class="p">(</span><span class="n">func</span><span class="o">-&gt;</span><span class="n">glGetError</span><span class="p">()</span> <span class="o">!=</span> <span class="n">GL_NO_ERROR</span><span class="p">){</span>
-    <span class="n">QMessageBox</span><span class="o">::</span><span class="n">warning</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s">&#34;Warning&#34;</span><span class="p">,</span> <span class="s">&#34;Error in shader face&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="n">context</span><span class="o">-&gt;</span><span class="n">doneCurrent</span><span class="p">();</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">context</span><span class="o">-&gt;</span><span class="n">makeCurrent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">VAO</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">VAO</span><span class="o">-&gt;</span><span class="n">destroy</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">VAO</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">VAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLVertexArrayObject</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">QOpenGLVertexArrayObject</span><span class="o">::</span><span class="n">Binder</span><span class="p">{</span><span class="n">VAO</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">VBO</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">VBO</span><span class="o">-&gt;</span><span class="n">destroy</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">VBO</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">VBO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QOpenGLBuffer</span><span class="p">(</span><span class="n">QOpenGLBuffer</span><span class="o">::</span><span class="n">VertexBuffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">VBO</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">VBO</span><span class="o">-&gt;</span><span class="n">bind</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">VBO</span><span class="o">-&gt;</span><span class="n">allocate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vertices</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Vertex</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">setAttributeBuffer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Vertex</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">enableAttributeArray</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">setAttributeBuffer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Vertex</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">shader_vertex</span><span class="o">-&gt;</span><span class="n">enableAttributeArray</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">func</span><span class="o">-&gt;</span><span class="n">glGetError</span><span class="p">()</span> <span class="o">!=</span> <span class="n">GL_NO_ERROR</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">QMessageBox</span><span class="o">::</span><span class="n">warning</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s">&#34;Warning&#34;</span><span class="p">,</span> <span class="s">&#34;Error in shader face&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">-&gt;</span><span class="n">doneCurrent</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到，设置VBO buffer参数的函数是通过shader调用的。</p>
 <p>此外，上面有一个非常特别的类：<code>QOpenGLVerteArrayObject::Binder{VAO}</code>. Qt帮助文档这样介绍：</p>
@@ -365,12 +364,12 @@ If needed the VAO can be temporarily unbound with the release() function and bou
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">DrawVertex</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">QOpenGLVertexArrayObject</span><span class="o">::</span><span class="n">Binder</span><span class="p">{</span><span class="n">VAO</span><span class="p">};</span>
-    <span class="n">func</span><span class="o">-&gt;</span><span class="n">glDrawArrays</span><span class="p">(</span><span class="n">GL_POINTS</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vertices</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">DrawVertex</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">QOpenGLVertexArrayObject</span><span class="o">::</span><span class="n">Binder</span><span class="p">{</span><span class="n">VAO</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">func</span><span class="o">-&gt;</span><span class="n">glDrawArrays</span><span class="p">(</span><span class="n">GL_POINTS</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vertices</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-光照">4. 光照</h3>
 <p>漫反射、镜面反射以及与其相关的物体材质属性之类的理论，说实话我是一知半解——大概明白理论，却说不清也没法闭眼写代码。这里简要讨论几点好了。</p>
@@ -409,25 +408,25 @@ $$
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="cp">#version 330</span>
-<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">aPos</span><span class="p">;</span>
-<span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">aNormal</span><span class="p">;</span>
-
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">view</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">projection</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="n">mat4</span> <span class="n">model</span><span class="p">;</span>
-
-<span class="k">out</span> <span class="k">vec3</span> <span class="n">fragPos</span><span class="p">;</span>
-<span class="k">out</span> <span class="k">vec3</span> <span class="n">Normal</span><span class="p">;</span>
-
-<span class="k">void</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">gl_Position</span> <span class="o">=</span> <span class="n">projection</span> <span class="o">*</span> <span class="n">view</span> <span class="o">*</span> <span class="n">model</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">aPos</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span>
-  <span class="n">fragPos</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span><span class="n">model</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">aPos</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">));</span>
-  <span class="n">Normal</span> <span class="o">=</span> <span class="n">mat3</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">inverse</span><span class="p">(</span><span class="n">model</span><span class="p">)))</span> <span class="o">*</span> <span class="n">aNormal</span><span class="p">;</span>
-  <span class="n">gl_PointSize</span> <span class="o">=</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="line"><span class="cl"><span class="cp">#version 330</span>
+</span></span><span class="line"><span class="cl"><span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mo">0</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">aPos</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">layout</span><span class="p">(</span><span class="n">location</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="k">vec3</span> <span class="n">aNormal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">uniform</span> <span class="n">mat4</span> <span class="n">view</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">uniform</span> <span class="n">mat4</span> <span class="n">projection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">uniform</span> <span class="n">mat4</span> <span class="n">model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">out</span> <span class="k">vec3</span> <span class="n">fragPos</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">out</span> <span class="k">vec3</span> <span class="n">Normal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">void</span> <span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">gl_Position</span> <span class="o">=</span> <span class="n">projection</span> <span class="o">*</span> <span class="n">view</span> <span class="o">*</span> <span class="n">model</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">aPos</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fragPos</span> <span class="o">=</span> <span class="k">vec3</span><span class="p">(</span><span class="n">model</span> <span class="o">*</span> <span class="k">vec4</span><span class="p">(</span><span class="n">aPos</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Normal</span> <span class="o">=</span> <span class="n">mat3</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">inverse</span><span class="p">(</span><span class="n">model</span><span class="p">)))</span> <span class="o">*</span> <span class="n">aNormal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">gl_PointSize</span> <span class="o">=</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="fragment">Fragment</h4>
 <p>Vertex:</p>
@@ -442,14 +441,14 @@ $$
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="cp">#version 330</span>
-<span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">;</span>
-
-<span class="k">void</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">fragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// 顶点颜色为绿色</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="line"><span class="cl"><span class="cp">#version 330</span>
+</span></span><span class="line"><span class="cl"><span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">void</span> <span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// 顶点颜色为绿色</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Edge:</p>
 <div class="highlight"><div class="chroma">
@@ -462,13 +461,13 @@ $$
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="cp">#version 330</span>
-<span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">;</span>
-<span class="k">void</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">fragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// 面片颜色为黄色</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="line"><span class="cl"><span class="cp">#version 330</span>
+</span></span><span class="line"><span class="cl"><span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">void</span> <span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span> <span class="c1">// 面片颜色为黄色</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Face:</p>
 <div class="highlight"><div class="chroma">
@@ -504,36 +503,36 @@ $$
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="cp">#version 330</span>
-<span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">;</span>
-
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">objectColor</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">lightColor</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">lightPos</span><span class="p">;</span>
-<span class="k">uniform</span> <span class="k">vec3</span> <span class="n">viewPos</span><span class="p">;</span>
-<span class="k">in</span> <span class="k">vec3</span> <span class="n">fragPos</span><span class="p">;</span>
-<span class="k">in</span> <span class="k">vec3</span> <span class="n">Normal</span><span class="p">;</span>
-
-<span class="k">void</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="c1">// fragColor = vec4(1.0f);</span>
-  <span class="k">float</span> <span class="n">ambientStrength</span> <span class="o">=</span> <span class="mf">0.1</span><span class="n">f</span><span class="p">;</span>
-  <span class="k">vec3</span> <span class="n">ambient</span> <span class="o">=</span> <span class="n">ambientStrength</span> <span class="o">*</span> <span class="n">lightColor</span><span class="p">;</span>
-  <span class="k">vec3</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">Normal</span><span class="p">);</span>
-  <span class="k">vec3</span> <span class="n">lightDir</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">lightPos</span> <span class="o">-</span> <span class="n">fragPos</span><span class="p">);</span>
-  <span class="k">float</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">lightDir</span><span class="p">),</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">);</span>
-  <span class="k">vec3</span> <span class="n">diffuse</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">lightColor</span><span class="p">;</span>
-
-  <span class="k">float</span> <span class="n">specularStrength</span> <span class="o">=</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">;</span>
-  <span class="k">vec3</span> <span class="n">viewDir</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">viewPos</span> <span class="o">-</span> <span class="n">fragPos</span><span class="p">);</span>
-  <span class="k">vec3</span> <span class="n">reflectDir</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">(</span><span class="o">-</span><span class="n">lightDir</span><span class="p">,</span> <span class="n">norm</span><span class="p">);</span>
-  <span class="k">float</span> <span class="n">spec</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">viewDir</span><span class="p">,</span> <span class="n">reflectDir</span><span class="p">),</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">),</span> <span class="mi">32</span><span class="p">);</span>
-  <span class="k">vec3</span> <span class="n">specular</span> <span class="o">=</span> <span class="n">specularStrength</span> <span class="o">*</span> <span class="n">spec</span> <span class="o">*</span> <span class="n">lightColor</span><span class="p">;</span>
-
-  <span class="k">vec3</span> <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">ambient</span> <span class="o">+</span> <span class="n">diffuse</span> <span class="o">+</span> <span class="n">specular</span><span class="p">)</span> <span class="o">*</span> <span class="n">objectColor</span><span class="p">;</span>
-  <span class="n">fragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-glsl" data-lang="glsl"><span class="line"><span class="cl"><span class="cp">#version 330</span>
+</span></span><span class="line"><span class="cl"><span class="k">out</span> <span class="k">vec4</span> <span class="n">fragColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">uniform</span> <span class="k">vec3</span> <span class="n">objectColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">uniform</span> <span class="k">vec3</span> <span class="n">lightColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">uniform</span> <span class="k">vec3</span> <span class="n">lightPos</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">uniform</span> <span class="k">vec3</span> <span class="n">viewPos</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">in</span> <span class="k">vec3</span> <span class="n">fragPos</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">in</span> <span class="k">vec3</span> <span class="n">Normal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">void</span> <span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// fragColor = vec4(1.0f);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">float</span> <span class="n">ambientStrength</span> <span class="o">=</span> <span class="mf">0.1</span><span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">ambient</span> <span class="o">=</span> <span class="n">ambientStrength</span> <span class="o">*</span> <span class="n">lightColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">Normal</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">lightDir</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">lightPos</span> <span class="o">-</span> <span class="n">fragPos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">float</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">lightDir</span><span class="p">),</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">diffuse</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">*</span> <span class="n">lightColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">float</span> <span class="n">specularStrength</span> <span class="o">=</span> <span class="mf">0.5</span><span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">viewDir</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">viewPos</span> <span class="o">-</span> <span class="n">fragPos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">reflectDir</span> <span class="o">=</span> <span class="n">reflect</span><span class="p">(</span><span class="o">-</span><span class="n">lightDir</span><span class="p">,</span> <span class="n">norm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">float</span> <span class="n">spec</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">max</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">viewDir</span><span class="p">,</span> <span class="n">reflectDir</span><span class="p">),</span> <span class="mf">0.0</span><span class="n">f</span><span class="p">),</span> <span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">specular</span> <span class="o">=</span> <span class="n">specularStrength</span> <span class="o">*</span> <span class="n">spec</span> <span class="o">*</span> <span class="n">lightColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">vec3</span> <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">ambient</span> <span class="o">+</span> <span class="n">diffuse</span> <span class="o">+</span> <span class="n">specular</span><span class="p">)</span> <span class="o">*</span> <span class="n">objectColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mf">1.0</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>PS: 希望Qt的OpenGL示例代码能更加完善🙏!</p>
     </div>
@@ -623,7 +622,7 @@ $$
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>
 
@@ -647,7 +646,7 @@ $$
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

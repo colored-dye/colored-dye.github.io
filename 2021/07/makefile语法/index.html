@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/07/makefile%E8%AF%AD%E6%B3%95/" />
@@ -36,7 +36,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/add-copy-btn.css">
 
@@ -47,7 +47,6 @@
 <meta property="og:url" content="http://localhost:1313/2021/07/makefile%E8%AF%AD%E6%B3%95/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-07-11T18:04:36+00:00" />
 <meta property="article:modified_time" content="2022-01-27T11:06:02+08:00" />
-
 <meta itemprop="name" content="Makefile语法">
 <meta itemprop="description" content="Makefile在C/C&#43;&#43;工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Linux相关的工程和IDE的工程管理中也会接触到很多Makefile，但是后者的可读性往往很差（那是后话了）"><meta itemprop="datePublished" content="2021-07-11T18:04:36+00:00" />
 <meta itemprop="dateModified" content="2022-01-27T11:06:02+08:00" />
@@ -214,30 +213,30 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">objects</span> <span class="o">=</span> main.o kbd.o command.o display.o <span class="se">\
-</span><span class="se"></span>    insert.o search.o files.o utils.o
-
-<span class="nf">edit </span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
-    cc -o edit <span class="k">$(</span>objects<span class="k">)</span>
-<span class="nf">main.o </span><span class="o">:</span> <span class="n">main</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span>
-    cc -c main.c
-<span class="nf">kbd.o </span><span class="o">:</span> <span class="n">kbd</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
-    cc -c kbd.c
-<span class="nf">command.o </span><span class="o">:</span> <span class="n">command</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
-    cc -c command.c
-<span class="nf">display.o </span><span class="o">:</span> <span class="n">display</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
-    cc -c display.c
-<span class="nf">insert.o </span><span class="o">:</span> <span class="n">insert</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
-    cc -c insert.c
-<span class="nf">search.o </span><span class="o">:</span> <span class="n">search</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
-    cc -c search.c
-<span class="nf">files.o </span><span class="o">:</span> <span class="n">files</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
-    cc -c files.c
-<span class="nf">utils.o </span><span class="o">:</span> <span class="n">utils</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span>
-    cc -c utils.c
-<span class="nf">clean </span><span class="o">:</span>
-    rm edit <span class="k">$(</span>objects<span class="k">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">objects</span> <span class="o">=</span> main.o kbd.o command.o display.o <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    insert.o search.o files.o utils.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">edit </span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">    cc -o edit <span class="k">$(</span>objects<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">main.o </span><span class="o">:</span> <span class="n">main</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c main.c
+</span></span><span class="line"><span class="cl"><span class="nf">kbd.o </span><span class="o">:</span> <span class="n">kbd</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c kbd.c
+</span></span><span class="line"><span class="cl"><span class="nf">command.o </span><span class="o">:</span> <span class="n">command</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c command.c
+</span></span><span class="line"><span class="cl"><span class="nf">display.o </span><span class="o">:</span> <span class="n">display</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c display.c
+</span></span><span class="line"><span class="cl"><span class="nf">insert.o </span><span class="o">:</span> <span class="n">insert</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c insert.c
+</span></span><span class="line"><span class="cl"><span class="nf">search.o </span><span class="o">:</span> <span class="n">search</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c search.c
+</span></span><span class="line"><span class="cl"><span class="nf">files.o </span><span class="o">:</span> <span class="n">files</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c files.c
+</span></span><span class="line"><span class="cl"><span class="nf">utils.o </span><span class="o">:</span> <span class="n">utils</span>.<span class="n">c</span> <span class="n">defs</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">    cc -c utils.c
+</span></span><span class="line"><span class="cl"><span class="nf">clean </span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    rm edit <span class="k">$(</span>objects<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="让make自动推导">让make自动推导</h4>
 <p>只要make看到一个<code>.o</code>文件，就会自动把对应的<code>.c</code>文件加载到依赖关系中。</p>
@@ -263,25 +262,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">objects</span> <span class="o">=</span> main.o kbd.o command.o display.o <span class="se">\
-</span><span class="se"></span>    insert.o search.o files.o utils.o
-
-<span class="nf">edit </span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
-    cc -o edit <span class="k">$(</span>objects<span class="k">)</span>
-
-<span class="nf">main.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span>
-<span class="nf">kbd.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
-<span class="nf">command.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
-<span class="nf">display.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
-<span class="nf">insert.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
-<span class="nf">search.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
-<span class="nf">files.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
-<span class="nf">utils.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span>
-
-<span class="nf">.PHONY </span><span class="o">:</span> <span class="n">clean</span>
-<span class="nf">clean </span><span class="o">:</span>
-    rm edit <span class="k">$(</span>objects<span class="k">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">objects</span> <span class="o">=</span> main.o kbd.o command.o display.o <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    insert.o search.o files.o utils.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">edit </span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">    cc -o edit <span class="k">$(</span>objects<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">main.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nf">kbd.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nf">command.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nf">display.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nf">insert.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nf">search.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nf">files.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span> <span class="n">buffer</span>.<span class="n">h</span> <span class="n">command</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nf">utils.o </span><span class="o">:</span> <span class="n">defs</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">.PHONY </span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl"><span class="nf">clean </span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    rm edit <span class="k">$(</span>objects<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="关于清空目标文件的规则">关于清空目标文件的规则</h4>
 <div class="highlight"><div class="chroma">
@@ -291,10 +290,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
-<span class="nf">clean</span><span class="o">:</span>
-	-rm edit <span class="k">$(</span>objects<span class="k">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	-rm edit <span class="k">$(</span>objects<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>rm</code>命令前加了<code>-</code>的意思是，忽略问题，继续运行。</p>
 <h4 id="引用其他的makefile">引用其他的makefile</h4>
@@ -303,8 +302,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="err">include</span> <span class="err">foo.make</span> <span class="err">*.mk</span> <span class="k">$(</span><span class="nv">bar</span><span class="k">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="err">include</span> <span class="err">foo.make</span> <span class="err">*.mk</span> <span class="k">$(</span><span class="nv">bar</span><span class="k">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果在当前目录下找不到，make还会再下面几个目录里找：</p>
 <ol>
@@ -324,9 +323,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">bigoutput littleoutput</span><span class="o">:</span> <span class="n">text</span>.<span class="n">g</span>
-	generate text.g -<span class="k">$(</span>subst output,,<span class="nv">$@</span><span class="k">)</span> &gt; <span class="nv">$@</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">bigoutput littleoutput</span><span class="o">:</span> <span class="n">text</span>.<span class="n">g</span>
+</span></span><span class="line"><span class="cl">	generate text.g -<span class="k">$(</span>subst output,,<span class="nv">$@</span><span class="k">)</span> &gt; <span class="nv">$@</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>subst</code>为makefile的一个函数，表示替换字符串。</p>
 <h4 id="静态模式">静态模式</h4>
@@ -339,11 +338,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">objects</span> <span class="o">=</span> foo.o bar.o
-<span class="nf">all</span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
-<span class="nf">$(objects)</span><span class="o">:</span> %.<span class="n">o</span>: %.<span class="n">c</span>
-	<span class="k">$(</span>CC<span class="k">)</span> -c <span class="k">$(</span>CFLAGS<span class="k">)</span> $&lt; -o <span class="nv">$@</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">objects</span> <span class="o">=</span> foo.o bar.o
+</span></span><span class="line"><span class="cl"><span class="nf">all</span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">$(objects)</span><span class="o">:</span> %.<span class="n">o</span>: %.<span class="n">c</span>
+</span></span><span class="line"><span class="cl">	<span class="k">$(</span>CC<span class="k">)</span> -c <span class="k">$(</span>CFLAGS<span class="k">)</span> $&lt; -o <span class="nv">$@</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>$&lt;</code>表示第一个依赖文件，<code>$@</code>表示目标集。</p>
 <h4 id="自动生成依赖">自动生成依赖</h4>
@@ -352,8 +351,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="err">cc</span> <span class="err">-M</span> <span class="err">main.c</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="err">cc</span> <span class="err">-M</span> <span class="err">main.c</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果使用GNU的C/C++编译器，要用<code>-MM</code>参数，否则<code>-M</code>参数会把一些标准库的头文件也包含进来。</p>
 <h4 id="变量赋值">变量赋值</h4>
@@ -368,10 +367,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">x</span> <span class="o">=</span> foo
-<span class="nv">y</span> <span class="o">=</span> <span class="k">$(</span>x<span class="k">)</span> bar
-<span class="nv">x</span> <span class="o">=</span> xyz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">x</span> <span class="o">=</span> foo
+</span></span><span class="line"><span class="cl"><span class="nv">y</span> <span class="o">=</span> <span class="k">$(</span>x<span class="k">)</span> bar
+</span></span><span class="line"><span class="cl"><span class="nv">x</span> <span class="o">=</span> xyz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>那么y会是<code>xyz bar</code>，而不是<code>foo bar</code>.</p>
 <p>而<code>:=</code>表示变量的值取决于其位置：</p>
@@ -382,10 +381,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">x</span> <span class="o">:=</span> foo
-<span class="nv">y</span> <span class="o">:=</span> <span class="k">$(</span>x<span class="k">)</span> bar
-<span class="nv">x</span> <span class="o">:=</span> xyz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">x</span> <span class="o">:=</span> foo
+</span></span><span class="line"><span class="cl"><span class="nv">y</span> <span class="o">:=</span> <span class="k">$(</span>x<span class="k">)</span> bar
+</span></span><span class="line"><span class="cl"><span class="nv">x</span> <span class="o">:=</span> xyz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在这里，y的值会是<code>foo bar</code>而不是<code>xyz bar</code>.</p>
 <hr>
@@ -396,8 +395,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(&lt;function&gt; &lt;arguments&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(&lt;function&gt; &lt;arguments&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或：</p>
 <div class="highlight"><div class="chroma">
@@ -405,8 +404,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">${&lt;function&gt; &lt;arguments&gt;}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">${&lt;function&gt; &lt;arguments&gt;}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>&lt;arguments&gt;</code>为函数的参数，参数间以逗号分隔，而函数名和参数之间以空格分隔。</p>
 <h4 id="二字符串处理函数">二、字符串处理函数</h4>
@@ -418,8 +417,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(subst &lt;from&gt;,&lt;to&gt;,&lt;text&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(subst &lt;from&gt;,&lt;to&gt;,&lt;text&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>字符串替换函数：将字串<code>&lt;text&gt;</code>中的<code>&lt;from&gt;</code>字串替换成<code>&lt;to&gt;</code>。</p>
 <p>函数返回被替换过后的字符串。</p>
@@ -431,8 +430,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(patsubst &lt;pattern&gt;,&lt;replacement&gt;,&lt;text&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(patsubst &lt;pattern&gt;,&lt;replacement&gt;,&lt;text&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>模式字符串替换函数：查找 <code>&lt;text&gt;</code> 中的单词（单词以“空格”、“Tab”或“回车”“换行”分隔）是否符合模式<code>&lt;pattern&gt;</code> ，如果匹配的话，则以<code>&lt;replacement&gt;</code>替换。这里， 可以包括通配符 <code>%</code> ，表示任意长度的字串。如果<code>&lt;replacement&gt;</code>中也包含 <code>%</code> ，那么这个 <code>%</code> 将是 <code>&lt;pattern&gt;</code>中的那个 <code>%</code> 所代表的字串。（可以用 <code>\</code>来转义，以 <code>\%</code> 来表示真实含义的 <code>%</code> 字符）</p>
 <p>返回：函数返回被替换过后的字符串。</p>
@@ -444,9 +443,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt; $(patsubst %.c,%.o,x.c.c bar.c)
-&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt; $(patsubst %.c,%.o,x.c.c bar.c)
+</span></span><span class="line"><span class="cl">&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div></blockquote>
 <p>又如：</p>
@@ -455,8 +454,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">objects = foo.o bar.o baz.o
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">objects = foo.o bar.o baz.o
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>那么<code>$(objects:.o=.c)</code>和<code>$(oatsubst %.o,%.c,$(objects))</code>是一样的。</p>
 </li>
@@ -467,8 +466,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(strip &lt;string&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(strip &lt;string&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>去空格函数：去掉<code>&lt;string&gt;</code>字串开头和结尾的空字符，返回被去掉空格的字符串值。</p>
 </li>
@@ -479,8 +478,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(filter &lt;pattern...&gt;,&lt;text&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(filter &lt;pattern...&gt;,&lt;text&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>过滤函数：以模式过滤<code>&lt;text&gt;</code>字符串中的单词，保留符合模式<code>&lt;pattern&gt;</code>的单词。可以有多个模式。返回符合模式<code>&lt;pattern&gt;</code>的字串。</p>
 <p>示例：</p>
@@ -491,10 +490,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sources := foo.c bar.c baz.s ugh.h
-foo: $(sources)
-	cc $(filter %.c %.s,$(sources)) -o foo
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sources := foo.c bar.c baz.s ugh.h
+</span></span><span class="line"><span class="cl">foo: $(sources)
+</span></span><span class="line"><span class="cl">	cc $(filter %.c %.s,$(sources)) -o foo
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -507,8 +506,8 @@ foo: $(sources)
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(dir &lt;names...&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(dir &lt;names...&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>去目录函数：从文件名序列<code>&lt;names&gt;</code>中取出目录部分。目录部分是指最后一个反斜杠之前的部分。如果没有反斜杠，则返回<code>./</code>。</p>
 </li>
@@ -523,8 +522,8 @@ foo: $(sources)
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(suffix &lt;names...&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(suffix &lt;names...&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>取后缀函数：从文件名序列<code>&lt;names&gt;</code>中取出各个文件名的后缀。如果文件没有后缀，则返回空字串。</p>
 </li>
@@ -535,8 +534,8 @@ foo: $(sources)
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(foreach &lt;var&gt;,&lt;list&gt;,&lt;text&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(foreach &lt;var&gt;,&lt;list&gt;,&lt;text&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>把参数<code>&lt;list&gt;</code>中的单词逐一取出放到参数<code>&lt;var&gt;</code>所指定的变量中，再执行<code>&lt;text&gt;</code>所包含的表达式。每一次<code>&lt;text&gt;</code>会返回一个字符串，以空格分隔。</p>
 <p>如：</p>
@@ -546,9 +545,9 @@ foo: $(sources)
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">names := a b c d
-files := $(foreach n,$(names),$(n).o)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">names := a b c d
+</span></span><span class="line"><span class="cl">files := $(foreach n,$(names),$(n).o)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意：<code>&lt;var&gt;</code>参数是一个<strong>临时的局部变量</strong>。</p>
 <h4 id="五if函数">五、if函数</h4>
@@ -557,8 +556,8 @@ files := $(foreach n,$(names),$(n).o)
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(if &lt;condition&gt;,&lt;then-part&gt;,&lt;else-part&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(if &lt;condition&gt;,&lt;then-part&gt;,&lt;else-part&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以不包含else部分。</p>
 <h4 id="六call函数">六、call函数</h4>
@@ -568,8 +567,8 @@ files := $(foreach n,$(names),$(n).o)
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$(call &lt;expression&gt;,&lt;parm1&gt;,&lt;parm2&gt;,...,&lt;parmn&gt;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$(call &lt;expression&gt;,&lt;parm1&gt;,&lt;parm2&gt;,...,&lt;parmn&gt;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>&lt;expression&gt;</code>参数中的变量会被参数<code>&lt;param1&gt;</code>,<code>&lt;param2&gt;</code>依次取代。</p>
     </div>
@@ -659,7 +658,7 @@ files := $(foreach n,$(names),$(n).o)
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>
 
@@ -683,7 +682,7 @@ files := $(foreach n,$(names),$(n).o)
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2022/11/gentoo%E5%9F%BA%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85systemd/" />
@@ -37,7 +37,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/add-copy-btn.css">
 
@@ -49,7 +49,6 @@
 <meta property="og:url" content="http://localhost:1313/2022/11/gentoo%E5%9F%BA%E6%9C%AC%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85systemd/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-11-16T12:41:47+08:00" />
 <meta property="article:modified_time" content="2022-11-16T14:13:58+08:00" />
-
 <meta itemprop="name" content="Gentoo基本系统安装(systemd)">
 <meta itemprop="description" content="在我的“因为嫌麻烦而一直没有做的事情”的清单上少了一项，因为这几天我安装了Gentoo系统~
 很久以前就听说了Gentoo Linux，它与Arch Linux一样是滚动更新的系统，且最大的区别是：前者是从远程仓库获取源代码包、本地编译安装，而后者是像绝大多数发行版一样安装二进制包。说实话，Gentoo的这一特性对于大多数用户带来了很大的管理负担，比如说要编译Firefox，逛逛很可能要编译3小时以上，常规操作是让电脑熬夜干活、自己睡觉，第二天一早就编译好了QAQ。不过我不是很在意这一点，因为这种大型软件更新的频率较低。"><meta itemprop="datePublished" content="2022-11-16T12:41:47+08:00" />
@@ -219,11 +218,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkfs.vfat -F <span class="m">32</span> /dev/sda1
-mkfs.ex4 /dev/sda3
-mkswap /dev/sda2
-swapon /dev/sda2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkfs.vfat -F <span class="m">32</span> /dev/sda1
+</span></span><span class="line"><span class="cl">mkfs.ex4 /dev/sda3
+</span></span><span class="line"><span class="cl">mkswap /dev/sda2
+</span></span><span class="line"><span class="cl">swapon /dev/sda2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -239,17 +238,17 @@ swapon /dev/sda2
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mount /dev/sda3 /mnt/gentoo
-mkdir -p /mnt/gentoo/boot
-mount /dev/sda1 /boot
-mount --types proc /proc /mnt/gentoo/proc
-mount --rbind /sys /mnt/gentoo/sys
-mount --make-rslave /mnt/gentoo/sys
-mount --rbind /dev /mnt/gentoo/dev
-mount --make-rslave /mnt/gentoo/dev
-mount --bind /run /mnt/gentoo/run
-mount --make-rslave /mnt/gentoo/run
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount /dev/sda3 /mnt/gentoo
+</span></span><span class="line"><span class="cl">mkdir -p /mnt/gentoo/boot
+</span></span><span class="line"><span class="cl">mount /dev/sda1 /boot
+</span></span><span class="line"><span class="cl">mount --types proc /proc /mnt/gentoo/proc
+</span></span><span class="line"><span class="cl">mount --rbind /sys /mnt/gentoo/sys
+</span></span><span class="line"><span class="cl">mount --make-rslave /mnt/gentoo/sys
+</span></span><span class="line"><span class="cl">mount --rbind /dev /mnt/gentoo/dev
+</span></span><span class="line"><span class="cl">mount --make-rslave /mnt/gentoo/dev
+</span></span><span class="line"><span class="cl">mount --bind /run /mnt/gentoo/run
+</span></span><span class="line"><span class="cl">mount --make-rslave /mnt/gentoo/run
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要注意的是，在挂载分区的过程中，<code>--make-rslave</code>选项是systemd要求的，openrc不需要。</p>
 <h3 id="24-stage3">2.4 stage3</h3>
@@ -267,10 +266,10 @@ mount --make-rslave /mnt/gentoo/run
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /mnt/gentoo
-wget https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/20221106T170545Z/stage3-amd64-systemd-20221106T170545Z.tar.xz
-tar xpvf stage3-*.tar.xz --xattrs-include<span class="o">=</span><span class="s2">&#34;*.*&#34;</span> --numeric-owner
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /mnt/gentoo
+</span></span><span class="line"><span class="cl">wget https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/20221106T170545Z/stage3-amd64-systemd-20221106T170545Z.tar.xz
+</span></span><span class="line"><span class="cl">tar xpvf stage3-*.tar.xz --xattrs-include<span class="o">=</span><span class="s2">&#34;*.*&#34;</span> --numeric-owner
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="25-配置mntgentooetcportagemakeconf">2.5 配置<code>/mnt/gentoo/etc/portage/make.conf</code></h3>
 <div class="highlight"><div class="chroma">
@@ -278,8 +277,8 @@ tar xpvf stage3-*.tar.xz --xattrs-include<span class="o">=</span><span class="s2
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nano -w /mnt/gentoo/etc/portage/make.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano -w /mnt/gentoo/etc/portage/make.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>首先需要修改<code>COMMON_FLAGS</code>，一般加上<code>-march=native</code>，也可以直接写出CPU架构名称，比如我使用的i5-12500H对应的就是<code>-march=alderlake</code>.</p>
 <p>加上<code>MAKEOPTS=&quot;-j8&quot;</code>，用于并发任务加速编译。</p>
@@ -290,9 +289,9 @@ tar xpvf stage3-*.tar.xz --xattrs-include<span class="o">=</span><span class="s2
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">emerge --ask app-portage/cpuid2cpuflags --quiet
-cpuid2cpuflags &gt;&gt; /mnt/gentoo/etc/portage/make.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">emerge --ask app-portage/cpuid2cpuflags --quiet
+</span></span><span class="line"><span class="cl">cpuid2cpuflags &gt;&gt; /mnt/gentoo/etc/portage/make.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后需要改一改，将冒号改为等于号，并将右侧的内容加上引号。</p>
 <p><code>ACCEPT_LICENSE=&quot;*&quot;</code>. 如果不这么做，就只能使用GPL等开源协议，不能下载二进制包等。这不是最好的做法，但是我对开源协议的要求不高QwQ.</p>
@@ -302,8 +301,8 @@ cpuid2cpuflags &gt;&gt; /mnt/gentoo/etc/portage/make.conf
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mirrorselect -i -o &gt;&gt; /mnt/gentoo/etc/portage/make.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mirrorselect -i -o &gt;&gt; /mnt/gentoo/etc/portage/make.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="27-ebuild软件仓库">2.7 Ebuild软件仓库</h3>
 <div class="highlight"><div class="chroma">
@@ -312,9 +311,9 @@ cpuid2cpuflags &gt;&gt; /mnt/gentoo/etc/portage/make.conf
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir --parents /mnt/gentoo/etc/portage/repos.conf
-cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir --parents /mnt/gentoo/etc/portage/repos.conf
+</span></span><span class="line"><span class="cl">cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后修改<code>gentoo.conf</code>，将<code>sync-uri</code>改为<code>rsync://rsync.mirrors.ustc.edu.cn/gentoo-portage</code>. 这个镜像有一定延迟，不过我不在乎QwQ.</p>
 <h3 id="28-dns">2.8 DNS</h3>
@@ -323,8 +322,8 @@ cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp --dereference /etc/resolv.conf /mnt/gentoo/etc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp --dereference /etc/resolv.conf /mnt/gentoo/etc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="29-chroot">2.9 <code>chroot</code></h3>
 <div class="highlight"><div class="chroma">
@@ -334,10 +333,10 @@ cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chroot /mnt/gentoo /bin/bash
-<span class="nb">source</span> /etc/profile
-<span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&#34;(chroot) </span><span class="nv">$PS1</span><span class="s2">&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chroot /mnt/gentoo /bin/bash
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&#34;(chroot) </span><span class="nv">$PS1</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="210-更新软件源">2.10 更新软件源</h3>
 <div class="highlight"><div class="chroma">
@@ -346,9 +345,9 @@ cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">emerge-webrsync
-emerge --sync
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">emerge-webrsync
+</span></span><span class="line"><span class="cl">emerge --sync
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="211-选择系统配置">2.11 选择系统配置</h3>
 <p>由于我想安装DWM，所以只需要基本的桌面环境。选择最新版本的同时带有desktop和systemd字样的一项。</p>
@@ -358,9 +357,9 @@ emerge --sync
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">eselect profile list
-eselect profile <span class="nb">set</span> &lt;number&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">eselect profile list
+</span></span><span class="line"><span class="cl">eselect profile <span class="nb">set</span> &lt;number&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="212-更新系统">2.12 更新系统</h3>
 <p>This would take quite some time&hellip; 我编译了好几个小时QAQ.</p>
@@ -369,8 +368,8 @@ eselect profile <span class="nb">set</span> &lt;number&gt;
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">emerge --ask --verbose --update -deep --newuse -quiet @world
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">emerge --ask --verbose --update -deep --newuse -quiet @world
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="213-配置时区和区域设置">2.13 配置时区和区域设置</h3>
 <div class="highlight"><div class="chroma">
@@ -385,15 +384,15 @@ eselect profile <span class="nb">set</span> &lt;number&gt;
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-
-nano -w /etc/locale.gen
-<span class="c1"># 启用en_US.UTF-8 UTF-8和zh_CN.UTF-8 UTF-8</span>
-locale-gen
-eselect locale list
-eselect locale <span class="nb">set</span> &lt;number&gt; <span class="c1"># 我选择了en_US.UTF-8</span>
-env-update <span class="o">&amp;&amp;</span> <span class="nb">source</span> /etc/profile <span class="o">&amp;&amp;</span> <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&#34;(chroot) </span><span class="nv">$PS1</span><span class="s2">&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">nano -w /etc/locale.gen
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用en_US.UTF-8 UTF-8和zh_CN.UTF-8 UTF-8</span>
+</span></span><span class="line"><span class="cl">locale-gen
+</span></span><span class="line"><span class="cl">eselect locale list
+</span></span><span class="line"><span class="cl">eselect locale <span class="nb">set</span> &lt;number&gt; <span class="c1"># 我选择了en_US.UTF-8</span>
+</span></span><span class="line"><span class="cl">env-update <span class="o">&amp;&amp;</span> <span class="nb">source</span> /etc/profile <span class="o">&amp;&amp;</span> <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s2">&#34;(chroot) </span><span class="nv">$PS1</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="214-安装固件和cpu微码">2.14 安装固件和CPU微码</h3>
 <p>CPU微码很有意思，在系统启动之初加载进内存，参与到CPU指令解码的过程，可以用来解决CPU bug。</p>
@@ -403,9 +402,9 @@ env-update <span class="o">&amp;&amp;</span> <span class="nb">source</span> /etc
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">emerge --ask sys-kernel/linux-firmware
-emerge --ask sys-firmware/intel-microcode
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">emerge --ask sys-kernel/linux-firmware
+</span></span><span class="line"><span class="cl">emerge --ask sys-firmware/intel-microcode
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="215-配置编译内核">2.15 配置、编译内核</h3>
 <div class="highlight"><div class="chroma">
@@ -415,10 +414,10 @@ emerge --ask sys-firmware/intel-microcode
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">emerge --ask sys-kernel/gentoo-sources
-eselect kernel list
-eselect kernel <span class="nb">set</span> &lt;number&gt; <span class="c1"># 创建/usr/src/linux符号链接</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">emerge --ask sys-kernel/gentoo-sources
+</span></span><span class="line"><span class="cl">eselect kernel list
+</span></span><span class="line"><span class="cl">eselect kernel <span class="nb">set</span> &lt;number&gt; <span class="c1"># 创建/usr/src/linux符号链接</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>配置磁盘文件系统挂载点：</p>
 <div class="highlight"><div class="chroma">
@@ -431,13 +430,13 @@ eselect kernel <span class="nb">set</span> &lt;number&gt; <span class="c1"># 创
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nano -w /etc/fstab
-----
-/dev/sda1	/boot	vfat	defaults	<span class="m">0</span> <span class="m">2</span>
-/dev/sda2	none	swap	sw	<span class="m">0</span> <span class="m">0</span>
-/dev/sda3	/	ext4	noatime	<span class="m">0</span> <span class="m">1</span>
-/dev/cdrom	/mnt/cdrom	auto	noauto,user	<span class="m">0</span> <span class="m">0</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano -w /etc/fstab
+</span></span><span class="line"><span class="cl">----
+</span></span><span class="line"><span class="cl">/dev/sda1	/boot	vfat	defaults	<span class="m">0</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">/dev/sda2	none	swap	sw	<span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">/dev/sda3	/	ext4	noatime	<span class="m">0</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">/dev/cdrom	/mnt/cdrom	auto	noauto,user	<span class="m">0</span> <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>由于我的无线网卡较特殊，所以我想要编译相应的驱动模块。经查阅Gentoo论坛得知，还需要修改一下驱动代码：</p>
 <div class="highlight"><div class="chroma">
@@ -452,15 +451,15 @@ eselect kernel <span class="nb">set</span> &lt;number&gt; <span class="c1"># 创
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">// drivers/net/wireless/mediatek/mt76/mt7921/pci.c
-</span><span class="c1"></span><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">pci_device_id</span> <span class="n">mt7921_pci_device_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">{</span> <span class="n">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x7961</span><span class="p">)</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="n">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x7922</span><span class="p">)</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="n">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x0608</span><span class="p">)</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="n">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x0616</span><span class="p">)</span> <span class="p">},</span>
-    <span class="p">{</span> <span class="p">},</span>
- <span class="p">};</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// drivers/net/wireless/mediatek/mt76/mt7921/pci.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">pci_device_id</span> <span class="n">mt7921_pci_device_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nf">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x7961</span><span class="p">)</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nf">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x7922</span><span class="p">)</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nf">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x0608</span><span class="p">)</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nf">PCI_DEVICE</span><span class="p">(</span><span class="n">PCI_VENDOR_ID_MEDIATEK</span><span class="p">,</span> <span class="mh">0x0616</span><span class="p">)</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="p">};</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后使用menuconfig tui选择我需要的驱动：</p>
 <div class="highlight"><div class="chroma">
@@ -468,8 +467,8 @@ eselect kernel <span class="nb">set</span> &lt;number&gt; <span class="c1"># 创
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">genkernel --menuconfig all
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">genkernel --menuconfig all
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="216-配置引导程序">2.16 配置引导程序</h3>
 <div class="highlight"><div class="chroma">
@@ -480,11 +479,11 @@ eselect kernel <span class="nb">set</span> &lt;number&gt; <span class="c1"># 创
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;GRUB_PLATFORMS=&#34;efi-64&#34;&#39;</span> &gt;&gt; /etc/portage/make.conf
-emerge --ask --quiet sys-boot/grub
-grub-install --target<span class="o">=</span>x86_64-efi --efi-directory<span class="o">=</span>/boot
-grub-mkconfig -o /boot/grub/grub.cfg
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;GRUB_PLATFORMS=&#34;efi-64&#34;&#39;</span> &gt;&gt; /etc/portage/make.conf
+</span></span><span class="line"><span class="cl">emerge --ask --quiet sys-boot/grub
+</span></span><span class="line"><span class="cl">grub-install --target<span class="o">=</span>x86_64-efi --efi-directory<span class="o">=</span>/boot
+</span></span><span class="line"><span class="cl">grub-mkconfig -o /boot/grub/grub.cfg
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="217-网络组件">2.17 网络组件</h3>
 <p>网络相关的软件必须在此时安装，否则进入新系统后既没网络，又没法下载用来配置网络的工具，只能重新进入livecd安装了(血与泪的教训).</p>
@@ -494,9 +493,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">emerge --ask net-misc/dhcpcd
-emerge --ask net-wireless/iw net-wireless/wpa_supplicant
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">emerge --ask net-misc/dhcpcd
+</span></span><span class="line"><span class="cl">emerge --ask net-wireless/iw net-wireless/wpa_supplicant
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="218-密码">2.18 密码</h3>
 <p>同理，root密码需要配置。可以顺便添加新用户。</p>
@@ -507,10 +506,10 @@ emerge --ask net-wireless/iw net-wireless/wpa_supplicant
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">passwd
-useradd -m -G users,wheel,portage,usb,video,audio,cdrom,plugdev colored-dye
-passwd colored-dye
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd
+</span></span><span class="line"><span class="cl">useradd -m -G users,wheel,portage,usb,video,audio,cdrom,plugdev colored-dye
+</span></span><span class="line"><span class="cl">passwd colored-dye
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="219-systemd相关">2.19 systemd相关</h3>
 <div class="highlight"><div class="chroma">
@@ -520,10 +519,10 @@ passwd colored-dye
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemd-firstboot --prompt --setup-machine-id
-systemctl preset-all
-<span class="c1"># 还可以顺便设置dhcpcd等自动启动</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemd-firstboot --prompt --setup-machine-id
+</span></span><span class="line"><span class="cl">systemctl preset-all
+</span></span><span class="line"><span class="cl"><span class="c1"># 还可以顺便设置dhcpcd等自动启动</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="220-系统日志">2.20 系统日志</h3>
 <div class="highlight"><div class="chroma">
@@ -532,9 +531,9 @@ systemctl preset-all
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">emerge --ask app-admin/sysklogd
-systemctl <span class="nb">enable</span> syslogd
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">emerge --ask app-admin/sysklogd
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> syslogd
+</span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <p>重启即可！恭喜你，基本系统安装完成，可以进入纯命令行的Gentoo系统了~</p>
@@ -630,7 +629,7 @@ systemctl <span class="nb">enable</span> syslogd
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>
 
@@ -654,7 +653,7 @@ systemctl <span class="nb">enable</span> syslogd
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

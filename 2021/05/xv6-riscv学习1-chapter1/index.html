@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/05/xv6-riscv%E5%AD%A6%E4%B9%A01-chapter1/" />
@@ -35,7 +35,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/add-copy-btn.css">
 
@@ -46,7 +46,6 @@
 <meta property="og:url" content="http://localhost:1313/2021/05/xv6-riscv%E5%AD%A6%E4%B9%A01-chapter1/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-05-01T12:34:23+00:00" />
 <meta property="article:modified_time" content="2022-01-27T11:08:41+08:00" />
-
 <meta itemprop="name" content="xv6-riscv学习1-Chapter1">
 <meta itemprop="description" content="Chapter 1: Operating System Interfaces 第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功"><meta itemprop="datePublished" content="2021-05-01T12:34:23+00:00" />
 <meta itemprop="dateModified" content="2022-01-27T11:08:41+08:00" />
@@ -202,22 +201,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">testfork</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">pid</span><span class="p">;</span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;parent: child PID = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
-        <span class="n">pid</span> <span class="o">=</span> <span class="n">wait</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;child %d terminates</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
-    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;child exiting</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;fork error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">testfork</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;parent: child PID = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pid</span> <span class="o">=</span> <span class="nf">wait</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;child %d terminates</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;child exiting</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;fork error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。</p>
 <p>而<code>exec</code>系统调用直接将文件加载到内存中，文件通常是ELF(Executable and Linkable Format)格式。在Linux系统中文件类型可以通过<code>file [filename]</code>命令查看。</p>
@@ -232,13 +231,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
-<span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;echo&#34;</span><span class="p">;</span>
-<span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello&#34;</span><span class="p">;</span>
-<span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">exec</span><span class="p">(</span><span class="s">&#34;/bin/echo&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&#34;exec error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;echo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">exec</span><span class="p">(</span><span class="s">&#34;/bin/echo&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;exec error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>之所以在<code>exec()</code>的下一行输出错误信息，是因为当exec执行成功时，会将当前进程的内存空间覆盖掉，原程序的代码自然就无法执行了。</p>
 <p><code>fork</code>如果每创建一个新进程时都复制父进程的所有内存，其实是很浪费时间的。现在大多数操作系统采取的是<strong>写时复制</strong>(<strong>copy-on-write</strong>) ，也就是说，子进程刚创建时，是与父进程共用地址空间的。如果子进程只进行读操作，那就是最划算的了。而当子进程需要写入一段内存时，才会给子进程将要写入的对应页表进行复制，其余部分仍共享。</p>
@@ -254,8 +253,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">sudo apt-cache search vim <span class="p">|</span> grep vim
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt-cache search vim <span class="p">|</span> grep vim
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其实有点类似于重定向，但是它在更广泛的意义上提供了进程间通信的方法。当需要传输的数据量不太大时，可以通过重定向来实现管道的功能，如<code>echo hello world | wc</code>可以实现为：<code>echo hello world &gt; /tmp/xyz; wc &lt; /tmp/xyz</code>. 但是管道的一个优点就是它可以传递任意长度的数据流。</p>
 <p>管道有一个写端、一个读端。当两个进程通过一个管道进行通信时，它们的读端和写端都是一样的。</p>
@@ -281,24 +280,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-<span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-<span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;wc&#34;</span><span class="p">;</span>
-<span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-<span class="n">pipe</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
-<span class="k">if</span><span class="p">(</span><span class="n">fork</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-    <span class="n">close</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">dup</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="n">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="n">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-    <span class="n">exec</span><span class="p">(</span><span class="s">&#34;/bin/wc&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
-<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-    <span class="n">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="n">write</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&#34;hello world!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
-    <span class="n">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;wc&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">pipe</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nf">fork</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">dup</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exec</span><span class="p">(</span><span class="s">&#34;/bin/wc&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">write</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&#34;hello world!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>书中是这样解释这段程序的功能的：<code>fork</code>之后，父进程和子进程共用管道<code>p[]</code>所指的文件描述符。子进程调用<code>close</code>和<code>dup</code>使得管道的读端为文件描述符0，关闭了<code>p[]</code>中的文件描述符，并调用<code>exec</code>运行<code>wc</code>。当<code>wc</code>从标准输入（即文件描述符0）读取输入时，它就会从管道中读。父进程关闭了管道的读端，向管道中写入“hello world!\n”，后关闭了管道的写端。</p>
 <p>关于管道，书中提到了一个神奇的用法。管道的右侧还可以包含管道！比如：<code>a | b | c |...</code>，从而可以构建一个进程树，在这样的树中，父节点需要等待所有的子节点执行完毕才能开始执行。</p>
@@ -322,18 +321,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define T_DIR 		1	</span><span class="c1">// Directory
-</span><span class="c1"></span><span class="cp">#define T_FILE		2	</span><span class="c1">// File
-</span><span class="c1"></span><span class="cp">#define T_DEVICE	 3	</span><span class="c1">// Device
-</span><span class="c1"></span>
-<span class="k">struct</span> <span class="n">stat</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">dev</span><span class="p">;</span>	<span class="c1">// File system&#39;s disk device
-</span><span class="c1"></span>    <span class="n">uint</span> <span class="n">ino</span><span class="p">;</span>	<span class="c1">// Inode number
-</span><span class="c1"></span>    <span class="kt">short</span> <span class="n">type</span><span class="p">;</span>	<span class="c1">// Type of file
-</span><span class="c1"></span>    <span class="kt">short</span> <span class="n">nlink</span><span class="p">;</span><span class="c1">// Number of links
-</span><span class="c1"></span>    <span class="n">uint64</span> <span class="n">size</span><span class="p">;</span><span class="c1">// Size of file in bytes
-</span><span class="c1"></span><span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define T_DIR 		1	</span><span class="c1">// Directory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define T_FILE		2	</span><span class="c1">// File
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define T_DEVICE	 3	</span><span class="c1">// Device
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">stat</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">dev</span><span class="p">;</span>	<span class="c1">// File system&#39;s disk device
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">uint</span> <span class="n">ino</span><span class="p">;</span>	<span class="c1">// Inode number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">short</span> <span class="n">type</span><span class="p">;</span>	<span class="c1">// Type of file
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">short</span> <span class="n">nlink</span><span class="p">;</span><span class="c1">// Number of links
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">uint64</span> <span class="n">size</span><span class="p">;</span><span class="c1">// Size of file in bytes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>关于<code>link</code>系统调用，这里实现的应该是软链接(soft link)，即新创建的链接并不是保存在额外的文件中，而是直接指向了被引用的文件。以下是一段创建链接的示例：</p>
 <div class="highlight"><div class="chroma">
@@ -342,9 +341,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">open</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="n">O_CREATE</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">);</span>
-<span class="n">link</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;b&#34;</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">open</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="n">O_CREATE</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">link</span><span class="p">(</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;b&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在此之后，文件名“a”和“b”都指的是同一个文件，使用这两个文件名会得到相同的inode number，而对应的<code>struct stat</code>变量中的nlink值为2.</p>
 <p>如果调用<code>ulink(&quot;a&quot;)</code>，那么这个文件名便只剩下了b，nlink值又变回了1.</p>
@@ -438,7 +437,7 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>
 
@@ -462,7 +461,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

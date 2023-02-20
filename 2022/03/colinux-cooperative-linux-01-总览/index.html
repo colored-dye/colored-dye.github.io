@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/" />
@@ -36,7 +36,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/add-copy-btn.css">
 
@@ -47,7 +47,6 @@
 <meta property="og:url" content="http://localhost:1313/2022/03/colinux-cooperative-linux-01-%E6%80%BB%E8%A7%88/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-03-19T21:45:33+08:00" />
 <meta property="article:modified_time" content="2022-06-27T21:02:37+08:00" />
-
 <meta itemprop="name" content="CoLinux-Cooperative Linux 01: 总览">
 <meta itemprop="description" content="CoLinux(Cooperative Linux)是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。"><meta itemprop="datePublished" content="2022-03-19T21:45:33+08:00" />
 <meta itemprop="dateModified" content="2022-06-27T21:02:37+08:00" />
@@ -243,24 +242,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="o">---</span> <span class="n">linux</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="k">asm</span><span class="o">-</span><span class="n">i386</span><span class="o">/</span><span class="n">pgtable</span><span class="o">-</span><span class="mi">2l</span><span class="n">evel</span><span class="p">.</span><span class="n">h</span> <span class="mi">2004</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">20</span> <span class="mi">08</span><span class="o">:</span><span class="mo">04</span><span class="o">:</span><span class="mf">01.000000000</span> <span class="o">+</span><span class="mo">0300</span>
-<span class="o">+++</span> <span class="n">linux</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="k">asm</span><span class="o">-</span><span class="n">i386</span><span class="o">/</span><span class="n">pgtable</span><span class="o">-</span><span class="mi">2l</span><span class="n">evel</span><span class="p">.</span><span class="n">h</span> <span class="mi">2004</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">09</span> <span class="mi">16</span><span class="o">:</span><span class="mi">54</span><span class="o">:</span><span class="mf">09.000000000</span> <span class="o">+</span><span class="mo">0300</span>
-<span class="err">@@</span> <span class="o">-</span><span class="mi">58</span><span class="p">,</span><span class="mi">8</span> <span class="o">+</span><span class="mi">58</span><span class="p">,</span><span class="mi">14</span> <span class="err">@@</span>
-<span class="p">}</span>
-<span class="cp">#define ptep_get_and_clear(xp) __pte(xchg(&amp;(xp)-&gt;pte_low, 0))
-</span><span class="cp">#define pte_same(a, b) ((a).pte_low == (b).pte_low)
-</span><span class="cp"></span><span class="o">-</span><span class="err">#</span><span class="n">define</span> <span class="n">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">mem_map</span><span class="o">+</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)(((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span> <span class="o">&gt;&gt;</span> <span class="n">PAGE_SHIFT</span><span class="p">))))</span>
-<span class="cp">#define pte_none(x) (!(x).pte_low)
-</span><span class="cp"></span><span class="o">+</span>
-<span class="o">+</span><span class="err">#</span><span class="n">ifndef</span> <span class="n">CONFIG_COOPERATIVE</span>
-<span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="n">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">mem_map</span><span class="o">+</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)(((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span> <span class="o">&gt;&gt;</span> <span class="n">PAGE_SHIFT</span><span class="p">))))</span>
-<span class="cp">#define __mk_pte(page_nr,pgprot) __pte(((page_nr) &lt;&lt; PAGE_SHIFT) | pgprot_val(pgprot))
-</span><span class="cp"></span><span class="o">+</span><span class="err">#</span><span class="k">else</span>
-<span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="n">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">CO_VA_PAGE</span><span class="p">((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span><span class="p">)</span>
-<span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="n">__mk_pte</span><span class="p">(</span><span class="n">page_nr</span><span class="p">,</span><span class="n">pgprot</span><span class="p">)</span> <span class="n">__pte</span><span class="p">((</span><span class="n">CO_PA</span><span class="p">(</span><span class="n">page_nr</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">PAGE_MASK</span><span class="p">)</span> <span class="o">|</span> <span class="n">pgprot_val</span><span class="p">(</span><span class="n">pgprot</span><span class="p">))</span>
-<span class="o">+</span><span class="err">#</span><span class="n">endif</span>
-<span class="cp">#endif </span><span class="cm">/* _I386_PGTABLE_2LEVEL_H */</span><span class="cp">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">---</span> <span class="n">linux</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="k">asm</span><span class="o">-</span><span class="n">i386</span><span class="o">/</span><span class="n">pgtable</span><span class="o">-</span><span class="mi">2l</span><span class="n">evel</span><span class="p">.</span><span class="n">h</span> <span class="mi">2004</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">20</span> <span class="mi">08</span><span class="o">:</span><span class="mo">04</span><span class="o">:</span><span class="mf">01.000000000</span> <span class="o">+</span><span class="mo">0300</span>
+</span></span><span class="line"><span class="cl"><span class="o">+++</span> <span class="n">linux</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="k">asm</span><span class="o">-</span><span class="n">i386</span><span class="o">/</span><span class="n">pgtable</span><span class="o">-</span><span class="mi">2l</span><span class="n">evel</span><span class="p">.</span><span class="n">h</span> <span class="mi">2004</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">09</span> <span class="mi">16</span><span class="o">:</span><span class="mi">54</span><span class="o">:</span><span class="mf">09.000000000</span> <span class="o">+</span><span class="mo">0300</span>
+</span></span><span class="line"><span class="cl"><span class="err">@@</span> <span class="o">-</span><span class="mi">58</span><span class="p">,</span><span class="mi">8</span> <span class="o">+</span><span class="mi">58</span><span class="p">,</span><span class="mi">14</span> <span class="err">@@</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define ptep_get_and_clear(xp) __pte(xchg(&amp;(xp)-&gt;pte_low, 0))
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define pte_same(a, b) ((a).pte_low == (b).pte_low)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="o">-</span><span class="err">#</span><span class="n">define</span> <span class="nf">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">mem_map</span><span class="o">+</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)(((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span> <span class="o">&gt;&gt;</span> <span class="n">PAGE_SHIFT</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define pte_none(x) (!(x).pte_low)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="o">+</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">ifndef</span> <span class="n">CONFIG_COOPERATIVE</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="nf">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">mem_map</span><span class="o">+</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)(((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span> <span class="o">&gt;&gt;</span> <span class="n">PAGE_SHIFT</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define __mk_pte(page_nr,pgprot) __pte(((page_nr) &lt;&lt; PAGE_SHIFT) | pgprot_val(pgprot))
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="o">+</span><span class="err">#</span><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="nf">pte_page</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">CO_VA_PAGE</span><span class="p">((</span><span class="n">x</span><span class="p">).</span><span class="n">pte_low</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">define</span> <span class="nf">__mk_pte</span><span class="p">(</span><span class="n">page_nr</span><span class="p">,</span><span class="n">pgprot</span><span class="p">)</span> <span class="nf">__pte</span><span class="p">((</span><span class="nf">CO_PA</span><span class="p">(</span><span class="n">page_nr</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">PAGE_MASK</span><span class="p">)</span> <span class="o">|</span> <span class="nf">pgprot_val</span><span class="p">(</span><span class="n">pgprot</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">endif</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif </span><span class="cm">/* _I386_PGTABLE_2LEVEL_H */</span><span class="cp">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到，修改部分使用<code>CONFIG_COOPERATIVE</code>宏作为选项参数，准备了两套<code>pte_page</code>和<code>__mk_ptr</code>. 后者返回一个PTE，而前者接受这个PTE并返回对应的页结构。此外需要修改的还有<code>pmd_page</code>和<code>load_cr3</code>.</p>
 <h2 id="34-context-switching">3.4 Context Switching</h2>
@@ -368,7 +367,7 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>
 
@@ -392,7 +391,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

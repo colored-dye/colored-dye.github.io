@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.2 with theme even" />
+<meta name="generator" content="Hugo 0.110.0 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/10/rime%E8%BE%93%E5%85%A5%E6%B3%95%E9%85%8D%E7%BD%AE/" />
@@ -36,7 +36,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/add-copy-btn.css">
 
@@ -47,7 +47,6 @@
 <meta property="og:url" content="http://localhost:1313/2021/10/rime%E8%BE%93%E5%85%A5%E6%B3%95%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-10-27T22:36:45+00:00" />
 <meta property="article:modified_time" content="2022-01-27T11:06:52+08:00" />
-
 <meta itemprop="name" content="RIME输入法配置">
 <meta itemprop="description" content="今天在新装的Manjaro Plasma KDE上安装了大名鼎鼎的RIME输入法~ 还算是成功，但是捣鼓了好一会儿QAQ 问题主要在配置文件上."><meta itemprop="datePublished" content="2021-10-27T22:36:45+00:00" />
 <meta itemprop="dateModified" content="2022-01-27T11:06:52+08:00" />
@@ -177,8 +176,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-rime
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要重启~</p>
 <h4 id="2-设置启动">2. 设置启动</h4>
@@ -190,10 +189,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">GTK_IM_MODULE</span><span class="o">=</span>fcitx5
-<span class="nb">export</span> <span class="nv">QT_IM_MODEUL</span><span class="o">=</span>fcitx5
-<span class="nb">export</span> <span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&#34;@im=fcitx5&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GTK_IM_MODULE</span><span class="o">=</span>fcitx5
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">QT_IM_MODEUL</span><span class="o">=</span>fcitx5
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&#34;@im=fcitx5&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在Manjaro KDE中可以直接在Settings菜单中添加<code>fcitx5</code>的启动项，或者也可以在<code>~/.xprofile</code>中插入: <code>fcitx5 &amp;</code>.</p>
 <h4 id="3-配置文件">3. 配置文件</h4>
@@ -288,7 +287,7 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>colored-dye</span>
   </span>
 </div>
 
@@ -312,7 +311,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {
