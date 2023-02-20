@@ -1,8 +1,8 @@
 ---
 title: 日记1
 date: 2021-04-30T14:06:14
-tags: ["diary?"]
-categories: ["diary?"]
+tags: ["daily"]
+categories: ["daily"]
 ---
 
 午后的阳光流入我的身体
