@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tools on colored-dye&#39;s Blog</title>
-    <link>http://localhost:1313/categories/tools/</link>
-    <description>Recent content in Tools on colored-dye&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Wed, 27 Oct 2021 22:36:45 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/tools/index.xml" rel="self" type="application/rss+xml" />
+    <title>Tools on colored-dye&#39;s blog</title>
+    <link>https://colored-dye.github.io/categories/tools/</link>
+    <description>Recent content in Tools on colored-dye&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 Oct 2021 22:36:45 +0000</lastBuildDate>
+    <atom:link href="https://colored-dye.github.io/categories/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RIME输入法配置</title>
-      <link>http://localhost:1313/2021/10/rime%E8%BE%93%E5%85%A5%E6%B3%95%E9%85%8D%E7%BD%AE/</link>
+      <link>https://colored-dye.github.io/post/rime-input/</link>
       <pubDate>Wed, 27 Oct 2021 22:36:45 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/10/rime%E8%BE%93%E5%85%A5%E6%B3%95%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://colored-dye.github.io/post/rime-input/</guid>
       <description>&lt;p&gt;今天在新装的Manjaro Plasma KDE上安装了大名鼎鼎的RIME输入法~ 还算是成功，但是捣鼓了好一会儿QAQ 问题主要在配置文件上.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>三种堆的插入效率比较 | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">三种堆的插入效率比较</h1>
+				<div class="entry__content"><p>这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。</p>
+<h3 id="问题描述">问题描述</h3>
+<p>问题是这样的：</p>
+<blockquote>
+<p>In the first three weeks we have been trying everything to maintain a balanced tree, in order to get the operations done efficiently. So it seems that the balanced trees are the good guys and the skew trees are the bad guys.</p>
+<p>But this week, we are gonna find out that sometimes, a skew tree can be the good guy, while a balanced tree is the worst case&hellip;</p>
+<p>Although there is no programming problems to solve on PTA for this week, still I&rsquo;d suggest you to do some coding &ndash; try to implement the ordinary heap, the leftist heap, and the skew heap, to compare their performance on a sequence of insertions. You may test them for random, increasing, and decreasing sequences; and at the mean time, vary the size of input from 100 to 1,000,000.</p></blockquote>
+<p>总的来说就是比较Leftist Heap, Skew Heap和普通的Heap即Priority Queue之间，在进行不同序列的插入时，所花的时间。</p>
+<p>一般的思路就是比较时间，如果有可能的话可以画图表示。</p>
+<h3 id="贴代码">贴代码</h3>
+<p>主程序:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">// main.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Ordinary_Heap.c&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Leftist_Heap.c&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Skew_Heap.c&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> t;
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;0: increase, 1: decrease, 2: random&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>t);
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Please wait...&#34;</span>);
+</span></span><span style="display:flex;"><span>	FILE <span style="color:#f92672">*</span>fp, <span style="color:#f92672">*</span>output;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">switch</span>(t){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			fp <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;increase.txt&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span>   			output <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;Result_increase.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>   			<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>   		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			fp <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;decrease.txt&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span>   			output <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;Result_decrease.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>   			<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>   		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>			fp <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;random.txt&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span>   			output <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;Result_random.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>   			<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>   		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>   			fp <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;random.txt&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span>   			output <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;Result_random.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>   			<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>fp){
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Cannot open file!&#34;</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">exit</span>(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> M;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span>(M<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; M<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">100</span>; M<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fseek</span>(fp, <span style="color:#ae81ff">0</span>, SEEK_SET);
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">clock_t</span> start, finish;
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">double</span> time;
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">/* Leftist Heap */</span>
+</span></span><span style="display:flex;"><span>	    LHeap LH <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">int</span> N, i;
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">fscanf</span>(fp, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>N);
+</span></span><span style="display:flex;"><span>	    start <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>();
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>N; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	        <span style="color:#66d9ef">int</span> t;
+</span></span><span style="display:flex;"><span>	        <span style="color:#a6e22e">fscanf</span>(fp, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>t);
+</span></span><span style="display:flex;"><span>	        LH <span style="color:#f92672">=</span> <span style="color:#a6e22e">LInsert</span>(t, LH);
+</span></span><span style="display:flex;"><span>	    }
+</span></span><span style="display:flex;"><span>	    finish <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>();
+</span></span><span style="display:flex;"><span>	    time <span style="color:#f92672">=</span> (<span style="color:#66d9ef">double</span>) (finish<span style="color:#f92672">-</span>start)<span style="color:#f92672">/</span>CLOCKS_PER_SEC;
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">//LLevelOrderTraversal(LH, N);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	    <span style="color:#a6e22e">fprintf</span>(output, <span style="color:#e6db74">&#34;%d    %f    &#34;</span>, M, time);
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">/* Leftist Heap ends */</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">/* Skew Heap */</span>
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">fseek</span>(fp, <span style="color:#ae81ff">0</span>, SEEK_SET);
+</span></span><span style="display:flex;"><span>	     SHeap SH <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//     int N, i;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	     <span style="color:#a6e22e">fscanf</span>(fp, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>N);
+</span></span><span style="display:flex;"><span>	     start <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>();
+</span></span><span style="display:flex;"><span>	     <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>N; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	         ElementType t;
+</span></span><span style="display:flex;"><span>	         <span style="color:#a6e22e">fscanf</span>(fp, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>t);
+</span></span><span style="display:flex;"><span>	         SH <span style="color:#f92672">=</span> <span style="color:#a6e22e">SInsert</span>(t, SH);
+</span></span><span style="display:flex;"><span>	     }
+</span></span><span style="display:flex;"><span>	     finish <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>();
+</span></span><span style="display:flex;"><span>	     time <span style="color:#f92672">=</span> (<span style="color:#66d9ef">double</span>) (finish<span style="color:#f92672">-</span>start)<span style="color:#f92672">/</span>CLOCKS_PER_SEC;
+</span></span><span style="display:flex;"><span>	     <span style="color:#75715e">//SLevelOrderTraversal(SH, N);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	     <span style="color:#a6e22e">fprintf</span>(output, <span style="color:#e6db74">&#34;%f    &#34;</span>, time);
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">/* Skew Heap ends */</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">/* Ordinary Heap */</span>
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">fseek</span>(fp, <span style="color:#ae81ff">0</span>, SEEK_SET);
+</span></span><span style="display:flex;"><span>	     Heap OH <span style="color:#f92672">=</span> (Heap)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> heap_struct));
+</span></span><span style="display:flex;"><span>	     <span style="color:#a6e22e">fscanf</span>(fp, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>OH<span style="color:#f92672">-&gt;</span>Capacity);
+</span></span><span style="display:flex;"><span>	     OH<span style="color:#f92672">-&gt;</span>Elements <span style="color:#f92672">=</span> (ElementType<span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(ElementType) <span style="color:#f92672">*</span> (OH<span style="color:#f92672">-&gt;</span>Capacity <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>	     OH<span style="color:#f92672">-&gt;</span>Size <span style="color:#f92672">=</span> OH<span style="color:#f92672">-&gt;</span>Capacity;
+</span></span><span style="display:flex;"><span>	     start <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>();
+</span></span><span style="display:flex;"><span>	     <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>OH<span style="color:#f92672">-&gt;</span>Size; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	         <span style="color:#a6e22e">fscanf</span>(fp, <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>OH<span style="color:#f92672">-&gt;</span>Elements[i]);
+</span></span><span style="display:flex;"><span>	     }
+</span></span><span style="display:flex;"><span>	     <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>OH<span style="color:#f92672">-&gt;</span>Size<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; i<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>	         <span style="color:#a6e22e">Percolate_down</span>(OH, i);
+</span></span><span style="display:flex;"><span>	     }
+</span></span><span style="display:flex;"><span>	     finish <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>();
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">// for(i=1; i&lt;=OH-&gt;Size; i++)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	    <span style="color:#75715e">//     printf(&#34;%d &#34;, OH-&gt;Elements[i]);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	     time <span style="color:#f92672">=</span> (<span style="color:#66d9ef">double</span>) (finish<span style="color:#f92672">-</span>start)<span style="color:#f92672">/</span>CLOCKS_PER_SEC;
+</span></span><span style="display:flex;"><span>	     <span style="color:#a6e22e">fprintf</span>(output, <span style="color:#e6db74">&#34;%f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, time);
+</span></span><span style="display:flex;"><span>	     <span style="color:#a6e22e">free</span>(OH<span style="color:#f92672">-&gt;</span>Elements);
+</span></span><span style="display:flex;"><span>	     <span style="color:#a6e22e">free</span>(OH);
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">/* Ordinary Heap ends */</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Please check </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Result_xxx.txt</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> for the results generated.&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fclose</span>(fp);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fclose</span>(output);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Leftist Heap:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">// Leftist_Heap.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> ElementType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> lheap_node{
+</span></span><span style="display:flex;"><span>    ElementType Element;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> lheap_node <span style="color:#f92672">*</span>Left;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> lheap_node <span style="color:#f92672">*</span>Right;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> Npl;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> lheap_node <span style="color:#f92672">*</span>LHeap;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LHeap <span style="color:#a6e22e">LMerge</span>(LHeap H1, LHeap H2);
+</span></span><span style="display:flex;"><span>LHeap <span style="color:#a6e22e">LMerge1</span>(LHeap H1, LHeap H2);
+</span></span><span style="display:flex;"><span>LHeap <span style="color:#a6e22e">LInsert</span>(ElementType X, LHeap H);
+</span></span><span style="display:flex;"><span>ElementType <span style="color:#a6e22e">LDeletemin</span>(LHeap H);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">LLevelOrderTraversal</span>(LHeap H, <span style="color:#66d9ef">int</span> N);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LHeap <span style="color:#a6e22e">LMerge</span>(LHeap H1, LHeap H2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H1 <span style="color:#f92672">==</span> NULL)  <span style="color:#66d9ef">return</span> H2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H2 <span style="color:#f92672">==</span> NULL)  <span style="color:#66d9ef">return</span> H1;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H1<span style="color:#f92672">-&gt;</span>Element <span style="color:#f92672">&lt;</span> H2<span style="color:#f92672">-&gt;</span>Element)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">LMerge1</span>(H1, H2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">LMerge1</span>(H2, H1);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>LHeap <span style="color:#a6e22e">LMerge1</span>(LHeap H1, LHeap H2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H1<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>        H1<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">=</span> H2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        H1<span style="color:#f92672">-&gt;</span>Right <span style="color:#f92672">=</span> <span style="color:#a6e22e">LMerge</span>(H1<span style="color:#f92672">-&gt;</span>Right, H2);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(H1<span style="color:#f92672">-&gt;</span>Left<span style="color:#f92672">-&gt;</span>Npl <span style="color:#f92672">&lt;</span> H1<span style="color:#f92672">-&gt;</span>Right<span style="color:#f92672">-&gt;</span>Npl){
+</span></span><span style="display:flex;"><span>            LHeap t <span style="color:#f92672">=</span> H1<span style="color:#f92672">-&gt;</span>Right;
+</span></span><span style="display:flex;"><span>            H1<span style="color:#f92672">-&gt;</span>Right <span style="color:#f92672">=</span> H1<span style="color:#f92672">-&gt;</span>Left;
+</span></span><span style="display:flex;"><span>            H1<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">=</span> t;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        H1<span style="color:#f92672">-&gt;</span>Npl <span style="color:#f92672">=</span> H1<span style="color:#f92672">-&gt;</span>Right<span style="color:#f92672">-&gt;</span>Npl <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> H1;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>ElementType <span style="color:#a6e22e">LDeletemin</span>(LHeap H)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ElementType ret <span style="color:#f92672">=</span> H<span style="color:#f92672">-&gt;</span>Element;
+</span></span><span style="display:flex;"><span>    LHeap tmp <span style="color:#f92672">=</span> H;
+</span></span><span style="display:flex;"><span>    H <span style="color:#f92672">=</span> <span style="color:#a6e22e">LMerge</span>(H<span style="color:#f92672">-&gt;</span>Left, H<span style="color:#f92672">-&gt;</span>Right);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">free</span>(tmp);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ret;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>LHeap <span style="color:#a6e22e">LInsert</span>(ElementType X, LHeap H)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    LHeap tH <span style="color:#f92672">=</span> (LHeap)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> lheap_node));
+</span></span><span style="display:flex;"><span>    tH<span style="color:#f92672">-&gt;</span>Element <span style="color:#f92672">=</span> X;
+</span></span><span style="display:flex;"><span>    tH<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">=</span> tH<span style="color:#f92672">-&gt;</span>Right <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    tH<span style="color:#f92672">-&gt;</span>Npl <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">LMerge</span>(H, tH);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">LLevelOrderTraversal</span>(LHeap H, <span style="color:#66d9ef">int</span> N)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    LHeap Q[N];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> head, tail, size<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H)
+</span></span><span style="display:flex;"><span>        Q[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> H, size<span style="color:#f92672">++</span>, head<span style="color:#f92672">=</span>tail<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(size<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        LHeap t <span style="color:#f92672">=</span> Q[head];
+</span></span><span style="display:flex;"><span>        head <span style="color:#f92672">=</span> (head<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>N;
+</span></span><span style="display:flex;"><span>        size<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d &#34;</span>, t<span style="color:#f92672">-&gt;</span>Element);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;. &#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>            tail <span style="color:#f92672">=</span> (tail<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>N;
+</span></span><span style="display:flex;"><span>            Q[tail] <span style="color:#f92672">=</span> t<span style="color:#f92672">-&gt;</span>Left;
+</span></span><span style="display:flex;"><span>            tail <span style="color:#f92672">=</span> (tail<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>N;
+</span></span><span style="display:flex;"><span>            Q[tail] <span style="color:#f92672">=</span> t<span style="color:#f92672">-&gt;</span>Right;
+</span></span><span style="display:flex;"><span>            size<span style="color:#f92672">+=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Skew Heap:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">// Skew_Heap.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> ElementType;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> sheap_node{
+</span></span><span style="display:flex;"><span>    ElementType Element;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> sheap_node <span style="color:#f92672">*</span>Left;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> sheap_node <span style="color:#f92672">*</span>Right;
+</span></span><span style="display:flex;"><span>} <span style="color:#f92672">*</span>SHeap;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SHeap <span style="color:#a6e22e">SMerge</span>(SHeap H1, SHeap H2);
+</span></span><span style="display:flex;"><span>SHeap <span style="color:#a6e22e">SMerge1</span>(SHeap H1, SHeap H2);
+</span></span><span style="display:flex;"><span>SHeap <span style="color:#a6e22e">SInsert</span>(ElementType X, SHeap H);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SLevelOrderTraversal</span>(SHeap H, <span style="color:#66d9ef">int</span> N);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SHeap <span style="color:#a6e22e">SMerge</span>(SHeap H1, SHeap H2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H1 <span style="color:#f92672">==</span> NULL)  <span style="color:#66d9ef">return</span> H2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H2 <span style="color:#f92672">==</span> NULL)  <span style="color:#66d9ef">return</span> H1;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H1<span style="color:#f92672">-&gt;</span>Element <span style="color:#f92672">&lt;</span> H2<span style="color:#f92672">-&gt;</span>Element)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">SMerge1</span>(H1, H2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">SMerge1</span>(H2, H1);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>SHeap <span style="color:#a6e22e">SMerge1</span>(SHeap H1, SHeap H2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H1<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>        H1<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">=</span> H2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        H1<span style="color:#f92672">-&gt;</span>Right <span style="color:#f92672">=</span> <span style="color:#a6e22e">SMerge</span>(H1<span style="color:#f92672">-&gt;</span>Right, H2);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        SHeap t <span style="color:#f92672">=</span> H1<span style="color:#f92672">-&gt;</span>Right;
+</span></span><span style="display:flex;"><span>        H1<span style="color:#f92672">-&gt;</span>Right <span style="color:#f92672">=</span> H1<span style="color:#f92672">-&gt;</span>Left;
+</span></span><span style="display:flex;"><span>        H1<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">=</span> t;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> H1;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>SHeap <span style="color:#a6e22e">SInsert</span>(ElementType X, SHeap H)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    SHeap tmp <span style="color:#f92672">=</span> (SHeap)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> sheap_node));
+</span></span><span style="display:flex;"><span>    tmp<span style="color:#f92672">-&gt;</span>Element <span style="color:#f92672">=</span> X;
+</span></span><span style="display:flex;"><span>    tmp<span style="color:#f92672">-&gt;</span>Left <span style="color:#f92672">=</span> tmp<span style="color:#f92672">-&gt;</span>Right <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">SMerge</span>(H, tmp);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SLevelOrderTraversal</span>(SHeap H, <span style="color:#66d9ef">int</span> N)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    SHeap Q[N];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> head, tail, size<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(H)
+</span></span><span style="display:flex;"><span>        Q[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> H, size<span style="color:#f92672">++</span>, head<span style="color:#f92672">=</span>tail<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(size<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        SHeap t <span style="color:#f92672">=</span> Q[head];
+</span></span><span style="display:flex;"><span>        head <span style="color:#f92672">=</span> (head<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>N;
+</span></span><span style="display:flex;"><span>        size<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d &#34;</span>, t<span style="color:#f92672">-&gt;</span>Element);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;. &#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>            tail <span style="color:#f92672">=</span> (tail<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>N;
+</span></span><span style="display:flex;"><span>            Q[tail] <span style="color:#f92672">=</span> t<span style="color:#f92672">-&gt;</span>Left;
+</span></span><span style="display:flex;"><span>            tail <span style="color:#f92672">=</span> (tail<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>N;
+</span></span><span style="display:flex;"><span>            Q[tail] <span style="color:#f92672">=</span> t<span style="color:#f92672">-&gt;</span>Right;
+</span></span><span style="display:flex;"><span>            size<span style="color:#f92672">+=</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ordinary Heap:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">// Ordinary_Heap.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> ElementType;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> heap_struct{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> Capacity;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> Size;
+</span></span><span style="display:flex;"><span>    ElementType <span style="color:#f92672">*</span>Elements;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> heap_struct <span style="color:#f92672">*</span>Heap;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Percolate_down</span>(Heap H, <span style="color:#66d9ef">int</span> p)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ElementType key<span style="color:#f92672">=</span>H<span style="color:#f92672">-&gt;</span>Elements[p];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i, child;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>p; i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">&lt;=</span>H<span style="color:#f92672">-&gt;</span>Size; i<span style="color:#f92672">=</span>child){
+</span></span><span style="display:flex;"><span>        child<span style="color:#f92672">=</span>i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(child<span style="color:#f92672">&lt;</span>H<span style="color:#f92672">-&gt;</span>Size <span style="color:#f92672">&amp;&amp;</span> H<span style="color:#f92672">-&gt;</span>Elements[child<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">&lt;</span>H<span style="color:#f92672">-&gt;</span>Elements[child])
+</span></span><span style="display:flex;"><span>            child<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(H<span style="color:#f92672">-&gt;</span>Elements[child]<span style="color:#f92672">&lt;</span>key)
+</span></span><span style="display:flex;"><span>            H<span style="color:#f92672">-&gt;</span>Elements[i]<span style="color:#f92672">=</span>H<span style="color:#f92672">-&gt;</span>Elements[child];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    H<span style="color:#f92672">-&gt;</span>Elements[i]<span style="color:#f92672">=</span>key;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Percolate_up</span>(Heap H, <span style="color:#66d9ef">int</span> p)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    ElementType key<span style="color:#f92672">=</span>H<span style="color:#f92672">-&gt;</span>Elements[p];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>p; key<span style="color:#f92672">&lt;</span>H<span style="color:#f92672">-&gt;</span>Elements[i<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>]; i<span style="color:#f92672">/=</span><span style="color:#ae81ff">2</span>){   <span style="color:#75715e">// H-&gt;Elements[0]=min(H-&gt;Elements[1~H-&gt;Size])
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        H<span style="color:#f92672">-&gt;</span>Elements[i]<span style="color:#f92672">=</span>H<span style="color:#f92672">-&gt;</span>Elements[i<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    H<span style="color:#f92672">-&gt;</span>Elements[i]<span style="color:#f92672">=</span>key;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>最后还有一个生成大量测试数据的小程序：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">// TestCaseGenerator.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define NUM (100000)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Random
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    FILE <span style="color:#f92672">*</span>fp <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;random.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fprintf</span>(fp, <span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, NUM);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>NUM; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(fp, <span style="color:#e6db74">&#34;%d &#34;</span>, <span style="color:#a6e22e">rand</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fclose</span>(fp);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Increasing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    fp <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;increase.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fprintf</span>(fp, <span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, NUM);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>NUM; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(fp, <span style="color:#e6db74">&#34;%d &#34;</span>, i);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fclose</span>(fp);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//Decreasing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    fp <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;decrease.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fprintf</span>(fp, <span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, NUM);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span>NUM; i<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(fp, <span style="color:#e6db74">&#34;%d &#34;</span>, i);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fclose</span>(fp);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如果要改变数据的规模，只要修改宏就好了。</p>
+<hr>
+<p>最后可以生成三个文件：<code>Result_increase.txt</code>, <code>Result_decrease.txt</code>, <code>Result_random.txt</code>.</p>
+<p>将三个文件分别导入Origin的普通Workbook中，并选择生成Line图像。</p>
+<p>Increase:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Increase.png" alt="Increase"></p>
+<p>Decrease:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Decrease.png" alt="Decrease"></p>
+<p>Random:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/colored-dye/Pics@main/Random.png" alt=""></p>
+<h3 id="结论">结论</h3>
+<ol>
+<li>Priority Queue在每种输入序列下，速度都是最快的。</li>
+<li>总的来说，Leftist Heap与Skew Heap在处理三种输入序列的情况下速度无显著差异。尤其是递减序列，两者几乎重合。处理递增序列时，Skew Heap有极其微弱的优势；而处理随机序列时，Leftist Heap又稍占上风。</li>
+</ol>
+<p>P.S: 好像并没有得到什么明显的结论。虽然Skew Heap实现起来稍微简单一些，但是与Leftist Heap的代码几乎没什么差别啊！我实现Skew Heap就是把Leftist Heap的代码拿过来删了点而已……桑心QAQ</p></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/algorithm/">Algorithm</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+</body>
+</html>

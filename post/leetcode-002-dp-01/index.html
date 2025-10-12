@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>LeetCode-002-DP-01 | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+				<h1 class="entry__title">LeetCode-002-DP-01</h1>
+				<div class="entry__content"><p>今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件，使得问题的解决略有复杂，但是基本的思路是一致的。</p>
+<h4 id="easy-version">Easy Version</h4>
+<p>最简单版本就是给出一系列非负数<code>prices[]</code>作为股价，但是有以下限定条件：</p>
+<ol>
+<li>任意一天最多只能拥有一股。</li>
+<li>某一天买下后，最早只能第二天卖。</li>
+</ol>
+<p>要求给出赚得最多的金额。</p>
+<p>将第$i$天的盈利记为$f(i)$，那么我们可以给出这样的转移方程：
+$$
+f(i) = f(i-1) + max(prices[i]-prices[i-1], 0)
+$$
+其实就是将所有的上升子序列的首末值加在一起就好了。</p>
+<h4 id="normal-version-with-cooldown">Normal Version: With Cooldown</h4>
+<p>所谓的“Cooldown”就是指，某一天卖掉股票后，第二天就不能买了，最早第三天才能买。</p>
+<p>加了这个限定条件后，转移方程就不能像前一个那样简单了。我们需要明确，在股票交易的全程中，一共可能出现三种状态：</p>
+<ol>
+<li><code>f[i][0]</code>: 刚刚卖掉，正处于冷冻期。</li>
+<li><code>f[i][1]</code>: 正持有股票。</li>
+<li><code>f[i][2]</code>: 不持有股票，并且不处于冷冻期。</li>
+</ol>
+<p>对应于以上三种状态，我们可以得到如下的状态转移方程：</p>
+<ol>
+<li>$f[i][0] = f[i-1][0] + prices[i]$ : 当天刚刚卖掉股票，所以收益等于前一天的收益加上卖掉股票的收益。</li>
+<li>$f[i][1] = max(f[i-1][1], f[i-1][2]-prices[i])$ : 当前的股票有可能在第<code>i-1</code>天就已经持有，也有可能是当天买入的。如果是前者，就相当于在<code>f[i-1][2]</code>收益的基础上支出了。</li>
+<li>$f[i][2] = max(f[i-1][0], f[i-1][2])$ : 既没有股票也不处于冷冻期，说明当天没有买股票，并且第<code>i-1</code>天也没有股票。</li>
+</ol>
+<p>那么我们很容易想到，最终的收益是$max(f[n-1][0], f[n-1][1], f[n-1][2])$. 但是在最后一天持有股票是没有价值的，所以只需要计算$max(f[n-1][0], f[n-1][2])$即可。</p>
+<p>接下来还需要确定的就是这三个收益函数的初值。假如第0天买入，就相当于得到了负数的收益，那么<code>f[0][0] = 0</code>, <code>f[0][1] = -prices[0]</code>, <code>f[0][2] = 0</code>.</p>
+<p>接下来就可以照葫芦画瓢写代码啦：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> maxProfit(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> prices) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (prices.empty()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> prices.size();
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// f[i][0]: 手上不持有股票，并且处于冷冻期中的累计最大收益
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// f[i][1]: 手上持有股票的最大收益
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// f[i][2]: 手上不持有股票，并且不在冷冻期中的累计最大收益
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> f(n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">3</span>));
+</span></span><span style="display:flex;"><span>        f[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>prices[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            f[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> f[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> prices[i];
+</span></span><span style="display:flex;"><span>            f[i][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> max(f[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>], f[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> prices[i]);
+</span></span><span style="display:flex;"><span>            f[i][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> max(f[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>], f[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">max</span>(f[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>], f[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h4 id="another-version-with-transaction-fee">Another Version: With Transaction Fee</h4>
+<p>同样，我们需要分析几种可能出现的状态：</p>
+<ol>
+<li><code>f[i][0]</code> : 当天手里没有股票。</li>
+<li><code>f[i][1]</code> : 当天手里有股票。</li>
+</ol>
+<p>对应这两种状态，我们可以写出两个状态转移方程：</p>
+<ol>
+<li>$f[i][0] = max(f[i-1][0], f[i-1][1] + prices[i] - fee)$ : 当天手里没有股票，可能是昨天已经卖掉，也可能是当天卖掉。对于后一种可能，除了获得相应的收益之外，还要支付交易费。交易费其实是针对一对买卖行为的，但是由于只能持有一股，所以只需要在卖掉时付费。</li>
+<li>$f[i][1] = max(f[i-1][1], f[i-1][0] - prices[i])$ : 当天手里有股票，可能是前一天已经买入，也有可能是当天买入。</li>
+</ol>
+<p>所以可以得出，最后的最大收益为$max(f[n-1][0], f[n-1][1])$. 同样，最后一天持有股票没什么意义，所以结果就是$f[n-1][0]$.</p>
+<p>此外，还需要确定初值。如果第一天先买股票，那么<code>f[i][0] = 0</code>, <code>f[i][1] = -prices[0]</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> maxProfit(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> prices, <span style="color:#66d9ef">int</span> fee) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> prices.size();
+</span></span><span style="display:flex;"><span>        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> dp(n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>        dp[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, dp[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>prices[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            dp[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> max(dp[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>], dp[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> prices[i] <span style="color:#f92672">-</span> fee);
+</span></span><span style="display:flex;"><span>            dp[i][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> max(dp[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>], dp[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> prices[i]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> dp[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><hr>
+<h4 id="小小总结">小小总结</h4>
+<p>经过后两道题我们可以感受到，只要写出了状态转移方程，写出相应的代码就会很容易。所以在正确理解题意的基础上，需要我们认真仔细地给出递归形式的状态转移方程，而这些方程往往都遵循着动态规划类型题目的基本模式。（多刷一些题应该可以总结得差不多吧( •̀ ω •́ )✧</p></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/algorithm/">Algorithm</a>
+			<a class="entry__tag btn" href="/tags/leetcode/">LeetCode</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

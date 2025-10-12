@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Git on colored-dye&#39;s Blog</title>
-    <link>http://localhost:1313/categories/git/</link>
-    <description>Recent content in Git on colored-dye&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Fri, 26 Mar 2021 22:56:54 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    <title>Git on colored-dye&#39;s blog</title>
+    <link>https://colored-dye.github.io/categories/git/</link>
+    <description>Recent content in Git on colored-dye&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 Mar 2021 22:56:54 +0000</lastBuildDate>
+    <atom:link href="https://colored-dye.github.io/categories/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github Clone加速</title>
-      <link>http://localhost:1313/2021/03/github-clone%E5%8A%A0%E9%80%9F/</link>
+      <link>https://colored-dye.github.io/post/github-clone-speedup/</link>
       <pubDate>Fri, 26 Mar 2021 22:56:54 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/03/github-clone%E5%8A%A0%E9%80%9F/</guid>
+      <guid>https://colored-dye.github.io/post/github-clone-speedup/</guid>
       <description>&lt;p&gt;有从Github Git Clone一些项目的需求，比如说克隆&lt;code&gt;riscv-toolchain&lt;/code&gt;的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

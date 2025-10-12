@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>xv6-riscv on colored-dye&#39;s Blog</title>
-    <link>http://localhost:1313/categories/xv6-riscv/</link>
-    <description>Recent content in xv6-riscv on colored-dye&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sat, 01 May 2021 12:34:23 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/xv6-riscv/index.xml" rel="self" type="application/rss+xml" />
+    <title>Xv6-Riscv on colored-dye&#39;s blog</title>
+    <link>https://colored-dye.github.io/categories/xv6-riscv/</link>
+    <description>Recent content in Xv6-Riscv on colored-dye&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 May 2021 12:34:23 +0000</lastBuildDate>
+    <atom:link href="https://colored-dye.github.io/categories/xv6-riscv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>xv6-riscv学习1-Chapter1</title>
-      <link>http://localhost:1313/2021/05/xv6-riscv%E5%AD%A6%E4%B9%A01-chapter1/</link>
+      <link>https://colored-dye.github.io/post/xv6-riscv-1/</link>
       <pubDate>Sat, 01 May 2021 12:34:23 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/05/xv6-riscv%E5%AD%A6%E4%B9%A01-chapter1/</guid>
-      <description>Chapter 1: Operating System Interfaces 第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功</description>
+      <guid>https://colored-dye.github.io/post/xv6-riscv-1/</guid>
+      <description>&lt;h3 id=&#34;chapter-1-operating-system-interfaces&#34;&gt;Chapter 1: Operating System Interfaces&lt;/h3&gt;&#xA;&lt;p&gt;第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。&lt;/p&gt;&#xA;&lt;p&gt;在这里，接口与&lt;strong&gt;系统调用&lt;/strong&gt; (&lt;strong&gt;system call&lt;/strong&gt;)是紧密相关的。系统调用就是操作系统内核向用户程序提供的访问内核功能的接口。实际上，系统调用在操作系统分层模型的实现中是极其重要的。书中有一幅图呈现了user space和kernel space之间的关系：&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;这其实带来了一个问题：系统调用的功能是不是越复杂、越丰富越好呢？书中给出的答案是否定的，并给出了一个目标：“Design interfaces that rely on a few mechanisms that can be combined to provide much generality.”这大概就是说“大而全不如小而精”吧。&lt;/p&gt;&#xA;&lt;p&gt;同时可以注意到，上图中shell是在用户空间里的，也就是说shell在xv6系统中是用户程序。这样一来，其实可以使得用户更换shell变得很方便，只要使用同样的接口就可以了。现实中常用的Linux系统也都是这样的。&lt;/p&gt;&#xA;&lt;p&gt;接下来仍遵循书中的结构~&lt;/p&gt;&#xA;&lt;h4 id=&#34;1-进程与内存&#34;&gt;1. 进程与内存&lt;/h4&gt;&#xA;&lt;p&gt;在操作系统中，一般会有多个进程“同时”运行，每个进程在内核中被分配有一个唯一的进程标识符(process identifier)，缩写&lt;code&gt;PID&lt;/code&gt;。真正意义上的“同时”只有在多核CPU上才能实现，而对于单核CPU，操作系统会通过进程调度机制轮流执行各个进程，由于切换的速度非常快，给人的感觉就像是同时一样。&lt;/p&gt;&#xA;&lt;p&gt;创建新进程的方法一般通过&lt;code&gt;fork()&lt;/code&gt;或&lt;code&gt;exec()&lt;/code&gt;系统调用实现。&lt;code&gt;fork&lt;/code&gt;会给新创建的子进程复制一份父进程的内存，内容完全一样，如果从标准的ELF格式来看的话，从text, data, bss到stack都是一样的。&lt;code&gt;fork&lt;/code&gt;很特殊的一点是其有两个返回值：向父进程返回子进程的&lt;code&gt;PID&lt;/code&gt;，向子进程返回0.&lt;/p&gt;&#xA;&lt;p&gt;一个经典的&lt;code&gt;fork&lt;/code&gt;测试程序大致如下：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testfork&lt;/span&gt;()&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; pid;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    pid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fork&lt;/span&gt;();&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(pid &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;){&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;parent: child PID = %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, pid);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        pid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;wait&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;child %d terminates&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, pid);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(pid &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;){&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;child exiting&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;exit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fork error&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>xv6-riscv学习0</title>
-      <link>http://localhost:1313/2021/04/xv6-riscv%E5%AD%A6%E4%B9%A00/</link>
+      <link>https://colored-dye.github.io/post/xv6-riscv-0/</link>
       <pubDate>Sun, 11 Apr 2021 20:47:31 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/04/xv6-riscv%E5%AD%A6%E4%B9%A00/</guid>
+      <guid>https://colored-dye.github.io/post/xv6-riscv-0/</guid>
       <description>&lt;p&gt;这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

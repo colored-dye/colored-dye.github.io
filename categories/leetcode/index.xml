@@ -1,65 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>LeetCode on colored-dye&#39;s Blog</title>
-    <link>http://localhost:1313/categories/leetcode/</link>
-    <description>Recent content in LeetCode on colored-dye&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 31 Oct 2021 16:01:32 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <title>LeetCode on colored-dye&#39;s blog</title>
+    <link>https://colored-dye.github.io/categories/leetcode/</link>
+    <description>Recent content in LeetCode on colored-dye&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 31 Oct 2021 16:01:32 +0000</lastBuildDate>
+    <atom:link href="https://colored-dye.github.io/categories/leetcode/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LeetCode-006-265th周赛记录</title>
-      <link>http://localhost:1313/2021/10/leetcode-006-265th%E5%91%A8%E8%B5%9B%E8%AE%B0%E5%BD%95/</link>
+      <link>https://colored-dye.github.io/post/leetcode-006-weekly-contest/</link>
       <pubDate>Sun, 31 Oct 2021 16:01:32 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/10/leetcode-006-265th%E5%91%A8%E8%B5%9B%E8%AE%B0%E5%BD%95/</guid>
+      <guid>https://colored-dye.github.io/post/leetcode-006-weekly-contest/</guid>
       <description>&lt;p&gt;在CC98的@27rabbit的鼓励下，我还是鼓起勇气，第一次去参加了Leetcode周赛~QwQ 做题过程很波折，在这里记录一下向大神们学习到的新知识~&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>LeetCode-005-Binary Search</title>
-      <link>http://localhost:1313/2021/10/leetcode-005-binary-search/</link>
+      <link>https://colored-dye.github.io/post/leetcode-005-binary-search/</link>
       <pubDate>Mon, 04 Oct 2021 19:30:42 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/10/leetcode-005-binary-search/</guid>
+      <guid>https://colored-dye.github.io/post/leetcode-005-binary-search/</guid>
       <description>&lt;p&gt;当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>LeetCode-004 最长回文子串</title>
-      <link>http://localhost:1313/2021/09/leetcode-004-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</link>
+      <link>https://colored-dye.github.io/post/leetcode-004-longest-palindromic-substring/</link>
       <pubDate>Thu, 23 Sep 2021 20:07:24 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/09/leetcode-004-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</guid>
+      <guid>https://colored-dye.github.io/post/leetcode-004-longest-palindromic-substring/</guid>
       <description>&lt;p&gt;最长回文子串(&lt;a href=&#34;https://leetcode-cn.com/problems/longest-palindromic-substring/&#34;&gt;https://leetcode-cn.com/problems/longest-palindromic-substring/&lt;/a&gt;) 是一道很经典的题目~ 我们比较容易想到的就是动态规划的方法，但是在动态规划的基础上可以进一步（其实是进两步）优化！本文主要就来介绍最长回文子串的三种解题思路~&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>LeetCode-003-DP-02</title>
-      <link>http://localhost:1313/2021/09/leetcode-003-dp-02/</link>
+      <link>https://colored-dye.github.io/post/leetcode-003-dp-02/</link>
       <pubDate>Wed, 22 Sep 2021 14:48:18 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/09/leetcode-003-dp-02/</guid>
+      <guid>https://colored-dye.github.io/post/leetcode-003-dp-02/</guid>
       <description>&lt;p&gt;这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>LeetCode-002-DP-01</title>
-      <link>http://localhost:1313/2021/09/leetcode-002-dp-01/</link>
+      <link>https://colored-dye.github.io/post/leetcode-002-dp-01/</link>
       <pubDate>Wed, 15 Sep 2021 22:22:04 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/09/leetcode-002-dp-01/</guid>
+      <guid>https://colored-dye.github.io/post/leetcode-002-dp-01/</guid>
       <description>&lt;p&gt;今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件，使得问题的解决略有复杂，但是基本的思路是一致的。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
-      <link>http://localhost:1313/2021/09/leetcode%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95001-bfs-01matrixrottenoranges/</link>
+      <link>https://colored-dye.github.io/post/leetcode-001-bfs-01matrix-rottenoranges/</link>
       <pubDate>Wed, 15 Sep 2021 16:53:38 +0000</pubDate>
-      
-      <guid>http://localhost:1313/2021/09/leetcode%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95001-bfs-01matrixrottenoranges/</guid>
+      <guid>https://colored-dye.github.io/post/leetcode-001-bfs-01matrix-rottenoranges/</guid>
       <description>&lt;p&gt;最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
