@@ -1,0 +1,49 @@
+baseURL = 'https://colored-dye.github.io/'
+languageCode = 'en-us'
+title = "colored-dye's blog"
+theme = "binario"
+
+[menu]
+  [[menu.main]]
+    identifier = "post"
+    name = "Posts"
+    url = "/post/"
+    weight = 10
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 10
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    weight = 10
+
+[Params]
+  description = "Responsive card-based & code-light Hugo theme"
+  opengraph = true # Enable OpenGraph if true
+  schema = true # Enable Schema
+  columns = 1 # Set the number of cards columns. Possible values: 1, 2, 3
+  mainSections = ["post", "categories", "about"]
+  dateFormat = "January 02, 2006" # Change the format of dates
+  colorTheme = "dark-violet" # dark-green, dark-blue, dark-red, dark-violet
+  mainMenuAlignment = "right" # Align main menu (desktop version) to the right side
+  authorbox = true # Show authorbox at bottom of single pages if true
+  comments = false # Enable comments for all site pages
+  related = true # Enable Related content for single pages
+  relatedMax = 5 # Set the maximum number of elements that can be displayed in related block. Optional
+  mathjax = true # Enable MathJax for all site pages
+  mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js" # Specify MathJax path. Optional
+  mathjaxConfig = "TeX-AMS-MML_HTMLorMML" # Specify MathJax config. Optional
+  hideNoPostsWarning = false # Don't show no posts empty state warning in main page, if true
+
+[Params.Author]
+  name = "colored-dye"
+
+[Params.Entry]
+  meta = ["date", "tags"]
+
+[Params.Social]
+  email = "baoyuntai@outlook.com"
+  github = "https://github.com/colored-dye"
