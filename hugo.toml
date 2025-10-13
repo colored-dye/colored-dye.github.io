@@ -37,6 +37,10 @@ theme = "binario"
   mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js" # Specify MathJax path. Optional
   mathjaxConfig = "TeX-AMS-MML_HTMLorMML" # Specify MathJax config. Optional
   hideNoPostsWarning = false # Don't show no posts empty state warning in main page, if true
+  favicon = "/img/avatar.png"
+  centerTheme = true
+  showBreadCrumbs = true
+  showMenuItems = true
 
 [Params.Author]
   name = "colored-dye"
@@ -47,3 +51,6 @@ theme = "binario"
 [Params.Social]
   email = "baoyuntai@outlook.com"
   github = "https://github.com/colored-dye"
+
+[pagination]
+  pagerSize = 10
