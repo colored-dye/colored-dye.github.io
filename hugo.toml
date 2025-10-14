@@ -19,6 +19,11 @@ theme = "binario"
     name = "Categories"
     url = "/categories/"
     weight = 10
+  [[menu.main]]
+    identifier = "publication"
+    name = "Publications"
+    url = "/pub"
+    weight = 10
 
 [Params]
   description = "Responsive card-based & code-light Hugo theme"
