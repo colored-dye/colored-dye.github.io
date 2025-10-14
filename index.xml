@@ -197,5 +197,12 @@
       <guid>https://colored-dye.github.io/post/hexo-picture/</guid>
       <description>&lt;p&gt;这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：&lt;/p&gt;</description>
     </item>
+    <item>
+      <title></title>
+      <link>https://colored-dye.github.io/pub/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://colored-dye.github.io/pub/</guid>
+      <description>&lt;h1 id=&#34;publications&#34;&gt;Publications&lt;/h1&gt;&#xA;&lt;p&gt;&lt;em&gt;[IJCAI 2025]&lt;/em&gt; &lt;a href=&#34;https://www.ijcai.org/proceedings/2025/892&#34;&gt;Scalable Multi-Stage Influence Function for Large Language Models via Eigenvalue-Corrected Kronecker-Factored Parameterization&lt;/a&gt;&lt;br&gt;&#xA;&lt;strong&gt;Yuntai Bao&lt;/strong&gt;, Xuhong Zhang✉️, Tianyu Du✉️, Xinkui Zhao, Jiang Zong, Hao Peng, Jianwei Yin&lt;br&gt;&#xA;&lt;a href=&#34;https://arxiv.org/abs/2505.05017&#34;&gt;[Arxiv]&lt;/a&gt; &lt;a href=&#34;https://arxiv.org/pdf/2505.05017&#34;&gt;[pdf]&lt;/a&gt; &lt;a href=&#34;https://colored-dye.github.io/bib/ijcai25.bib&#34;&gt;[bibtex]&lt;/a&gt; &lt;a href=&#34;https://github.com/colored-dye/multi_stage_influence_function&#34;&gt;[code]&lt;/a&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;&lt;em&gt;[Findings of ACL 2025]&lt;/em&gt; &lt;a href=&#34;https://aclanthology.org/2025.findings-acl.38/&#34;&gt;Probing the Geometry of Truth: Consistency and Generalization of Truth Directions in LLMs Across Logical Transformations and Question Answering Tasks&lt;/a&gt;&lt;br&gt;&#xA;&lt;strong&gt;Yuntai Bao&lt;/strong&gt;, Xuhong Zhang✉️, Tianyu Du, Xinkui Zhao, Zhengwen Feng, Hao Peng, Jianwei Yin&lt;br&gt;&#xA;&lt;a href=&#34;https://arxiv.org/abs/2506.00823&#34;&gt;[Arxiv]&lt;/a&gt; &lt;a href=&#34;https://aclanthology.org/2025.findings-acl.38.pdf&#34;&gt;[pdf]&lt;/a&gt; &lt;a href=&#34;https://colored-dye.github.io/bib/acl25.bib&#34;&gt;[bibtex]&lt;/a&gt; &lt;a href=&#34;https://github.com/colored-dye/truthfulness_probe_generalization&#34;&gt;[code]&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
