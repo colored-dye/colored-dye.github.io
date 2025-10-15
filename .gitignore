@@ -1,0 +1,6 @@
+/*
+!/assets/
+!/content/
+!/hugo.toml
+!*.md
+!.gitignore
