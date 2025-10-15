@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>Gentoo基本系统安装(systemd) | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:url" content="https://colored-dye.github.io/deprecated/gentoo-minimal-install/">
+  <meta property="og:site_name" content="colored-dye&#39;s blog">
+  <meta property="og:title" content="Gentoo基本系统安装(systemd)">
+  <meta property="og:description" content="在我的“因为嫌麻烦而一直没有做的事情”的清单上少了一项，因为这几天我安装了Gentoo系统~
+很久以前就听说了Gentoo Linux，它与Arch Linux一样是滚动更新的系统，且最大的区别是：前者是从远程仓库获取源代码包、本地编译安装，而后者是像绝大多数发行版一样安装二进制包。说实话，Gentoo的这一特性对于大多数用户带来了很大的管理负担，比如说要编译Firefox，逛逛很可能要编译3小时以上，常规操作是让电脑熬夜干活、自己睡觉，第二天一早就编译好了QAQ。不过我不是很在意这一点，因为这种大型软件更新的频率较低。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="deprecated">
+    <meta property="article:published_time" content="2022-11-16T12:41:47+08:00">
+    <meta property="article:modified_time" content="2022-11-16T12:41:47+08:00">
+    <meta property="article:tag" content="Gentoo">
+    <meta property="article:tag" content="折腾">
+    <meta property="article:tag" content="Linux">
+
+		
+  <meta itemprop="name" content="Gentoo基本系统安装(systemd)">
+  <meta itemprop="description" content="在我的“因为嫌麻烦而一直没有做的事情”的清单上少了一项，因为这几天我安装了Gentoo系统~
+很久以前就听说了Gentoo Linux，它与Arch Linux一样是滚动更新的系统，且最大的区别是：前者是从远程仓库获取源代码包、本地编译安装，而后者是像绝大多数发行版一样安装二进制包。说实话，Gentoo的这一特性对于大多数用户带来了很大的管理负担，比如说要编译Firefox，逛逛很可能要编译3小时以上，常规操作是让电脑熬夜干活、自己睡觉，第二天一早就编译好了QAQ。不过我不是很在意这一点，因为这种大型软件更新的频率较低。">
+  <meta itemprop="datePublished" content="2022-11-16T12:41:47+08:00">
+  <meta itemprop="dateModified" content="2022-11-16T12:41:47+08:00">
+  <meta itemprop="wordCount" content="395">
+  <meta itemprop="keywords" content="Gentoo,折腾,Linux">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="stylesheet" href="/css/themes/dark-violet.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav main-nav--right" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/categories/">
+					
+					<span class="main-nav__text">Categories</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/post/">
+					
+					<span class="main-nav__text">Posts</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/pub">
+					
+					<span class="main-nav__text">Publications</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/tags/">
+					
+					<span class="main-nav__text">Tags</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+	<div class="entry__meta meta mb">
+	<time class="entry__meta-published meta-published" datetime="2022-11-16T12:41:47&#43;08:00">November 16, 2022</time>
+<div class="entry__meta-tags meta-tags">
+	<span class="meta-tags__list">Tags:
+		<a class="meta-tags__link" href="/tags/gentoo/" rel="tag">Gentoo</a>, 
+		<a class="meta-tags__link" href="/tags/%e6%8a%98%e8%85%be/" rel="tag">折腾</a>, 
+		<a class="meta-tags__link" href="/tags/linux/" rel="tag">Linux</a>
+	</span>
+</div>
+	</div>
+				<h1 class="entry__title">Gentoo基本系统安装(systemd)</h1>
+				<div class="entry__content"><p>在我的“因为嫌麻烦而一直没有做的事情”的清单上少了一项，因为这几天我安装了Gentoo系统~</p>
+<p>很久以前就听说了Gentoo Linux，它与Arch Linux一样是滚动更新的系统，且最大的区别是：前者是从远程仓库获取源代码包、本地编译安装，而后者是像绝大多数发行版一样安装二进制包。说实话，Gentoo的这一特性对于大多数用户带来了很大的管理负担，比如说要编译Firefox，逛逛很可能要编译3小时以上，常规操作是让电脑熬夜干活、自己睡觉，第二天一早就编译好了QAQ。不过我不是很在意这一点，因为这种大型软件更新的频率较低。</p>
+<p>从另一个角度来看，Gentoo从源码编译的策略给用户带来了极大的可操作空间。事实上，这也是大多数Gentoo用户选择Gentoo的理由。在这一维度上来看，Arch在软件管理的过程中，用户可以彻底控制哪些功能或模块是自己真正需要的，并尽可能地减少不必要的依赖和冗余，最终得到一个较轻量、功能齐全的系统。比如说，我在安装了基本系统后，可以在安装Xorg时指定只安装<code>xorg-base</code>, <code>xorg-server</code>等基础组件和我需要的一些小工具。这又涉及到Gentoo的包管理系统，我还不太懂，具体请查阅官方Wiki，有中文版的哦~</p>
+<p>综上，我选择Gentoo的理由有二：</p>
+<ol>
+<li>滚动更新。常见的滚动更新的发行版有Arch(Manjaro), OpenSUSE Tumbleweed, Gentoo. 这三个我都尝试过——Arch较激进，怕滚挂；Manjaro团队不太靠谱的样子；OpenSUSE对我的电脑适配不太好。而Gentoo虽然是滚动更新，但是其代码审查较严格，事实上，Gentoo的内核版本可能比同期的Ubuntu LTS还要老，如我在2022/11/14安装的的内核版本就是5.15.75，而Ubuntu 22.04在2022年4月发布时的内核版本是5.15.0. 而Arch和OpenSUSE Tumbleweed的内核版本都是6.0.5. 说实话，我挺馋OpenSUSE的BTRFS文件系统的备份功能，但是这可以通过软件实现，问题不大。</li>
+<li>最小化安装。我稍微有一点环境洁癖，不希望系统中闲逛着大量用途不明的包。而且我想尝试一下更轻量级的Window Manager而非Desktop Environment.</li>
+</ol>
+<h2 id="1-安装镜像的选择">1. 安装镜像的选择</h2>
+<p>关于init系统，Gentoo自己开发了一款叫作OpenRC的初始化系统，据说它比systemd要快，但是我更关心兼容性而不是速度，因为有些软件只适配systemd，所以选择systemd版本的安装镜像。关于这一点，Gentoo提供了相对方便的OpenRC与systemd之间互换的机制，所以即使后期想用一用openrc的话也不是不可以。</p>
+<p>关于镜像，还有一个小坑。我最初使用了最小化镜像，但是这个livecd系统中没有提供我使用的无线网卡的驱动，而我又不方便使用有线网络。所以迫不得已之下弃用了500+MB的最小化安装镜像，改用了4+GB的livegui. 不得不感叹，这个livegui使用的KDE真绚丽，最令人欣喜的是我的无线网卡能用了QwQ! 于是很愉快地进行了接下来的安装步骤。</p>
+<p>其实镜像不一定要使用Gentoo livecd的！没错，其实很多老鸟都是用的Arch livecd，因为上面提供了较好用的自动化工具，且Gentoo的stage3基本系统是以<code>tar.xz</code>压缩包的形式提供的。但是我为了与官方文档保持一致，还是乖乖用了Gentoo livecd.</p>
+<h2 id="2-基本系统安装">2. 基本系统安装</h2>
+<p>一切以官方文档为准~ 仅供参考。</p>
+<h3 id="21-网络">2.1 网络</h3>
+<p>在livegui环境中在右下角选择无线网络即可。<code>ping baidu.com</code>检验网络是否可用。如果没有无线网络，也可以使用有线网络，<code>dhcpcd</code>命令自动获取地址。</p>
+<h3 id="22-磁盘分区">2.2 磁盘分区</h3>
+<p>可以用<code>cfdisk</code>或<code>fdisk</code>工具，分配好boot，swap，root分区。有人说最好给<code>/home</code>单独分区，方便迁移系统，这就见仁见智了。</p>
+<p>我这里选择的是UEFI+GPT引导方式，EFI分区至少256M，swap至少是物理内存的大小，剩余的全给了根目录。</p>
+<p><code>lsblk</code>查看分区结果。</p>
+<h3 id="23-格式化挂载分区">2.3 格式化，挂载分区</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkfs.vfat -F <span style="color:#ae81ff">32</span> /dev/sda1
+</span></span><span style="display:flex;"><span>mkfs.ex4 /dev/sda3
+</span></span><span style="display:flex;"><span>mkswap /dev/sda2
+</span></span><span style="display:flex;"><span>swapon /dev/sda2
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mount /dev/sda3 /mnt/gentoo
+</span></span><span style="display:flex;"><span>mkdir -p /mnt/gentoo/boot
+</span></span><span style="display:flex;"><span>mount /dev/sda1 /boot
+</span></span><span style="display:flex;"><span>mount --types proc /proc /mnt/gentoo/proc
+</span></span><span style="display:flex;"><span>mount --rbind /sys /mnt/gentoo/sys
+</span></span><span style="display:flex;"><span>mount --make-rslave /mnt/gentoo/sys
+</span></span><span style="display:flex;"><span>mount --rbind /dev /mnt/gentoo/dev
+</span></span><span style="display:flex;"><span>mount --make-rslave /mnt/gentoo/dev
+</span></span><span style="display:flex;"><span>mount --bind /run /mnt/gentoo/run
+</span></span><span style="display:flex;"><span>mount --make-rslave /mnt/gentoo/run
+</span></span></code></pre></div><p>需要注意的是，在挂载分区的过程中，<code>--make-rslave</code>选项是systemd要求的，openrc不需要。</p>
+<h3 id="24-stage3">2.4 stage3</h3>
+<p>所谓“stage”是指构建Gentoo系统中的各个阶段。</p>
+<ul>
+<li>Stage 1: 从<code>package.build</code>生成的系统包，在<code>/var/db/repos/gentoo</code>目录下。</li>
+<li>Stage 2: 在stage 1基础上编译得到的可以自举的工具链。</li>
+<li>Stage 3: 在stage 2基础上继续编译，以包含一个系统集（system set）系统集可以通过@system来调用(如<code>emerge @system</code>)。</li>
+</ul>
+<p>相当于Gentoo的安装镜像中已经替我们做好了stage 1-2，stage 3则根据我们的需求自己准备。stage 3中没有内核、引导程序等，这也是后续工作的重点。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /mnt/gentoo
+</span></span><span style="display:flex;"><span>wget https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/20221106T170545Z/stage3-amd64-systemd-20221106T170545Z.tar.xz
+</span></span><span style="display:flex;"><span>tar xpvf stage3-*.tar.xz --xattrs-include<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;*.*&#34;</span> --numeric-owner
+</span></span></code></pre></div><h3 id="25-配置mntgentooetcportagemakeconf">2.5 配置<code>/mnt/gentoo/etc/portage/make.conf</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano -w /mnt/gentoo/etc/portage/make.conf
+</span></span></code></pre></div><p>首先需要修改<code>COMMON_FLAGS</code>，一般加上<code>-march=native</code>，也可以直接写出CPU架构名称，比如我使用的i5-12500H对应的就是<code>-march=alderlake</code>.</p>
+<p>加上<code>MAKEOPTS=&quot;-j8&quot;</code>，用于并发任务加速编译。</p>
+<p><code>CPU_FLAGS_*</code>: 用于指定CPU特定的编译选项，如alderlake中取消了<code>avx512</code>指令。这时需要<code>cpuid2cpuflags</code>工具：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>emerge --ask app-portage/cpuid2cpuflags --quiet
+</span></span><span style="display:flex;"><span>cpuid2cpuflags &gt;&gt; /mnt/gentoo/etc/portage/make.conf
+</span></span></code></pre></div><p>然后需要改一改，将冒号改为等于号，并将右侧的内容加上引号。</p>
+<p><code>ACCEPT_LICENSE=&quot;*&quot;</code>. 如果不这么做，就只能使用GPL等开源协议，不能下载二进制包等。这不是最好的做法，但是我对开源协议的要求不高QwQ.</p>
+<h3 id="26-portage镜像">2.6 Portage镜像</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mirrorselect -i -o &gt;&gt; /mnt/gentoo/etc/portage/make.conf
+</span></span></code></pre></div><h3 id="27-ebuild软件仓库">2.7 Ebuild软件仓库</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir --parents /mnt/gentoo/etc/portage/repos.conf
+</span></span><span style="display:flex;"><span>cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+</span></span></code></pre></div><p>然后修改<code>gentoo.conf</code>，将<code>sync-uri</code>改为<code>rsync://rsync.mirrors.ustc.edu.cn/gentoo-portage</code>. 这个镜像有一定延迟，不过我不在乎QwQ.</p>
+<h3 id="28-dns">2.8 DNS</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp --dereference /etc/resolv.conf /mnt/gentoo/etc
+</span></span></code></pre></div><h3 id="29-chroot">2.9 <code>chroot</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chroot /mnt/gentoo /bin/bash
+</span></span><span style="display:flex;"><span>source /etc/profile
+</span></span><span style="display:flex;"><span>export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(chroot) </span>$PS1<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><h3 id="210-更新软件源">2.10 更新软件源</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>emerge-webrsync
+</span></span><span style="display:flex;"><span>emerge --sync
+</span></span></code></pre></div><h3 id="211-选择系统配置">2.11 选择系统配置</h3>
+<p>由于我想安装DWM，所以只需要基本的桌面环境。选择最新版本的同时带有desktop和systemd字样的一项。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>eselect profile list
+</span></span><span style="display:flex;"><span>eselect profile set &lt;number&gt;
+</span></span></code></pre></div><h3 id="212-更新系统">2.12 更新系统</h3>
+<p>This would take quite some time&hellip; 我编译了好几个小时QAQ.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>emerge --ask --verbose --update -deep --newuse -quiet @world
+</span></span></code></pre></div><h3 id="213-配置时区和区域设置">2.13 配置时区和区域设置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nano -w /etc/locale.gen
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启用en_US.UTF-8 UTF-8和zh_CN.UTF-8 UTF-8</span>
+</span></span><span style="display:flex;"><span>locale-gen
+</span></span><span style="display:flex;"><span>eselect locale list
+</span></span><span style="display:flex;"><span>eselect locale set &lt;number&gt; <span style="color:#75715e"># 我选择了en_US.UTF-8</span>
+</span></span><span style="display:flex;"><span>env-update <span style="color:#f92672">&amp;&amp;</span> source /etc/profile <span style="color:#f92672">&amp;&amp;</span> export PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(chroot) </span>$PS1<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><h3 id="214-安装固件和cpu微码">2.14 安装固件和CPU微码</h3>
+<p>CPU微码很有意思，在系统启动之初加载进内存，参与到CPU指令解码的过程，可以用来解决CPU bug。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>emerge --ask sys-kernel/linux-firmware
+</span></span><span style="display:flex;"><span>emerge --ask sys-firmware/intel-microcode
+</span></span></code></pre></div><h3 id="215-配置编译内核">2.15 配置、编译内核</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>emerge --ask sys-kernel/gentoo-sources
+</span></span><span style="display:flex;"><span>eselect kernel list
+</span></span><span style="display:flex;"><span>eselect kernel set &lt;number&gt; <span style="color:#75715e"># 创建/usr/src/linux符号链接</span>
+</span></span></code></pre></div><p>配置磁盘文件系统挂载点：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano -w /etc/fstab
+</span></span><span style="display:flex;"><span>----
+</span></span><span style="display:flex;"><span>/dev/sda1	/boot	vfat	defaults	<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>/dev/sda2	none	swap	sw	<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>/dev/sda3	/	ext4	noatime	<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>/dev/cdrom	/mnt/cdrom	auto	noauto,user	<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>由于我的无线网卡较特殊，所以我想要编译相应的驱动模块。经查阅Gentoo论坛得知，还需要修改一下驱动代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// drivers/net/wireless/mediatek/mt76/mt7921/pci.c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">struct</span> pci_device_id mt7921_pci_device_table[] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">PCI_DEVICE</span>(PCI_VENDOR_ID_MEDIATEK, <span style="color:#ae81ff">0x7961</span>) },
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">PCI_DEVICE</span>(PCI_VENDOR_ID_MEDIATEK, <span style="color:#ae81ff">0x7922</span>) },
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">PCI_DEVICE</span>(PCI_VENDOR_ID_MEDIATEK, <span style="color:#ae81ff">0x0608</span>) },
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">PCI_DEVICE</span>(PCI_VENDOR_ID_MEDIATEK, <span style="color:#ae81ff">0x0616</span>) },
+</span></span><span style="display:flex;"><span>    { },
+</span></span><span style="display:flex;"><span> }; 
+</span></span></code></pre></div><p>然后使用menuconfig tui选择我需要的驱动：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>genkernel --menuconfig all
+</span></span></code></pre></div><h3 id="216-配置引导程序">2.16 配置引导程序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;GRUB_PLATFORMS=&#34;efi-64&#34;&#39;</span> &gt;&gt; /etc/portage/make.conf
+</span></span><span style="display:flex;"><span>emerge --ask --quiet sys-boot/grub
+</span></span><span style="display:flex;"><span>grub-install --target<span style="color:#f92672">=</span>x86_64-efi --efi-directory<span style="color:#f92672">=</span>/boot
+</span></span><span style="display:flex;"><span>grub-mkconfig -o /boot/grub/grub.cfg
+</span></span></code></pre></div><h3 id="217-网络组件">2.17 网络组件</h3>
+<p>网络相关的软件必须在此时安装，否则进入新系统后既没网络，又没法下载用来配置网络的工具，只能重新进入livecd安装了(血与泪的教训).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>emerge --ask net-misc/dhcpcd
+</span></span><span style="display:flex;"><span>emerge --ask net-wireless/iw net-wireless/wpa_supplicant
+</span></span></code></pre></div><h3 id="218-密码">2.18 密码</h3>
+<p>同理，root密码需要配置。可以顺便添加新用户。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>passwd
+</span></span><span style="display:flex;"><span>useradd -m -G users,wheel,portage,usb,video,audio,cdrom,plugdev colored-dye
+</span></span><span style="display:flex;"><span>passwd colored-dye
+</span></span></code></pre></div><h3 id="219-systemd相关">2.19 systemd相关</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemd-firstboot --prompt --setup-machine-id
+</span></span><span style="display:flex;"><span>systemctl preset-all
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 还可以顺便设置dhcpcd等自动启动</span>
+</span></span></code></pre></div><h3 id="220-系统日志">2.20 系统日志</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>emerge --ask app-admin/sysklogd
+</span></span><span style="display:flex;"><span>systemctl enable syslogd
+</span></span></code></pre></div><hr>
+<p>重启即可！恭喜你，基本系统安装完成，可以进入纯命令行的Gentoo系统了~</p>
+<p>后续还会安装DWM Window Manager，不过这就与Gentoo关系不大了。也可以安装较受欢迎的KDE Plasma, Gnome, Xfce, Budgie等Desktop Environment.</p>
+<h2 id="结语">结语</h2>
+<blockquote>
+<p>Q: 为什么要花这么大力气安装Gentoo呢？Gentoo有什么好的？真的值得吗？</p>
+<p>A: 可以说Gentoo的安装复杂性仅次于LFS(Linux From Scratch)，在安装系统的过程中，我对系统的架构、设计理念和内部的一些细节有了更深刻的认识，所以我认为是值得的。即使我未必会长期使用Gentoo，但是Linux系统架构是大同小异的，这会有助于我在使用其余绝大多数的发行版。</p>
+<p>虽然折腾的过程很有意思，但是我并不提倡为了折腾而折腾。事实上，除非特别需要，否则我不建议任何人使用Gentoo —— 系统维护的心智和时间开销不是开玩笑的。</p></blockquote></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/gentoo/">Gentoo</a>
+			<a class="entry__tag btn" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a>
+			<a class="entry__tag btn" href="/tags/linux/">Linux</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+<div class="authorbox block">
+	<div class="author">
+		<div class="author__body">
+			<div class="author__name">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+<div class="related block">
+	<h3 class="related__title">Related</h3>
+	<ul class="related__list">
+		
+		<li class="related__item"><a class="related__link" href="/post/gentoo-minimal-install/">Gentoo基本系统安装(systemd)</a></li>
+		
+	</ul>
+</div>
+
+	
+
+	</div>
+	<footer class="footer">
+<div class="footer__social social">
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:baoyuntai@outlook.com">
+			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
+		</a>
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/https://github.com/colored-dye">
+			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+		</a>
+</div>
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

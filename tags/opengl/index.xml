@@ -10,16 +10,16 @@
     <atom:link href="https://colored-dye.github.io/tags/opengl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenGL-learn-02-着色器和光照</title>
-      <link>https://colored-dye.github.io/post/opengl-learn-02-shader/</link>
+      <link>https://colored-dye.github.io/deprecated/opengl-learn-02-shader/</link>
       <pubDate>Wed, 19 Jan 2022 15:46:23 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/opengl-learn-02-shader/</guid>
+      <guid>https://colored-dye.github.io/deprecated/opengl-learn-02-shader/</guid>
       <description>&lt;p&gt;正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Qt带来了一定的困难。本文主要介绍一下我用到的Qt-OpenGL在着色器和光照渲染方面的功能~&lt;/p&gt;</description>
     </item>
     <item>
       <title>OpenGL学习-01-坐标变换</title>
-      <link>https://colored-dye.github.io/post/opengl-learn-01-rotation/</link>
+      <link>https://colored-dye.github.io/deprecated/opengl-learn-01-rotation/</link>
       <pubDate>Mon, 29 Nov 2021 23:21:31 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/opengl-learn-01-rotation/</guid>
+      <guid>https://colored-dye.github.io/deprecated/opengl-learn-01-rotation/</guid>
       <description>&lt;p&gt;最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。&lt;/p&gt;</description>
     </item>
   </channel>

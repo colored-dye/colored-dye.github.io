@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>LeetCode-004 最长回文子串 | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:url" content="https://colored-dye.github.io/deprecated/leetcode-004-longest-palindromic-substring/">
+  <meta property="og:site_name" content="colored-dye&#39;s blog">
+  <meta property="og:title" content="LeetCode-004 最长回文子串">
+  <meta property="og:description" content="最长回文子串(https://leetcode-cn.com/problems/longest-palindromic-substring/) 是一道很经典的题目~ 我们比较容易想到的就是动态规划的方法，但是在动态规划的基础上可以进一步（其实是进两步）优化！本文主要就来介绍最长回文子串的三种解题思路~">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="deprecated">
+    <meta property="article:published_time" content="2021-09-23T20:07:24+00:00">
+    <meta property="article:modified_time" content="2021-09-23T20:07:24+00:00">
+    <meta property="article:tag" content="Algorithm">
+    <meta property="article:tag" content="LeetCode">
+
+		
+  <meta itemprop="name" content="LeetCode-004 最长回文子串">
+  <meta itemprop="description" content="最长回文子串(https://leetcode-cn.com/problems/longest-palindromic-substring/) 是一道很经典的题目~ 我们比较容易想到的就是动态规划的方法，但是在动态规划的基础上可以进一步（其实是进两步）优化！本文主要就来介绍最长回文子串的三种解题思路~">
+  <meta itemprop="datePublished" content="2021-09-23T20:07:24+00:00">
+  <meta itemprop="dateModified" content="2021-09-23T20:07:24+00:00">
+  <meta itemprop="wordCount" content="671">
+  <meta itemprop="keywords" content="Algorithm,LeetCode">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="stylesheet" href="/css/themes/dark-violet.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav main-nav--right" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/categories/">
+					
+					<span class="main-nav__text">Categories</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/post/">
+					
+					<span class="main-nav__text">Posts</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/pub">
+					
+					<span class="main-nav__text">Publications</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/tags/">
+					
+					<span class="main-nav__text">Tags</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+	<div class="entry__meta meta mb">
+	<time class="entry__meta-published meta-published" datetime="2021-09-23T20:07:24Z">September 23, 2021</time>
+<div class="entry__meta-tags meta-tags">
+	<span class="meta-tags__list">Tags:
+		<a class="meta-tags__link" href="/tags/algorithm/" rel="tag">Algorithm</a>, 
+		<a class="meta-tags__link" href="/tags/leetcode/" rel="tag">LeetCode</a>
+	</span>
+</div>
+	</div>
+				<h1 class="entry__title">LeetCode-004 最长回文子串</h1>
+				<div class="entry__content"><p>最长回文子串(<a href="https://leetcode-cn.com/problems/longest-palindromic-substring/">https://leetcode-cn.com/problems/longest-palindromic-substring/</a>) 是一道很经典的题目~ 我们比较容易想到的就是动态规划的方法，但是在动态规划的基础上可以进一步（其实是进两步）优化！本文主要就来介绍最长回文子串的三种解题思路~</p>
+<h4 id="1-简单粗暴的动态规划">1. 简单粗暴的动态规划</h4>
+<p>如果我们有了一个回文子串，并用其首尾下标<code>i</code>、<code>j</code>来表示：<code>s[i:j]</code>，那么在此基础上，可以检验更长的字符串<code>s[i-1:j+1]</code>是不是回文字符串。这就是本题中动态规划转移方程的基本思想。</p>
+<p>为了能够用首尾的下标来表示一个字符串，我们可以利用布尔类型的二维数组<code>dp[][]</code>，<code>dp[i][j]</code>表示以<code>i</code>开头、以<code>j</code>结尾的字符串是否是回文字符串。但是需要注意的是$i \le j$，否则就没有意义了。</p>
+<p>转移方程：$dp[i][j] = dp[i+1][j-1] \and (s[i] == s[j])$.</p>
+<p>由于计算<code>dp[i][j]</code>时用到了<code>dp[i+1][j-1]</code>，所以需要注意计算过程中<code>i</code>的顺序。</p>
+<p>至于初值，单个字母肯定是回文字符串。但是只给出单个字母是不够的，因为在转移方程中，我们每次最多只能增加两个字符，结果就只会产生奇数长度的字符串。所以还需要对相邻两个字符是回文的情况做初始化处理。</p>
+<p>本人的代码虽然用到了动态规划，但是速度很慢QAQ：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    string longestPalindrome(string s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> s.size();
+</span></span><span style="display:flex;"><span>        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;&gt;</span> dp(n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>(n));
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> start, end;
+</span></span><span style="display:flex;"><span>        start <span style="color:#f92672">=</span> end <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            dp[i][i] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">&lt;</span> n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>((dp[i][i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> (s[i] <span style="color:#f92672">==</span> s[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])) <span style="color:#f92672">&amp;&amp;</span> end<span style="color:#f92672">-</span>start <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>                    start <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>                    end <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// dp[i][j] = dp[i+1][j-1] &amp;&amp; (s[i] == s[j])
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>; i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; j<span style="color:#f92672">&lt;</span>n; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;=</span> j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> (dp[i][j] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&amp;&amp;</span> (s[i] <span style="color:#f92672">==</span> s[j])) <span style="color:#f92672">&amp;&amp;</span> j<span style="color:#f92672">-</span>i <span style="color:#f92672">&gt;</span> end<span style="color:#f92672">-</span>start){
+</span></span><span style="display:flex;"><span>                    start <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>                    end <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// for(int i=0; i&lt;n; i++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//     for(int j=0; j&lt;n; j++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//         printf(&#34;%d &#34;, dp[i][j]? 1 : 0);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//     }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//     putchar(&#39;\n&#39;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> s.substr(start, end<span style="color:#f92672">-</span>start<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>而下面是题解中给出的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    string longestPalindrome(string s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> s.size();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> s;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> maxLen <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> begin <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// dp[i][j] 表示 s[i..j] 是否是回文串
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> dp(n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(n));
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 初始化：所有长度为 1 的子串都是回文串
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            dp[i][i] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 递推开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 先枚举子串长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> L <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; L <span style="color:#f92672">&lt;=</span> n; L<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 枚举左边界，左边界的上限设置可以宽松一些
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 由 L 和 i 可以确定右边界，即 j - i + 1 = L 得
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> L <span style="color:#f92672">+</span> i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 如果右边界越界，就可以退出当前循环
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">&gt;=</span> n) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (s[i] <span style="color:#f92672">!=</span> s[j]) {
+</span></span><span style="display:flex;"><span>                    dp[i][j] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">-</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>) {
+</span></span><span style="display:flex;"><span>                        dp[i][j] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                        dp[i][j] <span style="color:#f92672">=</span> dp[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>][j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 只要 dp[i][L] == true 成立，就表示子串 s[i..L] 是回文，此时记录回文长度和起始位置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (dp[i][j] <span style="color:#f92672">&amp;&amp;</span> j <span style="color:#f92672">-</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> maxLen) {
+</span></span><span style="display:flex;"><span>                    maxLen <span style="color:#f92672">=</span> j <span style="color:#f92672">-</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                    begin <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> s.substr(begin, maxLen);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>应该是由于我对第二个循环的内循环做了更严格的限制，所以本人的代码运行了608ms，而题解代码运行了676ms.</p>
+<p>以上两段代码的时间复杂度均为$O(n^2)$，空间复杂度均为$O(n^2)$. 如此看来，要想进一步优化，还需要在核心思想上下功夫。</p>
+<h4 id="2-中心扩展算法">2. 中心扩展算法</h4>
+<p>所谓“中心扩展算法”，指的就是从单个字符或相邻一对字符出发，按照动态规划的方式，在现有的回文字符串两端增加字符，直到新字符不满足回文条件为止。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> expandAroundCenter(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> s, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> right <span style="color:#f92672">&lt;</span> s.size() <span style="color:#f92672">&amp;&amp;</span> s[left] <span style="color:#f92672">==</span> s[right]) {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">--</span>left;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">++</span>right;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, right <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string <span style="color:#a6e22e">longestPalindrome</span>(string s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, end <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> s.size(); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">auto</span> [left1, right1] <span style="color:#f92672">=</span> expandAroundCenter(s, i, i);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">auto</span> [left2, right2] <span style="color:#f92672">=</span> expandAroundCenter(s, i, i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (right1 <span style="color:#f92672">-</span> left1 <span style="color:#f92672">&gt;</span> end <span style="color:#f92672">-</span> start) {
+</span></span><span style="display:flex;"><span>                start <span style="color:#f92672">=</span> left1;
+</span></span><span style="display:flex;"><span>                end <span style="color:#f92672">=</span> right1;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (right2 <span style="color:#f92672">-</span> left2 <span style="color:#f92672">&gt;</span> end <span style="color:#f92672">-</span> start) {
+</span></span><span style="display:flex;"><span>                start <span style="color:#f92672">=</span> left2;
+</span></span><span style="display:flex;"><span>                end <span style="color:#f92672">=</span> right2;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> s.substr(start, end <span style="color:#f92672">-</span> start <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>可以看出，时间复杂度没有明显提高，但是空间复杂度缩小到了$O(1)$.</p>
+<h4 id="3-manacher算法">3. Manacher算法</h4>
+<p>先讨论长度为奇数的字符串。这里需要定义一个概念：臂长(arm length)，就是指以一个字符为中心，两边分别延伸相同的长度。如位置<code>j</code>的臂长为<code>len</code>，那么这个字符串长度为<code>2*len + 1</code>. 臂长的概念放在上面的中心扩展算法中可能会更好理解。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> expand(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> s, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> right <span style="color:#f92672">&lt;</span> s.size() <span style="color:#f92672">&amp;&amp;</span> s[left] <span style="color:#f92672">==</span> s[right]) {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">--</span>left;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">++</span>right;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (right <span style="color:#f92672">-</span> left <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string <span style="color:#a6e22e">longestPalindrome</span>(string s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, end <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        string t <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">char</span> c: s) {
+</span></span><span style="display:flex;"><span>            t <span style="color:#f92672">+=</span> c;
+</span></span><span style="display:flex;"><span>            t <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39;#&#39;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        t <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39;#&#39;</span>;
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">=</span> t;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> arm_len;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> right <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> s.size(); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> cur_arm_len;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (right <span style="color:#f92672">&gt;=</span> i) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> i_sym <span style="color:#f92672">=</span> j <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> i;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> min_arm_len <span style="color:#f92672">=</span> min(arm_len[i_sym], right <span style="color:#f92672">-</span> i);
+</span></span><span style="display:flex;"><span>                cur_arm_len <span style="color:#f92672">=</span> expand(s, i <span style="color:#f92672">-</span> min_arm_len, i <span style="color:#f92672">+</span> min_arm_len);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                cur_arm_len <span style="color:#f92672">=</span> expand(s, i, i);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            arm_len.push_back(cur_arm_len);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">+</span> cur_arm_len <span style="color:#f92672">&gt;</span> right) {
+</span></span><span style="display:flex;"><span>                j <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>                right <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> cur_arm_len;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (cur_arm_len <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> end <span style="color:#f92672">-</span> start) {
+</span></span><span style="display:flex;"><span>                start <span style="color:#f92672">=</span> i <span style="color:#f92672">-</span> cur_arm_len;
+</span></span><span style="display:flex;"><span>                end <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> cur_arm_len;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        string ans;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> start; i <span style="color:#f92672">&lt;=</span> end; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (s[i] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;#&#39;</span>) {
+</span></span><span style="display:flex;"><span>                ans <span style="color:#f92672">+=</span> s[i];
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ans;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p><code>right</code>变量记录了字符串的最大下标。由于<code>right</code>最大为<code>n</code>，所以时间复杂度为$O(n)$，而空间复杂度为$O(n)$. 时间复杂度相比于前两种算法有显著提高。</p>
+<p><code>i_sym</code>表示<code>i</code>关于<code>j</code>对称的位置。<code>arm_len[]</code>数组记录了某个回文字符串首字母处对应的臂长。</p>
+<p>该算法的核心在于，臂长的计算可以通过动态规划的思想得到简化。如果我们已经有了位置<code>j</code>处的臂长<code>len</code>，下一位置为<code>i</code>，并且<code>j + len &gt; i</code>，如下图：</p>
+<!-- raw HTML omitted -->
+<p><code>i</code>关于<code>j</code>的对称点<code>2*j-i</code>处的臂长<code>n = arm_len[2*j-i]</code>，那么可以推测得出，<code>i</code>处的臂长至少为<code>min(j+len-i, n)</code>，并在此基础上进行臂长的扩展。</p>
+<p>代码中加了<code>‘#’</code>的特殊处理，是为了使得算法适用于偶数长度的字符串，因为偶数长度的字符串会添加奇数个<code>‘#’</code>，而奇数长度的字符串会添加偶数个<code>‘#’</code>，从而避免了算法不适用的问题。</p>
+<h4 id="小小总结">小小总结</h4>
+<p>前两个算法的思路基本相同，并且比较直观易懂，而第三个算法明显较复杂、难以理解，尤其是利用对称点求最小可能臂长的思想，技巧性太强了QAQ。就个人来讲，从第一种算法到第二种算法的空间复杂度优化是很值得借鉴的。</p></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/algorithm/">Algorithm</a>
+			<a class="entry__tag btn" href="/tags/leetcode/">LeetCode</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+<div class="authorbox block">
+	<div class="author">
+		<div class="author__body">
+			<div class="author__name">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+<div class="related block">
+	<h3 class="related__title">Related</h3>
+	<ul class="related__list">
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/leetcode-003-dp-02/">LeetCode-003-DP-02</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/leetcode-002-dp-01/">LeetCode-002-DP-01</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/leetcode-001-bfs-01matrix-rottenoranges/">LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/heap-insertion-comparison/">三种堆的插入效率比较</a></li>
+		
+	</ul>
+</div>
+
+	
+
+	</div>
+	<footer class="footer">
+<div class="footer__social social">
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:baoyuntai@outlook.com">
+			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
+		</a>
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/https://github.com/colored-dye">
+			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+		</a>
+</div>
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

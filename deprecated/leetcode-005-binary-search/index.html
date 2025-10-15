@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>LeetCode-005-Binary Search | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:url" content="https://colored-dye.github.io/deprecated/leetcode-005-binary-search/">
+  <meta property="og:site_name" content="colored-dye&#39;s blog">
+  <meta property="og:title" content="LeetCode-005-Binary Search">
+  <meta property="og:description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="deprecated">
+    <meta property="article:published_time" content="2021-10-04T19:30:42+00:00">
+    <meta property="article:modified_time" content="2021-10-04T19:30:42+00:00">
+    <meta property="article:tag" content="Algorithm">
+    <meta property="article:tag" content="LeetCode">
+
+		
+  <meta itemprop="name" content="LeetCode-005-Binary Search">
+  <meta itemprop="description" content="当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~">
+  <meta itemprop="datePublished" content="2021-10-04T19:30:42+00:00">
+  <meta itemprop="dateModified" content="2021-10-04T19:30:42+00:00">
+  <meta itemprop="wordCount" content="160">
+  <meta itemprop="keywords" content="Algorithm,LeetCode">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="stylesheet" href="/css/themes/dark-violet.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav main-nav--right" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/categories/">
+					
+					<span class="main-nav__text">Categories</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/post/">
+					
+					<span class="main-nav__text">Posts</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/pub">
+					
+					<span class="main-nav__text">Publications</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/tags/">
+					
+					<span class="main-nav__text">Tags</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+	<div class="entry__meta meta mb">
+	<time class="entry__meta-published meta-published" datetime="2021-10-04T19:30:42Z">October 04, 2021</time>
+<div class="entry__meta-tags meta-tags">
+	<span class="meta-tags__list">Tags:
+		<a class="meta-tags__link" href="/tags/algorithm/" rel="tag">Algorithm</a>, 
+		<a class="meta-tags__link" href="/tags/leetcode/" rel="tag">LeetCode</a>
+	</span>
+</div>
+	</div>
+				<h1 class="entry__title">LeetCode-005-Binary Search</h1>
+				<div class="entry__content"><p>当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~</p>
+<h4 id="1-search-in-rotated-sorted-array">1. Search in Rotated Sorted Array</h4>
+<p><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/">https://leetcode-cn.com/problems/search-in-rotated-sorted-array/</a></p>
+<p>题目的说法有一点别扭：所谓的“rotated”到底是什么意思呢？这个翻转可与红黑树的红黑树没有半毛钱关系，就将它理解为是将一个数组<code>arr[n]</code>向左循环移位<code>k</code>次即可($1 \le k \lt n$).</p>
+<p>一个数组初始时已经按照升序排好序了，然后经过上述的“翻转”过程后作为输入。比如说，一个数组本来是<code>[1, 2, 3, 4, 5]</code>，结果给我们的是<code>[4, 5, 1, 2, 3]</code>。要求我们在$O(logn)$的时间复杂度下，找到目标元素在数组中的下标，如果找不到就返回-1.</p>
+<p>既然是$O(logn)$的时间复杂度，很容易想到的就是二分查找。但是由于给定数组的特殊结构，我们需要对二分查找的算法加亿点改动。</p>
+<p>首先可以得到这样一个结论：任何一个翻转过的数组，从中间分开成两部分中总有其中一个是排好序的。比如说给定<code>[5, 6, 7, 1, 2]</code>，可以把他从中间分成两部分：<code>[5, 6]</code>和<code>[7, 1, 2]</code>。而分辨一个数组是翻转数组还是有序数组很简单：只需要比较首末两个元素的大小。如果<code>arr[0] &lt;= arr[n-1]</code>，那么就是有序的，反之就是无序的。</p>
+<p>我们接下来要做的，就是想办法找到一个包含着目标元素、且有序的子序列(sub-array)。</p>
+<p>首先找到有序的那一半序列。如果目标在有序的一部分中，就可以将范围缩小到有序的那一半中；反之，就需要继续在翻转序列中缩小范围。其实与二分查找的思想别无二致。</p>
+<p>放代码~</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> search(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> target) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(nums.size() <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(nums.size() <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> (target <span style="color:#f92672">==</span> nums[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">?</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left, right, mid;
+</span></span><span style="display:flex;"><span>        left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, right <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(left <span style="color:#f92672">&lt;=</span> right){
+</span></span><span style="display:flex;"><span>            mid <span style="color:#f92672">=</span> (left <span style="color:#f92672">+</span> right) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(nums[mid] <span style="color:#f92672">==</span> target)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(nums[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;=</span> nums[mid]){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(nums[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;=</span> target <span style="color:#f92672">&amp;&amp;</span> target <span style="color:#f92672">&lt;</span> nums[mid])
+</span></span><span style="display:flex;"><span>                    right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span> left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(nums[mid] <span style="color:#f92672">&lt;</span> target <span style="color:#f92672">&amp;&amp;</span> target <span style="color:#f92672">&lt;=</span> nums[nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>                    left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span> right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(left <span style="color:#f92672">&lt;=</span> right)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> mid;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>其中很tricky的地方就是等号的位置。需要仔细的思考和测试才能决定。比如说<code>if(nums[0] &lt;= nums[mid])</code>这里的小于等号，如果换成小于号，就无法处理<code>[3, 1]</code>这样的情况。类似地还有<code>if(nums[0] &lt;= target &amp;&amp; target&lt; nums[mid])</code>和<code>if(nums[mid] &lt; target &amp;&amp; target &lt;= nums[nums.size() - 1])</code>当中的小于等于号，都是为了能够处理边界位置。</p></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/algorithm/">Algorithm</a>
+			<a class="entry__tag btn" href="/tags/leetcode/">LeetCode</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+<div class="authorbox block">
+	<div class="author">
+		<div class="author__body">
+			<div class="author__name">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+<div class="related block">
+	<h3 class="related__title">Related</h3>
+	<ul class="related__list">
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/leetcode-004-longest-palindromic-substring/">LeetCode-004 最长回文子串</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/leetcode-003-dp-02/">LeetCode-003-DP-02</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/leetcode-002-dp-01/">LeetCode-002-DP-01</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/leetcode-001-bfs-01matrix-rottenoranges/">LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/heap-insertion-comparison/">三种堆的插入效率比较</a></li>
+		
+	</ul>
+</div>
+
+	
+
+	</div>
+	<footer class="footer">
+<div class="footer__social social">
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:baoyuntai@outlook.com">
+			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
+		</a>
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/https://github.com/colored-dye">
+			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+		</a>
+</div>
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

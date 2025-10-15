@@ -16,137 +16,11 @@
       <description>&lt;p&gt;在我的“因为嫌麻烦而一直没有做的事情”的清单上少了一项，因为这几天我安装了Gentoo系统~&lt;/p&gt;&#xA;&lt;p&gt;很久以前就听说了Gentoo Linux，它与Arch Linux一样是滚动更新的系统，且最大的区别是：前者是从远程仓库获取源代码包、本地编译安装，而后者是像绝大多数发行版一样安装二进制包。说实话，Gentoo的这一特性对于大多数用户带来了很大的管理负担，比如说要编译Firefox，逛逛很可能要编译3小时以上，常规操作是让电脑熬夜干活、自己睡觉，第二天一早就编译好了QAQ。不过我不是很在意这一点，因为这种大型软件更新的频率较低。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Java 01: JavaSE</title>
-      <link>https://colored-dye.github.io/post/java-01-javase/</link>
-      <pubDate>Thu, 20 Oct 2022 09:19:24 +0800</pubDate>
-      <guid>https://colored-dye.github.io/post/java-01-javase/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>山重水复疑无路，柳暗花明又一村——记我的保研历程</title>
-      <link>https://colored-dye.github.io/post/my-test-free-phd-experience/</link>
-      <pubDate>Thu, 13 Oct 2022 19:31:09 +0800</pubDate>
-      <guid>https://colored-dye.github.io/post/my-test-free-phd-experience/</guid>
-      <description>&lt;p&gt;时隔近一个月，我终于有闲心回过头来记录我最终被录取为软件学院直博生的经历。回想起来，在保研流程正式进行的半个月里我每天都是在极度的焦虑和犹豫中度过的，然而等一切尘埃落定后，之前的痛苦与无助似乎又离我远去了。再三思考之下，我还是决定将过程记录下来。&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>CoLinux-Cooperative Linux 01: 总览</title>
       <link>https://colored-dye.github.io/post/colinux-01/</link>
       <pubDate>Sat, 19 Mar 2022 21:45:33 +0800</pubDate>
       <guid>https://colored-dye.github.io/post/colinux-01/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.colinux.org/&#34;&gt;CoLinux(Cooperative Linux)&lt;/a&gt;是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Hugo代码块复制功能</title>
-      <link>https://colored-dye.github.io/post/hugo-codecopy/</link>
-      <pubDate>Thu, 27 Jan 2022 15:01:41 +0800</pubDate>
-      <guid>https://colored-dye.github.io/post/hugo-codecopy/</guid>
-      <description>&lt;p&gt;今天刚刚把博客从Hexo框架迁移到Hugo啦！期间遇到了一些问题，大多数都比较顺利地解决了。稍微麻烦一点的就是为代码块添加复制功能。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Go语言学习01</title>
-      <link>https://colored-dye.github.io/post/go-01/</link>
-      <pubDate>Sun, 23 Jan 2022 16:38:13 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/go-01/</guid>
-      <description>&lt;p&gt;最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>OpenGL-learn-02-着色器和光照</title>
-      <link>https://colored-dye.github.io/post/opengl-learn-02-shader/</link>
-      <pubDate>Wed, 19 Jan 2022 15:46:23 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/opengl-learn-02-shader/</guid>
-      <description>&lt;p&gt;正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Qt带来了一定的困难。本文主要介绍一下我用到的Qt-OpenGL在着色器和光照渲染方面的功能~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>希腊字母表in Latex</title>
-      <link>https://colored-dye.github.io/post/greek-alphabet/</link>
-      <pubDate>Wed, 29 Dec 2021 22:57:24 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/greek-alphabet/</guid>
-      <description>&lt;p&gt;最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>OpenGL学习-01-坐标变换</title>
-      <link>https://colored-dye.github.io/post/opengl-learn-01-rotation/</link>
-      <pubDate>Mon, 29 Nov 2021 23:21:31 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/opengl-learn-01-rotation/</guid>
-      <description>&lt;p&gt;最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>LeetCode-006-265th周赛记录</title>
-      <link>https://colored-dye.github.io/post/leetcode-006-weekly-contest/</link>
-      <pubDate>Sun, 31 Oct 2021 16:01:32 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/leetcode-006-weekly-contest/</guid>
-      <description>&lt;p&gt;在CC98的@27rabbit的鼓励下，我还是鼓起勇气，第一次去参加了Leetcode周赛~QwQ 做题过程很波折，在这里记录一下向大神们学习到的新知识~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>RIME输入法配置</title>
-      <link>https://colored-dye.github.io/post/rime-input/</link>
-      <pubDate>Wed, 27 Oct 2021 22:36:45 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/rime-input/</guid>
-      <description>&lt;p&gt;今天在新装的Manjaro Plasma KDE上安装了大名鼎鼎的RIME输入法~ 还算是成功，但是捣鼓了好一会儿QAQ 问题主要在配置文件上.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>PPL-Lab-Description</title>
-      <link>https://colored-dye.github.io/post/ppl-lab-description/</link>
-      <pubDate>Wed, 06 Oct 2021 19:54:23 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/ppl-lab-description/</guid>
-      <description>&lt;p&gt;这里保存了PPL(Principles of Programming Language)课程Lab的相关资料~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>LeetCode-005-Binary Search</title>
-      <link>https://colored-dye.github.io/post/leetcode-005-binary-search/</link>
-      <pubDate>Mon, 04 Oct 2021 19:30:42 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/leetcode-005-binary-search/</guid>
-      <description>&lt;p&gt;当我磕磕绊绊地从“算法入门”学习计划中走入“算法基础”学习计划时，本被看作是简单题型的二分查找给我难住了(ノへ￣、) 特此记录一下遇到困难的二分查找题目以供日后参考学习~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>LeetCode-004 最长回文子串</title>
-      <link>https://colored-dye.github.io/post/leetcode-004-longest-palindromic-substring/</link>
-      <pubDate>Thu, 23 Sep 2021 20:07:24 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/leetcode-004-longest-palindromic-substring/</guid>
-      <description>&lt;p&gt;最长回文子串(&lt;a href=&#34;https://leetcode-cn.com/problems/longest-palindromic-substring/&#34;&gt;https://leetcode-cn.com/problems/longest-palindromic-substring/&lt;/a&gt;) 是一道很经典的题目~ 我们比较容易想到的就是动态规划的方法，但是在动态规划的基础上可以进一步（其实是进两步）优化！本文主要就来介绍最长回文子串的三种解题思路~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>LeetCode-003-DP-02</title>
-      <link>https://colored-dye.github.io/post/leetcode-003-dp-02/</link>
-      <pubDate>Wed, 22 Sep 2021 14:48:18 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/leetcode-003-dp-02/</guid>
-      <description>&lt;p&gt;这几天又做了几道动态规划的题，在这里记录一下个人感觉比较有价值的思路~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>LeetCode-002-DP-01</title>
-      <link>https://colored-dye.github.io/post/leetcode-002-dp-01/</link>
-      <pubDate>Wed, 15 Sep 2021 22:22:04 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/leetcode-002-dp-01/</guid>
-      <description>&lt;p&gt;今天来记录几道动态规划的题目~这几道题都是同一主题：买卖股票(Best Time to Buy and Sell Stock)。这一系列题目在最初版本的基础上加了一些限定条件，使得问题的解决略有复杂，但是基本的思路是一致的。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>LeetCode做题记录001 BFS: 01Matrix&amp;RottenOranges</title>
-      <link>https://colored-dye.github.io/post/leetcode-001-bfs-01matrix-rottenoranges/</link>
-      <pubDate>Wed, 15 Sep 2021 16:53:38 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/leetcode-001-bfs-01matrix-rottenoranges/</guid>
-      <description>&lt;p&gt;最近开始刷Leetcode辣~在一周前，我开始了“算法”和“动态规划”学习计划(希望能够坚持住QwQ)今天做到了两道基本思路一致的BFS相关的题，感觉比较典型，特此记录~&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>爬虫:提交表单数据</title>
-      <link>https://colored-dye.github.io/post/spider-submit-form-data/</link>
-      <pubDate>Sun, 29 Aug 2021 16:00:29 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/spider-submit-form-data/</guid>
-      <description>&lt;p&gt;最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。在需求方面，由于(1) 数据规模达到了1000以上，手动复制粘贴十分费时耗力；(2) 并且每年都有这样的工作；(3) 政府网站在相当长的一段时间内不会大改，所以为其编写程序很值得。在交换使用方面，而因为用户对Python并不太了解，所以需要制作单独的&lt;code&gt;exe&lt;/code&gt;可执行文件。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Makefile语法</title>
-      <link>https://colored-dye.github.io/post/makefile-syntax/</link>
-      <pubDate>Sun, 11 Jul 2021 18:04:36 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/makefile-syntax/</guid>
-      <description>&lt;p&gt;Makefile在C/C++工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Linux相关的工程和IDE的工程管理中也会接触到很多Makefile，但是后者的可读性往往很差（那是后话了）&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>正则表达式1</title>
-      <link>https://colored-dye.github.io/post/regex-expression-01/</link>
-      <pubDate>Sun, 11 Jul 2021 18:04:21 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/regex-expression-01/</guid>
-      <description>&lt;p&gt;正则表达式(Regex Expression)在&lt;code&gt;Bash&lt;/code&gt;命令中有很强大的作用~接下来系统地学习一下正则表达式吧~&lt;/p&gt;</description>
     </item>
     <item>
       <title>xv6-riscv学习1-Chapter1</title>
@@ -156,39 +30,11 @@
       <description>&lt;h3 id=&#34;chapter-1-operating-system-interfaces&#34;&gt;Chapter 1: Operating System Interfaces&lt;/h3&gt;&#xA;&lt;p&gt;第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。&lt;/p&gt;&#xA;&lt;p&gt;在这里，接口与&lt;strong&gt;系统调用&lt;/strong&gt; (&lt;strong&gt;system call&lt;/strong&gt;)是紧密相关的。系统调用就是操作系统内核向用户程序提供的访问内核功能的接口。实际上，系统调用在操作系统分层模型的实现中是极其重要的。书中有一幅图呈现了user space和kernel space之间的关系：&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;这其实带来了一个问题：系统调用的功能是不是越复杂、越丰富越好呢？书中给出的答案是否定的，并给出了一个目标：“Design interfaces that rely on a few mechanisms that can be combined to provide much generality.”这大概就是说“大而全不如小而精”吧。&lt;/p&gt;&#xA;&lt;p&gt;同时可以注意到，上图中shell是在用户空间里的，也就是说shell在xv6系统中是用户程序。这样一来，其实可以使得用户更换shell变得很方便，只要使用同样的接口就可以了。现实中常用的Linux系统也都是这样的。&lt;/p&gt;&#xA;&lt;p&gt;接下来仍遵循书中的结构~&lt;/p&gt;&#xA;&lt;h4 id=&#34;1-进程与内存&#34;&gt;1. 进程与内存&lt;/h4&gt;&#xA;&lt;p&gt;在操作系统中，一般会有多个进程“同时”运行，每个进程在内核中被分配有一个唯一的进程标识符(process identifier)，缩写&lt;code&gt;PID&lt;/code&gt;。真正意义上的“同时”只有在多核CPU上才能实现，而对于单核CPU，操作系统会通过进程调度机制轮流执行各个进程，由于切换的速度非常快，给人的感觉就像是同时一样。&lt;/p&gt;&#xA;&lt;p&gt;创建新进程的方法一般通过&lt;code&gt;fork()&lt;/code&gt;或&lt;code&gt;exec()&lt;/code&gt;系统调用实现。&lt;code&gt;fork&lt;/code&gt;会给新创建的子进程复制一份父进程的内存，内容完全一样，如果从标准的ELF格式来看的话，从text, data, bss到stack都是一样的。&lt;code&gt;fork&lt;/code&gt;很特殊的一点是其有两个返回值：向父进程返回子进程的&lt;code&gt;PID&lt;/code&gt;，向子进程返回0.&lt;/p&gt;&#xA;&lt;p&gt;一个经典的&lt;code&gt;fork&lt;/code&gt;测试程序大致如下：&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testfork&lt;/span&gt;()&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; pid;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    pid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fork&lt;/span&gt;();&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(pid &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;){&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;parent: child PID = %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, pid);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        pid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;wait&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;child %d terminates&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, pid);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(pid &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;){&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;child exiting&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;exit&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fork error&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>日记1</title>
-      <link>https://colored-dye.github.io/post/diary-1/</link>
-      <pubDate>Fri, 30 Apr 2021 14:06:14 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/diary-1/</guid>
-      <description>&lt;p&gt;午后的阳光流入我的身体&lt;/p&gt;&#xA;&lt;p&gt;像融化的奶油冰淇淋&lt;/p&gt;&#xA;&lt;p&gt;闭上眼睛品味一下——&lt;/p&gt;&#xA;&lt;p&gt;呀，是香草味的~&lt;/p&gt;&#xA;&lt;p&gt;还有一点&lt;/p&gt;&#xA;&lt;p&gt;樟树花的香气&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>xv6-riscv学习0</title>
       <link>https://colored-dye.github.io/post/xv6-riscv-0/</link>
       <pubDate>Sun, 11 Apr 2021 20:47:31 +0000</pubDate>
       <guid>https://colored-dye.github.io/post/xv6-riscv-0/</guid>
       <description>&lt;p&gt;这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>三种堆的插入效率比较</title>
-      <link>https://colored-dye.github.io/post/heap-insertion-comparison/</link>
-      <pubDate>Sun, 28 Mar 2021 13:25:57 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/heap-insertion-comparison/</guid>
-      <description>&lt;p&gt;这个小Research是ADS课上老师的一个探索性问题，本周没有编程作业，所以自己想练习一下。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Github Clone加速</title>
-      <link>https://colored-dye.github.io/post/github-clone-speedup/</link>
-      <pubDate>Fri, 26 Mar 2021 22:56:54 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/github-clone-speedup/</guid>
-      <description>&lt;p&gt;有从Github Git Clone一些项目的需求，比如说克隆&lt;code&gt;riscv-toolchain&lt;/code&gt;的Repository，但是6G多的仓库下起来实在是太慢了。在网上找到一些加速Git Clone的方法，供日后参考。个人感觉好用的顺序大致是从前向后递减吧。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Hexo图片显示</title>
-      <link>https://colored-dye.github.io/post/hexo-picture/</link>
-      <pubDate>Mon, 22 Mar 2021 22:07:39 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/hexo-picture/</guid>
-      <description>&lt;p&gt;这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

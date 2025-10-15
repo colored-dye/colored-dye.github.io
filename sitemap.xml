@@ -10,10 +10,16 @@
     <loc>https://colored-dye.github.io/categories/</loc>
     <lastmod>2022-11-16T12:41:47+08:00</lastmod>
   </url><url>
+    <loc>https://colored-dye.github.io/deprecated/</loc>
+    <lastmod>2022-11-16T12:41:47+08:00</lastmod>
+  </url><url>
     <loc>https://colored-dye.github.io/categories/gentoo/</loc>
     <lastmod>2022-11-16T12:41:47+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/tags/gentoo/</loc>
+    <lastmod>2022-11-16T12:41:47+08:00</lastmod>
+  </url><url>
+    <loc>https://colored-dye.github.io/deprecated/gentoo-minimal-install/</loc>
     <lastmod>2022-11-16T12:41:47+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/post/gentoo-minimal-install/</loc>
@@ -43,7 +49,7 @@
     <loc>https://colored-dye.github.io/tags/java/</loc>
     <lastmod>2022-10-20T09:19:24+08:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/java-01-javase/</loc>
+    <loc>https://colored-dye.github.io/deprecated/java-01-javase/</loc>
     <lastmod>2022-10-20T09:19:24+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/daily/</loc>
@@ -52,13 +58,22 @@
     <loc>https://colored-dye.github.io/tags/daily/</loc>
     <lastmod>2022-10-13T19:31:09+08:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/my-test-free-phd-experience/</loc>
+    <loc>https://colored-dye.github.io/nsfw/</loc>
+    <lastmod>2022-10-13T19:31:09+08:00</lastmod>
+  </url><url>
+    <loc>https://colored-dye.github.io/deprecated/curse_or_blessing/</loc>
+    <lastmod>2022-10-13T19:31:09+08:00</lastmod>
+  </url><url>
+    <loc>https://colored-dye.github.io/nsfw/curse_or_blessing/</loc>
     <lastmod>2022-10-13T19:31:09+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/colinux/</loc>
     <lastmod>2022-03-19T21:45:33+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/tags/colinux/</loc>
+    <lastmod>2022-03-19T21:45:33+08:00</lastmod>
+  </url><url>
+    <loc>https://colored-dye.github.io/deprecated/colinux-01/</loc>
     <lastmod>2022-03-19T21:45:33+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/post/colinux-01/</loc>
@@ -76,13 +91,13 @@
     <loc>https://colored-dye.github.io/tags/hugo/</loc>
     <lastmod>2022-01-27T15:01:41+08:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/hugo-codecopy/</loc>
+    <loc>https://colored-dye.github.io/deprecated/hugo-codecopy/</loc>
     <lastmod>2022-01-27T15:01:41+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/tags/go/</loc>
     <lastmod>2022-01-23T16:38:13+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/go-01/</loc>
+    <loc>https://colored-dye.github.io/deprecated/go-01/</loc>
     <lastmod>2022-01-23T16:38:13+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/programming-languages/</loc>
@@ -97,7 +112,7 @@
     <loc>https://colored-dye.github.io/tags/opengl/</loc>
     <lastmod>2022-01-19T15:46:23+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/opengl-learn-02-shader/</loc>
+    <loc>https://colored-dye.github.io/deprecated/opengl-learn-02-shader/</loc>
     <lastmod>2022-01-19T15:46:23+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/tags/latex/</loc>
@@ -109,10 +124,10 @@
     <loc>https://colored-dye.github.io/tags/misc/</loc>
     <lastmod>2021-12-29T22:57:24+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/greek-alphabet/</loc>
+    <loc>https://colored-dye.github.io/deprecated/greek-alphabet/</loc>
     <lastmod>2021-12-29T22:57:24+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/opengl-learn-01-rotation/</loc>
+    <loc>https://colored-dye.github.io/deprecated/opengl-learn-01-rotation/</loc>
     <lastmod>2021-11-29T23:21:31+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/algorithm/</loc>
@@ -127,10 +142,10 @@
     <loc>https://colored-dye.github.io/categories/leetcode/</loc>
     <lastmod>2021-10-31T16:01:32+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/leetcode-006-weekly-contest/</loc>
+    <loc>https://colored-dye.github.io/deprecated/leetcode-006-weekly-contest/</loc>
     <lastmod>2021-10-31T16:01:32+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/rime-input/</loc>
+    <loc>https://colored-dye.github.io/deprecated/rime-input/</loc>
     <lastmod>2021-10-27T22:36:45+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/tools/</loc>
@@ -139,25 +154,25 @@
     <loc>https://colored-dye.github.io/tags/tools/</loc>
     <lastmod>2021-10-27T22:36:45+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/ppl-lab-description/</loc>
+    <loc>https://colored-dye.github.io/deprecated/ppl-lab-description/</loc>
     <lastmod>2021-10-06T19:54:23+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/tags/leetcode/</loc>
     <lastmod>2021-10-04T19:30:42+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/leetcode-005-binary-search/</loc>
+    <loc>https://colored-dye.github.io/deprecated/leetcode-005-binary-search/</loc>
     <lastmod>2021-10-04T19:30:42+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/leetcode-004-longest-palindromic-substring/</loc>
+    <loc>https://colored-dye.github.io/deprecated/leetcode-004-longest-palindromic-substring/</loc>
     <lastmod>2021-09-23T20:07:24+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/leetcode-003-dp-02/</loc>
+    <loc>https://colored-dye.github.io/deprecated/leetcode-003-dp-02/</loc>
     <lastmod>2021-09-22T14:48:18+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/leetcode-002-dp-01/</loc>
+    <loc>https://colored-dye.github.io/deprecated/leetcode-002-dp-01/</loc>
     <lastmod>2021-09-15T22:22:04+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/leetcode-001-bfs-01matrix-rottenoranges/</loc>
+    <loc>https://colored-dye.github.io/deprecated/leetcode-001-bfs-01matrix-rottenoranges/</loc>
     <lastmod>2021-09-15T16:53:38+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/spider/</loc>
@@ -166,7 +181,7 @@
     <loc>https://colored-dye.github.io/tags/spider/</loc>
     <lastmod>2021-08-29T16:00:29+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/spider-submit-form-data/</loc>
+    <loc>https://colored-dye.github.io/deprecated/spider-submit-form-data/</loc>
     <lastmod>2021-08-29T16:00:29+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/makefile/</loc>
@@ -175,7 +190,7 @@
     <loc>https://colored-dye.github.io/tags/makefile/</loc>
     <lastmod>2021-07-11T18:04:36+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/makefile-syntax/</loc>
+    <loc>https://colored-dye.github.io/deprecated/makefile-syntax/</loc>
     <lastmod>2021-07-11T18:04:36+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/regular-expression/</loc>
@@ -184,7 +199,7 @@
     <loc>https://colored-dye.github.io/tags/regular-expression/</loc>
     <lastmod>2021-07-11T18:04:21+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/regex-expression-01/</loc>
+    <loc>https://colored-dye.github.io/deprecated/regex-expression-01/</loc>
     <lastmod>2021-07-11T18:04:21+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/risc-v/</loc>
@@ -199,16 +214,25 @@
     <loc>https://colored-dye.github.io/tags/xv6-riscv/</loc>
     <lastmod>2021-05-01T12:34:23+00:00</lastmod>
   </url><url>
+    <loc>https://colored-dye.github.io/deprecated/xv6-riscv-1/</loc>
+    <lastmod>2021-05-01T12:34:23+00:00</lastmod>
+  </url><url>
     <loc>https://colored-dye.github.io/post/xv6-riscv-1/</loc>
     <lastmod>2021-05-01T12:34:23+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/diary-1/</loc>
+    <loc>https://colored-dye.github.io/deprecated/diary-1/</loc>
     <lastmod>2021-04-30T14:06:14+00:00</lastmod>
+  </url><url>
+    <loc>https://colored-dye.github.io/nsfw/diary-1/</loc>
+    <lastmod>2021-04-30T14:06:14+00:00</lastmod>
+  </url><url>
+    <loc>https://colored-dye.github.io/deprecated/xv6-riscv-0/</loc>
+    <lastmod>2021-04-11T20:47:31+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/post/xv6-riscv-0/</loc>
     <lastmod>2021-04-11T20:47:31+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/heap-insertion-comparison/</loc>
+    <loc>https://colored-dye.github.io/deprecated/heap-insertion-comparison/</loc>
     <lastmod>2021-03-28T13:25:57+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/git/</loc>
@@ -217,7 +241,7 @@
     <loc>https://colored-dye.github.io/tags/git/</loc>
     <lastmod>2021-03-26T22:56:54+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/github-clone-speedup/</loc>
+    <loc>https://colored-dye.github.io/deprecated/github-clone-speedup/</loc>
     <lastmod>2021-03-26T22:56:54+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/categories/hexo/</loc>
@@ -226,7 +250,7 @@
     <loc>https://colored-dye.github.io/tags/hexo/</loc>
     <lastmod>2021-03-22T22:07:39+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/post/hexo-picture/</loc>
+    <loc>https://colored-dye.github.io/deprecated/hexo-picture/</loc>
     <lastmod>2021-03-22T22:07:39+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/pub/</loc>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>OpenGL-learn-02-着色器和光照 | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:url" content="https://colored-dye.github.io/deprecated/opengl-learn-02-shader/">
+  <meta property="og:site_name" content="colored-dye&#39;s blog">
+  <meta property="og:title" content="OpenGL-learn-02-着色器和光照">
+  <meta property="og:description" content="正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Qt带来了一定的困难。本文主要介绍一下我用到的Qt-OpenGL在着色器和光照渲染方面的功能~">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="deprecated">
+    <meta property="article:published_time" content="2022-01-19T15:46:23+00:00">
+    <meta property="article:modified_time" content="2022-01-19T15:46:23+00:00">
+    <meta property="article:tag" content="OpenGL">
+
+		
+  <meta itemprop="name" content="OpenGL-learn-02-着色器和光照">
+  <meta itemprop="description" content="正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Qt带来了一定的困难。本文主要介绍一下我用到的Qt-OpenGL在着色器和光照渲染方面的功能~">
+  <meta itemprop="datePublished" content="2022-01-19T15:46:23+00:00">
+  <meta itemprop="dateModified" content="2022-01-19T15:46:23+00:00">
+  <meta itemprop="wordCount" content="459">
+  <meta itemprop="keywords" content="OpenGL">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="stylesheet" href="/css/themes/dark-violet.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav main-nav--right" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/categories/">
+					
+					<span class="main-nav__text">Categories</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/post/">
+					
+					<span class="main-nav__text">Posts</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/pub">
+					
+					<span class="main-nav__text">Publications</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/tags/">
+					
+					<span class="main-nav__text">Tags</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+	<div class="entry__meta meta mb">
+	<time class="entry__meta-published meta-published" datetime="2022-01-19T15:46:23Z">January 19, 2022</time>
+<div class="entry__meta-tags meta-tags">
+	<span class="meta-tags__list">Tags:
+		<a class="meta-tags__link" href="/tags/opengl/" rel="tag">OpenGL</a>
+	</span>
+</div>
+	</div>
+				<h1 class="entry__title">OpenGL-learn-02-着色器和光照</h1>
+				<div class="entry__content"><p>正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Qt带来了一定的困难。本文主要介绍一下我用到的Qt-OpenGL在着色器和光照渲染方面的功能~</p>
+<p>首先抛出一个链接：Learn OpenGL with Qt——必备知识（易出错导致绘图失败的地方）：https://blog.csdn.net/qq_40946921/article/details/108041536?spm=1001.2014.3001.5501</p>
+<p>这位博主<a href="https://blog.csdn.net/qq_40946921">@Italink</a>还有其他的几篇文章，介绍了Qt-OpenGL的基本用法，也很有用。当我面对DDL而焦头烂额之时，他的分享给予了我莫大的帮助！特此感谢~ |ヽ(<em>￣▽￣</em>)ノミ|Ю</p>
+<h3 id="1-上下文opengl-context">1. 上下文(OpenGL Context)</h3>
+<p>Qt-OpenGL需要一个上下文来管理VAO、VBO等数据对象。如果所有的操作都在<code>paintGL()</code>函数中完成，系统实际上会默认分配一个上下文，那么就不需要手工设置上下文了。但是如果在<code>paintGL()</code>之外调用了绘图函数，如<code>glDrawArrays()</code>和<code>glDrawElements()</code>，就需要通过<code>QOpenGLFunctions</code>对象来调用这些函数，即<code>QOpenGLFunctions</code>对象是与上下文紧密相联的。</p>
+<p>此外，如果要除了<code>paintGL()</code>外部函数中定义VAO对象，一定要在前后添加定<strong>创建上下文</strong>的逻辑语句块，如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    w<span style="color:#f92672">-&gt;</span>makeCurrent();
+</span></span><span style="display:flex;"><span>    VAO <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QOpenGLVertexArrayObject(w);
+</span></span><span style="display:flex;"><span>    VAO<span style="color:#f92672">-&gt;</span>create();
+</span></span><span style="display:flex;"><span>    VAO<span style="color:#f92672">-&gt;</span>bind();
+</span></span><span style="display:flex;"><span>    VAO<span style="color:#f92672">-&gt;</span>release();
+</span></span><span style="display:flex;"><span>    w<span style="color:#f92672">-&gt;</span>doneCurrent();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中<code>w</code>是<code>QOpenGLWidget</code>类型的变量指针。如果不这样做，就相当于在OpenGL上下文之外创建了VAO。后续绑定VAO时，系统就找不到VAO以及与其绑定的buffer对象了。</p>
+<p>为了让我们自定义的<code>MyOpenGLWidget</code>能够同兼顾<code>QOpenGLWidget</code>和上下文，我这里进行了一个多继承：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyOpenGLWidget</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> QOpenGLWidget, <span style="color:#66d9ef">public</span> QOpenGLExtraFunctions
+</span></span><span style="display:flex;"><span>    ...
+</span></span></code></pre></div><p>后面如果要传递上下文，就只需要传递<code>MyOpenGLWidget</code>对象指针即可。</p>
+<h3 id="2-vao与vbo-ebo">2. VAO与VBO, EBO</h3>
+<p>渲染上下文保存了VAO的id，而VAO保存了VBO和EBO的id。在将VAO与VBO、EBO绑定时，一般的顺序是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>VAO<span style="color:#f92672">-&gt;</span>bind();
+</span></span><span style="display:flex;"><span>VBO<span style="color:#f92672">-&gt;</span>create();
+</span></span><span style="display:flex;"><span>VBO<span style="color:#f92672">-&gt;</span>bind();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prepare data
+</span></span></span></code></pre></div><p>当然良好的代码习惯是在分配内存后将这两个对象<code>release</code>掉，就像原生OpenGL中所做的那样。一个比较直接（但并不正确）的做法如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>VBO<span style="color:#f92672">-&gt;</span>release();
+</span></span><span style="display:flex;"><span>VAO<span style="color:#f92672">-&gt;</span>release();
+</span></span></code></pre></div><p>这种想法很正常，按照先入后出的原则。但是在这里，如果先释放了VBO，就会导致VAO绑定的VBO缓冲区数据丢失。所以VBO应该在<strong>VAO释放之后</strong>再释放，或者根本就不释放。</p>
+<h3 id="3-着色器">3. 着色器</h3>
+<h4 id="1-创建和初始化">(1) 创建和初始化</h4>
+<p>Qt-OpenGL中定义了<code>QOpenGLShaderProgram</code>对象。一般来说，创建着色器的流程如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>QOpenGLShaderProgram <span style="color:#f92672">*</span>shader <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QOpenGLShaderProgram(parent);
+</span></span><span style="display:flex;"><span>shader<span style="color:#f92672">-&gt;</span>addShaderFromSourceFile(QOpenGLShader<span style="color:#f92672">::</span>Vertex, <span style="color:#e6db74">&#34;...&#34;</span>);
+</span></span><span style="display:flex;"><span>shader<span style="color:#f92672">-&gt;</span>addShaderFromSourceFile(QOpenGLShader<span style="color:#f92672">::</span>Fragment, <span style="color:#e6db74">&#34;...&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(shader<span style="color:#f92672">-&gt;</span>link()){
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;Shader link success</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;Shader link failure</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中的<code>addShaderFromSourceFile()</code>方法还可以替换成<code>addShaderFromSourceCode()</code>，只不过着色器程序需要写成字符串。</p>
+<p>为了能够更好地使用着色器类，我对<code>QOpenGLShaderProgram</code>进行了继承，定义了<code>Shader</code>类，其中只包含了一个函数上下文指针。</p>
+<h4 id="2-meshshader">(2) Mesh+Shader</h4>
+<p>在此次大程序设计中，我将Shader作为Mesh的成员变量来使用，这样渲染模型时就直接调用自己的着色器。（不过更好的做法也许是将二者分开，但是我没有这样做QwQ）这样设计的考虑主是为了方便在准备好模型的顶点、面片索引和边框索引后，直接利用着色器变量绑定VAO、VBO和EBO.</p>
+<p>在Qt-OpenGL中，顶点属性数组(VAO)是与着色器绑定的。(合理推测，原生OpenGL也是这样的，只不过没有在代码上写得那么清楚) 将VAO与其VBO绑定的基本代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>context<span style="color:#f92672">-&gt;</span>makeCurrent();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(VAO){
+</span></span><span style="display:flex;"><span>    VAO<span style="color:#f92672">-&gt;</span>destroy();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">delete</span> VAO;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>VAO <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QOpenGLVertexArrayObject(context);
+</span></span><span style="display:flex;"><span>QOpenGLVertexArrayObject<span style="color:#f92672">::</span>Binder{VAO};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(VBO){
+</span></span><span style="display:flex;"><span>    VBO<span style="color:#f92672">-&gt;</span>destroy();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">delete</span> VBO;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>VBO <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QOpenGLBuffer(QOpenGLBuffer<span style="color:#f92672">::</span>VertexBuffer);
+</span></span><span style="display:flex;"><span>VBO<span style="color:#f92672">-&gt;</span>create();
+</span></span><span style="display:flex;"><span>VBO<span style="color:#f92672">-&gt;</span>bind();
+</span></span><span style="display:flex;"><span>VBO<span style="color:#f92672">-&gt;</span>allocate(<span style="color:#f92672">&amp;</span>vertices[<span style="color:#ae81ff">0</span>], vertices.size() <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(Vertex));
+</span></span><span style="display:flex;"><span>shader_vertex<span style="color:#f92672">-&gt;</span>setAttributeBuffer(<span style="color:#ae81ff">0</span>, GL_FLOAT, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">sizeof</span>(Vertex));
+</span></span><span style="display:flex;"><span>shader_vertex<span style="color:#f92672">-&gt;</span>enableAttributeArray(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>shader_vertex<span style="color:#f92672">-&gt;</span>setAttributeBuffer(<span style="color:#ae81ff">0</span>, GL_FLOAT, <span style="color:#66d9ef">sizeof</span>(glm<span style="color:#f92672">::</span>vec3), <span style="color:#ae81ff">3</span>, <span style="color:#66d9ef">sizeof</span>(Vertex));
+</span></span><span style="display:flex;"><span>shader_vertex<span style="color:#f92672">-&gt;</span>enableAttributeArray(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(func<span style="color:#f92672">-&gt;</span>glGetError() <span style="color:#f92672">!=</span> GL_NO_ERROR){
+</span></span><span style="display:flex;"><span>    QMessageBox<span style="color:#f92672">::</span>warning(context, <span style="color:#e6db74">&#34;Warning&#34;</span>, <span style="color:#e6db74">&#34;Error in shader face&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#f92672">-&gt;</span>doneCurrent();
+</span></span></code></pre></div><p>可以看到，设置VBO buffer参数的函数是通过shader调用的。</p>
+<p>此外，上面有一个非常特别的类：<code>QOpenGLVerteArrayObject::Binder{VAO}</code>. Qt帮助文档这样介绍：</p>
+<blockquote>
+<p>The QOpenGLVertexArrayObject::Binder class is a convenience class to help with the binding and releasing of OpenGL Vertex Array Objects.</p>
+<p>&hellip;</p>
+<p>This class implements the RAII principle which helps to ensure behavior in complex code or in the presence of exceptions.
+The constructor of this class accepts a QOpenGLVertexArrayObject (VAO) as an argument and attempts to bind the VAO, calling QOpenGLVertexArrayObject::create() if necessary. The destructor of this class calls QOpenGLVertexArrayObject::release() which unbinds the VAO.
+If needed the VAO can be temporarily unbound with the release() function and bound once more with rebind().</p></blockquote>
+<p>这段话说得很清楚了。这个类创建后，会自动调用<code>create()</code>和<code>bind()</code>方法；析构时会自动<code>release()</code>。由于在函数中我们只需要绑定一次VAO，这就意味着在创建<code>Binder</code>类后就可以撒手不管了~</p>
+<p>而如果要绘图，在调用绘图函数之前还需要先绑定VAO，可以很方便地通过<code>Binder</code>类绑定：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DrawVertex</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    QOpenGLVertexArrayObject<span style="color:#f92672">::</span>Binder{VAO};
+</span></span><span style="display:flex;"><span>    func<span style="color:#f92672">-&gt;</span>glDrawArrays(GL_POINTS, <span style="color:#ae81ff">0</span>, vertices.size());
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="4-光照">4. 光照</h3>
+<p>漫反射、镜面反射以及与其相关的物体材质属性之类的理论，说实话我是一知半解——大概明白理论，却说不清也没法闭眼写代码。这里简要讨论几点好了。</p>
+<h4 id="1-法向量">(1) 法向量</h4>
+<p>反射时需要提供物体表面的法向量，光线从某个角度射向平面后就会依据反射定律发生反射。这个原理还好理解。问题主要出在模型和代码数据的转换上。</p>
+<p>我们知道，PLY, OBJ等模型都会给出顶点和面的法向量，并且面的法向量是法向量的索引。在OBJ模型中，有时会出现这样的情况：有顶点，有法向量，也有面，面引用了法向量，但是没有直接给出顶点的法向量。这时就需要手工计算一下。经查阅资料得知，顶点法向量等于包含了该顶点的面的法向量之和：
+$$
+Normal_{vertex}(v)=normalize(\sum_{v\in f}(f.normal))
+$$
+在此次大程序中由我VCGLib库提供的输入/输出功能处理，可以直接得到顶点的法向量，省了很多麻烦QwQ.</p>
+<h4 id="2-光照着色器">(2) 光照着色器</h4>
+<p>本次大程中我没有用到环境光照，原因是在使用了对面片叠加了环境光照渲染后，整个模型就都变成了光照的颜色，如果用的是白色光照就会及其刺眼QAQ. 在短暂的实验后，我发现如果只需要为物体提供光照是不需要额外添加着色器的，所以果断抛弃了环境光照，后续也没有进行更多的尝试。依稀记得当时的想法是将环境光照着色器作为<code>MyOpenGLWidget</code>的成员，在需要的时候调用。</p>
+<hr>
+<h3 id="附录着色器程序代码">附录：着色器程序代码</h3>
+<p>着色器程序上我也没少花心思，索性把我用到的代码放上来。代码挺straight-forward的，不用什么说明。</p>
+<h4 id="vertex">Vertex</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-glsl" data-lang="glsl"><span style="display:flex;"><span><span style="color:#75715e">#version 330</span>
+</span></span><span style="display:flex;"><span>layout(location <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec3</span> aPos;
+</span></span><span style="display:flex;"><span>layout(location <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec3</span> aNormal;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> mat4 view;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> mat4 projection;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> mat4 model;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec3</span> fragPos;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec3</span> Normal;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  gl_Position <span style="color:#f92672">=</span> projection <span style="color:#f92672">*</span> view <span style="color:#f92672">*</span> model <span style="color:#f92672">*</span> <span style="color:#66d9ef">vec4</span>(aPos, <span style="color:#ae81ff">1.0</span>f);
+</span></span><span style="display:flex;"><span>  fragPos <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec3</span>(model <span style="color:#f92672">*</span> <span style="color:#66d9ef">vec4</span>(aPos, <span style="color:#ae81ff">1.0</span>f));
+</span></span><span style="display:flex;"><span>  Normal <span style="color:#f92672">=</span> mat3(transpose(inverse(model))) <span style="color:#f92672">*</span> aNormal;
+</span></span><span style="display:flex;"><span>  gl_PointSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.0</span>f;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="fragment">Fragment</h4>
+<p>Vertex:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-glsl" data-lang="glsl"><span style="display:flex;"><span><span style="color:#75715e">#version 330</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(<span style="color:#ae81ff">0.0</span>f, <span style="color:#ae81ff">0.5</span>f, <span style="color:#ae81ff">0.0</span>f, <span style="color:#ae81ff">1.0</span>f); <span style="color:#75715e">// 顶点颜色为绿色</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Edge:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-glsl" data-lang="glsl"><span style="display:flex;"><span><span style="color:#75715e">#version 330</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(<span style="color:#ae81ff">0.5</span>f, <span style="color:#ae81ff">0.5</span>f, <span style="color:#ae81ff">0.0</span>f, <span style="color:#ae81ff">1.0</span>f); <span style="color:#75715e">// 面片颜色为黄色</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Face:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-glsl" data-lang="glsl"><span style="display:flex;"><span><span style="color:#75715e">#version 330</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">out</span> <span style="color:#66d9ef">vec4</span> fragColor;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> objectColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> lightColor;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> lightPos;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uniform</span> <span style="color:#66d9ef">vec3</span> viewPos;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec3</span> fragPos;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">in</span> <span style="color:#66d9ef">vec3</span> Normal;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// fragColor = vec4(1.0f);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> ambientStrength <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>f;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> ambient <span style="color:#f92672">=</span> ambientStrength <span style="color:#f92672">*</span> lightColor;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> norm <span style="color:#f92672">=</span> normalize(Normal);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> lightDir <span style="color:#f92672">=</span> normalize(lightPos <span style="color:#f92672">-</span> fragPos);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> diff <span style="color:#f92672">=</span> max(dot(norm, lightDir), <span style="color:#ae81ff">0.0</span>f);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> diffuse <span style="color:#f92672">=</span> diff <span style="color:#f92672">*</span> lightColor;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> specularStrength <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>f;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> viewDir <span style="color:#f92672">=</span> normalize(viewPos <span style="color:#f92672">-</span> fragPos);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> reflectDir <span style="color:#f92672">=</span> reflect(<span style="color:#f92672">-</span>lightDir, norm);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">float</span> spec <span style="color:#f92672">=</span> pow(max(dot(viewDir, reflectDir), <span style="color:#ae81ff">0.0</span>f), <span style="color:#ae81ff">32</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> specular <span style="color:#f92672">=</span> specularStrength <span style="color:#f92672">*</span> spec <span style="color:#f92672">*</span> lightColor;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">vec3</span> result <span style="color:#f92672">=</span> (ambient <span style="color:#f92672">+</span> diffuse <span style="color:#f92672">+</span> specular) <span style="color:#f92672">*</span> objectColor;
+</span></span><span style="display:flex;"><span>  fragColor <span style="color:#f92672">=</span> <span style="color:#66d9ef">vec4</span>(result, <span style="color:#ae81ff">1.0</span>f);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>PS: 希望Qt的OpenGL示例代码能更加完善:pray:!</p></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/opengl/">OpenGL</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+<div class="authorbox block">
+	<div class="author">
+		<div class="author__body">
+			<div class="author__name">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+<div class="related block">
+	<h3 class="related__title">Related</h3>
+	<ul class="related__list">
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/opengl-learn-01-rotation/">OpenGL学习-01-坐标变换</a></li>
+		
+	</ul>
+</div>
+
+	
+
+	</div>
+	<footer class="footer">
+<div class="footer__social social">
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:baoyuntai@outlook.com">
+			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
+		</a>
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/https://github.com/colored-dye">
+			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+		</a>
+</div>
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

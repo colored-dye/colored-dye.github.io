@@ -10,9 +10,9 @@
     <atom:link href="https://colored-dye.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo代码块复制功能</title>
-      <link>https://colored-dye.github.io/post/hugo-codecopy/</link>
+      <link>https://colored-dye.github.io/deprecated/hugo-codecopy/</link>
       <pubDate>Thu, 27 Jan 2022 15:01:41 +0800</pubDate>
-      <guid>https://colored-dye.github.io/post/hugo-codecopy/</guid>
+      <guid>https://colored-dye.github.io/deprecated/hugo-codecopy/</guid>
       <description>&lt;p&gt;今天刚刚把博客从Hexo框架迁移到Hugo啦！期间遇到了一些问题，大多数都比较顺利地解决了。稍微麻烦一点的就是为代码块添加复制功能。&lt;/p&gt;</description>
     </item>
   </channel>

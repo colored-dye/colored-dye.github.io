@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>Makefile语法 | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:url" content="https://colored-dye.github.io/deprecated/makefile-syntax/">
+  <meta property="og:site_name" content="colored-dye&#39;s blog">
+  <meta property="og:title" content="Makefile语法">
+  <meta property="og:description" content="Makefile在C/C&#43;&#43;工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Linux相关的工程和IDE的工程管理中也会接触到很多Makefile，但是后者的可读性往往很差（那是后话了）">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="deprecated">
+    <meta property="article:published_time" content="2021-07-11T18:04:36+00:00">
+    <meta property="article:modified_time" content="2021-07-11T18:04:36+00:00">
+    <meta property="article:tag" content="Makefile">
+
+		
+  <meta itemprop="name" content="Makefile语法">
+  <meta itemprop="description" content="Makefile在C/C&#43;&#43;工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Linux相关的工程和IDE的工程管理中也会接触到很多Makefile，但是后者的可读性往往很差（那是后话了）">
+  <meta itemprop="datePublished" content="2021-07-11T18:04:36+00:00">
+  <meta itemprop="dateModified" content="2021-07-11T18:04:36+00:00">
+  <meta itemprop="wordCount" content="355">
+  <meta itemprop="keywords" content="Makefile">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="stylesheet" href="/css/themes/dark-violet.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav main-nav--right" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/categories/">
+					
+					<span class="main-nav__text">Categories</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/post/">
+					
+					<span class="main-nav__text">Posts</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/pub">
+					
+					<span class="main-nav__text">Publications</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/tags/">
+					
+					<span class="main-nav__text">Tags</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+	<div class="entry__meta meta mb">
+	<time class="entry__meta-published meta-published" datetime="2021-07-11T18:04:36Z">July 11, 2021</time>
+<div class="entry__meta-tags meta-tags">
+	<span class="meta-tags__list">Tags:
+		<a class="meta-tags__link" href="/tags/makefile/" rel="tag">Makefile</a>
+	</span>
+</div>
+	</div>
+				<h1 class="entry__title">Makefile语法</h1>
+				<div class="entry__content"><p>Makefile在C/C++工程中是必不可少的管理工具~ 最初有编写Makefile的需求还是做操作系统lab的时候呢q(≧▽≦q) 后来在Linux相关的工程和IDE的工程管理中也会接触到很多Makefile，但是后者的可读性往往很差（那是后话了）</p>
+<h4 id="makefile中使用变量">Makefile中使用变量</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>objects <span style="color:#f92672">=</span> main.o kbd.o command.o display.o <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    insert.o search.o files.o utils.o
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">edit </span><span style="color:#f92672">:</span> <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>    cc -o edit <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main.o </span><span style="color:#f92672">:</span> main.c defs.h
+</span></span><span style="display:flex;"><span>    cc -c main.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">kbd.o </span><span style="color:#f92672">:</span> kbd.c defs.h command.h
+</span></span><span style="display:flex;"><span>    cc -c kbd.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">command.o </span><span style="color:#f92672">:</span> command.c defs.h command.h
+</span></span><span style="display:flex;"><span>    cc -c command.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">display.o </span><span style="color:#f92672">:</span> display.c defs.h buffer.h
+</span></span><span style="display:flex;"><span>    cc -c display.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">insert.o </span><span style="color:#f92672">:</span> insert.c defs.h buffer.h
+</span></span><span style="display:flex;"><span>    cc -c insert.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">search.o </span><span style="color:#f92672">:</span> search.c defs.h buffer.h
+</span></span><span style="display:flex;"><span>    cc -c search.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">files.o </span><span style="color:#f92672">:</span> files.c defs.h buffer.h command.h
+</span></span><span style="display:flex;"><span>    cc -c files.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">utils.o </span><span style="color:#f92672">:</span> utils.c defs.h
+</span></span><span style="display:flex;"><span>    cc -c utils.c
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">clean </span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    rm edit <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><h4 id="让make自动推导">让make自动推导</h4>
+<p>只要make看到一个<code>.o</code>文件，就会自动把对应的<code>.c</code>文件加载到依赖关系中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>objects <span style="color:#f92672">=</span> main.o kbd.o command.o display.o <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    insert.o search.o files.o utils.o
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">edit </span><span style="color:#f92672">:</span> <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>    cc -o edit <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main.o </span><span style="color:#f92672">:</span> defs.h
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">kbd.o </span><span style="color:#f92672">:</span> defs.h command.h
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">command.o </span><span style="color:#f92672">:</span> defs.h command.h
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">display.o </span><span style="color:#f92672">:</span> defs.h buffer.h
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">insert.o </span><span style="color:#f92672">:</span> defs.h buffer.h
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">search.o </span><span style="color:#f92672">:</span> defs.h buffer.h
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">files.o </span><span style="color:#f92672">:</span> defs.h buffer.h command.h
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">utils.o </span><span style="color:#f92672">:</span> defs.h
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY </span><span style="color:#f92672">:</span> clean
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">clean </span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    rm edit <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><h4 id="关于清空目标文件的规则">关于清空目标文件的规则</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#a6e22e">.PHONY</span><span style="color:#f92672">:</span> clean
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	-rm edit <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p><code>rm</code>命令前加了<code>-</code>的意思是，忽略问题，继续运行。</p>
+<h4 id="引用其他的makefile">引用其他的makefile</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">include</span> <span style="color:#960050;background-color:#1e0010">foo.make</span> <span style="color:#960050;background-color:#1e0010">*.mk</span> <span style="color:#66d9ef">$(</span>bar<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>如果在当前目录下找不到，make还会再下面几个目录里找：</p>
+<ol>
+<li>如果make执行时，有<code>-I</code>或<code>--include-dir</code>参数，那么make就会在这个参数所指定的目录下去寻找。</li>
+<li>如果目录<code>&lt;prefix&gt;/include</code>（一般是：<code>/usr/local/bin</code>或<code>/usr/include</code>）存在的话，make也会去找。</li>
+</ol>
+<h4 id="文件搜寻vpath">文件搜寻：<code>VPATH</code></h4>
+<p>如果没有指明这个变量，make只会再当前目录寻找。</p>
+<p>一般可以定义为：<code>VPATH = src:../headers</code>，用冒号分隔。</p>
+<p>还可以用小写vpath设置，需要使用<code>%</code>字符，意思时匹配0或若干字符。</p>
+<p>如：<code>vpath %.h ../headers</code>.</p>
+<h4 id="多目标">多目标</h4>
+<p>自动化变量<code>$@</code>，表示目前规则中所有的目标的集合。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#a6e22e">bigoutput littleoutput</span><span style="color:#f92672">:</span> text.g
+</span></span><span style="display:flex;"><span>	generate text.g -<span style="color:#66d9ef">$(</span>subst output,,$@<span style="color:#66d9ef">)</span> &gt; $@
+</span></span></code></pre></div><p><code>subst</code>为makefile的一个函数，表示替换字符串。</p>
+<h4 id="静态模式">静态模式</h4>
+<p>一个例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>objects <span style="color:#f92672">=</span> foo.o bar.o
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">$(</span>objects<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">$(objects)</span><span style="color:#f92672">:</span> %.o: %.c
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">$(</span>CC<span style="color:#66d9ef">)</span> -c <span style="color:#66d9ef">$(</span>CFLAGS<span style="color:#66d9ef">)</span> $&lt; -o $@
+</span></span></code></pre></div><p><code>$&lt;</code>表示第一个依赖文件，<code>$@</code>表示目标集。</p>
+<h4 id="自动生成依赖">自动生成依赖</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">cc</span> <span style="color:#960050;background-color:#1e0010">-M</span> <span style="color:#960050;background-color:#1e0010">main.c</span>
+</span></span></code></pre></div><p>如果使用GNU的C/C++编译器，要用<code>-MM</code>参数，否则<code>-M</code>参数会把一些标准库的头文件也包含进来。</p>
+<h4 id="变量赋值">变量赋值</h4>
+<p><code>+=</code>: 追加：<code>objects += another.o</code>.</p>
+<p>如果变量之前没有定义过，<code>+=</code>会自动变成<code>=</code>. 如果前面有变量定义，<code>+=</code>会继承前一次的赋值符。</p>
+<p>所以分别以<code>:=</code>和<code>=</code>定义的变量，运用<code>+=</code>时，结果可能会有所不同。</p>
+<p>对于<code>=</code>，变量的值会是最终值：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> foo
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> <span style="color:#66d9ef">$(</span>x<span style="color:#66d9ef">)</span> bar
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> xyz
+</span></span></code></pre></div><p>那么y会是<code>xyz bar</code>，而不是<code>foo bar</code>.</p>
+<p>而<code>:=</code>表示变量的值取决于其位置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>x <span style="color:#f92672">:=</span> foo
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">:=</span> <span style="color:#66d9ef">$(</span>x<span style="color:#66d9ef">)</span> bar
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">:=</span> xyz
+</span></span></code></pre></div><p>在这里，y的值会是<code>foo bar</code>而不是<code>xyz bar</code>.</p>
+<hr>
+<h3 id="使用函数">使用函数</h3>
+<h4 id="一函数的调用语法">一、函数的调用语法</h4>
+<pre tabindex="0"><code>$(&lt;function&gt; &lt;arguments&gt;)
+</code></pre><p>或：</p>
+<pre tabindex="0"><code>${&lt;function&gt; &lt;arguments&gt;}
+</code></pre><p><code>&lt;arguments&gt;</code>为函数的参数，参数间以逗号分隔，而函数名和参数之间以空格分隔。</p>
+<h4 id="二字符串处理函数">二、字符串处理函数</h4>
+<ol>
+<li>
+<p>subst</p>
+<pre tabindex="0"><code>$(subst &lt;from&gt;,&lt;to&gt;,&lt;text&gt;)
+</code></pre><p>字符串替换函数：将字串<code>&lt;text&gt;</code>中的<code>&lt;from&gt;</code>字串替换成<code>&lt;to&gt;</code>。</p>
+<p>函数返回被替换过后的字符串。</p>
+</li>
+<li>
+<p>patsubst</p>
+<pre tabindex="0"><code>$(patsubst &lt;pattern&gt;,&lt;replacement&gt;,&lt;text&gt;)
+</code></pre><p>模式字符串替换函数：查找 <code>&lt;text&gt;</code> 中的单词（单词以“空格”、“Tab”或“回车”“换行”分隔）是否符合模式<code>&lt;pattern&gt;</code> ，如果匹配的话，则以<code>&lt;replacement&gt;</code>替换。这里， 可以包括通配符 <code>%</code> ，表示任意长度的字串。如果<code>&lt;replacement&gt;</code>中也包含 <code>%</code> ，那么这个 <code>%</code> 将是 <code>&lt;pattern&gt;</code>中的那个 <code>%</code> 所代表的字串。（可以用 <code>\</code>来转义，以 <code>\%</code> 来表示真实含义的 <code>%</code> 字符）</p>
+<p>返回：函数返回被替换过后的字符串。</p>
+<p>示例：</p>
+<blockquote>
+<pre tabindex="0"><code>&gt; $(patsubst %.c,%.o,x.c.c bar.c)
+&gt;
+</code></pre></blockquote>
+<p>又如：</p>
+<pre tabindex="0"><code>objects = foo.o bar.o baz.o
+</code></pre><p>那么<code>$(objects:.o=.c)</code>和<code>$(oatsubst %.o,%.c,$(objects))</code>是一样的。</p>
+</li>
+<li>
+<p>strip</p>
+<pre tabindex="0"><code>$(strip &lt;string&gt;)
+</code></pre><p>去空格函数：去掉<code>&lt;string&gt;</code>字串开头和结尾的空字符，返回被去掉空格的字符串值。</p>
+</li>
+<li>
+<p>filter函数</p>
+<pre tabindex="0"><code>$(filter &lt;pattern...&gt;,&lt;text&gt;)
+</code></pre><p>过滤函数：以模式过滤<code>&lt;text&gt;</code>字符串中的单词，保留符合模式<code>&lt;pattern&gt;</code>的单词。可以有多个模式。返回符合模式<code>&lt;pattern&gt;</code>的字串。</p>
+<p>示例：</p>
+<pre tabindex="0"><code>sources := foo.c bar.c baz.s ugh.h
+foo: $(sources)
+	cc $(filter %.c %.s,$(sources)) -o foo
+</code></pre></li>
+</ol>
+<h4 id="三文件名操作函数">三、文件名操作函数</h4>
+<ol>
+<li>
+<p>dir</p>
+<pre tabindex="0"><code>$(dir &lt;names...&gt;)
+</code></pre><p>去目录函数：从文件名序列<code>&lt;names&gt;</code>中取出目录部分。目录部分是指最后一个反斜杠之前的部分。如果没有反斜杠，则返回<code>./</code>。</p>
+</li>
+<li>
+<p>notdir</p>
+<p>取出文件名序列<code>&lt;names&gt;</code>中非目录部分。</p>
+</li>
+<li>
+<p>suffix</p>
+<pre tabindex="0"><code>$(suffix &lt;names...&gt;)
+</code></pre><p>取后缀函数：从文件名序列<code>&lt;names&gt;</code>中取出各个文件名的后缀。如果文件没有后缀，则返回空字串。</p>
+</li>
+</ol>
+<h4 id="四foreach函数">四、foreach函数</h4>
+<pre tabindex="0"><code>$(foreach &lt;var&gt;,&lt;list&gt;,&lt;text&gt;)
+</code></pre><p>把参数<code>&lt;list&gt;</code>中的单词逐一取出放到参数<code>&lt;var&gt;</code>所指定的变量中，再执行<code>&lt;text&gt;</code>所包含的表达式。每一次<code>&lt;text&gt;</code>会返回一个字符串，以空格分隔。</p>
+<p>如：</p>
+<pre tabindex="0"><code>names := a b c d
+files := $(foreach n,$(names),$(n).o)
+</code></pre><p>注意：<code>&lt;var&gt;</code>参数是一个<strong>临时的局部变量</strong>。</p>
+<h4 id="五if函数">五、if函数</h4>
+<pre tabindex="0"><code>$(if &lt;condition&gt;,&lt;then-part&gt;,&lt;else-part&gt;)
+</code></pre><p>可以不包含else部分。</p>
+<h4 id="六call函数">六、call函数</h4>
+<p>唯一一个可以用来创建新的参数化的函数。</p>
+<pre tabindex="0"><code>$(call &lt;expression&gt;,&lt;parm1&gt;,&lt;parm2&gt;,...,&lt;parmn&gt;)
+</code></pre><p><code>&lt;expression&gt;</code>参数中的变量会被参数<code>&lt;param1&gt;</code>,<code>&lt;param2&gt;</code>依次取代。</p></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/makefile/">Makefile</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+<div class="authorbox block">
+	<div class="author">
+		<div class="author__body">
+			<div class="author__name">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+<div class="footer__social social">
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:baoyuntai@outlook.com">
+			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
+		</a>
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/https://github.com/colored-dye">
+			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+		</a>
+</div>
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

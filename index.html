@@ -117,33 +117,6 @@ and <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems<
 					</div>
 					<div class="card card--1col">
 					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/java-01-javase/">Java 01: JavaSE</a></h1>
-	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2022-10-20T09:19:24&#43;08:00">October 20, 2022</time>
-<div class="entry__meta-tags meta-tags">
-	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/java/" rel="tag">Java</a>
-	</span>
-</div>
-	</div>
-</article>
-					</div>
-					<div class="card card--1col">
-					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/my-test-free-phd-experience/">山重水复疑无路，柳暗花明又一村——记我的保研历程</a></h1>
-	<div class="entry__content"><p>时隔近一个月，我终于有闲心回过头来记录我最终被录取为软件学院直博生的经历。回想起来，在保研流程正式进行的半个月里我每天都是在极度的焦虑和犹豫中度过的，然而等一切尘埃落定后，之前的痛苦与无助似乎又离我远去了。再三思考之下，我还是决定将过程记录下来。</p></div>
-	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2022-10-13T19:31:09&#43;08:00">October 13, 2022</time>
-<div class="entry__meta-tags meta-tags">
-	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/daily/" rel="tag">daily</a>
-	</span>
-</div>
-	</div>
-</article>
-					</div>
-					<div class="card card--1col">
-					<article class="entry card__box block">
 	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/colinux-01/">CoLinux-Cooperative Linux 01: 总览</a></h1>
 	<div class="entry__content"><p><a href="http://www.colinux.org/">CoLinux(Cooperative Linux)</a>是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。</p></div>
 	<div class="entry__meta meta mt tar">
@@ -159,13 +132,41 @@ and <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems<
 					</div>
 					<div class="card card--1col">
 					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/hugo-codecopy/">Hugo代码块复制功能</a></h1>
-	<div class="entry__content"><p>今天刚刚把博客从Hexo框架迁移到Hugo啦！期间遇到了一些问题，大多数都比较顺利地解决了。稍微麻烦一点的就是为代码块添加复制功能。</p></div>
+	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/xv6-riscv-1/">xv6-riscv学习1-Chapter1</a></h1>
+	<div class="entry__content"><h3 id="chapter-1-operating-system-interfaces">Chapter 1: Operating System Interfaces</h3>
+<p>第一章讲的是操作系统接口。“接口”这个概念在计算机领域挺常见的，它使得代码规范标准化，并使得在保持参数传递不变的情况下对接口底层功能进行修改成为了可能。</p>
+<p>在这里，接口与<strong>系统调用</strong> (<strong>system call</strong>)是紧密相关的。系统调用就是操作系统内核向用户程序提供的访问内核功能的接口。实际上，系统调用在操作系统分层模型的实现中是极其重要的。书中有一幅图呈现了user space和kernel space之间的关系：</p>
+<!-- raw HTML omitted -->
+<p>这其实带来了一个问题：系统调用的功能是不是越复杂、越丰富越好呢？书中给出的答案是否定的，并给出了一个目标：“Design interfaces that rely on a few mechanisms that can be combined to provide much generality.”这大概就是说“大而全不如小而精”吧。</p>
+<p>同时可以注意到，上图中shell是在用户空间里的，也就是说shell在xv6系统中是用户程序。这样一来，其实可以使得用户更换shell变得很方便，只要使用同样的接口就可以了。现实中常用的Linux系统也都是这样的。</p>
+<p>接下来仍遵循书中的结构~</p>
+<h4 id="1-进程与内存">1. 进程与内存</h4>
+<p>在操作系统中，一般会有多个进程“同时”运行，每个进程在内核中被分配有一个唯一的进程标识符(process identifier)，缩写<code>PID</code>。真正意义上的“同时”只有在多核CPU上才能实现，而对于单核CPU，操作系统会通过进程调度机制轮流执行各个进程，由于切换的速度非常快，给人的感觉就像是同时一样。</p>
+<p>创建新进程的方法一般通过<code>fork()</code>或<code>exec()</code>系统调用实现。<code>fork</code>会给新创建的子进程复制一份父进程的内存，内容完全一样，如果从标准的ELF格式来看的话，从text, data, bss到stack都是一样的。<code>fork</code>很特殊的一点是其有两个返回值：向父进程返回子进程的<code>PID</code>，向子进程返回0.</p>
+<p>一个经典的<code>fork</code>测试程序大致如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testfork</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> pid;
+</span></span><span style="display:flex;"><span>    pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">fork</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(pid <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;parent: child PID = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, pid);
+</span></span><span style="display:flex;"><span>        pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">wait</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;child %d terminates</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, pid);
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(pid <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;child exiting</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">exit</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;fork error</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>有意思的是“child xxx terminating”和“parent: child PID = xxx”的先后顺序是不一定的。</p></div>
 	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2022-01-27T15:01:41&#43;08:00">January 27, 2022</time>
+	<time class="entry__meta-published meta-published" datetime="2021-05-01T12:34:23Z">May 01, 2021</time>
 <div class="entry__meta-tags meta-tags">
 	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/hugo/" rel="tag">Hugo</a>
+		<a class="meta-tags__link" href="/tags/os/" rel="tag">OS</a>, 
+		<a class="meta-tags__link" href="/tags/risc-v/" rel="tag">RISC-V</a>, 
+		<a class="meta-tags__link" href="/tags/xv6-riscv/" rel="tag">xv6-riscv</a>
 	</span>
 </div>
 	</div>
@@ -173,72 +174,15 @@ and <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems<
 					</div>
 					<div class="card card--1col">
 					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/go-01/">Go语言学习01</a></h1>
-	<div class="entry__content"><p>最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~</p></div>
+	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/xv6-riscv-0/">xv6-riscv学习0</a></h1>
+	<div class="entry__content"><p>这一篇应该算是预告吧。也不算是心血来潮。在上个学期上操作系统课时，既不想再痛苦地学又对操作系统感兴趣的复杂心理作用之下，还是想多了解一些的心理占了上风。加之听老师说这个学期会有一次操作系统比赛。所以还是趁有时间多学学吧。</p></div>
 	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2022-01-23T16:38:13Z">January 23, 2022</time>
+	<time class="entry__meta-published meta-published" datetime="2021-04-11T20:47:31Z">April 11, 2021</time>
 <div class="entry__meta-tags meta-tags">
 	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/programming-languages/" rel="tag">Programming-Languages</a>, 
-		<a class="meta-tags__link" href="/tags/go/" rel="tag">Go</a>
-	</span>
-</div>
-	</div>
-</article>
-					</div>
-					<div class="card card--1col">
-					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/opengl-learn-02-shader/">OpenGL-learn-02-着色器和光照</a></h1>
-	<div class="entry__content"><p>正如上次提到的，Qt提供的OpenGL功能逻辑很有特点，为大多数OpenGL API构造了封装类，这同时为我们将代码从原生OpenGL迁移到Qt带来了一定的困难。本文主要介绍一下我用到的Qt-OpenGL在着色器和光照渲染方面的功能~</p></div>
-	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2022-01-19T15:46:23Z">January 19, 2022</time>
-<div class="entry__meta-tags meta-tags">
-	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/opengl/" rel="tag">OpenGL</a>
-	</span>
-</div>
-	</div>
-</article>
-					</div>
-					<div class="card card--1col">
-					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/greek-alphabet/">希腊字母表in Latex</a></h1>
-	<div class="entry__content"><p>最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~</p></div>
-	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2021-12-29T22:57:24Z">December 29, 2021</time>
-<div class="entry__meta-tags meta-tags">
-	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/misc/" rel="tag">misc</a>, 
-		<a class="meta-tags__link" href="/tags/latex/" rel="tag">Latex</a>
-	</span>
-</div>
-	</div>
-</article>
-					</div>
-					<div class="card card--1col">
-					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/opengl-learn-01-rotation/">OpenGL学习-01-坐标变换</a></h1>
-	<div class="entry__content"><p>最近在做OOP的大作业，要求基于OpenGL图形库、在Qt或MFC框架上实现一个与Meshlab类似、但可以阉割“亿点点”功能的3D模型查看和编辑软件。我本来是信心满满地选择了Qt，但是由于种种原因，在对MFC浅尝辄止后，最终还是更加坚定地选择了Qt一边，同时感叹Qt真是一款伟大的框架(虽然也有一些小问题)。在开始工程的一周里，踩了好多坑，在这里记录一下好啦~QwQ 既是给自己作备忘，也给后来人提供一些微薄的帮助吧。</p></div>
-	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2021-11-29T23:21:31Z">November 29, 2021</time>
-<div class="entry__meta-tags meta-tags">
-	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/opengl/" rel="tag">OpenGL</a>
-	</span>
-</div>
-	</div>
-</article>
-					</div>
-					<div class="card card--1col">
-					<article class="entry card__box block">
-	<h1 class="entry__title title-excerpt"><a class="entry__title-link" href="/post/leetcode-006-weekly-contest/">LeetCode-006-265th周赛记录</a></h1>
-	<div class="entry__content"><p>在CC98的@27rabbit的鼓励下，我还是鼓起勇气，第一次去参加了Leetcode周赛~QwQ 做题过程很波折，在这里记录一下向大神们学习到的新知识~</p></div>
-	<div class="entry__meta meta mt tar">
-	<time class="entry__meta-published meta-published" datetime="2021-10-31T16:01:32Z">October 31, 2021</time>
-<div class="entry__meta-tags meta-tags">
-	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/algorithm/" rel="tag">Algorithm</a>, 
-		<a class="meta-tags__link" href="/tags/leetcod/" rel="tag">LeetCod</a>
+		<a class="meta-tags__link" href="/tags/os/" rel="tag">OS</a>, 
+		<a class="meta-tags__link" href="/tags/risc-v/" rel="tag">RISC-V</a>, 
+		<a class="meta-tags__link" href="/tags/xv6-riscv/" rel="tag">xv6-riscv</a>
 	</span>
 </div>
 	</div>
@@ -247,11 +191,6 @@ and <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems<
 			</div>
 	</main>
 	
-<div class="pagination block">
-				<span class="pagination__item pagination__item--active" data-total="3">1</span>
-				<a class="pagination__item pagination__item--desktop" href="/page/2/">2</a>
-				<a class="pagination__item pagination__item--desktop" href="/page/3/">3</a>
-</div>
 
 	</div>
 	<footer class="footer">

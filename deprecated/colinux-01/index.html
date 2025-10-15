@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>CoLinux-Cooperative Linux 01: 总览 | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:url" content="https://colored-dye.github.io/deprecated/colinux-01/">
+  <meta property="og:site_name" content="colored-dye&#39;s blog">
+  <meta property="og:title" content="CoLinux-Cooperative Linux 01: 总览">
+  <meta property="og:description" content="CoLinux(Cooperative Linux)是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="deprecated">
+    <meta property="article:published_time" content="2022-03-19T21:45:33+08:00">
+    <meta property="article:modified_time" content="2022-03-19T21:45:33+08:00">
+    <meta property="article:tag" content="CoLinux">
+    <meta property="article:tag" content="OS">
+
+		
+  <meta itemprop="name" content="CoLinux-Cooperative Linux 01: 总览">
+  <meta itemprop="description" content="CoLinux(Cooperative Linux)是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。">
+  <meta itemprop="datePublished" content="2022-03-19T21:45:33+08:00">
+  <meta itemprop="dateModified" content="2022-03-19T21:45:33+08:00">
+  <meta itemprop="wordCount" content="233">
+  <meta itemprop="keywords" content="CoLinux,OS">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="stylesheet" href="/css/themes/dark-violet.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav main-nav--right" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/categories/">
+					
+					<span class="main-nav__text">Categories</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/post/">
+					
+					<span class="main-nav__text">Posts</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/pub">
+					
+					<span class="main-nav__text">Publications</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/tags/">
+					
+					<span class="main-nav__text">Tags</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+	<div class="entry__meta meta mb">
+	<time class="entry__meta-published meta-published" datetime="2022-03-19T21:45:33&#43;08:00">March 19, 2022</time>
+<div class="entry__meta-tags meta-tags">
+	<span class="meta-tags__list">Tags:
+		<a class="meta-tags__link" href="/tags/colinux/" rel="tag">CoLinux</a>, 
+		<a class="meta-tags__link" href="/tags/os/" rel="tag">OS</a>
+	</span>
+</div>
+	</div>
+				<h1 class="entry__title">CoLinux-Cooperative Linux 01: 总览</h1>
+				<div class="entry__content"><p><a href="http://www.colinux.org/">CoLinux(Cooperative Linux)</a>是一款用于模拟Linux系统环境的跨平台的开源软件。尽管它已经十分古老且不再维护(最后一次更新为2011年的0.7.9版，仅支持32位系统)，但是其思想是值得后人学习和研究的。个人理解，它的新颖之处在于成功地实现了“Linux as a Driver”，即以驱动的形式嵌入以Windows NT为代表的正在运行的宿主机当中，通过不断地切换用户态和内核态，来实现对Linux内核的完全控制，同时还能保证不逊色于虚拟机的运行效率。</p>
+<p>官网的目录栏中给出了这个项目的相关研究论文(是的，还有paper :astonished:) 在研究代码之前，我想先从理论层面理解一下CoLinux的设计思想与思路。所以本文主要做的就是阅读和整理<a href="https://www.kernel.org/doc/ols/2004/ols2004v1-pages-23-32.pdf">这篇论文(Cooperative Linux, from Proceedings of the Linux Symposium Volume 1, July 21th-24th, 2004)</a>~</p>
+<p>文中主要介绍了关于CoLinux的以下几个方面：</p>
+<ul>
+<li>上下文切换(CPU-complete context switch code)</li>
+<li>硬件中断转发(Hardware interrupt forwarding)</li>
+<li>宿主操作系统与Linux之间的接口</li>
+<li>虚拟机伪物理内存的管理</li>
+</ul>
+<p>此外还介绍了CoLinux当前和将来的实现细节，以及与其他Linux虚拟化手段的比较。</p>
+<p>后文的结构尽量与原文保持一致~</p>
+<h1 id="1-abstract">1. Abstract</h1>
+<p>作者为CoLinux给出的总体描述是“a port of the Linux Kernel that allows it to run as an unprivileged lightweight virtual machine in kernel mode, on top of another OS kernel”. 这指出了CoLinux必须依托于一个现有的操作系统，并可以在内核模式下作为非特权轻量虚拟机运行。也就是说它与一个真正意义上完整的操作系统有根本上的区别。</p>
+<h1 id="2-introduction">2. Introduction</h1>
+<p>作者首先指出了CoLinux与传统虚拟机之间总体路线上的区别，走的是比较冷门的、与VM完全不同的路径。</p>
+<p>接下来点题: <strong>Cooperative到底是什么含义？<strong>它描述的是两个并行工作的实体，如协程。从这个角度看来，<strong>CoLinux的原理可以描述为</strong>：将两个操作系统内核转化成两个协程，每个内核都有各自完整的CPU上下文、地址空间，并可以通过调度算法决定何时将控制转交给另一方。二者最大的</strong>区别在于</strong>：宿主内核(host kernel)拥有对物理硬件完全的控制权，而客户内核(guest kernel)仅能控制虚拟硬件。宿主可以是任何操作系统内核，只要它能够让CoLinux portable driver以<strong>CPL0</strong>(Current Privilege Level，当前特权等级，数值越小越靠近内核、权限越高)<strong>模式</strong>运行并为其分配内存。</p>
+<p>CPL0级别的权限是CoLinux与传统虚拟机方案的重要区别之一——传统虚拟机方案中客户内核的权限是低于宿主机的。这同时也使得CoLinux的设计和开发得以大幅简化。另一方面，CPL0的缺点在于稳定性和安全性。稳定性隐患在于：由于客户内核和宿主内核属于同一级别，一旦客户内核崩溃，整个系统都会崩溃。而安全性问题在于，一旦CoLinux以root模式运行，攻击者有可能向系统中加载恶意模块或利用系统漏洞，从而威胁整体系统。</p>
+<p>最后，CoLinux是在Linux内核的i386分支上编写的补丁，主要的改动是初始化设置代码和虚拟硬件驱动等。在实际的实现当中，作者都尽力将使改动的规模更小并局限在较小的范围内。</p>
+<h1 id="2-uses">2. Uses</h1>
+<p>这里选择比较有特点的几个用途简要介绍。</p>
+<ol>
+<li>
+<p>用户态Linux的功能：virtual hosting, 内核开发环境，测试软件等。</p>
+<p>这里强调的是CoLinux功能的完整性和可靠性。</p>
+</li>
+<li>
+<p>在Linux集群中添加Windows机器。</p>
+<p>CoLinux可以与MOSIX或OpenMOSIX结合起来(不知道是什么)，能够将运行Windows系统的机器加入到超级计算机集群中。</p>
+</li>
+<li>
+<p>将Linux作为Windows上的防火墙。</p>
+<p>个人理解是将CoLinux当作一个沙盒，流量就不会直接与宿主机交互。</p>
+</li>
+</ol>
+<h1 id="3-design-overview">3. Design Overview</h1>
+<p>这一部分介绍了上下文切换、转发硬件中断、硬件地址转化和虚拟物理内存。</p>
+<h2 id="31-minimum-changes">3.1 Minimum changes</h2>
+<p>这里作者将修改后的代码与原本的Linux内核做了一个比较，结果还是很惊人的：之改动了50个文件、3828处插入和74处删除。这很大程度上体现了这一设计的可扩展性和与Linux内核的兼容性。</p>
+<h2 id="32-device-driver">3.2 Device Driver</h2>
+<p>这里就是最开始所说的“Linux as a Port”的由来：CoLinux的驱动端口用于访问内核模式，并使用宿主操作系统提供的内核原语，包括页表分配、输出debug信息、与用户空间交互等。这些相关功能的代码是操作系统无关的。</p>
+<p>在CoLinux开始运行时，会首先从vmlinux加载内核镜像，但是其本身不包含任何跨平台的工具，只是单纯的内核镜像文件，可以在任何相同CPU架构的机器上运行。在具体的宿主操作系统上，CoLinux VM的实例就是一个驱动，在Linux上是一个文件描述符，在Windows上是一个设备句柄。也就是说，CoLinux的最高管理权限还是归宿主操作系统所有的。当其异常退出时，资源会被宿主操作系统回收。</p>
+<p>我认为这一小节所表达的意思是：CoLinux的跨平台特性，主要是通过驱动实现的。这个结论在本节中没有明文指出，但是综合多方面来看就是这个意思 :stuck_out_tongue_winking_eye:</p>
+<h2 id="33-pseudo-physical-ram">3.3 Pseudo Physical RAM</h2>
+<p>在原生的Linux系统中，MM(Memory Manager)默认整个物理内存空间都是可用的。而在CoLinux中这显然是无法实现的，因为那一部分系统启动需要的地址一半已经被宿主操作系统占用了。所以CoLinux在启动之初所能操纵的只是宿主操作系统给它分配的一段内存区域，让它将其当作是所有的物理内存空间。</p>
+<p>分配内存时使用的具体的API是操作系统特定的：Linux中是<code>alloc_pages()</code>，Windows中是<code>MmAllocatePagesForMdl()</code>.</p>
+<p>VM地址空间有着特定的地址不变的区域：页表映射到<code>0xfef00000</code>，从PPRAM(Pseudo-Physical RAM)映射到物理地址，用来为用户空间创建PTE和<code>vmalloc()</code>；还有一段映射表在<code>0xff000000</code>，从物理地址映射到PPRAM，用来加速page fault等需要地址翻译的事件。</p>
+<p>为了实现PPRAM，只需要在Linux内核代码中MMU相关部分作很少的修改。文中展示的是Linux-2.4.23的内核代码，路径为<code>linux/include/asm-i386/pgtable-2level.h</code>，顾名思义这个是针对两层页表相关参数的定义。下图是https://elixir.bootlin.com上面的代码。文中删去了第61行。</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f92672">---</span> linux<span style="color:#f92672">/</span>include<span style="color:#f92672">/</span><span style="color:#66d9ef">asm</span><span style="color:#f92672">-</span>i386<span style="color:#f92672">/</span>pgtable<span style="color:#f92672">-</span><span style="color:#ae81ff">2l</span>evel.h <span style="color:#ae81ff">2004</span><span style="color:#f92672">-</span><span style="color:#ae81ff">04</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span> <span style="color:#ae81ff">08</span><span style="color:#f92672">:</span><span style="color:#ae81ff">04</span><span style="color:#f92672">:</span><span style="color:#ae81ff">01.000000000</span> <span style="color:#f92672">+</span><span style="color:#ae81ff">0300</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+++</span> linux<span style="color:#f92672">/</span>include<span style="color:#f92672">/</span><span style="color:#66d9ef">asm</span><span style="color:#f92672">-</span>i386<span style="color:#f92672">/</span>pgtable<span style="color:#f92672">-</span><span style="color:#ae81ff">2l</span>evel.h <span style="color:#ae81ff">2004</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span><span style="color:#f92672">-</span><span style="color:#ae81ff">09</span> <span style="color:#ae81ff">16</span><span style="color:#f92672">:</span><span style="color:#ae81ff">54</span><span style="color:#f92672">:</span><span style="color:#ae81ff">09.000000000</span> <span style="color:#f92672">+</span><span style="color:#ae81ff">0300</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@@</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">58</span>,<span style="color:#ae81ff">8</span> <span style="color:#f92672">+</span><span style="color:#ae81ff">58</span>,<span style="color:#ae81ff">14</span> <span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define ptep_get_and_clear(xp) __pte(xchg(&amp;(xp)-&gt;pte_low, 0))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define pte_same(a, b) ((a).pte_low == (b).pte_low)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">-</span><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">pte_page</span>(x) (mem_map<span style="color:#f92672">+</span>((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span>)(((x).pte_low <span style="color:#f92672">&gt;&gt;</span> PAGE_SHIFT))))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define pte_none(x) (!(x).pte_low)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">#</span>ifndef CONFIG_COOPERATIVE
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">pte_page</span>(x) (mem_map<span style="color:#f92672">+</span>((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span>)(((x).pte_low <span style="color:#f92672">&gt;&gt;</span> PAGE_SHIFT))))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define __mk_pte(page_nr,pgprot) __pte(((page_nr) &lt;&lt; PAGE_SHIFT) | pgprot_val(pgprot))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">pte_page</span>(x) <span style="color:#a6e22e">CO_VA_PAGE</span>((x).pte_low)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">__mk_pte</span>(page_nr,pgprot) <span style="color:#a6e22e">__pte</span>((<span style="color:#a6e22e">CO_PA</span>(page_nr) <span style="color:#f92672">&amp;</span> PAGE_MASK) <span style="color:#f92672">|</span> <span style="color:#a6e22e">pgprot_val</span>(pgprot))
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#960050;background-color:#1e0010">#</span>endif
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif </span><span style="color:#75715e">/* _I386_PGTABLE_2LEVEL_H */</span><span style="color:#75715e">
+</span></span></span></code></pre></div><p>可以看到，修改部分使用<code>CONFIG_COOPERATIVE</code>宏作为选项参数，准备了两套<code>pte_page</code>和<code>__mk_ptr</code>. 后者返回一个PTE，而前者接受这个PTE并返回对应的页结构。此外需要修改的还有<code>pmd_page</code>和<code>load_cr3</code>.</p>
+<h2 id="34-context-switching">3.4 Context Switching</h2>
+<p><code>colinux-daemon</code>维护着自己和子进程的上下文，可以看作是“Super Process”，频繁地在Linux内核和宿主kernel之间做着上下文切换。为了做到这一点，作者采用的设计是在客户机和宿主机中间用一个中间地址空间(称其为“Passage Page”)作为桥梁，这个中间地址空间同时存在于客户机和宿主机的地址空间中。从而将同一物理地址的代码映射到不同的虚拟地址。当上下文切换发生时，CR3首先指向中间地址空间中，然后EIP通过跳转指令指向passage code在中间地址空间中的另一处映射，最后，CR3会指向另一内核的顶层页表入口处。</p>
+<p>发生上下文切换时，当前状态会保存在中间地址空间中，包括通用寄存器、段寄存器、中断描述符表寄存器(IDTR)、全局描述符表(GDTR)、本地描述符寄存器(LDR)、TR、FPU/MMX/SSE寄存器等。同时中断会被禁用。</p>
+<p>当发生硬件中断时，控制总要交给宿主机，而宿主机应当把coLinux当作一个普通的进程一样分配时间片。</p>
+<h2 id="35-interrupt-handling-and-forwarding">3.5 Interrupt Handling and Forwarding</h2>
+<p>coLinux中必须设置好中断向量表以处理硬件中断，其中内部异常(0x0 - 0x1F)和系统调用(0x80)被保留，其余的都指向特殊的代理：ISR(Interrupt Service Routines). 当硬件中断发生时，控制会通过中间地址空间交给宿主内核，而宿主内核会通过IDT来检查ISR的相对地址。</p>
+<h1 id="4-benchmarks-and-performance">4. Benchmarks and Performance</h1>
+<p>比较了原生Linux、UML(User-Mode Linux)和coLinux，结果coLinux的表现位于两者之间:laughing:.</p>
+<h1 id="5-planned-features">5. Planned Features</h1>
+<h2 id="51-suspension">5.1 Suspension</h2>
+<p>基本思路就是保存全部的内部状态，如将伪物理内存线性化等。</p>
+<h2 id="52-miscellaneous">5.2 Miscellaneous</h2>
+<ul>
+<li>Virtual frame buffer support</li>
+<li>Incorporating features from UML, e.g. humfs.</li>
+<li>Support for more host OSes.</li>
+</ul></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/colinux/">CoLinux</a>
+			<a class="entry__tag btn" href="/tags/os/">OS</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+<div class="authorbox block">
+	<div class="author">
+		<div class="author__body">
+			<div class="author__name">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+<div class="related block">
+	<h3 class="related__title">Related</h3>
+	<ul class="related__list">
+		
+		<li class="related__item"><a class="related__link" href="/post/colinux-01/">CoLinux-Cooperative Linux 01: 总览</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/xv6-riscv-1/">xv6-riscv学习1-Chapter1</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/post/xv6-riscv-1/">xv6-riscv学习1-Chapter1</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/deprecated/xv6-riscv-0/">xv6-riscv学习0</a></li>
+		
+		<li class="related__item"><a class="related__link" href="/post/xv6-riscv-0/">xv6-riscv学习0</a></li>
+		
+	</ul>
+</div>
+
+	
+
+	</div>
+	<footer class="footer">
+<div class="footer__social social">
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:baoyuntai@outlook.com">
+			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
+		</a>
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/https://github.com/colored-dye">
+			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+		</a>
+</div>
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

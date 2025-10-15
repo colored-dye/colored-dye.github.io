@@ -10,9 +10,9 @@
     <atom:link href="https://colored-dye.github.io/tags/spider/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>爬虫:提交表单数据</title>
-      <link>https://colored-dye.github.io/post/spider-submit-form-data/</link>
+      <link>https://colored-dye.github.io/deprecated/spider-submit-form-data/</link>
       <pubDate>Sun, 29 Aug 2021 16:00:29 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/spider-submit-form-data/</guid>
+      <guid>https://colored-dye.github.io/deprecated/spider-submit-form-data/</guid>
       <description>&lt;p&gt;最近有这样的需求：从excel表格读取数据、逐条发送到网站查询信息、并将结果存到excel文件中。在需求方面，由于(1) 数据规模达到了1000以上，手动复制粘贴十分费时耗力；(2) 并且每年都有这样的工作；(3) 政府网站在相当长的一段时间内不会大改，所以为其编写程序很值得。在交换使用方面，而因为用户对Python并不太了解，所以需要制作单独的&lt;code&gt;exe&lt;/code&gt;可执行文件。&lt;/p&gt;</description>
     </item>
   </channel>

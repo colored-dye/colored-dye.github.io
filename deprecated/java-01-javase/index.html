@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#1b1b1b">
+	<title>Java 01: JavaSE | colored-dye&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:url" content="https://colored-dye.github.io/deprecated/java-01-javase/">
+  <meta property="og:site_name" content="colored-dye&#39;s blog">
+  <meta property="og:title" content="Java 01: JavaSE">
+  <meta property="og:description" content="Responsive card-based &amp; code-light Hugo theme">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="deprecated">
+    <meta property="article:published_time" content="2022-10-20T09:19:24+08:00">
+    <meta property="article:modified_time" content="2022-10-20T09:19:24+08:00">
+    <meta property="article:tag" content="Java">
+
+		
+  <meta itemprop="name" content="Java 01: JavaSE">
+  <meta itemprop="description" content="Responsive card-based &amp; code-light Hugo theme">
+  <meta itemprop="datePublished" content="2022-10-20T09:19:24+08:00">
+  <meta itemprop="dateModified" content="2022-10-20T09:19:24+08:00">
+  <meta itemprop="wordCount" content="496">
+  <meta itemprop="keywords" content="Java">
+	<link rel="stylesheet" href="/css/bundle.css">
+	<link rel="stylesheet" href="/css/themes/dark-violet.css">
+	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
+	<link rel="icon" href="/icons/32.png" sizes="32x32" type="image/png">
+</head>
+<body class="body kind-page">
+	<header class="header">
+	<a class="logo" href="/">colored-dye&#39;s blog</a>
+	
+<nav class="main-nav main-nav--right" role="navigation">
+	<button id="toggle" class="main-nav__btn" aria-label="Menu toggle" aria-expanded="false" tabindex="0">
+		<div class="main-nav__btn-box" tabindex="-1">
+			<svg class="main-nav__icon icon-menu" width="18" height="18" viewBox="0 0 18 18">
+				<path class="icon-menu__burger" d="M18 0v3.6H0V0h18zM0 10.8h18V7.2H0v3.6zM0 18h18v-3.6H0V18z"/>
+				<path class="icon-menu__x" d="M11.55 9L18 15.45 15.45 18 9 11.55 2.55 18 0 15.45 6.45 9 0 2.55 2.55 0 9 6.45 15.45 0 18 2.55 11.55 9z"/>
+			</svg>
+		</div>
+	</button>
+	<ul id="menu" class="main-nav__list">
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/categories/">
+					
+					<span class="main-nav__text">Categories</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/post/">
+					
+					<span class="main-nav__text">Posts</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/pub">
+					
+					<span class="main-nav__text">Publications</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/tags/">
+					
+					<span class="main-nav__text">Tags</span>
+					
+				</a>
+			</li>
+			<li class="main-nav__item">
+				<a class="main-nav__link" href="/about/">
+					
+					<span class="main-nav__text">About</span>
+					
+				</a>
+			</li>
+	</ul>
+</nav>
+</header>
+	<div class="primary">
+	
+	<main class="main">
+		
+		<div class="single block">
+			<article class="entry">
+	<div class="entry__meta meta mb">
+	<time class="entry__meta-published meta-published" datetime="2022-10-20T09:19:24&#43;08:00">October 20, 2022</time>
+<div class="entry__meta-tags meta-tags">
+	<span class="meta-tags__list">Tags:
+		<a class="meta-tags__link" href="/tags/java/" rel="tag">Java</a>
+	</span>
+</div>
+	</div>
+				<h1 class="entry__title">Java 01: JavaSE</h1>
+				<div class="entry__content"><h2 id="0-数据类型关键字">0. 数据类型/关键字</h2>
+<ol>
+<li>
+<p><code>char</code></p>
+<p>在保存Unicode字符时，有时需要1个<code>char</code>，有时需要多个<code>char</code>. 所以Unicode的基本单位是“code point”，以“U+”开头，共分为17个“code plane”，其中经典的字符(U+0000 - U+FFFF)在第一个code plane中。</p>
+<p><code>char</code>描述的就是UTF-16编码中的“code unit”.</p>
+</li>
+<li>
+<p><code>strictfp</code></p>
+<p>要求一个方法或一个类中的所有方法在所有的浮点数运算中执行严格的浮点数运算。如果不添加这个关键字，则Java会将浮点数运算的中间结果截断，以避免指数溢出，但是这一操作会影响执行效率。</p>
+</li>
+<li>
+<p><code>short</code>, <code>int</code>, <code>long</code></p>
+<p>Java无unsigned类型。</p>
+</li>
+<li>
+<p><code>BigInteger</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>BigInteger a <span style="color:#f92672">=</span> BigInteger.<span style="color:#a6e22e">valueOf</span>(100);
+</span></span><span style="display:flex;"><span>BigInteger b <span style="color:#f92672">=</span> BigInteger.<span style="color:#a6e22e">valueOf</span>(1);
+</span></span><span style="display:flex;"><span>BigInteger c <span style="color:#f92672">=</span> a.<span style="color:#a6e22e">add</span>(b);
+</span></span></code></pre></div></li>
+<li></li>
+</ol>
+<h2 id="1-运算符和表达式">1. 运算符和表达式</h2>
+<ol>
+<li>
+<p>算术右移和逻辑右移</p>
+<p><code>&gt;&gt;&gt;</code>是逻辑右移，<code>&gt;&gt;</code>是算术右移。</p>
+</li>
+<li>
+<p>运算符连接性</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">操作符</th>
+          <th style="text-align: center">连接性</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">[] . () (method call) Left to right</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">! ~ ++ &ndash; + (unary) - (unary) () (cast) new</td>
+          <td style="text-align: center"><strong>Right to left</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">* / %</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">+ -</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">&laquo; &raquo; &raquo;&gt;</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">&lt; &lt;= &gt; &gt;= instanceof</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">== !=</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">&amp;</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">^</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">|</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">&amp;&amp;</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">||</td>
+          <td style="text-align: center">Left to right</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">?:</td>
+          <td style="text-align: center"><strong>Right to left</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">= += -= *= /= %= &amp;= = ^= &laquo;= &raquo;= &raquo;&gt;=</td>
+          <td style="text-align: center"><strong>Right to left</strong></td>
+      </tr>
+  </tbody>
+</table>
+</li>
+</ol>
+<h2 id="2-字符串类">2. 字符串类</h2>
+<p><code>String</code>类是Unicode字符序列，不可变。</p>
+<ol>
+<li>
+<p>Substring: <code>String t = s.substring(start, len);</code></p>
+</li>
+<li>
+<p>Concatenation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String s <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span> s2;
+</span></span><span style="display:flex;"><span>String r <span style="color:#f92672">=</span> String.<span style="color:#a6e22e">join</span>(s1, s2, s3, s4);
+</span></span></code></pre></div></li>
+<li>
+<p>Equality: 不能直接使用<code>==</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>s.<span style="color:#a6e22e">equals</span>(t);
+</span></span><span style="display:flex;"><span>s.<span style="color:#a6e22e">equalsIgnoreCase</span>(t);
+</span></span><span style="display:flex;"><span>s.<span style="color:#a6e22e">compareTo</span>(t); <span style="color:#75715e">// 类似于strcmp(s, t)</span>
+</span></span></code></pre></div></li>
+<li>
+<p>空字符串：<code>s.equals(&quot;&quot;);</code> / <code>s.length() == 0</code></p>
+</li>
+<li>
+<p>Index: <code>s.charAt(i)</code></p>
+</li>
+<li>
+<p>Code points and code units:</p>
+<p><code>length()</code>方法返回的是UTF-16编码的code unit数量，即<code>char</code>的数量。</p>
+<p><code>codePointCount(start, len)</code>方法返回的是UTF-16编码的code point个数。</p>
+<p><code>offsetByCodePoint(index, offset)</code>返回的是从index处偏移offset个code point的索引。</p>
+</li>
+<li>
+<p>构建字符串：<code>StringBuilder</code>/<code>StringBuffer</code>.</p>
+<p><code>StringBuffer</code>适合多线程。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>StringBuilder builder <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder();
+</span></span><span style="display:flex;"><span>builder.<span style="color:#a6e22e">append</span>(<span style="color:#66d9ef">char</span><span style="color:#f92672">/</span>String);
+</span></span><span style="display:flex;"><span>builder.<span style="color:#a6e22e">insert</span>(offset, <span style="color:#66d9ef">char</span><span style="color:#f92672">/</span>String);
+</span></span><span style="display:flex;"><span>String result <span style="color:#f92672">=</span> builder.<span style="color:#a6e22e">toString</span>();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// StringBuffer用法类似</span>
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="3-input--output">3. Input &amp; Output</h2>
+<ol>
+<li>
+<p>Input: <code>java.util.Scanner</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Scanner in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(System.<span style="color:#a6e22e">in</span>);
+</span></span><span style="display:flex;"><span>String s <span style="color:#f92672">=</span> in.<span style="color:#a6e22e">nextLine</span>();
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> in.<span style="color:#a6e22e">next</span>(); <span style="color:#75715e">// delimited by whitespace</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> in.<span style="color:#a6e22e">nextInt</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(in.<span style="color:#a6e22e">hasNext</span>) {
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> in.<span style="color:#a6e22e">next</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>File input &amp; output</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Scanner in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(Paths.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;1.txt&#34;</span>), <span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span><span style="display:flex;"><span>PrintWriter out <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PrintWriter(<span style="color:#e6db74">&#34;2.txt&#34;</span>, <span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="4-控制流">4. 控制流</h2>
+<ol>
+<li>
+<p>循环</p>
+<p>可以<code>break label;</code>，跳出嵌套循环。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>label1:
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(<span style="color:#66d9ef">true</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(<span style="color:#66d9ef">true</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(...) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span> label1;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li></li>
+</ol>
+<h2 id="5-array">5. Array</h2>
+<ol>
+<li>
+<p>Ragged arrays</p>
+<p>可以创建多维不同长度的数组。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>2<span style="color:#f92672">][]</span>;
+</span></span><span style="display:flex;"><span>a<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>10<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>a<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>3<span style="color:#f92672">]</span>;
+</span></span></code></pre></div></li>
+<li>
+<p>Array copying</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> copied <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">copyOf</span>(arr, len);
+</span></span></code></pre></div></li>
+<li>
+<p>Array sorting</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Arrays.<span style="color:#a6e22e">sort</span>(arr);
+</span></span></code></pre></div></li>
+<li></li>
+</ol>
+<h2 id="6-java运行环境">6. Java运行环境</h2>
+<ol>
+<li>
+<p>命令行参数</p>
+<p>第0个参数不是类名，而是类之后的第一个参数。</p>
+</li>
+<li>
+<p>Static import</p>
+<p>加上<code>static</code>后import，就不需要前缀了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import static</span> java.lang.System.*;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//...</span>
+</span></span><span style="display:flex;"><span>out.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//...</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Package</p>
+<p>在代码第一行写<code>package xxx;</code>，并将代码文件按照路径保存。</p>
+<p>如<code>Employee.java</code>是<code>package com.horstmann.corejava</code>的类，则路径为<code>cpm/horstmann/corejava/Employee.java</code>.</p>
+</li>
+<li></li>
+</ol>
+<h2 id="7-oop">7. OOP</h2>
+<ol>
+<li>
+<p>类与类之间的关系</p>
+<ol>
+<li>
+<p>Dependence: 使用关系</p>
+<p><code>Order</code>类使用<code>Account</code>类的信息。</p>
+</li>
+<li>
+<p>Aggregation: 包含关系</p>
+<p><code>Order</code>类包含有<code>Item</code>类的对象。</p>
+</li>
+<li>
+<p>Inheritance: 继承关系</p>
+<p><code>RushOrder</code>类是<code>Order</code>类的派生类。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Mutator and Accessor Methods</p>
+<p>两种方法的区别在于是否会改变对象本身。Accessor method类似于C++中的<code>const</code>方法。</p>
+</li>
+<li>
+<p>Constructor</p>
+<ul>
+<li>
+<p>在一个构造器内部可以调用重载的另一个构造器。</p>
+</li>
+<li>
+<p>派生类可以调用父类构造器：<code>super(...);</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Initialization Blocks</p>
+<p>在类内部定义的一个代码块，在构造器调用之前调用它。</p>
+<p>也可以将其修饰为<code>static</code>，则只会在第一个实例创建时调用一次。</p>
+</li>
+<li>
+<p>Final instance fields</p>
+<p>要求在构造器结束运行时必须设置这个成员。</p>
+</li>
+<li>
+<p>Destruction and finalize method</p>
+<p><code>finalize</code>方法会在对象资源释放前调用，但是无法保证gc何时回收。</p>
+</li>
+<li>
+<p>权限</p>
+<p>private &lt; default &lt; protected &lt; public.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">范围</th>
+          <th style="text-align: center">同一类</th>
+          <th style="text-align: center">同包中类</th>
+          <th style="text-align: center">不同包子类</th>
+          <th style="text-align: center">其他包中类</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">private</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">default</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">protected</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">public</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center">√</td>
+          <td style="text-align: center">√</td>
+      </tr>
+  </tbody>
+</table>
+</li>
+<li>
+<p>Class path</p>
+<p>设置搜索class文件的路径。</p>
+<p><code>java -cp xxx:xxx:xxx</code> MyClass</p>
+</li>
+<li>
+<p>Overriding methods(Polymorphism)</p>
+<p>基类指针指向派生类，自动调用的是派生类的同名方法。</p>
+</li>
+<li>
+<p>阻止继承：Final classes/methods</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Executive</span> entends Manager {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如果用<code>final</code>修饰方法，则这个方法无法被子类重载。</p>
+</li>
+<li>
+<p><code>instanceof</code>: 判断一个对象是否是一个类的实例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(staff <span style="color:#66d9ef">instanceof</span> Manager) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>常用于在强制类型转换前检查。</p>
+</li>
+<li>
+<p>Abstract Classes</p>
+<p>抽象类可以定义抽象方法，强制要求其派生类实现该方法。</p>
+</li>
+<li></li>
+</ol>
+<h2 id="8-反射">8. 反射</h2>
+<p>反射指的是程序可以分析类的能力。可以用来：</p>
+<ul>
+<li>在运行时分析类的能力</li>
+<li>在运行时查看对象，如写出单个适用于所有类的<code>toString()</code>方法</li>
+<li>实现通用的数组操纵代码</li>
+<li>像C++中操纵函数指针一样利用Method对象</li>
+</ul>
+<ol>
+<li>
+<p><code>Class</code>类</p>
+<p>Java运行时会为所有对象维护runtime type identification，用来跟踪每个对象属于哪个类。</p>
+<p><code>Class</code>类用于描述一个类型/类。</p>
+<p>可以通过类名获得一个对应<code>Class</code>类的对象：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Class cl <span style="color:#f92672">=</span> Class.<span style="color:#a6e22e">forName</span>(<span style="color:#e6db74">&#34;java.util.Random&#34;</span>);
+</span></span></code></pre></div></li>
+<li></li>
+</ol>
+<h2 id="9-容器">9. 容器</h2>
+<ol>
+<li>
+<p>Generic Array Lists</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ArrayList<span style="color:#f92672">&lt;</span>Employee<span style="color:#f92672">&gt;</span> staff <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Employee<span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>ArrayList<span style="color:#f92672">&lt;</span>Employee<span style="color:#f92672">&gt;</span> staff <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>(); <span style="color:#75715e">// 可以自动推断类型</span>
+</span></span><span style="display:flex;"><span>staff.<span style="color:#a6e22e">ensureCapacity</span>(100); <span style="color:#75715e">// 预分配内存</span>
+</span></span><span style="display:flex;"><span>staff.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">new</span> Employee(<span style="color:#e6db74">&#34;foo&#34;</span>, ...));
+</span></span><span style="display:flex;"><span>Employee e <span style="color:#f92672">=</span> staff.<span style="color:#a6e22e">get</span>(index);
+</span></span><span style="display:flex;"><span>staff.<span style="color:#a6e22e">set</span>(index, obj);
+</span></span><span style="display:flex;"><span>staff.<span style="color:#a6e22e">remove</span>(index);
+</span></span></code></pre></div><p><strong>Boxing</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>list.<span style="color:#a6e22e">add</span>(3); <span style="color:#75715e">// 实际为list.add(Integer.valueOf(3));</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> list.<span style="color:#a6e22e">get</span>(i) <span style="color:#75715e">// 实际为list.get(i).intValue();</span>
+</span></span></code></pre></div><p>第二行的行为叫作auto-boxing，第三行为auto-unboxing.</p>
+</li>
+<li>
+<p>Enumeration class</p>
+<p>枚举类型也可以实现为类。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">enum</span> Size {
+</span></span><span style="display:flex;"><span>	SMALL(<span style="color:#e6db74">&#34;S&#34;</span>), MEDIUM(<span style="color:#e6db74">&#34;M&#34;</span>), LARGE(<span style="color:#e6db74">&#34;L&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> String abbr;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Size</span>(String abbr) { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">abbr</span> <span style="color:#f92672">=</span> abbr; }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>所有的枚举类型都会继承<code>toString()</code>方法，可以将类型转换为枚举常量的名字。</p>
+<p><code>Size.values()</code>方法会返回所有枚举值的array.</p>
+</li>
+<li></li>
+</ol>
+<h2 id="10-io-stream">10. IO Stream</h2>
+<h2 id="11-多线程">11. 多线程</h2></div>
+				
+				<footer class="entry__footer">
+					
+<div class="entry__tags">
+			<a class="entry__tag btn" href="/tags/java/">Java</a>
+</div>
+					
+				</footer>
+				
+			</article>
+		</div>
+	</main>
+	
+<div class="authorbox block">
+	<div class="author">
+		<div class="author__body">
+			<div class="author__name">
+				
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+	
+
+	</div>
+	<footer class="footer">
+<div class="footer__social social">
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="mailto:baoyuntai@outlook.com">
+			<svg class="social__icon" aria-label="Email" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M299 268l124 106c-4 4-10 7-17 7H106c-7 0-13-3-17-7l124-106 43 38 43-38zm-43 13L89 138c4-4 10-7 17-7h300c7 0 13 3 17 7L256 281zm54-23l121-105v208L310 258zM81 153l121 105L81 361V153z"/></svg>
+		</a>
+		<a class="social__link" target="_blank" rel="noopener noreferrer" href="https://github.com/https://github.com/colored-dye">
+			<svg class="social__icon" aria-label="Github" role="img" width="32" height="32" viewBox="0 0 512 512"><path d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+		</a>
+</div>
+	<div class="footer__copyright">© 2025 colored-dye&#39;s blog. <span class="footer__copyright-credits">Powered by <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/vimux/binario" rel="nofollow noopener" target="_blank">Binario</a> theme.</span></div>
+</footer>
+<script src="/js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+</body>
+</html>

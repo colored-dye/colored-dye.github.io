@@ -10,9 +10,9 @@
     <atom:link href="https://colored-dye.github.io/categories/hexo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hexo图片显示</title>
-      <link>https://colored-dye.github.io/post/hexo-picture/</link>
+      <link>https://colored-dye.github.io/deprecated/hexo-picture/</link>
       <pubDate>Mon, 22 Mar 2021 22:07:39 +0000</pubDate>
-      <guid>https://colored-dye.github.io/post/hexo-picture/</guid>
+      <guid>https://colored-dye.github.io/deprecated/hexo-picture/</guid>
       <description>&lt;p&gt;这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：&lt;/p&gt;</description>
     </item>
   </channel>

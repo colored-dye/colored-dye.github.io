@@ -10,6 +10,13 @@
     <atom:link href="https://colored-dye.github.io/categories/gentoo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gentoo基本系统安装(systemd)</title>
+      <link>https://colored-dye.github.io/deprecated/gentoo-minimal-install/</link>
+      <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
+      <guid>https://colored-dye.github.io/deprecated/gentoo-minimal-install/</guid>
+      <description>&lt;p&gt;在我的“因为嫌麻烦而一直没有做的事情”的清单上少了一项，因为这几天我安装了Gentoo系统~&lt;/p&gt;&#xA;&lt;p&gt;很久以前就听说了Gentoo Linux，它与Arch Linux一样是滚动更新的系统，且最大的区别是：前者是从远程仓库获取源代码包、本地编译安装，而后者是像绝大多数发行版一样安装二进制包。说实话，Gentoo的这一特性对于大多数用户带来了很大的管理负担，比如说要编译Firefox，逛逛很可能要编译3小时以上，常规操作是让电脑熬夜干活、自己睡觉，第二天一早就编译好了QAQ。不过我不是很在意这一点，因为这种大型软件更新的频率较低。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Gentoo基本系统安装(systemd)</title>
       <link>https://colored-dye.github.io/post/gentoo-minimal-install/</link>
       <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
       <guid>https://colored-dye.github.io/post/gentoo-minimal-install/</guid>
