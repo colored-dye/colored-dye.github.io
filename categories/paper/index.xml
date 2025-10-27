@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paper on colored-dye&#39;s blog</title>
+    <link>https://colored-dye.github.io/categories/paper/</link>
+    <description>Recent content in Paper on colored-dye&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Oct 2025 20:00:38 +0800</lastBuildDate>
+    <atom:link href="https://colored-dye.github.io/categories/paper/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes on &#34;Scalable Multi-Stage Influence Function for Large Language Models via EKFAC&#34;</title>
+      <link>https://colored-dye.github.io/post/multi_stage_if/</link>
+      <pubDate>Mon, 27 Oct 2025 20:00:38 +0800</pubDate>
+      <guid>https://colored-dye.github.io/post/multi_stage_if/</guid>
+      <description>&lt;h1 id=&#34;notes-on-scalable-multi-stage-influence-function-for-large-language-models-via-ekfac&#34;&gt;Notes on &amp;ldquo;Scalable Multi-Stage Influence Function for Large Language Models via EKFAC&amp;rdquo;&lt;/h1&gt;&#xA;&lt;p&gt;I am working on other projects and have yet managed to polish the Appendix for the IJCAI paper.&#xA;So I might as well post the &lt;a href=&#34;https://colored-dye.github.io/papers/IJCAI25.pdf&#34;&gt;unpolished version with the Appendix&lt;/a&gt; here, in case anyone needs it.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
