@@ -5,7 +5,8 @@ tags: [Paper]
 categories: [Paper]
 ---
 
-# Notes on "Scalable Multi-Stage Influence Function for Large Language Models via EKFAC"
+As per [camera ready submission requirements of IJCAI 2025](https://proceedings.ijcai.org/info), an extra page is charged 300 USD/page (😢).
+I have no intention of paying for this, so a trade-off is to post the full paper with the Appendix on Arxiv.
 
-I am working on other projects and have yet managed to polish the Appendix for the IJCAI paper.
-So I might as well post the [unpolished version with the Appendix](/papers/IJCAI25.pdf) here, in case anyone needs it.
+Unfortunately, I am working on other projects and have yet managed to polish the Appendix for the IJCAI paper.
+So here is the [unpolished version with the Appendix](/papers/IJCAI25.pdf), in case anyone needs it.

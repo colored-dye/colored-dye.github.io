@@ -1,3 +1,2 @@
-# colored-dye's blog
+# Source files for colored-dye's blog
 
-Theme: hugo-xterm
