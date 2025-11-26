@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on colored-dye&#39;s blog</title>
-    <link>https://colored-dye.github.io/tags/go/</link>
+    <link>http://localhost:1313/tags/go/</link>
     <description>Recent content in Go on colored-dye&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 23 Jan 2022 16:38:13 +0000</lastBuildDate>
-    <atom:link href="https://colored-dye.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go语言学习01</title>
-      <link>https://colored-dye.github.io/deprecated/go-01/</link>
+      <link>http://localhost:1313/deprecated/go-01/</link>
       <pubDate>Sun, 23 Jan 2022 16:38:13 +0000</pubDate>
-      <guid>https://colored-dye.github.io/deprecated/go-01/</guid>
+      <guid>http://localhost:1313/deprecated/go-01/</guid>
       <description>&lt;p&gt;最近对Go语言有点兴趣www，发现Go在使用了C语言中指针等概念之外，还提供了一些有趣的特性。(更重要的原因是发现自己只会C和Python而不会比较新的语言QAQ之前学了点Rust却半途而废了) 在这里简单记录一下~&lt;/p&gt;</description>
     </item>
   </channel>

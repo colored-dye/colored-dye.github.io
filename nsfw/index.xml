@@ -2,24 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nsfws on colored-dye&#39;s blog</title>
-    <link>https://colored-dye.github.io/nsfw/</link>
+    <link>http://localhost:1313/nsfw/</link>
     <description>Recent content in Nsfws on colored-dye&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Oct 2022 19:31:09 +0800</lastBuildDate>
-    <atom:link href="https://colored-dye.github.io/nsfw/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/nsfw/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>随笔2</title>
+      <link>http://localhost:1313/nsfw/scribbles_02/</link>
+      <pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/nsfw/scribbles_02/</guid>
+      <description>&lt;p&gt;中午去吃了叉烧饭，嚼着嚼着，心觉这叉烧饭太好吃了，感动得有点想哭。&lt;/p&gt;&#xA;&lt;p&gt;最近两个月以来天气变冷了，一楼食堂的质量日渐下滑不能果腹，所以我开始每天中午都去二楼的广东风味窗口吃饭。&#xA;多数时候是重复的叉烧饭，偶尔会吃腩仔饭换换胃口。档口的小哥都认识我了，默认我吃叉烧饭。&lt;/p&gt;&#xA;&lt;p&gt;当rebuttal和人际关系的不确定性轰炸我时，还是一碗精致的叉烧饭最能抚慰我的内心。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>山重水复疑无路，柳暗花明又一村——记我的保研历程</title>
-      <link>https://colored-dye.github.io/nsfw/curse_or_blessing/</link>
+      <link>http://localhost:1313/nsfw/curse_or_blessing/</link>
       <pubDate>Thu, 13 Oct 2022 19:31:09 +0800</pubDate>
-      <guid>https://colored-dye.github.io/nsfw/curse_or_blessing/</guid>
+      <guid>http://localhost:1313/nsfw/curse_or_blessing/</guid>
       <description>&lt;p&gt;时隔近一个月，我终于有闲心回过头来记录我最终被录取为软件学院直博生的经历。回想起来，在保研流程正式进行的半个月里我每天都是在极度的焦虑和犹豫中度过的，然而等一切尘埃落定后，之前的痛苦与无助似乎又离我远去了。再三思考之下，我还是决定将过程记录下来。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>随笔</title>
-      <link>https://colored-dye.github.io/nsfw/scibbles_01/</link>
+      <title>随笔1</title>
+      <link>http://localhost:1313/nsfw/scribbles_01/</link>
       <pubDate>Fri, 30 Apr 2021 14:06:14 +0000</pubDate>
-      <guid>https://colored-dye.github.io/nsfw/scibbles_01/</guid>
+      <guid>http://localhost:1313/nsfw/scribbles_01/</guid>
       <description>&lt;p&gt;午后的阳光流入我的身体&lt;/p&gt;&#xA;&lt;p&gt;像融化的奶油冰淇淋&lt;/p&gt;&#xA;&lt;p&gt;闭上眼睛品味一下——&lt;/p&gt;&#xA;&lt;p&gt;呀，是香草味的~&lt;/p&gt;&#xA;&lt;p&gt;还有一点&lt;/p&gt;&#xA;&lt;p&gt;樟树花的香气&lt;/p&gt;</description>
     </item>
   </channel>

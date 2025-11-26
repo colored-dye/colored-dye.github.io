@@ -4,27 +4,31 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#1b1b1b">
-	<title>Hexo图片显示 | colored-dye&#39;s blog</title>
+	<title>随笔2 | colored-dye&#39;s blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:url" content="http://localhost:1313/deprecated/hexo-picture/">
+		<meta property="og:url" content="http://localhost:1313/nsfw/scribbles_02/">
   <meta property="og:site_name" content="colored-dye&#39;s blog">
-  <meta property="og:title" content="Hexo图片显示">
-  <meta property="og:description" content="这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo &#43; Github为框架的博客发布图片有几种方法：">
+  <meta property="og:title" content="随笔2">
+  <meta property="og:description" content="中午去吃了叉烧饭，嚼着嚼着，心觉这叉烧饭太好吃了，感动得有点想哭。
+最近两个月以来天气变冷了，一楼食堂的质量日渐下滑不能果腹，所以我开始每天中午都去二楼的广东风味窗口吃饭。 多数时候是重复的叉烧饭，偶尔会吃腩仔饭换换胃口。档口的小哥都认识我了，默认我吃叉烧饭。
+当rebuttal和人际关系的不确定性轰炸我时，还是一碗精致的叉烧饭最能抚慰我的内心。">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
-    <meta property="article:section" content="deprecated">
-    <meta property="article:published_time" content="2021-03-22T22:07:39+00:00">
-    <meta property="article:modified_time" content="2021-03-22T22:07:39+00:00">
-    <meta property="article:tag" content="Hexo">
+    <meta property="article:section" content="nsfw">
+    <meta property="article:published_time" content="2025-11-26T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-26T00:00:00+00:00">
+    <meta property="article:tag" content="Scribbles">
 
 		
-  <meta itemprop="name" content="Hexo图片显示">
-  <meta itemprop="description" content="这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo &#43; Github为框架的博客发布图片有几种方法：">
-  <meta itemprop="datePublished" content="2021-03-22T22:07:39+00:00">
-  <meta itemprop="dateModified" content="2021-03-22T22:07:39+00:00">
-  <meta itemprop="wordCount" content="17">
-  <meta itemprop="keywords" content="Hexo">
+  <meta itemprop="name" content="随笔2">
+  <meta itemprop="description" content="中午去吃了叉烧饭，嚼着嚼着，心觉这叉烧饭太好吃了，感动得有点想哭。
+最近两个月以来天气变冷了，一楼食堂的质量日渐下滑不能果腹，所以我开始每天中午都去二楼的广东风味窗口吃饭。 多数时候是重复的叉烧饭，偶尔会吃腩仔饭换换胃口。档口的小哥都认识我了，默认我吃叉烧饭。
+当rebuttal和人际关系的不确定性轰炸我时，还是一碗精致的叉烧饭最能抚慰我的内心。">
+  <meta itemprop="datePublished" content="2025-11-26T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-11-26T00:00:00+00:00">
+  <meta itemprop="wordCount" content="4">
+  <meta itemprop="keywords" content="Scribbles">
 	<link rel="stylesheet" href="/css/bundle.css">
 	<link rel="stylesheet" href="/css/themes/dark-violet.css">
 	<link rel="icon" href="/icons/16.png" sizes="16x16" type="image/png">
@@ -89,49 +93,24 @@
 		<div class="single block">
 			<article class="entry">
 	<div class="entry__meta meta mb">
-	<time class="entry__meta-published meta-published" datetime="2021-03-22T22:07:39Z">March 22, 2021</time>
+	<time class="entry__meta-published meta-published" datetime="2025-11-26T00:00:00Z">November 26, 2025</time>
 <div class="entry__meta-tags meta-tags">
 	<span class="meta-tags__list">Tags:
-		<a class="meta-tags__link" href="/tags/hexo/" rel="tag">Hexo</a>
+		<a class="meta-tags__link" href="/tags/scribbles/" rel="tag">scribbles</a>
 	</span>
 </div>
 	</div>
-				<h1 class="entry__title">Hexo图片显示</h1>
-				<div class="entry__content"><p>这两天捣鼓Hexo的各种基本配置，结果在发布图片上发生了一点困难。现在已知的以Hexo + Github为框架的博客发布图片有几种方法：</p>
-<ol>
-<li>
-<p>作为网页源文件之一的实体文件，通过<code>images/xxx.jpg</code>在Markdown语法下引用。</p>
-</li>
-<li>
-<p>利用图床生成URL并引用外链。</p>
-<p>图床又有几种常用的：</p>
-<ol>
-<li>
-<p><code>sm.ms</code>：看起来有点怪怪的网站名(&gt;v&lt;)。优点是免费，有10G存储空间；缺点是需要翻墙。</p>
-</li>
-<li>
-<p><code>Github</code> Repository：现在初期决定采取的方法。建立一个Repository专门用来保存图片。由于引用链接时会访问<code>raw.githubusercontent.com</code>，所以采用<code>cdn.jsdelivr.net/gh/[Github_username]/[Repo_name]@[Version]/[Filename]</code>的方式加速加载。jsdelivr yyds！</p>
-<p>在本机上还可以采用修改host文件的方式。先通过</p>
-<p>查询<code>raw.githubusercontent.com</code>的IP，再添加到host文件中就可以啦！但是在移动端就没办法了。所以还是jsdelivr比较好！（虽然麻烦一点需要改链接）</p>
-</li>
-<li>
-<p>七牛云：免费10G存储。但是需要有个人域名，否则在一个月之后会回收测试域名！</p>
-</li>
-<li>
-<p>腾讯COS：比较便宜也很稳定。但是需要花钱的还是多考虑考虑hhh.</p>
-</li>
-</ol>
-</li>
-</ol>
-<p>此外还采用了一个简单易用的图床链接生成工具PicGo，并支持以上提到的所有图床。目前用着感觉还挺好用的。</p>
-<p>现在在申请一个阿里云的域名的实名认证，以后就可以有自己的域名啦哈哈哈哈~</p>
-<p>最后插一个图片再次测试一下~</p>
-<!-- raw HTML omitted --></div>
+				<h1 class="entry__title">随笔2</h1>
+				<div class="entry__content"><p>中午去吃了叉烧饭，嚼着嚼着，心觉这叉烧饭太好吃了，感动得有点想哭。</p>
+<p>最近两个月以来天气变冷了，一楼食堂的质量日渐下滑不能果腹，所以我开始每天中午都去二楼的广东风味窗口吃饭。
+多数时候是重复的叉烧饭，偶尔会吃腩仔饭换换胃口。档口的小哥都认识我了，默认我吃叉烧饭。</p>
+<p>当rebuttal和人际关系的不确定性轰炸我时，还是一碗精致的叉烧饭最能抚慰我的内心。</p>
+</div>
 				
 				<footer class="entry__footer">
 					
 <div class="entry__tags">
-			<a class="entry__tag btn" href="/tags/hexo/">Hexo</a>
+			<a class="entry__tag btn" href="/tags/scribbles/">Scribbles</a>
 </div>
 					
 				</footer>
@@ -152,6 +131,15 @@
 	
 
 
+
+<div class="related block">
+	<h3 class="related__title">Related</h3>
+	<ul class="related__list">
+		
+		<li class="related__item"><a class="related__link" href="/nsfw/scribbles_01/">随笔1</a></li>
+		
+	</ul>
+</div>
 
 	
 
