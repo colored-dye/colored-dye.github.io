@@ -1,5 +1,5 @@
 ---
-title: 随笔
+title: 随笔1
 date: 2021-04-30T14:06:14
 tags: ["scribbles"]
 categories: ["scribbles"]
