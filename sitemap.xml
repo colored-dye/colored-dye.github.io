@@ -4,6 +4,9 @@
   <url>
     <loc>https://colored-dye.github.io/about/</loc>
   </url><url>
+    <loc>https://colored-dye.github.io/nsfw/</loc>
+    <lastmod>2025-11-26T14:06:14+00:00</lastmod>
+  </url><url>
     <loc>https://colored-dye.github.io/categories/</loc>
     <lastmod>2025-10-27T20:00:38+08:00</lastmod>
   </url><url>
@@ -65,9 +68,6 @@
     <lastmod>2022-10-13T19:31:09+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/tags/daily/</loc>
-    <lastmod>2022-10-13T19:31:09+08:00</lastmod>
-  </url><url>
-    <loc>https://colored-dye.github.io/nsfw/</loc>
     <lastmod>2022-10-13T19:31:09+08:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/deprecated/curse_or_blessing/</loc>
@@ -229,10 +229,16 @@
     <loc>https://colored-dye.github.io/post/xv6-riscv-1/</loc>
     <lastmod>2021-05-01T12:34:23+00:00</lastmod>
   </url><url>
+    <loc>https://colored-dye.github.io/categories/scribbles/</loc>
+    <lastmod>2021-04-30T14:06:14+00:00</lastmod>
+  </url><url>
+    <loc>https://colored-dye.github.io/tags/scribbles/</loc>
+    <lastmod>2021-04-30T14:06:14+00:00</lastmod>
+  </url><url>
     <loc>https://colored-dye.github.io/deprecated/diary-1/</loc>
     <lastmod>2021-04-30T14:06:14+00:00</lastmod>
   </url><url>
-    <loc>https://colored-dye.github.io/nsfw/diary-1/</loc>
+    <loc>https://colored-dye.github.io/nsfw/scibbles_01/</loc>
     <lastmod>2021-04-30T14:06:14+00:00</lastmod>
   </url><url>
     <loc>https://colored-dye.github.io/deprecated/xv6-riscv-0/</loc>
