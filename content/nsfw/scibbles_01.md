@@ -1,8 +1,8 @@
 ---
-title: 日记1
+title: 随笔
 date: 2021-04-30T14:06:14
-tags: ["daily"]
-categories: ["daily"]
+tags: ["scribbles"]
+categories: ["scribbles"]
 ---
 
 午后的阳光流入我的身体
