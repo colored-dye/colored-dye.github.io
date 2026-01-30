@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Misc on colored-dye&#39;s blog</title>
-    <link>http://localhost:1313/categories/misc/</link>
+    <link>https://colored-dye.github.io/categories/misc/</link>
     <description>Recent content in Misc on colored-dye&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 29 Dec 2021 22:57:24 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/misc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://colored-dye.github.io/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>希腊字母表in Latex</title>
-      <link>http://localhost:1313/deprecated/greek-alphabet/</link>
+      <link>https://colored-dye.github.io/deprecated/greek-alphabet/</link>
       <pubDate>Wed, 29 Dec 2021 22:57:24 +0000</pubDate>
-      <guid>http://localhost:1313/deprecated/greek-alphabet/</guid>
+      <guid>https://colored-dye.github.io/deprecated/greek-alphabet/</guid>
       <description>&lt;p&gt;最近需要写文献综述，要用到好多数学符号QAQ. 网上搜索有时一下子找不到，不如自己存档一份备查~&lt;/p&gt;</description>
     </item>
   </channel>

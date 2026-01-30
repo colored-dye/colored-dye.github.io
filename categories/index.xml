@@ -2,171 +2,171 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on colored-dye&#39;s blog</title>
-    <link>http://localhost:1313/categories/</link>
+    <link>https://colored-dye.github.io/categories/</link>
     <description>Recent content in Categories on colored-dye&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 26 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://colored-dye.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scribbles</title>
-      <link>http://localhost:1313/categories/scribbles/</link>
+      <link>https://colored-dye.github.io/categories/scribbles/</link>
       <pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/categories/scribbles/</guid>
+      <guid>https://colored-dye.github.io/categories/scribbles/</guid>
       <description></description>
     </item>
     <item>
       <title>Paper</title>
-      <link>http://localhost:1313/categories/paper/</link>
+      <link>https://colored-dye.github.io/categories/paper/</link>
       <pubDate>Mon, 27 Oct 2025 20:00:38 +0800</pubDate>
-      <guid>http://localhost:1313/categories/paper/</guid>
+      <guid>https://colored-dye.github.io/categories/paper/</guid>
       <description></description>
     </item>
     <item>
       <title>Gentoo</title>
-      <link>http://localhost:1313/categories/gentoo/</link>
+      <link>https://colored-dye.github.io/categories/gentoo/</link>
       <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
-      <guid>http://localhost:1313/categories/gentoo/</guid>
+      <guid>https://colored-dye.github.io/categories/gentoo/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>http://localhost:1313/categories/linux/</link>
+      <link>https://colored-dye.github.io/categories/linux/</link>
       <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
-      <guid>http://localhost:1313/categories/linux/</guid>
+      <guid>https://colored-dye.github.io/categories/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>折腾</title>
-      <link>http://localhost:1313/categories/%E6%8A%98%E8%85%BE/</link>
+      <link>https://colored-dye.github.io/categories/%E6%8A%98%E8%85%BE/</link>
       <pubDate>Wed, 16 Nov 2022 12:41:47 +0800</pubDate>
-      <guid>http://localhost:1313/categories/%E6%8A%98%E8%85%BE/</guid>
+      <guid>https://colored-dye.github.io/categories/%E6%8A%98%E8%85%BE/</guid>
       <description></description>
     </item>
     <item>
       <title>Java</title>
-      <link>http://localhost:1313/categories/java/</link>
+      <link>https://colored-dye.github.io/categories/java/</link>
       <pubDate>Thu, 20 Oct 2022 09:19:24 +0800</pubDate>
-      <guid>http://localhost:1313/categories/java/</guid>
+      <guid>https://colored-dye.github.io/categories/java/</guid>
       <description></description>
     </item>
     <item>
       <title>Daily</title>
-      <link>http://localhost:1313/categories/daily/</link>
+      <link>https://colored-dye.github.io/categories/daily/</link>
       <pubDate>Thu, 13 Oct 2022 19:31:09 +0800</pubDate>
-      <guid>http://localhost:1313/categories/daily/</guid>
+      <guid>https://colored-dye.github.io/categories/daily/</guid>
       <description></description>
     </item>
     <item>
       <title>CoLinux</title>
-      <link>http://localhost:1313/categories/colinux/</link>
+      <link>https://colored-dye.github.io/categories/colinux/</link>
       <pubDate>Sat, 19 Mar 2022 21:45:33 +0800</pubDate>
-      <guid>http://localhost:1313/categories/colinux/</guid>
+      <guid>https://colored-dye.github.io/categories/colinux/</guid>
       <description></description>
     </item>
     <item>
       <title>OS</title>
-      <link>http://localhost:1313/categories/os/</link>
+      <link>https://colored-dye.github.io/categories/os/</link>
       <pubDate>Sat, 19 Mar 2022 21:45:33 +0800</pubDate>
-      <guid>http://localhost:1313/categories/os/</guid>
+      <guid>https://colored-dye.github.io/categories/os/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>http://localhost:1313/categories/hugo/</link>
+      <link>https://colored-dye.github.io/categories/hugo/</link>
       <pubDate>Thu, 27 Jan 2022 15:01:41 +0800</pubDate>
-      <guid>http://localhost:1313/categories/hugo/</guid>
+      <guid>https://colored-dye.github.io/categories/hugo/</guid>
       <description></description>
     </item>
     <item>
       <title>Programming-Languages</title>
-      <link>http://localhost:1313/categories/programming-languages/</link>
+      <link>https://colored-dye.github.io/categories/programming-languages/</link>
       <pubDate>Sun, 23 Jan 2022 16:38:13 +0000</pubDate>
-      <guid>http://localhost:1313/categories/programming-languages/</guid>
+      <guid>https://colored-dye.github.io/categories/programming-languages/</guid>
       <description></description>
     </item>
     <item>
       <title>OpenGL</title>
-      <link>http://localhost:1313/categories/opengl/</link>
+      <link>https://colored-dye.github.io/categories/opengl/</link>
       <pubDate>Wed, 19 Jan 2022 15:46:23 +0000</pubDate>
-      <guid>http://localhost:1313/categories/opengl/</guid>
+      <guid>https://colored-dye.github.io/categories/opengl/</guid>
       <description></description>
     </item>
     <item>
       <title>Misc</title>
-      <link>http://localhost:1313/categories/misc/</link>
+      <link>https://colored-dye.github.io/categories/misc/</link>
       <pubDate>Wed, 29 Dec 2021 22:57:24 +0000</pubDate>
-      <guid>http://localhost:1313/categories/misc/</guid>
+      <guid>https://colored-dye.github.io/categories/misc/</guid>
       <description></description>
     </item>
     <item>
       <title>Algorithm</title>
-      <link>http://localhost:1313/categories/algorithm/</link>
+      <link>https://colored-dye.github.io/categories/algorithm/</link>
       <pubDate>Sun, 31 Oct 2021 16:01:32 +0000</pubDate>
-      <guid>http://localhost:1313/categories/algorithm/</guid>
+      <guid>https://colored-dye.github.io/categories/algorithm/</guid>
       <description></description>
     </item>
     <item>
       <title>LeetCode</title>
-      <link>http://localhost:1313/categories/leetcode/</link>
+      <link>https://colored-dye.github.io/categories/leetcode/</link>
       <pubDate>Sun, 31 Oct 2021 16:01:32 +0000</pubDate>
-      <guid>http://localhost:1313/categories/leetcode/</guid>
+      <guid>https://colored-dye.github.io/categories/leetcode/</guid>
       <description></description>
     </item>
     <item>
       <title>Tools</title>
-      <link>http://localhost:1313/categories/tools/</link>
+      <link>https://colored-dye.github.io/categories/tools/</link>
       <pubDate>Wed, 27 Oct 2021 22:36:45 +0000</pubDate>
-      <guid>http://localhost:1313/categories/tools/</guid>
+      <guid>https://colored-dye.github.io/categories/tools/</guid>
       <description></description>
     </item>
     <item>
       <title>Spider</title>
-      <link>http://localhost:1313/categories/spider/</link>
+      <link>https://colored-dye.github.io/categories/spider/</link>
       <pubDate>Sun, 29 Aug 2021 16:00:29 +0000</pubDate>
-      <guid>http://localhost:1313/categories/spider/</guid>
+      <guid>https://colored-dye.github.io/categories/spider/</guid>
       <description></description>
     </item>
     <item>
       <title>Makefile</title>
-      <link>http://localhost:1313/categories/makefile/</link>
+      <link>https://colored-dye.github.io/categories/makefile/</link>
       <pubDate>Sun, 11 Jul 2021 18:04:36 +0000</pubDate>
-      <guid>http://localhost:1313/categories/makefile/</guid>
+      <guid>https://colored-dye.github.io/categories/makefile/</guid>
       <description></description>
     </item>
     <item>
       <title>Regular-Expression</title>
-      <link>http://localhost:1313/categories/regular-expression/</link>
+      <link>https://colored-dye.github.io/categories/regular-expression/</link>
       <pubDate>Sun, 11 Jul 2021 18:04:21 +0000</pubDate>
-      <guid>http://localhost:1313/categories/regular-expression/</guid>
+      <guid>https://colored-dye.github.io/categories/regular-expression/</guid>
       <description></description>
     </item>
     <item>
       <title>RISC-V</title>
-      <link>http://localhost:1313/categories/risc-v/</link>
+      <link>https://colored-dye.github.io/categories/risc-v/</link>
       <pubDate>Sat, 01 May 2021 12:34:23 +0000</pubDate>
-      <guid>http://localhost:1313/categories/risc-v/</guid>
+      <guid>https://colored-dye.github.io/categories/risc-v/</guid>
       <description></description>
     </item>
     <item>
       <title>Xv6-Riscv</title>
-      <link>http://localhost:1313/categories/xv6-riscv/</link>
+      <link>https://colored-dye.github.io/categories/xv6-riscv/</link>
       <pubDate>Sat, 01 May 2021 12:34:23 +0000</pubDate>
-      <guid>http://localhost:1313/categories/xv6-riscv/</guid>
+      <guid>https://colored-dye.github.io/categories/xv6-riscv/</guid>
       <description></description>
     </item>
     <item>
       <title>Git</title>
-      <link>http://localhost:1313/categories/git/</link>
+      <link>https://colored-dye.github.io/categories/git/</link>
       <pubDate>Fri, 26 Mar 2021 22:56:54 +0000</pubDate>
-      <guid>http://localhost:1313/categories/git/</guid>
+      <guid>https://colored-dye.github.io/categories/git/</guid>
       <description></description>
     </item>
     <item>
       <title>Hexo</title>
-      <link>http://localhost:1313/categories/hexo/</link>
+      <link>https://colored-dye.github.io/categories/hexo/</link>
       <pubDate>Mon, 22 Mar 2021 22:07:39 +0000</pubDate>
-      <guid>http://localhost:1313/categories/hexo/</guid>
+      <guid>https://colored-dye.github.io/categories/hexo/</guid>
       <description></description>
     </item>
   </channel>
