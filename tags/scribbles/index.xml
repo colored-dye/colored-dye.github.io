@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scribbles on colored-dye&#39;s blog</title>
-    <link>https://colored-dye.github.io/tags/scribbles/</link>
+    <link>http://localhost:1313/tags/scribbles/</link>
     <description>Recent content in Scribbles on colored-dye&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 26 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://colored-dye.github.io/tags/scribbles/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/scribbles/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>随笔2</title>
-      <link>https://colored-dye.github.io/nsfw/scribbles_02/</link>
+      <link>http://localhost:1313/nsfw/scribbles_02/</link>
       <pubDate>Wed, 26 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://colored-dye.github.io/nsfw/scribbles_02/</guid>
+      <guid>http://localhost:1313/nsfw/scribbles_02/</guid>
       <description>&lt;p&gt;中午去吃了叉烧饭，嚼着嚼着，心觉这叉烧饭太好吃了，感动得有点想哭。&lt;/p&gt;&#xA;&lt;p&gt;最近两个月以来天气变冷了，一楼食堂的质量日渐下滑不能果腹，所以我开始每天中午都去二楼的广东风味窗口吃饭。&#xA;多数时候是重复的叉烧饭，偶尔会吃腩仔饭换换胃口。档口的小哥都认识我了，默认我吃叉烧饭。&lt;/p&gt;&#xA;&lt;p&gt;当rebuttal和人际关系的不确定性轰炸我时，还是一碗精致的叉烧饭最能抚慰我的内心。&lt;/p&gt;</description>
     </item>
     <item>
       <title>随笔1</title>
-      <link>https://colored-dye.github.io/nsfw/scribbles_01/</link>
+      <link>http://localhost:1313/nsfw/scribbles_01/</link>
       <pubDate>Fri, 30 Apr 2021 14:06:14 +0000</pubDate>
-      <guid>https://colored-dye.github.io/nsfw/scribbles_01/</guid>
+      <guid>http://localhost:1313/nsfw/scribbles_01/</guid>
       <description>&lt;p&gt;午后的阳光流入我的身体&lt;/p&gt;&#xA;&lt;p&gt;像融化的奶油冰淇淋&lt;/p&gt;&#xA;&lt;p&gt;闭上眼睛品味一下——&lt;/p&gt;&#xA;&lt;p&gt;呀，是香草味的~&lt;/p&gt;&#xA;&lt;p&gt;还有一点&lt;/p&gt;&#xA;&lt;p&gt;樟树花的香气&lt;/p&gt;</description>
     </item>
   </channel>
