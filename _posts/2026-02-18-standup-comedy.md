@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 脱口秀与相声
+title: Standup and Xiangsheng
 date: 2026-02-18
 description: something off the top of my head.
 tags: NSFW
