@@ -3,8 +3,8 @@ layout: post
 title: Standup and Xiangsheng
 date: 2026-02-18
 description: something off the top of my head.
-tags: NSFW
-categories: NSFW
+# tags: NSFW
+# categories: NSFW
 related_posts: false
 ---
 
