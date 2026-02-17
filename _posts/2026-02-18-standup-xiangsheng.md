@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Standup and Xiangsheng
-date: 2026-02-18
+date: 2026-02-18 01:06:00
 description: something off the top of my head.
 tags: comedy
-categories: nsfw
+categories: NSFW
 related_posts: false
 ---
 
