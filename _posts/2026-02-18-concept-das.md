@@ -65,3 +65,4 @@ The high-level causal model (shown in <a href="#mcqa_causal_model">Figure 1</a>)
 Results are shown in <a href="#results_mcqa">Figure 2</a>.
 
 
+<d-bibliography src="/assets/bibliography/2026-02-18-concept-das.bib"></d-bibliography>
