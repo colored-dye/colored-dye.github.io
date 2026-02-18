@@ -121,7 +121,7 @@ cv:
         authors:
           - Yuntai Bao
         publisher: IJCAI 2025
-        releaseDate: 2025-04-29
+        releaseDate: 2025-08-16
         url: https://doi.org/10.24963/ijcai.2025/892
         summary: This paper introduces a scalable multi-stage influence function that attributes the predictions of fine-tuned LLMs back to their pretraining data, and this approach efficiently scales to billion-parameter models.
 
@@ -129,7 +129,7 @@ cv:
         authors:
           - Yuntai Bao
         publisher: Findings of ACL 2025
-        releaseDate: 2025-05-16
+        releaseDate: 2025-07-28
         url: https://aclanthology.org/2025.findings-acl.38
         summary: This paper investigates the internal representation of truth in LLMs, revealing that consistent "truth directions" emerge primarily in capable models and generalize effectively across logical transformations and diverse question-answering tasks. The truthfulness probes can be practically applied to selective question answering, improving task accuracy by filtering out incorrect model outputs.
 

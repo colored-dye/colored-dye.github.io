@@ -123,6 +123,11 @@ The high-level causal model (shown in <a href="#mcqa_causal_model">Figure 1</a>)
   Figure 5. IIA results regarding $X_\text{Order}$ on MCQA task with DAS and Gemma2-2B.
 </div>
 
+**Results.**
 CDAS results are shown in <a href="#results_cdas_answer">Figure 2</a> and <a href="#results_cdas_answer_pointer">Figure 4</a>, while DAS results are shown in <a href="#results_das_answer">Figure 3</a> and <a href="#results_das_answer">Figure 5</a>.
+Comparing Figure 2 and 3, we can see that CDAS and DAS display qualitatively similar layer-wise performance for $O_\text{Answer}$.
+However, CDAS often yields low IIAs for $X_\text{Order}$ except for the `answerPosition` subset.
 
+**Takeaway.**
+CDAS can only be used to control model outputs, *not* the inner causal variables of high-level causal models.
 
