@@ -17,11 +17,18 @@ ninja.data = [{
             window.location.href = "/blog/";
           },
         },{id: "nav-publications",
-          title: "Publications",
+          title: "publications",
           description: "",
           section: "Navigation",
           handler: () => {
             window.location.href = "/publications/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "GitHub repositories",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
           },
         },{id: "nav-cv",
           title: "CV",
@@ -30,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-standup-and-xiangsheng",
+        },{id: "post-concept-distributed-alignment-search",
+        
+          title: "Concept Distributed Alignment Search",
+        
+        description: "Discussions regarding my recent work on faithful representation steering.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/concept-das/";
+          
+        },
+      },{id: "post-standup-and-xiangsheng",
         
           title: "Standup and Xiangsheng",
         
@@ -134,13 +152,6 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("mailto:%62%61%6F%79%75%6E%74%61%69@%6F%75%74%6C%6F%6F%6B.%63%6F%6D", "_blank");
-        },
-      },{
-        id: 'social-inspire',
-        title: 'Inspire HEP',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://inspirehep.net/authors/", "_blank");
         },
       },{
         id: 'social-rss',
