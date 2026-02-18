@@ -91,7 +91,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # -----------------------------------------------------------------------------
 
 blog_name: "colored-dye's blog" # blog_name will be displayed in your blog page
-blog_description: Interpreting the minds of machines and myself
+blog_description: "Interpreting the minds of machines and myself"
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 

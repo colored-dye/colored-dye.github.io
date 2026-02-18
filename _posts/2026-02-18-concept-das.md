@@ -21,6 +21,8 @@ In this blog post, I would like to extend our discussions of our recent work, <a
 In early May, 2025, I was reading the series of papers by Atticus Geiger and was deeply intrigued by the causal abstraction branch of mech interp.
 Specifically, I focused on *Distributed Alignment Search (DAS)* <d-cite key="geiger2024finding"></d-cite> and *Boundless DAS* <d-cite key="wu2023interpretability"></d-cite>.
 
+We initially submitted the paper to NeurIPS 2025. However, during rebuttal, the reviewers kindly pointed out the flaws of our conceptual design: **CDAS is a steering method, not a causal variable localization method**.
+
 
 ## Is CDAS a causal variable localization technique?
 
