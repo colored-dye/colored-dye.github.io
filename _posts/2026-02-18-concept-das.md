@@ -31,7 +31,7 @@ The practical implication is that, CDAS fails to align a neural network with ext
 **Benchmark dataset and metric.**
 I tested CDAS on the causal variable localization track of *Mechanistic Interpretability Benchmark (MIB)* <d-cite key="mueller2025mib"></d-cite>.
 The subtask is MCQA, which is a multiple-choice dataset.
-The high-level causal model (shown in <a href="#mcqa_causal_model">Figure 1</a>) defines two important causal variables: $X_\text{order}$ and $O_\text{Answer}$, corresponding to the position of the answer and the answer token, respectively.
+The high-level causal model (shown in <a href="#mcqa_causal_model">Figure 1</a>) defines two important causal variables: $X_\text{Order}$ and $O_\text{Answer}$, corresponding to the position of the answer and the answer token, respectively.
 
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
@@ -45,22 +45,76 @@ The high-level causal model (shown in <a href="#mcqa_causal_model">Figure 1</a>)
 
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
   </div>
 </div>
-<div class="caption" id="results_mcqa">
-  Figure 2. IIA results on MCQA task with CDAS and Gemma2-2B.
+<div class="caption" id="results_cdas_answer">
+  Figure 2. IIA results regarding $O_\text{Answer}$ on MCQA task with CDAS and Gemma2-2B.
 </div>
 
-Results are shown in <a href="#results_mcqa">Figure 2</a>.
+<div class="row mt-3">
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+</div>
+<div class="caption" id="results_das_answer">
+  Figure 3. IIA results regarding $O_\text{Answer}$ on MCQA task with DAS and Gemma2-2B.
+</div>
+
+<div class="row mt-3">
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer_pointer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer_pointer/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer_pointer/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer_pointer/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+</div>
+<div class="caption" id="results_cdas_answer_pointer">
+  Figure 4. IIA results regarding $X_\text{Order}$ on MCQA task with CDAS and Gemma2-2B.
+</div>
+
+<div class="row mt-3">
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer_pointer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer_pointer/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer_pointer/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-das/answer_pointer/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1 zoomable=true" %}
+  </div>
+</div>
+<div class="caption" id="results_das_answer_pointer">
+  Figure 5. IIA results regarding $X_\text{Order}$ on MCQA task with DAS and Gemma2-2B.
+</div>
+
+CDAS results are shown in <a href="#results_cdas_answer">Figure 2</a> and <a href="#results_cdas_answer_pointer">Figure 4</a>, while DAS results are shown in <a href="#results_das_answer">Figure 3</a> and <a href="#results_das_answer">Figure 5</a>.
 
 
