@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. School of Software Technology, Zhejiang University
+subtitle: <a href='http://www.cst.zju.edu.cn/'>Affiliations</a>. School of Software Technology, Zhejiang University.
 
 profile:
   align: right
