@@ -1,4 +1,5 @@
 ---
+layout: post
 title: 随笔
 date: 2025-11-26
 tags: journal
