@@ -2,7 +2,6 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='http://www.cst.zju.edu.cn/'>School of Software Technology</a>, <a href='https://www.zju.edu.cn/'>Zhejiang University</a>.
 
 profile:
   align: right
@@ -26,10 +25,10 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am Yuntai Bao, a third-year doctoral student at *College of Software Technology, Zhejiang University*.
+I am Yuntai Bao, a third-year doctoral student at <a href='http://www.cst.zju.edu.cn/'>School of Software Technology</a>, <a href='https://www.zju.edu.cn/'>Zhejiang University</a>.
 My research interest includes <a href="https://arxiv.org/abs/2404.14082">mechanistic interpretability (mech interp), AI safety</a>,
 and <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems</a>.
-I have experiences in training data attribution, model probes and steering vectors.
+I have experiences in [training data attribution](https://arxiv.org/abs/2505.05017), [model probes](https://arxiv.org/abs/2506.00823) and [steering vectors](https://arxiv.org/abs/2602.05234).
 Currently, I am committed to <a href="https://www.alignmentforum.org/posts/StENzDcD3kpfGJssR/a-pragmatic-vision-for-interpretability">pragmatic interpretability</a>--to enable effective and efficient model control via mech interp.
 
 Please feel free to reach out~

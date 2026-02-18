@@ -37,7 +37,7 @@ cv:
       - institution: College of Computer Science and Technology, Zhejiang University
         location: Zhejiang, China
         area: Information Security
-        studyType: Bachelor
+        studyType: Bachelor of Engineering
         start_date: 2019
         end_date: 2023
         highlights:
@@ -115,7 +115,7 @@ cv:
         publisher: ICLR 2026
         releaseDate: 2026-01-26
         url: https://openreview.net/forum?id=LoisXFZL3k
-        summary: 
+        summary: This paper introduces Concept Distributed Alignment Search (CDAS), a steering method that employs a distribution matching objective and distributed interchange interventions to faithfully manipulate internal concept features without overfitting to external preferences. CDAS achieves stable bi-directional control—effectively overriding safety refusals and neutralizing backdoors—while preserving general model utility.
 
       - title: Scalable Multi-Stage Influence Function for Large Language Models via Eigenvalue-Corrected Kronecker-Factored Parameterization
         authors:
@@ -123,7 +123,7 @@ cv:
         publisher: IJCAI 2025
         releaseDate: 2025-04-29
         url: https://doi.org/10.24963/ijcai.2025/892
-        summary: 
+        summary: This paper introduces a scalable multi-stage influence function that attributes the predictions of fine-tuned LLMs back to their pretraining data, and this approach efficiently scales to billion-parameter models.
 
       - title: "Probing the Geometry of Truth: Consistency and Generalization of Truth Directions in LLMs Across Logical Transformations and Question Answering Tasks"
         authors:
@@ -131,7 +131,7 @@ cv:
         publisher: Findings of ACL 2025
         releaseDate: 2025-05-16
         url: https://aclanthology.org/2025.findings-acl.38
-        summary: 
+        summary: This paper investigates the internal representation of truth in LLMs, revealing that consistent "truth directions" emerge primarily in capable models and generalize effectively across logical transformations and diverse question-answering tasks. The truthfulness probes can be practically applied to selective question answering, improving task accuracy by filtering out incorrect model outputs.
 
     Skills:
       - name: Programming languages
