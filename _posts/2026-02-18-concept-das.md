@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: distill
 title: Concept Distributed Alignment Search for Faithful Representation Steering
 date: 2026-02-18 19:00:00 +0800
 description: discussions regarding our recent work on faithful representation steering.
@@ -11,13 +11,6 @@ giscus_comments: true
 featured: true
 toc: true
 citation: true
-map: true
-chart:
-  chartjs: true
-  echarts: true
-  vega_lite: true
-tikzjax: true
-typograms: true
 ---
 
 In this blog post, I would like to extend our discussions of our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, as well as topics beyond the scope of the paper.
