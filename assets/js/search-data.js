@@ -34,7 +34,7 @@ ninja.data = [{
         
           title: "Concept Distributed Alignment Search",
         
-        description: "Discussions regarding my recent work on faithful representation steering.",
+        description: "discussions regarding my recent work on faithful representation steering.",
         section: "Posts",
         handler: () => {
           
@@ -50,6 +50,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2026/standup-xiangsheng/";
+          
+        },
+      },{id: "post-something-on-my-mind",
+        
+          title: "Something on my mind",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/sth-on-my-mind/";
           
         },
       },{id: "post-随笔",
@@ -147,13 +158,6 @@ ninja.data = [{
           window.open("mailto:%62%61%6F%79%75%6E%74%61%69@%6F%75%74%6C%6F%6F%6B.%63%6F%6D", "_blank");
         },
       },{
-        id: 'social-rss',
-        title: 'RSS Feed',
-        section: 'Socials',
-        handler: () => {
-          window.open("/feed.xml", "_blank");
-        },
-      },{
         id: 'social-scholar',
         title: 'Google Scholar',
         section: 'Socials',
@@ -166,6 +170,13 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("https://github.com/colored-dye", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
         },
       },{
       id: 'light-theme',
