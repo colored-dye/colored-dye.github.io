@@ -165,8 +165,8 @@ ninja.data = [{
           window.open("https://scholar.google.com/citations?user=phKr8uQAAAAJ", "_blank");
         },
       },{
-        id: 'social-custom_social',
-        title: 'Custom_social',
+        id: 'social-github',
+        title: 'GitHub',
         section: 'Socials',
         handler: () => {
           window.open("https://github.com/colored-dye", "_blank");
