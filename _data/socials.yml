@@ -7,8 +7,9 @@ email: baoyuntai@outlook.com # your email address
 scholar_userid: phKr8uQAAAAJ # your Google Scholar ID
 # wechat_qr: wechat-qr.jpg # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
 # whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
-custom_social: # can be any name here other than the ones already defined in the jekyll-socials plugin
-  logo: <i class="fas fa-github-square"></i> # can be png, svg, jpg
-  title: GitHub
-  url: https://github.com/colored-dye
+github_username: colored-dye
+# custom_social: # can be any name here other than the ones already defined in the jekyll-socials plugin
+  # logo: https://colored-dye.github.io/assets/img/GitHub.svg # can be png, svg, jpg
+  # title: GitHub
+  # url: https://github.com/colored-dye
 rss_icon: true # comment this line to hide the RSS icon
