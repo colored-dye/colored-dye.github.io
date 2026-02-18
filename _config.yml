@@ -7,7 +7,7 @@ first_name: Yuntai
 middle_name: 
 last_name: Bao
 contact_note: >
-  Please contact me with email (baoyuntai@outlook.com).
+  Please contact me at <a href="mailto:baoyuntai@outlook.com">baoyuntai@outlook.com</a>.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   colored-dye's blog
 footer_text: >

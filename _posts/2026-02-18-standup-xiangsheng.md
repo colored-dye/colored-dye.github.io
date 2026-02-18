@@ -6,6 +6,7 @@ description: something off the top of my head.
 tags: comedy
 categories: NSFW
 related_posts: false
+giscus_comments: true
 ---
 
 脱口秀中，难免会冒犯到观众涉及到的人群。所以为了保险起见，脱口秀演员常用的嘲笑对象是自己。
