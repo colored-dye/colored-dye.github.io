@@ -30,11 +30,11 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-concept-distributed-alignment-search",
+        },{id: "post-concept-distributed-alignment-search-for-faithful-representation-steering",
         
-          title: "Concept Distributed Alignment Search",
+          title: "Concept Distributed Alignment Search for Faithful Representation Steering",
         
-        description: "discussions regarding my recent work on faithful representation steering.",
+        description: "discussions regarding our recent work on faithful representation steering.",
         section: "Posts",
         handler: () => {
           
