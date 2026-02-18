@@ -23,7 +23,7 @@ cv:
 
   sections:
     Education:
-      - institution: Zhejiang University
+      - institution: School of Software Technology, Zhejiang University
         location: Zhejiang, China
         area: Artificial Intelligence
         studyType: Ph.D.
@@ -31,15 +31,17 @@ cv:
         end_date: 2028
         score: ""
         courses: ""
-        highlights: ""
+        # highlights:
+        #   - Awarded scholarship from the college for 2025.
 
-      - institution: Zhejiang University
+      - institution: College of Computer Science and Technology, Zhejiang University
         location: Zhejiang, China
         area: Information Security
         studyType: Bachelor
         start_date: 2019
         end_date: 2023
-        highlights: ""
+        highlights:
+          - Top 25% of the class (9/38).
 
     # Experience:
     #   - company: Institute for Advanced Study, Princeton University
@@ -123,7 +125,7 @@ cv:
         url: https://doi.org/10.24963/ijcai.2025/892
         summary: 
 
-      - title: "Probing the Geometry of Truth: Consistency and Generalization of Truth Directions in {LLM}s Across Logical Transformations and Question Answering Tasks"
+      - title: "Probing the Geometry of Truth: Consistency and Generalization of Truth Directions in LLMs Across Logical Transformations and Question Answering Tasks"
         authors:
           - Yuntai Bao
         publisher: Findings of ACL 2025
@@ -145,11 +147,11 @@ cv:
 
     Interests:
       - name: Mechanistic interpretability
-        icon: fa-solid fa-brain
+        icon: 
         keywords: "causal variable localization, circuit analysis"
 
       - name: Representation steering
-        icon: fa-solid fa-location-arrow
+        icon: 
         keywords: "steering vector"
 
     # Certificates:
