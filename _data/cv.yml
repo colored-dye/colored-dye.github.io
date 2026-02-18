@@ -1,25 +1,25 @@
 cv:
-  name: Albert Einstein
-  label: Scientist
-  email: einstein@example.com
-  location: Princeton, NJ
+  name: Yuntai Bao
+  label: PhD student
+  email: baoyuntai@outlook.com
+  location: Zhejiang, China
   image: ""
-  summary: A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time
+  summary: I am committed to achieving effective and efficient model control via mechanistic interpretability.
 
-  social_networks:
-    - network: X
-      username: AlbertEinstein
-    - network: GitHub
-      username: example
-    - network: LinkedIn
-      username: example
+  # social_networks:
+  #   - network: X
+  #     username: AlbertEinstein
+  #   - network: GitHub
+  #     username: example
+  #   - network: LinkedIn
+  #     username: example
 
   address:
-    street: 2712 Broadway St
-    city: San Francisco
-    region: California
-    postalCode: CA 94115
-    countryCode: US
+    street: School of Software Technology, Zhejiang University
+    city: Ningbo
+    region: Zhejiang Province
+    postalCode: 315000
+    countryCode: CN
 
   sections:
     Education:
@@ -57,32 +57,32 @@ cv:
           - Relativity
           - Description 2.
 
-      - company: California Institute of Technology
-        position: Visiting Professor
-        location: Pasadena, California, US
-        start_date: 1933
-        end_date: 1933
-        highlights:
-          - Description 1.
-          - Description 2.
+      # - company: California Institute of Technology
+      #   position: Visiting Professor
+      #   location: Pasadena, California, US
+      #   start_date: 1933
+      #   end_date: 1933
+      #   highlights:
+      #     - Description 1.
+      #     - Description 2.
 
-      - company: Kaiser Wilhelm Institute for Physics
-        position: Director
-        location: Berlin, Germany
-        start_date: 1917
-        end_date: 1933
+      # - company: Kaiser Wilhelm Institute for Physics
+      #   position: Director
+      #   location: Berlin, Germany
+      #   start_date: 1917
+      #   end_date: 1933
 
-      - company: Karl-Ferdinand University
-        position: Professor of Theoretical Physics
-        location: Prague, Czechoslovakia
-        start_date: 1911
-        end_date: 1917
+      # - company: Karl-Ferdinand University
+      #   position: Professor of Theoretical Physics
+      #   location: Prague, Czechoslovakia
+      #   start_date: 1911
+      #   end_date: 1917
 
-      - company: University of Zurich
-        position: Associate Professor of Theoretical Physics
-        location: Zurich, Switzerland
-        start_date: 1909
-        end_date: 1911
+      # - company: University of Zurich
+      #   position: Associate Professor of Theoretical Physics
+      #   location: Zurich, Switzerland
+      #   start_date: 1909
+      #   end_date: 1911
 
     Volunteer:
       - company: People's Climate March
@@ -137,53 +137,57 @@ cv:
         summary: The publication of the theory of general relativity made him internationally famous. He was professor of physics at the universities of Zurich (1909–1911) and Prague (1911–1912), before he returned to ETH Zurich (1912–1914).
 
     Skills:
-      - name: Physics
+      - name: Programming languages
         level: Master
-        icon: fa-solid fa-hashtag
+        icon: fa-solid fa-code
         keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
 
     Languages:
-      - name: German
+      - name: Chinese
         summary: "Native speaker"
 
       - name: English
         summary: "Fluent"
 
     Interests:
-      - name: Physics
-        icon: fa-solid fa-tag
-        keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
+      - name: Mechanistic interpretability
+        icon: fa-solid fa-brain-circuit
+        keywords: "causal variable localization, circuit analysis"
 
-    Certificates:
-      - name: Machine Learning
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-location-dot
+      - name: Representation steering
+        icon: fa-solid fa-arrow-up-right
+        keywords: "steering vector"
 
-      - name: Quantum Computing
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-tag
+    # Certificates:
+    #   - name: Machine Learning
+    #     date: 2018-01-01
+    #     issuer: Stanford University
+    #     icon: fa-solid fa-location-dot
 
-      - name: Quantum Information
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-envelope
+    #   - name: Quantum Computing
+    #     date: 2018-01-01
+    #     issuer: Stanford University
+    #     icon: fa-solid fa-tag
 
-    Projects:
-      - name: Quantum Computing
-        summary: Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.
-        highlights:
-          - Quantum Teleportation
-          - Quantum Cryptography
-        start_date: 2018-01-01
-        end_date: 2018-01-01
+    #   - name: Quantum Information
+    #     date: 2018-01-01
+    #     issuer: Stanford University
+    #     icon: fa-solid fa-envelope
 
-    References:
-      - name: Professor John Doe
-        icon: fa-solid fa-laptop
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+    # Projects:
+    #   - name: Quantum Computing
+    #     summary: Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.
+    #     highlights:
+    #       - Quantum Teleportation
+    #       - Quantum Cryptography
+    #     start_date: 2018-01-01
+    #     end_date: 2018-01-01
 
-      - name: Professor Jane Smith
-        icon: fa-solid fa-thumbtack
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+    # References:
+    #   - name: Professor John Doe
+    #     icon: fa-solid fa-laptop
+    #     reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+
+    #   - name: Professor Jane Smith
+    #     icon: fa-solid fa-thumbtack
+    #     reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
