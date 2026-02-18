@@ -3,8 +3,8 @@ layout: post
 title: Standup and Xiangsheng
 date: 2026-02-18 01:06:00 +0800
 description: something off the top of my head.
-tags: comedy
-categories: NSFW
+tags: journal
+categories: no-one-should-read
 related_posts: false
 giscus_comments: true
 ---
