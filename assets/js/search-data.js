@@ -52,15 +52,15 @@ ninja.data = [{
             window.location.href = "/blog/2026/standup-xiangsheng/";
           
         },
-      },{id: "post-something-on-my-mind",
+      },{id: "post-happy-chinese-new-year",
         
-          title: "Something on my mind",
+          title: "Happy Chinese New Year",
         
         description: "",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2026/sth-on-my-mind/";
+            window.location.href = "/blog/2026/happy-chinese-new-year/";
           
         },
       },{id: "post-随笔",
