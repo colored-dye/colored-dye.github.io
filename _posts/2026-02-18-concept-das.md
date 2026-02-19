@@ -28,29 +28,42 @@ _styles: >
     /* Optional: Removes default image margins if any exist */
     display: block; 
   }
+  .caption {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.5rem !important;
+  }
 ---
 
 In this blog post, I would like to extend upon our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, as well as topics beyond the scope of the paper.
 
 
-## Early exploration and misconception
+## Early exploration and misconception--theoretical discussions
 
 In early May, 2025, I was reading the series of papers by Atticus Geiger and was deeply intrigued by the causal abstraction branch of mech interp.
 Specifically, I focused on *Distributed Alignment Search (DAS)* <d-cite key="geiger2024finding"></d-cite>.
 
-We initially submitted the paper to NeurIPS 2025. However, during rebuttal, our discussions with the reviewers made us aware of the fundamental mistakes regarding the conceptual nature of our method: **CDAS should be positioned as a steering method, not a causal variable localization method**.
-More specifically, CDAS is dedicated to identifying alignments between low-level representations and high-level causal variables with the **target neural network as the reference model**, whereas DAS does *not* have this constraint.
-The practical implication is that, CDAS fails to align a neural network with external, high-level causal models, which is the entire purpose of causal abstraction.
+We initially submitted the paper to NeurIPS 2025. However, our discussions with the reviewers made us aware of a fundamental mistake regarding the conceptual nature of our method: **CDAS should be positioned as a steering method, not a causal variable localization method**.
+More specifically, CDAS is dedicated for a subset of causal variables: causal variables directly related to outputs or properties of outputs, e.g., output tokens and output-oriented concepts.
+The practical implication is that CDAS fails to accomplish general-purpose causal abstraction like DAS.
+
+We provide an example to help readers understand.
+
+In the main body of our paper, we mention that CDAS is *not* a general-purpose causal abstraction method:
+
+> Remark (CDAS is not causal variable localization). While CDAS draws inspiration from DAS, it should not be viewed as a causal variable localization method: DAS assumes access to a high-level algorithm with near-perfect supervision; whereas our goal is not to identify ground-truth causal variables, but to find useful features that enable faithful steering. Thus, CDAS is best understood as a steering method motivated by causal variable localization principles.
 
 
-## CDAS for causal abstraction?
+## CDAS for causal abstraction?--empirical analysis
 
 **Benchmark dataset and metric.**
 I tested CDAS on the causal variable localization track of *Mechanistic Interpretability Benchmark (MIB)* <d-cite key="mueller2025mib"></d-cite>.
 The target model is Gemma2-2B.
 The subtask is a multiple-choice dataset, MCQA.
 The high-level causal model of multiple-choice tasks, $\mathcal{H}$ (shown in <a href="#mcqa_causal_model">Figure 1</a>) defines two important causal variables: $X_\text{Order}$ (position of the answer) and $O_\text{Answer}$ (answer token).
-I thus conduct causal variable localization regarding these causal variables.
+Therefore, I conduct causal variable localization regarding these causal variables.
+
+The dataset consists of three subsets, corresponding to three types of counterfactuals: `answerPosition` (only change the orders of choices), `randomLetter` (only change the choice letters) and `answerPosition_randomLetter` (change both choice orders and letters).
+Examples of these counterfactuals are shown in <a href="#counterfactual_dataset">Figure 2</a>.
 
 The metric is *interchange intervention accuracy (IIA)*. We now formulate this metric according to <d-cite key="mueller2025mib"></d-cite>.
 Given base and counterfactual inputs $(b, c)$, the interchange intervention $\mathcal{H}_{X \leftarrow \mathrm{Get}(\mathcal{H}(c), X)}(b)$ runs $\mathcal{H}$ on base input $b$ while fixing the variable $X$ to the value it takes when $\mathcal{H}$ is run on a counterfactual input $c$.
@@ -71,7 +84,7 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
   </div>
 </div>
 <div class="caption" id="counterfactual_dataset">
-  Figure 2. Counterfactuals for the multiple-choice ARC task.
+  Figure 2. Counterfactuals for the multiple-choice ARC task from <d-cite key="mueller2025mib"></d-cite>.
 </div>
 
 <div class="grid-container">
@@ -107,7 +120,7 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
   </div>
 </div>
 <div class="caption" id="results_das_answer">
-  Figure 4. IIA results regarding $O_\text{Answer}$ on MCQA task with DAS.
+  Figure 4. IIA results regarding $O_\text{Answer}$ on MCQA task with DAS (taken from <d-cite key="mueller2025mib"></d-cite>).
 </div>
 
 <div class="grid-container">
@@ -143,12 +156,12 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
   </div>
 </div>
 <div class="caption" id="results_das_answer_pointer">
-  Figure 6. IIA results regarding $X_\text{Order}$ on MCQA task with DAS.
+  Figure 6. IIA results regarding $X_\text{Order}$ on MCQA task with DAS (taken from <d-cite key="mueller2025mib"></d-cite>).
 </div>
 
 
 <div class="caption" id="results_aggregate">
-  Table 1. Aggregate IIA results on MCQA task. Results outside parentheses are averaged across all layers while results inside parentheses are highest results of individual layers. Results with * are taken from <d-cite key="mueller2025mib"></d-cite>.
+  Table 1. Aggregate IIA results on MCQA task. IIA of a single layer is averaged across intervention positions and counterfactuals. Results outside parentheses are averaged across all layers while results inside parentheses are highest results of individual layers. Results with * are taken from <d-cite key="mueller2025mib"></d-cite>.
 </div>
 
 | Method          | $O_\text{Answer}$ | $X_\text{Order}$ |
@@ -160,13 +173,14 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
 
 
 **Results.**
-CDAS results are shown in <a href="#results_cdas_answer">Figure 3</a> and <a href="#results_cdas_answer_pointer">Figure 5</a>, while DAS results (taken from <d-cite key="mueller2025mib"></d-cite>) are shown in <a href="#results_das_answer">Figure 4</a> and <a href="#results_das_answer">Figure 6</a>.
+CDAS results are shown in <a href="#results_cdas_answer">Figure 3</a> and <a href="#results_cdas_answer_pointer">Figure 5</a>, while DAS results are shown in <a href="#results_das_answer">Figure 4</a> and <a href="#results_das_answer">Figure 6</a>.
 Comparing Figure 3 and 4, we can see that CDAS and DAS display qualitatively similar layer-wise performance for $O_\text{Answer}$.
 However, CDAS often yields low IIAs for $X_\text{Order}$ except for the `answerPosition` and `randomLetter` counterfactuals.
 
 Aggregate results are shown in <a href="#results_aggregate">Table 1</a>.
+IIA averaged across all layers tells us about the robustness of a causal variable localization, whereas the highest IAA of an individual layer .
 The averaged CDAS performance with respect to $O_\text{Answer}$ is on par with DAS.
-However, its average performance with respect to $X_\text{Order}$ is only comparable to the unsupervised full-vector intervention baseline.
+However, its average performance with respect to $X_\text{Order}$ is only comparable to the unsupervised full-vector baseline.
 
 
 **Takeaway.**
