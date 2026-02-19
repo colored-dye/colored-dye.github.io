@@ -25,8 +25,8 @@ There must be more to life than this.
 People say you must aspire for something in order to finally achieve it.
 Okay, here are my fantasies:
 
-* [] I want to sit in the sun at the park around my house and just stare into the distance in a trance, then I go back home and cook a tofu dish that I used to like.
-* [] I want to adopt a kitten and raise her like my own child, hopefully she would teach me how to love myself and even another person.
-* [] I want to go on a date and possibly fall in love or break my own heart, whatever the outcome.
-* [] I want my friends to be just one call away and we can simply accompany one another in silence.
+* [ ] I want to sit in the sun at the park around my house and just stare into the distance in a trance, then I go back home and cook a tofu dish that I used to like.
+* [ ] I want to adopt a kitten and raise her like my own child, hopefully she would teach me how to love myself and even another person.
+* [ ] I want to go on a date and possibly fall in love or break my own heart, whatever the outcome.
+* [ ] I want my friends to be just one call away and we can simply accompany one another in silence.
 

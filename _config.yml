@@ -185,6 +185,9 @@ kramdown:
 include: ["_pages", "_scripts"]
 exclude:
   - bin/
+  - AGENTS.md
+  - ANALYTICS.md
+  - CLAUDE.md
   - CONTRIBUTING.md
   - CUSTOMIZE.md
   - Dockerfile
@@ -199,8 +202,12 @@ exclude:
   - package.json
   - package-lock.json
   - purgecss.config.js
+  - QUICKSTART.md
   - README.md
   - readme_preview/
+  - requirements.txt
+  - SEO.md
+  - TROUBLESHOOTING.md
   - vendor
 keep_files:
   - CNAME
