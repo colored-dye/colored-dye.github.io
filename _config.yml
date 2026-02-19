@@ -52,7 +52,7 @@ external_services:
 # Layout
 # -----------------------------------------------------------------------------
 
-navbar_fixed: true
+navbar_fixed: false
 footer_fixed: false
 search_enabled: true
 socials_in_search: true
@@ -60,7 +60,7 @@ posts_in_search: true
 bib_search: true
 
 # Dimensions
-max_width: 930px
+max_width: 1000px
 
 # -----------------------------------------------------------------------------
 # Open Graph & Schema.org
