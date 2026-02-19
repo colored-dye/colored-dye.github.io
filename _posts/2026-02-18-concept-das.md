@@ -148,8 +148,9 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
 
 
 <div class="caption" id="results_aggregate">
-  Table 1. IIA results on MCQA task. Results outside parentheses are averaged across all layers while results inside parentheses are highest results of individual layers.
+  Table 1. Aggregate IIA results on MCQA task. Results outside parentheses are averaged across all layers while results inside parentheses are highest results of individual layers. Results with * are taken from <d-cite key="mueller2025mib"></d-cite>.
 </div>
+
 | Method          | $O_\text{Answer}$ | $X_\text{Order}$ |
 | --------------- | :---------------: | :--------------: |
 | CDAS            |      89 (95)      |     46 (53)      |
@@ -160,9 +161,13 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
 
 **Results.**
 CDAS results are shown in <a href="#results_cdas_answer">Figure 3</a> and <a href="#results_cdas_answer_pointer">Figure 5</a>, while DAS results (taken from <d-cite key="mueller2025mib"></d-cite>) are shown in <a href="#results_das_answer">Figure 4</a> and <a href="#results_das_answer">Figure 6</a>.
-Aggregate results are shown in <a href="#results_aggregate">Table 1</a>.
 Comparing Figure 3 and 4, we can see that CDAS and DAS display qualitatively similar layer-wise performance for $O_\text{Answer}$.
 However, CDAS often yields low IIAs for $X_\text{Order}$ except for the `answerPosition` and `randomLetter` counterfactuals.
+
+Aggregate results are shown in <a href="#results_aggregate">Table 1</a>.
+The averaged CDAS performance with respect to $O_\text{Answer}$ is on par with DAS.
+However, its average performance with respect to $X_\text{Order}$ is only comparable to the unsupervised full-vector intervention baseline.
+
 
 **Takeaway.**
 CDAS can only be used to control model output content, *not* the inner causal variables of high-level causal models.
