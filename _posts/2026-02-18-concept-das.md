@@ -12,6 +12,20 @@ giscus_comments: true
 featured: true
 toc: true
 citation: true
+_styles: >
+  .grid-container {
+    display: grid;
+    /* Creates two columns, each taking up an equal fraction of the available space */
+    grid-template-columns: 1fr 1fr;
+    /* Optional: Adds space between the grid items */
+    gap: 10px; 
+  }
+  .image-item img {
+    /* Ensures images fill their container while maintaining aspect ratio */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 ---
 
 In this blog post, I would like to extend upon our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, as well as topics beyond the scope of the paper.
