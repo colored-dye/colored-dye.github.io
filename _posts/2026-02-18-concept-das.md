@@ -2,6 +2,7 @@
 layout: distill
 title: Concept Distributed Alignment Search for Faithful Representation Steering
 date: 2026-02-18 19:00:00 +0800
+last_updated: 2026-02-19 12:00:00 +0800
 description: discussions regarding our recent work on faithful representation steering.
 tags: steering LLM
 categories: tech
@@ -13,7 +14,7 @@ toc: true
 citation: true
 ---
 
-In this blog post, I would like to extend our discussions of our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, as well as topics beyond the scope of the paper.
+In this blog post, I would like to extend upon our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, as well as topics beyond the scope of the paper.
 
 
 ## Early exploration and misconception
@@ -43,19 +44,17 @@ The high-level causal model (shown in <a href="#mcqa_causal_model">Figure 1</a>)
 </div>
 
 
-<div class="row mt-3">
-  <div class="col-sm mt-3 mt-md-0">
+<div class="grid-container">
+  <div class="image-item">
     {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
   </div>
-  <div class="col-sm mt-3 mt-md-0">
+  <div class="image-item">
     {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
   </div>
-</div>
-<div class="row mt-3">
-  <div class="col-sm mt-3 mt-md-0">
+  <div class="image-item">
     {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
   </div>
-  <div class="col-sm mt-3 mt-md-0">
+  <div class="image-item">
     {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
   </div>
 </div>
@@ -123,11 +122,26 @@ The high-level causal model (shown in <a href="#mcqa_causal_model">Figure 1</a>)
   Figure 5. IIA results regarding $X_\text{Order}$ on MCQA task with DAS and Gemma2-2B.
 </div>
 
+
 **Results.**
 CDAS results are shown in <a href="#results_cdas_answer">Figure 2</a> and <a href="#results_cdas_answer_pointer">Figure 4</a>, while DAS results are shown in <a href="#results_das_answer">Figure 3</a> and <a href="#results_das_answer">Figure 5</a>.
 Comparing Figure 2 and 3, we can see that CDAS and DAS display qualitatively similar layer-wise performance for $O_\text{Answer}$.
 However, CDAS often yields low IIAs for $X_\text{Order}$ except for the `answerPosition` subset.
 
 **Takeaway.**
-CDAS can only be used to control model outputs, *not* the inner causal variables of high-level causal models.
+CDAS can only be used to control model output content, *not* the inner causal variables of high-level causal models.
 
+
+---
+
+If you found this post useful, please cite as:
+
+```bibtex
+@article{bao2026concept_das,
+  title   = {Concept Distributed Alignment Search for Faithful Representation Steering},
+  author  = {Bao, Yuntai},
+  year    = {2026},
+  month   = {Feb},
+  url     = {https://colored-dye.github.io/blog/2026/concept-das/}
+}
+```
