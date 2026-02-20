@@ -41,9 +41,9 @@ ninja.data = [{
             window.location.href = "/blog/2026/concept-das/";
           
         },
-      },{id: "post-standup-and-xiangsheng",
+      },{id: "post-脱口秀与相声",
         
-          title: "Standup and Xiangsheng",
+          title: "脱口秀与相声",
         
         description: "something off the top of my head.",
         section: "Posts",
