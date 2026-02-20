@@ -281,6 +281,10 @@ Both the positive and negative empirical results support our previous analysis t
 CDAS can only be used to align neural representations with high-level variables directly related to output content or properties of outputs, *not* the internal causal variables of high-level causal models.
 
 
+## Acknowledgement
+
+This post was inspired by a conversation with Professor Yonatan Belinkov. His curiosity regarding CDAS's performance on MIB helped clarify these limitations, and I'm grateful for the nudge to get these results out there.
+
 
 ## Appendix
 
