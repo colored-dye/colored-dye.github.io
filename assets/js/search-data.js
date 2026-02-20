@@ -60,7 +60,7 @@ ninja.data = [{
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2026/happy-chinese-new-year/";
+            window.location.href = "/blog/2026/happy-chinese-new-year.md/";
           
         },
       },{id: "post-随笔",
