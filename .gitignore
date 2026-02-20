@@ -1,4 +1,5 @@
 _site
+_site_git
 .bundle
 .DS_store
 .idea

@@ -34,18 +34,31 @@ In this blog post, I would like to extend upon our recent work, <a href="https:/
 
 ## Early exploration and misconception--theoretical discussions
 
-In early 2025, I was deeply intrigued by the causal abstraction branch of mechanistic interpretability.
-Specifically, I focused on improving *Distributed Alignment Search (DAS)* <d-cite key="geiger2024finding,wu2023interpretability,geiger2025causal"></d-cite>.
+In early 2025, I was deeply intrigued by the causal abstraction branch of mechanistic interpretability and was working on improving *Distributed Alignment Search (DAS)* <d-cite key="geiger2024finding,wu2023interpretability,geiger2025causal"></d-cite>, such that the resulting causal abstraction technique is able to learn from probabilistic intricacies.
+This is motivated by the fact that DAS only learns subspace projections using discrete labels and does not fully utilize the probabilistic information of the target labels.
+Suppose we are trying to localize the fact retrieval feature. Given a prompt in a QA task, `New York is in the country of`, multiple responses could be considered factually correct: `the U.S.`, `the United States`, `America`. By setting the answer to be strictly `U.S.` under greedy decoding might deviate from the model's inherent tendencies since the model might prefer a different but semantically similar answer.
+By explicitly incorporating probabilities in the training objective of causal abstraction methods, we might be able to utilize the curated constant labels in a manner that is more faithful to the model of interest, without sampling labels from the target model and filtering for useful ones in a model-specific manner.
 
 We initially submitted the paper to NeurIPS 2025. However, our discussions with the reviewers made us aware of a fundamental mistake regarding the conceptual nature of our method: **CDAS should be positioned as a steering method, not a causal variable localization method**.
-More specifically, CDAS is dedicated for a subset of causal variables: causal variables directly related to outputs or properties of outputs, e.g., output tokens and output-oriented concepts.
-These variables are usually leaf nodes of causal graphs or single parents of leaf nodes.
+More specifically, CDAS is dedicated for a subset of causal variables: those directly related to outputs or properties of outputs, e.g., output tokens and output-oriented concepts.
+These variables are usually leaf nodes of causal graphs or single parents of leaf nodes (e.g., `Y, Z` when the causal graph is a linear chain `X -> Y -> Z` or `Y, Z` when the graph is `X1 -> Y, X2 -> Y, Y -> Z`).
 The practical implication is that CDAS fails to accomplish general-purpose causal abstraction like DAS.
 
 We use the case of multiple-choice task to help readers understand.
 The high-level causal model of multiple-choice tasks, $\mathcal{H}$ (shown in <a href="#mcqa_causal_model">Figure 1</a>) defines two important causal variables: $X_\text{Order}$ (position of the answer) and $O_\text{Answer}$ (answer token).
 According to Mueller et al. <d-cite key="mueller2025mib"></d-cite>, this is driven by the hypothesis that an LM accomplishes multiple-choice tasks in two steps with binding mechanism <d-cite key="dai2024representational"></d-cite>:
 it computes the index for its answer before retrieving the choice letter from the prompt with the index.
+
+
+<div class="row mt-3">
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa_causal_model.png" class="img-fluid rounded z-depth-1" zoomable=true width="70%" %}
+  </div>
+</div>
+<div class="caption" id="mcqa_causal_model">
+  Figure 1. High-level causal model $\mathcal{H}$ of multiple-choice tasks.
+</div>
+
 
 Let base inputs be $b$ with choices `A, B, C, D` and the correct choice letter is $y^b = \verb|C|$, then the choice index is 2.
 Let counterfactual inputs be $c$ with choices `E, F, G, H` and the correct choice letter is $y^c = \verb|F|$, then the choice index is 1.
@@ -61,19 +74,10 @@ $$
 
 The problem is that, when conditioned with counterfactual inputs $c$, the un-intervened probabilities on counterfactual labels $y^{b\*}$, i.e. $p(y^{b\*} \vert c)$, is low since $y^{b\*} \neq y^c$.
 As a result, the counterfactual label does not provide sufficient signal to optimize for alignment and the resulting intervention does not correspond to features of the target causal variable.
+The cause of this problem is that this counterfactual label is the **composite** of answer index and input prompt and it is not even a plausible answer given counterfactual inputs.
+In contrast, DAS does not suffer from this problem since the loss signal comes from constant external labels, not model-induced probability distributions.
 
-
-<div class="row mt-3">
-  <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa_causal_model.png" class="img-fluid rounded z-depth-1" zoomable=true width="70%" %}
-  </div>
-</div>
-<div class="caption" id="mcqa_causal_model">
-  Figure 1. High-level causal model $\mathcal{H}$ of multiple-choice tasks.
-</div>
-
-
-This is why we mention that CDAS is *not* a general-purpose causal abstraction method in the main body of our paper:
+Acknowledging this problem, we treat the CDAS method as identifying features for output-oriented concepts that directly informs concept-based steering. To make this point clear, we also mention that CDAS is *not* a general-purpose causal abstraction method in the main body of our paper:
 
 > Remark (CDAS is not causal variable localization). While CDAS draws inspiration from DAS, it should not be viewed as a causal variable localization method: DAS assumes access to a high-level algorithm with near-perfect supervision; whereas our goal is not to identify ground-truth causal variables, but to find useful features that enable faithful steering. Thus, CDAS is best understood as a steering method motivated by causal variable localization principles.
 
@@ -230,6 +234,8 @@ However, its average performance with respect to $X_\text{Order}$ and $X_\text{C
 The underperformance result indicates that CDAS fails to identify useful features for $X_\text{Order}$ and $X_\text{Carry}$.
 Both the positive and negative empirical results support our previous analysis that CDAS is not useful for internal 
 
-
 **Takeaway.**
 CDAS can only be used to align neural representations with high-level variables directly related to output content or properties of outputs, *not* the internal causal variables of high-level causal models.
+
+
+
