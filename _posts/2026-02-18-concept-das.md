@@ -24,12 +24,12 @@ _styles: >
     display: block; 
   }
   .caption {
-    margin-top: -0.5rem !important;
+    margin-top: -1.0rem !important;
     margin-bottom: 1.6rem !important;
   }
 ---
 
-In this blog post, I would like to extend upon our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, as well as topics beyond the scope of the paper.
+In this blog post, I would like to extend upon our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, especially regarding the conceptual nature of our method, *Concept Distributed Alignment Search (CDAS)*.
 
 
 ## Early exploration and misconception--theoretical discussions
@@ -60,21 +60,23 @@ it computes the index for its answer before retrieving the choice letter from th
 </div>
 
 
-Let base inputs be $b$ with choices `A, B, C, D` and the correct choice letter is $y^b = \verb|C|$, then the choice index is 2.
+Let base inputs be $b$, a question prompt with choices `A, B, C, D`, and the correct choice letter is $y^b = \verb|C|$, then the choice index is 2.
 Let counterfactual inputs be $c$ with choices `E, F, G, H` and the correct choice letter is $y^c = \verb|F|$, then the choice index is 1.
 $b,c$ are essentially the same question, except that $c$ shuffles the order of choices and replaces choice letters.
 After interchange intervention on the $X_\text{Order}$ variable, the intervened output has the same choice index 1 as when inputs are $c$.
-Therefore intervening on base inputs $b$ yields a counterfactual choice letter: $y^{b*}=\verb|B|$.
+Therefore intervening on base inputs $b$ yields an intervened counterfactual answer: $y^{b*}=\verb|B|$.
 
 Recall that positive term of the CDAS training objective is as follows:
 
 $$
-D_{\Phi}^+ = \frac{1}{\vert y^c \vert} \sum_{k=1}^{\vert y^c \vert} D_{\mathrm{JS}}\left( \mathbf{p}_{\Phi} \left( \cdot \vert y ^c _{\lt k}, b; \mathbf{h} \leftarrow \Phi^{\mathrm{DII}}(c) \right) \big\| \mathbf{p} \left( \cdot \vert y^c _{\lt k},c \right) \right).
+D_{\Phi}^+ = \frac{1}{\vert y^{b*} \vert} \sum_{k=1}^{\vert y^{b*} \vert} D_{\mathrm{JS}}\left( \mathbf{p}_{\Phi} \left( \cdot \vert y^{b*}_{\lt k}, b; \mathbf{h} \leftarrow \Phi^{\mathrm{DII}}(c) \right) \big\| \mathbf{p} \left( \cdot \vert y^{b*} _{\lt k},c \right) \right),
 $$
 
-The problem is that, when conditioned with counterfactual inputs $c$, the un-intervened probabilities on counterfactual labels $y^{b\*}$, i.e. $p(y^{b\*} \vert c)$, is low since $y^{b\*} \neq y^c$.
-As a result, the counterfactual label does not provide sufficient signal to optimize for alignment and the resulting intervention does not correspond to features of the target causal variable.
-The cause of this problem is that this counterfactual label is the **composite** of answer index and input prompt and it is not even a plausible answer given counterfactual inputs.
+where $D_{\mathrm{JS}}(\cdot \| \cdot)$ is Jensen-Shannon divergence.
+
+The problem is that, when conditioned with counterfactual inputs $c$, the un-intervened probabilities on intervened counterfactual labels $y^{b\*}$, i.e. $p(y^{b\*} \vert c)$, is low since $y^{b\*} \neq y^c$.
+As a result, the intervened counterfactual label does not provide sufficient signal to optimize for alignment and the resulting intervention does not correspond to features of the target causal variable.
+The cause of this problem is that this intervened counterfactual label is the **composite** of answer index and input prompt and it is not even a plausible answer given counterfactual inputs.
 In contrast, DAS does not suffer from this problem since the loss signal comes from constant external labels, not model-induced probability distributions.
 
 Acknowledging this problem, we treat the CDAS method as identifying features for output-oriented concepts that directly informs concept-based steering. To make this point clear, we also mention that CDAS is *not* a general-purpose causal abstraction method in the main body of our paper:
@@ -89,7 +91,7 @@ I tested CDAS on the causal variable localization track of *Mechanistic Interpre
 The target model is Gemma2-2B.
 We study three tasks: two multiple-choice datasets, MCQA and ARC, as well as two-digit addition.
 For the multiple-choice tasks, I conduct causal variable localization regarding the causal variables $X_\text{Order}$ and $O_\text{Answer}$.
-For the two-digit addition task, I study $X_\text{Carry}$, the carry value of the "carry-the-one" algorithm that LMs are assumed to implement.
+For the two-digit addition task (high-level causal hypothesis in <a href="#addition_causal_model">Figure 9</a>), I study $X_\text{Carry}$, the carry value of the "carry-the-one" algorithm that LMs are assumed to implement.
 
 The dataset consists of three subsets, corresponding to three types of counterfactuals: `answerPosition` (only change the orders of choices), `randomLetter` (only change the choice letters) and `answerPosition_randomLetter` (change both choice orders and letters).
 Examples of these counterfactuals are shown in <a href="#counterfactual_dataset">Figure 2</a>.
@@ -150,6 +152,25 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
 
 <div class="grid-container">
   <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+  <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+  <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+  <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+</div>
+<div class="caption" id="results_full_vector_answer">
+  Figure 5. IIA results regarding $O_\text{Answer}$ on MCQA task with full-vector intervention (taken from <d-cite key="mueller2025mib"></d-cite>).
+</div>
+
+
+<div class="grid-container">
+  <div class="image-item">
     {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-cdas/answer_pointer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
   </div>
   <div class="image-item">
@@ -163,7 +184,7 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
   </div>
 </div>
 <div class="caption" id="results_cdas_answer_pointer">
-  Figure 5. IIA results regarding $X_\text{Order}$ on MCQA task with CDAS.
+  Figure 6. IIA results regarding $X_\text{Order}$ on MCQA task with CDAS.
 </div>
 
 
@@ -182,13 +203,33 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
   </div>
 </div>
 <div class="caption" id="results_das_answer_pointer">
-  Figure 6. IIA results regarding $X_\text{Order}$ on MCQA task with DAS (taken from <d-cite key="mueller2025mib"></d-cite>).
+  Figure 7. IIA results regarding $X_\text{Order}$ on MCQA task with DAS (taken from <d-cite key="mueller2025mib"></d-cite>).
 </div>
+
+
+<div class="grid-container">
+  <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer_pointer/heatmap_answerPosition_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+  <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer_pointer/heatmap_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+  <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer_pointer/heatmap_answerPosition_randomLetter_test_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+  <div class="image-item">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/mcqa-gemma2-full-vector/answer_pointer/heatmap_average_4_answer_MCQA.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  </div>
+</div>
+<div class="caption" id="results_full_vector_answer_pointer">
+  Figure 8. IIA results regarding $X_\text{Order}$ on MCQA task with full-vector intervention (taken from <d-cite key="mueller2025mib"></d-cite>).
+</div>
+
 
 
 | Method          | $O_\text{Answer}$ | $X_\text{Order}$ |
 | --------------- | :---------------: | :--------------: |
-| CDAS            |      89 (95)      |     46 (53)      |
+| CDAS            |      89 (95)      |     63 (77)      |
 | DAS$^*$         |      95 (97)      |     77 (93)      |
 | DBM$^*$         |      84 (99)      |     63 (84)      |
 | Full vector$^*$ |     61 (100)      |     44 (77)      |
@@ -223,7 +264,9 @@ Given base and counterfactual inputs $(b, c)$, the interchange intervention $\ma
 
 
 **Results.**
-Layer-wise CDAS results are shown in <a href="#results_cdas_answer">Figure 3</a> and <a href="#results_cdas_answer_pointer">Figure 5</a>, while layer-wise DAS results are shown in <a href="#results_das_answer">Figure 4</a> and <a href="#results_das_answer">Figure 6</a>.
+Layer-wise CDAS results are shown in <a href="#results_cdas_answer">Figure 3</a> and <a href="#results_cdas_answer_pointer">Figure 6</a>,
+while layer-wise DAS results are shown in <a href="#results_das_answer">Figure 4</a> and <a href="#results_das_answer">Figure 7</a>
+and layer-wise full-vector results are shown in <a href="#results_full_vector_answer">Figure 5</a> and <a href="#results_full_vector_answer">Figure 8</a>.
 Comparing Figure 3 and 4, we can see that CDAS and DAS display qualitatively similar layer-wise performance for $O_\text{Answer}$.
 However, CDAS often yields low IIAs for $X_\text{Order}$ except for the `answerPosition` counterfactual.
 
@@ -239,3 +282,15 @@ CDAS can only be used to align neural representations with high-level variables 
 
 
 
+## Appendix
+
+### High-level causal model
+
+<div class="row mt-3">
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/2026-02-18-concept-das/addition_causal_model.png" class="img-fluid rounded z-depth-1" zoomable=true width="70%" %}
+  </div>
+</div>
+<div class="caption" id="addition_causal_model">
+  Figure 9. High-level causal model of two-digit addition task.
+</div>
