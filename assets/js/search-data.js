@@ -52,17 +52,6 @@ ninja.data = [{
             window.location.href = "/blog/2026/standup-xiangsheng/";
           
         },
-      },{id: "post-happy-chinese-new-year",
-        
-          title: "Happy Chinese New Year",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/happy-chinese-new-year.md/";
-          
-        },
       },{id: "post-随笔",
         
           title: "随笔",
