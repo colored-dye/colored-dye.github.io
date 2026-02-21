@@ -2,7 +2,7 @@
 layout: page
 title: personal
 permalink: /personal/
-nav: true
+nav: false
 collection: personal
 ---
 
