@@ -9,7 +9,14 @@ ninja.data = [{
     handler: () => {
       window.location.href = "/";
     },
-  },{id: "nav-blog",
+  },{id: "nav-personal",
+          title: "personal",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/personal/";
+          },
+        },{id: "nav-blog",
           title: "blog",
           description: "",
           section: "Navigation",
@@ -41,39 +48,6 @@ ninja.data = [{
             window.location.href = "/blog/2026/concept-das/";
           
         },
-      },{id: "post-脱口秀与相声",
-        
-          title: "脱口秀与相声",
-        
-        description: "something off the top of my head.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2026/standup-xiangsheng/";
-          
-        },
-      },{id: "post-随笔",
-        
-          title: "随笔",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/scribbles/";
-          
-        },
-      },{id: "post-随笔",
-        
-          title: "随笔",
-        
-        description: "",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2021/scribbles/";
-          
-        },
       },{id: "books-the-godfather",
           title: 'The Godfather',
           description: "",
@@ -82,7 +56,27 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement",
           title: 'A simple inline announcement.',
           description: "",
-          section: "News",},{id: "teachings-introduction-to-machine-learning",
+          section: "News",},{id: "personal-随笔",
+          title: '随笔',
+          description: "",
+          section: "Personal",handler: () => {
+              window.location.href = "/personal/2021-04-30-scribbles/";
+            },},{id: "personal-随笔",
+          title: '随笔',
+          description: "",
+          section: "Personal",handler: () => {
+              window.location.href = "/personal/2025-11-26-scribbles/";
+            },},{id: "personal-happy-chinese-new-year",
+          title: 'Happy Chinese New Year',
+          description: "",
+          section: "Personal",handler: () => {
+              window.location.href = "/personal/2026-02-11-happy-chinese-new-year/";
+            },},{id: "personal-脱口秀与相声",
+          title: '脱口秀与相声',
+          description: "something off the top of my head.",
+          section: "Personal",handler: () => {
+              window.location.href = "/personal/2026-02-18-standup-xiangsheng/";
+            },},{id: "teachings-introduction-to-machine-learning",
           title: 'Introduction to Machine Learning',
           description: "This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.",
           section: "Teachings",handler: () => {
