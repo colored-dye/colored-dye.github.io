@@ -72,7 +72,7 @@ $$
 D_{\Phi}^+ = \frac{1}{\vert y^{b*} \vert} \sum_{k=1}^{\vert y^{b*} \vert} D_{\mathrm{JS}}\left( \mathbf{p}_{\Phi} \left( \cdot \vert y^{b*}_{\lt k}, b; \mathbf{h} \leftarrow \Phi^{\mathrm{DII}}(c) \right) \big\| \mathbf{p} \left( \cdot \vert y^{b*} _{\lt k},c \right) \right),
 $$
 
-where $D_{\mathrm{JS}}(\cdot \| \cdot)$ is Jensen-Shannon divergence.
+where $D_{\mathrm{JS}}(\cdot \Vert \cdot)$ is Jensen-Shannon divergence.
 
 The problem is that, when conditioned with counterfactual inputs $c$, the un-intervened probabilities on intervened counterfactual labels $y^{b\*}$, i.e. $p(y^{b\*} \vert c)$, is low since $y^{b\*} \neq y^c$.
 As a result, the intervened counterfactual label does not provide sufficient signal to optimize for alignment and the resulting intervention does not correspond to features of the target causal variable.
