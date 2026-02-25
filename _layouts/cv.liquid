@@ -18,7 +18,6 @@ layout: default
     <h1 class="post-title">
       {{ page.title }}
       {% if page.cv_pdf %}
-        <div class="float-right">
         <a
           {% if page.cv_pdf contains '://' %}
             href="{{ page.cv_pdf }}"
@@ -27,12 +26,13 @@ layout: default
           {% endif %}
           target="_blank"
           rel="noopener noreferrer"
+          class="float-right"
         >
           <i class="fa-solid fa-file-pdf"></i>
           <span class="ml-1 cv-lang" style="font-size: 20px;">English</span>
         </a>
       {% endif %}
-      <span class="ml-1 cv-lang">/</span>
+      <span class="ml-1 cv-lang float-right">/</span>
       {% if page.cv_pdf_CN %}
         <a
           {% if page.cv_pdf_CN contains '://' %}
@@ -48,7 +48,6 @@ layout: default
           <span class="ml-1 cv-lang" style="font-size: 20px;">Chinese</span>
         </a>
       {% endif %}
-        </div>
     </h1>
     {% if page.description %}
       <p class="post-description">{{ page.description }}</p>
