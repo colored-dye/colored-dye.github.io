@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-concept-distributed-alignment-search-for-faithful-representation-steering",
+        },{id: "post-a-personal-review-of-po-algorithms",
+        
+          title: "A Personal Review of *PO Algorithms",
+        
+        description: "a review of Policy Optimization or Preference Optimization algorithms.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/grpo/";
+          
+        },
+      },{id: "post-concept-distributed-alignment-search-for-faithful-representation-steering",
         
           title: "Concept Distributed Alignment Search for Faithful Representation Steering",
         
