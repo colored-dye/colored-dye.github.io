@@ -13,11 +13,10 @@ If you found this useful, please cite this as:
 
 {% capture citation_code -%}
 ```bibtex
-@article{ {{- site.last_name | downcase }}{{ page.date | date: "%Y" }}{{ page.title | truncatewords: 1, "" | downcase }},
+@misc{ {{- site.last_name | downcase }}{{ page.date | date: "%Y" }}{{ page.title | truncatewords: 1, "" | downcase }},
   title   = { {{- page.title -}} },
   author  = { {{- site.last_name }}, {{ site.first_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif -%}},
-  {%- if site.title != 'blank' %}
-  journal = { {{- site.title -}} },{% endif %}
+  note    = {Blog post},
   year    = { {{- page.date | date: "%Y" -}} },
   month   = { {{- page.date | date: "%b" -}} },
   url     = { {{- site.url }}{{ page.url -}} }
