@@ -2,7 +2,7 @@
 layout: distill
 title: Concept Distributed Alignment Search for Faithful Representation Steering
 date: 2026-02-18 19:00:00 +0800
-last_updated: 2026-02-19 12:00:00 +0800
+last_updated: 2026-03-15 12:00:00 +0800
 description: discussions regarding our recent work on faithful representation steering.
 tags: steering LLM
 categories: tech
