@@ -32,6 +32,33 @@ _styles: >
 In this blog post, I would like to extend upon our recent work, <a href="https://arxiv.org/abs/2602.05234">Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions</a>, especially regarding the conceptual nature of our method, *Concept Distributed Alignment Search (CDAS)*.
 
 
+## A sober look beyond mech interp: CDAS as self-distillation from context
+
+A number of recent papers have studied the topic of on-policy *self-distillation*<d-cite key="yang2024self,shenfeld2026self,zhao2026self"></d-cite> and *context distillation*<d-cite key="ye2026policy,askell2021general"></d-cite>.
+These works adopt similar approaches, where the model is trained using supervision signal from itself under the task-specific instruction context.
+Let the context be $c$ and $\mathbb{D}$ be a general divergence notation (e.g., reverse KL, generalized JSD), then on-policy self-distillation is as follows:
+
+$$
+\mathcal{L}(\theta) = \underset{(x, c) \sim \mathcal{D}, y \sim \pi_\theta(\cdot \vert x)}{\mathbb{E}} \left[
+  \mathbb{D} \left(\pi_\theta(y \vert x) \Vert \pi_\theta(y \vert x, c) \right)
+\right].
+$$
+
+This topic is particularly intriguing for its bootstrapping nature:
+instead of using an external, domain-specific teacher, a simple piece of task-specific context is sufficient for the policy model itself to serve as a competent self-teacher.
+The self-distillation loop allows for continual self-improvement, until the process hits some ceiling that is possible bound by the model's pretraining knowledge capacity or reasoning capabilities.
+
+On hindsight, I find that our representation steering method could be alternatively positioned as *context distillation*:
+the concept-specific steering instruction is distilled into the steering vector via a distribution-matching objective--except that we use JSD loss rather than reverse KL loss.
+This resonates with previous findings of *general knowledge distillation* where generalized JSD sometimes outperforms reverse KL<d-cite key="agarwal2024policy"></d-cite>.
+However, our method is off-policy since the steered responses are sampled from a different model from the policy model.
+
+This perspective connects our findings from the findings of recent works on self-distillation and context distillation.
+In general, self-distillation is found to facilitate continual learning<d-cite key="yang2024self,shenfeld2026self"></d-cite>.
+This finding is consistent with the findings from our paper: CDAS is able to achieve effective steering while maintaining general model capabilities.
+
+
+
 ## Early exploration and misconception--theoretical discussions
 
 In early 2025, I was deeply intrigued by the causal abstraction branch of mechanistic interpretability and was working on improving *Distributed Alignment Search (DAS)* <d-cite key="geiger2024finding,wu2023interpretability,geiger2025causal"></d-cite>, such that the resulting causal abstraction technique is able to learn from probabilistic intricacies.
@@ -279,6 +306,7 @@ Both the positive and negative empirical results support our previous analysis t
 
 **Takeaway.**
 CDAS can only be used to align neural representations with high-level variables directly related to output content or properties of outputs, *not* the internal causal variables of high-level causal models.
+
 
 
 ## Acknowledgement

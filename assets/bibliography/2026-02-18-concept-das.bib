@@ -54,3 +54,46 @@
   pages     = {17468--17493},
   abstract  = {Entity tracking is essential for complex reasoning. To perform in-context entity tracking, language models (LMs) must bind an entity to its attribute (e.g., bind a container to its content) to recall attribute for a given entity. For example, given a context mentioning ``The coffee is in Box Z, the stone is in Box M, the map is in Box H'', to infer ``Box Z contains the coffee'' later, LMs must bind ``Box Z'' to ``coffee''. To explain the binding behaviour of LMs, existing research introduces a Binding ID mechanism and states that LMs use a abstract concept called Binding ID (BI) to internally mark entity-attribute pairs. However, they have not directly captured the BI information from entity activations. In this work, we provide a novel view of the Binding ID mechanism by localizing the BI information. Specifically, we discover that there exists a low-rank subspace in the hidden state (or activation) of LMs, that primarily encodes BIs. To identify this subspace, we take principle component analysis as our first attempt and it is empirically proven to be effective. Moreover, we also discover that when editing representations along directions in the subspace, LMs tend to bind a given entity to other attributes accordingly. For example, by patching activations along the BI encoding direction we can make the LM to infer ``Box Z contains the stone'' and ``Box Z contains the map''.}
 }
+
+@inproceedings{yang2024self,
+  title={Self-distillation bridges distribution gap in language model fine-tuning},
+  author={Yang, Zhaorui and Pang, Tianyu and Feng, Haozhe and Wang, Han and Chen, Wei and Zhu, Minfeng and Liu, Qian},
+  booktitle={Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages={1028--1043},
+  year={2024}
+}
+
+@article{shenfeld2026self,
+  title={Self-Distillation Enables Continual Learning},
+  author={Shenfeld, Idan and Damani, Mehul and H{\"u}botter, Jonas and Agrawal, Pulkit},
+  journal={arXiv preprint arXiv:2601.19897},
+  year={2026}
+}
+
+@article{ye2026policy,
+  title={On-policy context distillation for language models},
+  author={Ye, Tianzhu and Dong, Li and Wu, Xun and Huang, Shaohan and Wei, Furu},
+  journal={arXiv preprint arXiv:2602.12275},
+  year={2026}
+}
+
+@article{zhao2026self,
+  title={Self-Distilled Reasoner: On-Policy Self-Distillation for Large Language Models},
+  author={Zhao, Siyan and Xie, Zhihui and Liu, Mengchen and Huang, Jing and Pang, Guan and Chen, Feiyu and Grover, Aditya},
+  journal={arXiv preprint arXiv:2601.18734},
+  year={2026}
+}
+
+@inproceedings{agarwal2024policy,
+  title={On-policy distillation of language models: Learning from self-generated mistakes},
+  author={Agarwal, Rishabh and Vieillard, Nino and Zhou, Yongchao and Stanczyk, Piotr and Garea, Sabela Ramos and Geist, Matthieu and Bachem, Olivier},
+  booktitle={The twelfth international conference on learning representations},
+  year={2024}
+}
+
+@article{askell2021general,
+  title={A general language assistant as a laboratory for alignment},
+  author={Askell, Amanda and Bai, Yuntao and Chen, Anna and Drain, Dawn and Ganguli, Deep and Henighan, Tom and Jones, Andy and Joseph, Nicholas and Mann, Ben and DasSarma, Nova and others},
+  journal={arXiv preprint arXiv:2112.00861},
+  year={2021}
+}
