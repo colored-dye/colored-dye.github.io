@@ -58,6 +58,17 @@ In general, self-distillation is found to facilitate continual learning<d-cite k
 This finding is consistent with the findings from our paper: CDAS is able to achieve effective steering while maintaining general model capabilities.
 
 
+## Limitations
+
+On hindsight, I notice limitations that our current paper fails to cover.
+One important angle is that CDAS relies on counterfactual steering prompts, where we instruct the model to incorporate a certain concept.
+This approach might not be feasible for **concepts that cannot be concisely verbalized**.
+This point did not come to mind since we focus on SAE concepts with clean, post-hoc descriptions.
+There might be scenarios where a concept cannot be neatly expressed with words, but can be described via input-output interactions.
+These scenarios are reminiscent of fine-tuning, where abstract, task-solving methodology can only be inducted from numerous input-output demonstrations.
+
+We would add these discussions to arXiv preprint version.
+
 
 ## Early exploration and misconception--theoretical discussions
 
