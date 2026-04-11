@@ -46,7 +46,7 @@ $$
 
 This topic is particularly intriguing for its bootstrapping nature:
 instead of using an external, domain-specific teacher, a simple piece of task-specific context is sufficient for the policy model itself to serve as a competent self-teacher.
-The self-distillation loop allows for continual self-improvement, until the process hits some ceiling that is possible bound by the model's pretraining knowledge capacity or reasoning capabilities.
+The self-distillation loop allows for continual self-improvement, until the process hits some ceiling that is possibly bounded by the model's knowledge capacity or reasoning capabilities acquired during pretraining.
 
 On hindsight, I find that our representation steering method could be alternatively positioned as *context distillation*:
 the concept-specific steering instruction is distilled into the steering vector via a distribution-matching objective--except that we use JSD loss rather than reverse KL loss.
