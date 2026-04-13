@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-a-personal-review-of-po-algorithms",
+        },{id: "post-claude-mythos-preview-system-card",
+        
+          title: "Claude Mythos Preview System Card",
+        
+        description: "system card of Claude Mythos Preview",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/claude-mythos/";
+          
+        },
+      },{id: "post-a-personal-review-of-po-algorithms",
         
           title: "A Personal Review of *PO Algorithms",
         
