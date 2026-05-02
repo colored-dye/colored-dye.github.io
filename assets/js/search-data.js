@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-claude-mythos-preview-system-card",
+        },{id: "post-weak-to-strong-alignment-transfer",
+        
+          title: "Weak-to-Strong Alignment Transfer",
+        
+        description: "transfer task alignment from previously trained but weaker models to new but stronger foundational model to kickstart post-training.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/weak-to-strong.md/";
+          
+        },
+      },{id: "post-claude-mythos-preview-system-card",
         
           title: "Claude Mythos Preview System Card",
         
