@@ -11,5 +11,9 @@
   color: "#3e8eca"
 
 "ACM MM":
-  url: https://2026.acmmm.org/
+  url: https://acmmm.org/
   color: "#fbd339"
+
+"ICML":
+  url: http://icml.cc/
+  color: "#201d1d"

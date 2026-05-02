@@ -1,0 +1,61 @@
+---
+layout: distill
+title: Weak-to-Strong Alignment Transfer
+date: 2026-04-13 14:00:00 +0800
+last_updated: 2026-04-13 14:00:00 +0800
+description: transfer task alignment from previously trained but weaker models to new but stronger foundational model to kickstart post-training.
+tags: alignment LLM
+categories: tech
+bibliography: 2026-04-29-weak-to-strong.bib
+related_posts: false
+giscus_comments: true
+featured: true
+toc: true
+citation: true
+
+_styles: >
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+  .image-item img {
+    object-fit: cover;
+    display: block; 
+  }
+  .caption {
+    margin-top: -1.0rem !important;
+    margin-bottom: 1.6rem !important;
+  }
+---
+
+## Introduction
+
+Large language models (LLMs) possess strong reasoning capabilities and broad general knowledge, yet they remain imperfect across domains, often lacking the specialized capabilities required for specific tasks.
+Post-training is therefore essential to align them with target tasks and desired behaviors~\citep{bai2022training, ouyang2022training, zhou2023lima}.
+Prevalent paradigms for post-training include \textit{supervised fine-tuning (SFT)} and \textit{reinforcement learning (RL)}.
+However, SFT requires large quantities of high-quality labeled data and often memorizes patterns rather than learning generalizable reasoning strategies~\citep{chu2025sft}.
+It also suffers from catastrophic forgetting in multi-task settings, where adapting to new tasks degrades performance on earlier ones~\citep{shenfeld2025rl}.
+
+RL offers a more flexible alternative but suffers from significant inefficiency, primarily due to its \textbf{inability to effectively leverage external knowledge}.
+Specifically, traditional RL methods, such as \textit{group relative policy optimization (GRPO)}~\citep{shao2024deepseekmath}, rely on sparse outcome-level rewards, providing feedback only after full solution generation and thus leading to inefficient credit assignment~\citep{sutton1998reinforcement,wen2026reinforcement}.
+Recent RL approaches like \textit{process reinforcement through implicit rewards (PRIME)}~\citep{cui2025process} mitigate this reward sparsity issue by deriving dense token-level rewards via log-probability differences between a reward model and its reference.
+However, such methods still cannot incorporate external domain experts, as they operate in a \textit{symmetric setting} where the reward model and policy share the same base model.
+This constraint necessitates maintaining and jointly updating a large reward model, resulting in substantial computational overhead.
+As a result, RL-based alignment of large models remains prohibitively expensive, often requiring tens of thousands of GPU hours~\citep{yang2025qwen3}.
+Furthermore, multi-task learning compounds these challenges.
+Sequential RL on multiple tasks can lead to catastrophic forgetting~\citep{korbak2022reinforcement,zeng2026glm} while joint training with mixed rewards could suffer from gradient interference~\citep{wu2025imbalanced,wang2026mix}.
+We believe these challenges call for a \textbf{bootstrapping paradigm for post-training}, where previously aligned but weaker models are reused as supervision to efficiently transfer domain-specific capabilities into strong foundation models.
+This allows new models to inherit alignment from prior models as ``kickstart'' without costly RL from scratch, significantly reducing the time and compute needed for post-training.
+In this work, we aim to address a fundamental question: \textbf{\textit{How can we transfer domain-specific capabilities from weaker, previously aligned models to stronger general models in a scalable and effective manner?}}
+
+
+An emerging alternative, \textit{on-policy distillation (OPD)},
+enables students to learn from their own mistakes under teacher supervision,
+provides dense token-level feedback while incorporating external knowledge priors
+and prevents forgetting in multi-task setups~\citep{agarwal2024onpolicy,gu2024minillm,lu2025onpolicydistillation}.
+By combining the exploration benefits of on-policy learning with the dense supervision of distillation, OPD overcomes reliance on large-scale annotated data and improves training efficiency, and has been shown to support multi-teacher capability integration without catastrophic forgetting~\citep{lu2025onpolicydistillation,yang2026learning}.
+However, existing OPD techniques are primarily designed for \textit{strong-to-weak} or \textit{peer distillation}, where the teacher is at least as capable as the student.
+This assumption breaks down in more practical settings where no stronger teacher is available.
+Instead, one must transfer knowledge from weaker domain-specific models to a strong general model—a paradigm known as \textit{weak-to-strong generalization (W2SG)}~\citep{burns2024weak}.
+

@@ -1,3 +1,35 @@
+@inproceedings{bao2026towards,
+  title     = {Towards Steering without Sacrifice: Principled Training of Steering Vectors for Prompt-only Interventions},
+  author    = {Bao, Yuntai and Li, Qinfeng and Yu, Xinyan and Zhang, Xuhong and Su, Ge and Zhang, Wenqi and Yan, Liu and Weng, Haiqin and Yin, Jianwei},
+  booktitle = {Forty-third International Conference on Machine Learning},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=AaT3liS5PE},
+  abstract = {Recently, steering vectors (SVs) have emerged as an effective and lightweight approach to steer behaviors of large language models (LLMs), among which fine-tuned SVs are more effective than optimization-free ones.
+However, current approaches to fine-tuned SVs suffer from two limitations.
+First, they require careful selection of steering factors on a per-SV basis to balance steering effectiveness and generation quality at inference time.
+Second, they operate as full-sequence SVs (FSSVs), which can sacrifice generation quality regardless of factor selection due to excessive intervention on the model generation process.
+To address the first limitation, we propose joint training of steering factors and directions, such that post-hoc factor selection is no longer required.
+Using neural network scaling theory, we find that moderately large initialization sizes and learning rates for steering factors are essential for stability and efficiency of joint training.
+To tackle the second limitation, we draw inspiration from representation fine-tuning and introduce Prompt-only SV (PrOSV), an SV that intervenes only on a few prompt tokens.
+Our empirical results show that PrOSV outperforms traditional FSSVs on AxBench when using our joint training scheme.
+We also find that PrOSV achieves a better tradeoff between general model utility and adversarial robustness than FSSV.},
+  selected    = {true},
+  bibtex_show = {true},
+  abbr        = {ICML},
+}
+
+@inproceedings{li2026praglocker,
+  title     = {PragLocker: Protecting Agent Intellectual Property in Untrusted Deployments via Non-Portable Prompts},
+  author    = {Li, Qinfeng and Bao, Yuntai and Hu, Jianghui and Zhang, Wenqi and Chen, Jintao and Zhu, Huifeng and Jin, Yier and Zhang, Xuhong},
+  booktitle = {Forty-third International Conference on Machine Learning},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=PWhmZ04OTr},
+  abstract = {LLM agents rely on prompts to implement task-specific capabilities based on foundation LLMs, making agent prompts valuable intellectual property. However, in untrusted deployments, adversaries can copy and reuse these prompts with other proprietary LLMs, causing economic losses. To protect these prompts, we identify four key challenges: proactivity, runtime protection, usability, and non-portability that existing approaches fail to address. We present PragLocker, a prompt protection scheme that satisfies these requirements. PragLocker constructs function-preserving obfuscated prompts by anchoring semantics with code symbols and then using target-model feedback to inject noise, yielding prompts that only work on the target LLM. Experiments across multiple agent systems, datasets, and foundation LLMs show that PragLocker substantially reduces cross-LLM portability, maintains target performance, and remains robust against adaptive attackers.},
+  selected    = {true},
+  bibtex_show = {true},
+  abbr        = {ICML},
+}
+
 @article{bao2026faithful,
   title       = {Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions},
   author      = {Bao, Yuntai and Zhang, Xuhong and Chen, Jintao and Su, Ge and Cai, Yuxiang and Peng, Hao and Sun, Bing and Weng, Haiqin and Yan, Liu and Yin, Jianwei},
