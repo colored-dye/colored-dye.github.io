@@ -1,0 +1,53 @@
+@inproceedings{li2021prefix,
+    title = "Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+    author = "Li, Xiang Lisa  and
+      Liang, Percy",
+    editor = "Zong, Chengqing  and
+      Xia, Fei  and
+      Li, Wenjie  and
+      Navigli, Roberto",
+    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
+    month = aug,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.acl-long.353/",
+    doi = "10.18653/v1/2021.acl-long.353",
+    pages = "4582--4597",
+    abstract = "Fine-tuning is the de facto way of leveraging large pretrained language models for downstream tasks. However, fine-tuning modifies all the language model parameters and therefore necessitates storing a full copy for each task. In this paper, we propose prefix-tuning, a lightweight alternative to fine-tuning for natural language generation tasks, which keeps language model parameters frozen and instead optimizes a sequence of continuous task-specific vectors, which we call the prefix. Prefix-tuning draws inspiration from prompting for language models, allowing subsequent tokens to attend to this prefix as if it were ``virtual tokens''. We apply prefix-tuning to GPT-2 for table-to-text generation and to BART for summarization. We show that by learning only 0.1{\%} of the parameters, prefix-tuning obtains comparable performance in the full data setting, outperforms fine-tuning in low-data settings, and extrapolates better to examples with topics that are unseen during training."
+}
+
+@article{wu2024reft,
+  title={Reft: Representation finetuning for language models},
+  author={Wu, Zhengxuan and Arora, Aryaman and Wang, Zheng and Geiger, Atticus and Jurafsky, Dan and Manning, Christopher D and Potts, Christopher},
+  journal={Advances in Neural Information Processing Systems},
+  volume={37},
+  pages={63908--63962},
+  year={2024}
+}
+
+@article{todd2023function,
+  title={Function vectors in large language models},
+  author={Todd, Eric and Li, Millicent L and Sharma, Arnab Sen and Mueller, Aaron and Wallace, Byron C and Bau, David},
+  journal={arXiv preprint arXiv:2310.15213},
+  year={2023}
+}
+
+@inproceedings{hendel2023context,
+    title = "In-Context Learning Creates Task Vectors",
+    author = "Hendel, Roee  and
+      Geva, Mor  and
+      Globerson, Amir",
+    editor = "Bouamor, Houda  and
+      Pino, Juan  and
+      Bali, Kalika",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2023",
+    month = dec,
+    year = "2023",
+    address = "Singapore",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.findings-emnlp.624/",
+    doi = "10.18653/v1/2023.findings-emnlp.624",
+    pages = "9318--9333",
+    abstract = "In-context learning (ICL) in Large Language Models (LLMs) has emerged as a powerful new learning paradigm. However, its underlying mechanism is still not well understood. In particular, it is challenging to map it to the ``standard' machine learning framework, where one uses a training set $S$ to find a best-fitting function $f(x)$ in some hypothesis class. Here we make progress on this problem by showing that the functions learned by ICL often have a very simple structure: they correspond to the transformer LLM whose only inputs are the query $x$ and a single ``task vector' calculated from the training set. Thus, ICL can be seen as compressing $S$ into a single task vector $\boldsymbol{\theta}(S)$ and then using this task vector to modulate the transformer to produce the output. We support the above claim via comprehensive experiments across a range of models and tasks."
+}

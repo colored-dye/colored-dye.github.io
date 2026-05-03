@@ -26,9 +26,11 @@ latest_posts:
 ---
 
 I am Yuntai Bao, a third-year doctoral student at School of Software Technology, Zhejiang University, advised by <a href="https://scholar.google.com/citations?user=bWLpm3sAAAAJ">Xuhong Zhang</a>.
-My research interest includes <a href="https://arxiv.org/abs/2404.14082">mechanistic interpretability (mech interp), AI safety</a>,
-and <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems</a>.
-I have experiences in [training data attribution](https://arxiv.org/abs/2505.05017), [model probes](https://arxiv.org/abs/2506.00823) and [steering vectors](https://arxiv.org/abs/2602.05234).
-Currently, I am committed to <a href="https://www.alignmentforum.org/posts/StENzDcD3kpfGJssR/a-pragmatic-vision-for-interpretability">pragmatic interpretability</a>--to enable effective and efficient model control via mech interp.
+My research interest includes
+<a href="https://arxiv.org/abs/2404.14082">mechanistic interpretability (mech interp), AI safety</a>,
+<a href="https://arxiv.org/abs/2512.22382">neural network learning dynamics</a>
+as well as <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems</a>.
+I have experiences in [steering vectors](https://arxiv.org/abs/2602.05234), [model probes](https://arxiv.org/abs/2506.00823) and [training data attribution](https://arxiv.org/abs/2505.05017), .
+Currently, I am committed to <a href="https://www.alignmentforum.org/posts/StENzDcD3kpfGJssR/a-pragmatic-vision-for-interpretability">pragmatic interpretability</a> in order to enable effective and efficient (compute & data) model control via mech interp.
 
 Please feel free to reach out~

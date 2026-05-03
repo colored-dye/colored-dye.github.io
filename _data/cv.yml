@@ -4,7 +4,7 @@ cv:
   email: baoyuntai@outlook.com
   location: Zhejiang, China
   image: ""
-  summary: I am committed to achieving effective and efficient model control via mechanistic interpretability.
+  summary: My research interest includes mechanistic interpretability (mech interp), AI safety, neural network learning dynamics as well as general principles of ML systems. Currently I am committed to achieving effective and efficient model control via mechanistic interpretability.
 
   # social_networks:
   #   - network: X
@@ -109,6 +109,22 @@ cv:
     #     summary: Awarded for outstanding scientific achievement
 
     Publications:
+      - title: "Towards Steering without Sacrifice: Principled Training of Steering Vectors for Prompt-only Interventions"
+        authors:
+          - Yuntai Bao
+        publisher: ICML 2026
+        releaseDate: 2026-05-01
+        url: https://openreview.net/forum?id=AaT3liS5PE
+        summary: We propose a principled framework for training steering vectors that jointly learns direction and strength, eliminating post-hoc tuning. We further introduce Prompt-Only SV, achieving stronger control of LLMs while better preserving performance and robustness.
+
+      - title: "PragLocker: Protecting Agent Intellectual Property in Untrusted Deployments via Non-Portable Prompts"
+        authors:
+          - Yuntai Bao
+        publisher: ICLR 2026
+        releaseDate: 2026-05-01
+        url: https://openreview.net/forum?id=PWhmZ04OTr
+        summary: We propose PragLocker, a black-box method that protects LLM agent prompts by transforming them into obfuscated, model-specific forms that remain functional on the target model but fail on others. Experiments show it effectively prevents prompt reuse across LLMs while preserving task performance and robustness.
+
       - title: Faithful Bi-Directional Model Steering via Distribution Matching and Distributed Interchange Interventions
         authors:
           - Yuntai Bao
