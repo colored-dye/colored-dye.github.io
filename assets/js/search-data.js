@@ -18,7 +18,7 @@ ninja.data = [{
           },
         },{id: "nav-publications",
           title: "publications",
-          description: "",
+          description: "* indicates equal contribution",
           section: "Navigation",
           handler: () => {
             window.location.href = "/publications/";
@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-claude-mythos-preview-system-card",
+        },{id: "post-training-prompt-only-steering-vectors-in-a-principled-manner",
+        
+          title: "Training Prompt-only Steering Vectors in a Principled Manner",
+        
+        description: "our recent work on prompt-only SV and SV training dynamics.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/prompt-only-sv/";
+          
+        },
+      },{id: "post-claude-mythos-preview-system-card",
         
           title: "Claude Mythos Preview System Card",
         
