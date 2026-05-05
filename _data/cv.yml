@@ -40,8 +40,7 @@ cv:
         studyType: B.Eng.
         start_date: 2019
         end_date: 2023
-        highlights:
-          - Top 25% of the class (9/38).
+        # highlights:
 
     # Experience:
     #   - company: Institute for Advanced Study, Princeton University

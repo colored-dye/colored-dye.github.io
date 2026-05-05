@@ -25,7 +25,7 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am Yuntai Bao, a third-year doctoral student at School of Software Technology, Zhejiang University, advised by <a href="https://scholar.google.com/citations?user=bWLpm3sAAAAJ">Xuhong Zhang</a>.
+This is Yuntai Bao, a third-year doctoral student at School of Software Technology, Zhejiang University, advised by <a href="https://scholar.google.com/citations?user=bWLpm3sAAAAJ">Xuhong Zhang</a>.
 My research interest includes
 <a href="https://arxiv.org/abs/2404.14082">mechanistic interpretability (mech interp), AI safety</a>,
 <a href="https://arxiv.org/abs/2512.22382">neural network learning dynamics</a>
