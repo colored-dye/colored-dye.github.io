@@ -11,7 +11,7 @@ related_posts: false
 giscus_comments: true
 featured: false
 toc: true
-citation: true
+citation: false
 
 _styles: >
   .grid-container {
