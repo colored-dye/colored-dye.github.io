@@ -209,3 +209,15 @@ Therefore rank-1 SV-based approaches likely fail to embed new task-specific know
 <div class="caption" id="fine_tuning">
   Table 2. Fine-tuning results on BoolQ with Llama-7B.
 </div>
+
+
+
+## Future directions
+
+In this work and our previous work, we focus on concept-centric steering, i.e. to incorporate or suppress a concept in model generations.
+We are actively exploring the possibility for more information bandwidth beyond concepts, e.g., memorization.
+Memorization of steering vectors has been tentatively explored in the Appendix of ReFT paper<d-cite key="wu2024reft"></d-cite>, where they found that a single clamping SV can memorize up to 2K tokens of the book *Alice's Adventures in Wonderland*.
+The representation steering approach to memory has several appealing properties:
+(a) unlike memory token approaches like ICAE and MemGen, it does not occupy input slots;
+(b) it naturally allows for calibrating the tradeoff between injected external knowledge and parametric knowledge since SV is in-place editing, unlike ICL-based approaches that regard knowledge as context;
+(c) it is not bounded by context window size.
