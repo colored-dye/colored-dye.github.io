@@ -6,7 +6,7 @@ title: Training Prompt-only Steering Vectors in a Principled Manner
 #     affiliations:
 #       name: Zhejiang University
 date: 2026-05-03 12:00:00 +0800
-last_updated: 2026-05-05 12:00:00 +0800
+last_updated: 2026-05-06 12:00:00 +0800
 description: our recent work on prompt-only SV and SV training dynamics.
 tags: steering LLM
 categories: tech
@@ -180,7 +180,7 @@ Furthermore, we compare cosine similarity between LoReFT output projection and P
 
 The findings above strongly indicate that PrOSV and ReFT work via the same mechanisms, and their similarity could be explained by their intervention locations.
 The models we use are instruction-tuned models with chat templates.
-When intervening on prefix/suffix tokens, we are actually intervening on non-semantic filler tokens with no actual content.
+When intervening on prefix/suffix tokens, we are actually intervening on non-semantic boilerplate tokens with no actual content.
 For example, Gemma2 chat template is `<bos><start_of_turn>\nuser\n{instruction}<end_of_turn>\n<start_of_turn>\nmodel\n`
 This means that even when we steer with the input-aware ReFT, the input representations for ReFT are basically the same across prompts.
 As a result, ReFT is almost input-agnostic and effectively an SV.

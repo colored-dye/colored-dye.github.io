@@ -32,5 +32,12 @@ My research interest includes
 as well as <a href="https://arxiv.org/abs/2308.03296">general principles of ML systems</a>.
 I have experiences in [steering vectors](https://arxiv.org/abs/2602.05234), [model probes](https://arxiv.org/abs/2506.00823) and [training data attribution](https://arxiv.org/abs/2505.05017), .
 Currently, I am committed to <a href="https://www.alignmentforum.org/posts/StENzDcD3kpfGJssR/a-pragmatic-vision-for-interpretability">pragmatic interpretability</a> in order to enable effective and efficient (compute & data) model control via mech interp.
+Beyond interpretability, I am also working on LLM post-training and LLM-based agents with memory.
 
 Please feel free to reach out~
+
+
+<div style="width: 500px; height: 60px; border: 3px solid #e9bfea; border-radius: 15px; text-align: center;">
+I am currently seeking research internship opportunities. If my background aligns with your needs, I would be delighted to connect.
+</div>
+
