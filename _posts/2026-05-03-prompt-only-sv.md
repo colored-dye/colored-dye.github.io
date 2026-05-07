@@ -32,7 +32,7 @@ _styles: >
     margin-bottom: 1.6rem !important;
     text-align: left;
   }
-  mark {
+  .mark {
     background-color: lightpink;
     color: black;
   }
@@ -44,6 +44,8 @@ Several readers (advisor, fellow students, reviewers) have complained that theor
 However, I hesitate to put informal interpretations into a research paper.
 This blog post is meant to contain such informal but intuitive stuff aiming to help readers understand what we were trying to state through definitions and equations.
 
+
+
 ## TL;DR
 
 In this post, I argue that:
@@ -51,6 +53,7 @@ In this post, I argue that:
 - Stochastic gradient descent is not the panacea to all optimization problems.
 - Neural network scaling theory is a useful theoretical tool to predict training dynamics.
 - Rank-1 prompt-only intervention is sufficient for concept-based steering, but not for complicated fine-tuning tasks.
+
 
 
 ## Introduction
@@ -184,6 +187,7 @@ When intervening on prefix/suffix tokens, we are actually intervening on non-sem
 For example, Gemma2 chat template is `<bos><start_of_turn>\nuser\n{instruction}<end_of_turn>\n<start_of_turn>\nmodel\n`
 This means that even when we steer with the input-aware ReFT, the input representations for ReFT are basically the same across prompts.
 As a result, ReFT is almost input-agnostic and effectively an SV.
+
 
 
 ## PrOSV for fine-tuning?

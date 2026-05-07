@@ -37,7 +37,7 @@ Beyond interpretability, I am also working on LLM post-training and LLM-based ag
 Please feel free to reach out~
 
 
-<div style="width: 500px; height: 60px; border: 3px solid #e9bfea; border-radius: 15px; text-align: center;">
+<div style="width: 500px; height: 60px; border: 3px solid #e9bfea; border-radius: 15px; display: flex; place-items: center; padding-left: 10px; justify-content: center; margin-left: auto; margin-right: auto;">
 I am currently seeking research internship opportunities. If my background aligns with your needs, I would be delighted to connect.
 </div>
 
