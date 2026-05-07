@@ -6,7 +6,7 @@ title: Training Prompt-only Steering Vectors in a Principled Manner
 #     affiliations:
 #       name: Zhejiang University
 date: 2026-05-03 12:00:00 +0800
-last_updated: 2026-05-06 12:00:00 +0800
+last_updated: 2026-05-07 12:00:00 +0800
 description: our recent work on prompt-only SV and SV training dynamics.
 tags: steering LLM
 categories: tech
@@ -39,7 +39,7 @@ _styles: >
 ---
 
 
-In this paper, we propose a principled training framework for *steering vectors (SVs)* and introduce *Prompt-Only Steering Vector (PrOSV)*.
+In [this paper](/assets/pdf/2026-05-03-prompt-only-sv/main.pdf), we propose a principled training framework for *steering vectors (SVs)* and introduce *Prompt-Only Steering Vector (PrOSV)*.
 Several readers (advisor, fellow students, reviewers) have complained that theoretical derivation on SV training dynamics is too dense and hard to read.
 However, I hesitate to put informal interpretations into a research paper.
 This blog post is meant to contain such informal but intuitive stuff aiming to help readers understand what we were trying to state through definitions and equations.
