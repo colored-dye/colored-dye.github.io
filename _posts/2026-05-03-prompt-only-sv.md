@@ -39,7 +39,7 @@ _styles: >
 ---
 
 
-In [this paper](/assets/pdf/2026-05-03-prompt-only-sv/main.pdf), we propose a principled training framework for *steering vectors (SVs)* and introduce *Prompt-Only Steering Vector (PrOSV)*.
+In [this paper](http://arxiv.org/arxiv/2605.05983), we propose a principled training framework for *steering vectors (SVs)* and introduce *Prompt-Only Steering Vector (PrOSV)*.
 Several readers (advisor, fellow students, reviewers) have complained that theoretical derivation on SV training dynamics is too dense and hard to read.
 However, I hesitate to put informal interpretations into a research paper.
 This blog post is meant to contain such informal but intuitive stuff aiming to help readers understand what we were trying to state through definitions and equations.
