@@ -16,7 +16,10 @@
   selected    = {true},
   bibtex_show = {true},
   abbr        = {ICML},
-  pdf         = {http://arxiv.org/pdf/2605.05983}
+  arxiv       = {2605.05983},
+  pdf         = {http://arxiv.org/pdf/2605.05983},
+  code        = {https://github.com/colored-dye/prosv},
+  blog        = {https://colored-dye.github.io/blog/2026/prompt-only-sv/}
 }
 
 @inproceedings{li2026praglocker,
@@ -29,6 +32,7 @@
   selected    = {true},
   bibtex_show = {true},
   abbr        = {ICML},
+  arxiv       = {2605.05974},
   pdf         = {https://arxiv.org/pdf/2605.05974}
 }
 
@@ -41,7 +45,10 @@
   selected    = {true},
   bibtex_show = {true},
   abbr        = {ICLR},
-  pdf         = {https://arxiv.org/pdf/2602.05234}
+  arxiv       = {2602.05234},
+  pdf         = {https://arxiv.org/pdf/2602.05234},
+  code        = {https://github.com/colored-dye/concept_das},
+  blog        = {https://colored-dye.github.io/blog/2026/concept-das/}
 }
 
 @inproceedings{bao2025scalable,
@@ -61,7 +68,9 @@
   selected    = {true},
   bibtex_show = {true},
   abbr        = {IJCAI},
-  pdf         = {https://arxiv.org/pdf/2505.05017}
+  arxiv       = {2505.05017},
+  pdf         = {https://arxiv.org/pdf/2505.05017},
+  code        = {https://github.com/colored-dye/multi_stage_influence_function}
 }
 
 @inproceedings{bao2025probing,
@@ -90,6 +99,7 @@
   selected    = {true},
   bibtex_show = {true},
   abbr        = {Findings of ACL},
+  arxiv       = {2506.00823},
   pdf         = {https://arxiv.org/pdf/2506.00823}
 }
 
@@ -101,5 +111,7 @@
   year      = {2022},
   abstract  = {Real-time music accompaniment generation has a wide range of applications in the music industry, such as music education and live performances. However, automatic real-time music accompaniment generation is still understudied and often faces a trade-off between logical latency and exposure bias. In this paper, we propose SongDriver, a real-time music accompaniment generation system without logical latency nor exposure bias. Specifically, SongDriver divides one accompaniment generation task into two phases: 1) The arrangement phase, where a Transformer model first arranges chords for input melodies in real-time, and caches the chords for the next phase instead of playing them out. 2) The prediction phase, where a CRF model generates playable multi-track accompaniments for the coming melodies based on previously cached chords. With this two-phase strategy, SongDriver directly generates the accompaniment for the upcoming melody, achieving zero logical latency. Furthermore, when predicting chords for a timestep, SongDriver refers to the cached chords from the first phase rather than its previous predictions, which avoids the exposure bias problem. Since the input length is often constrained under real-time conditions, another potential problem is the loss of long-term sequential information. To make up for this disadvantage, we extract four musical features from a long-term music piece before the current time step as global information. In the experiment, we train SongDriver on some open-source datasets and an original àiSong Dataset built from Chinese-style modern pop music scores. The results show that SongDriver outperforms existing SOTA (state-of-the-art) models on both objective and subjective metrics, meanwhile significantly reducing the physical latency.},
   abbr      = {ACM MM},
-  pdf       = {https://arxiv.org/pdf/2209.06054}
+  arxiv     = {2209.06054},
+  pdf       = {https://arxiv.org/pdf/2209.06054},
+  code      = {https://github.com/colored-dye/truthfulness_probe_generalization}
 }
