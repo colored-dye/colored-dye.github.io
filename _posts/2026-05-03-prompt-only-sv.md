@@ -6,7 +6,7 @@ title: Training Prompt-only Steering Vectors in a Principled Manner
 #     affiliations:
 #       name: Zhejiang University
 date: 2026-05-03 12:00:00 +0800
-last_updated: 2026-05-07 12:00:00 +0800
+last_updated: 2026-05-13 12:00:00 +0800
 description: our recent work on prompt-only SV and SV training dynamics.
 tags: steering LLM
 categories: tech
@@ -43,7 +43,7 @@ In [this paper](http://arxiv.org/arxiv/2605.05983), we propose a principled trai
 Several readers (advisor, fellow students, reviewers) have complained that theoretical derivation on SV training dynamics is too dense and hard to read.
 However, I hesitate to put informal interpretations into a research paper.
 This blog post is meant to contain such informal but intuitive stuff aiming to help readers understand what we were trying to state through definitions and equations.
-
+Beyond that, I also release results of several interesting side quests that are not included in the paper.
 
 
 ## TL;DR
