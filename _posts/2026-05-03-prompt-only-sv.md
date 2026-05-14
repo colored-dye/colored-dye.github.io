@@ -32,10 +32,6 @@ _styles: >
     margin-bottom: 1.6rem !important;
     text-align: left;
   }
-  .mark {
-    background-color: lightpink;
-    color: black;
-  }
 ---
 
 
