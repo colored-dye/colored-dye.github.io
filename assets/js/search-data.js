@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-training-prompt-only-steering-vectors-in-a-principled-manner",
+        },{id: "post-rubric-based-rewards-in-reinforcement-learning",
+        
+          title: "Rubric-based Rewards in Reinforcement Learning",
+        
+        description: "an informal review of RL with rubrics as rewards.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/rubrics-rl/";
+          
+        },
+      },{id: "post-training-prompt-only-steering-vectors-in-a-principled-manner",
         
           title: "Training Prompt-only Steering Vectors in a Principled Manner",
         
@@ -52,11 +63,11 @@ ninja.data = [{
             window.location.href = "/blog/2026/claude-mythos/";
           
         },
-      },{id: "post-a-personal-review-of-po-algorithms",
+      },{id: "post-a-personal-review-of-po-algorithms-for-reasoning-and-agentic-use-on-going",
         
-          title: "A Personal Review of *PO Algorithms",
+          title: "A Personal Review of *PO Algorithms for Reasoning and Agentic Use (on-going)",
         
-        description: "a review of Policy Optimization or Preference Optimization algorithms.",
+        description: "an informal review of Policy Optimization or Preference Optimization algorithms for LLM reasoning/agentic capabilities.",
         section: "Posts",
         handler: () => {
           
