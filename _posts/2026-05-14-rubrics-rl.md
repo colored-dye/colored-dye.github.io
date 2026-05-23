@@ -34,9 +34,15 @@ _styles: >
 
 If you have ever graded a student essay, you know a raw number alone — "6 out of 10" — tells you almost nothing useful about *why* the essay succeeded or failed. What actually helps is a *rubric*: a structured set of criteria like "supports claims with evidence," "clear thesis," or "avoids run-on sentences." Rubrics break a holistic judgment into interpretable, actionable dimensions.
 
-That same intuition is now reshaping how we train large language models (LLMs). A new wave of work proposes **rubric-based rewards** for reinforcement learning (RL): instead of feeding the model a single scalar score, we provide a set of human-readable criteria and score each one separately. The result is a richer, more interpretable, and often more reliable training signal — especially for the large swath of tasks where a binary "correct/incorrect" judgment simply does not apply.
+That same intuition is now reshaping how we train large language models (LLMs) — and the motivation runs deeper than pedagogical analogy. Alignment is fundamentally a *reward specification* problem. When we apply reinforcement learning (RL) to fine-tune a model, we are implicitly asking: *what does "better" mean?* The answer, operationalized as a reward function $R(\cdot)$, governs every gradient update. Get it right, and RL is a powerful engine for capability. Get it even slightly wrong, and [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart%27s_law) takes over: the model optimizes the *proxy*, not the *target*.
 
-This post walks through the motivation, the core ideas, and the recent papers pushing this direction forward.
+The dominant operationalization, RLHF, encodes $R(\cdot)$ through a scalar reward model trained on human preference pairs. This works surprisingly well in practice, but hides a structural tension. A scalar is a *lossy compression* of judgment — it collapses multidimensional assessments into a single number. That flattening discards the very information (which quality dimensions failed, by how much, and for what reasons) that would enable targeted, robust improvement. The result is *reward hacking*: policies discover high-scoring behaviors the reward model never anticipated, precisely because it encoded the right outcomes but not the right reasons.
+
+The rise of Generative Reward Models (GenRMs) and chain-of-thought (CoT) judges partially addresses the opacity problem — they at least verbalize why a response is good or bad. But as recent work shows, GenRMs can exhibit *deceptive alignment*: their stated reasoning can be inconsistent with human reasoning even when their final verdicts are correct. Transparency is not a solution if the stated reasoning is incoherent.
+
+**Rubric-based rewards** are a structural response to this challenge. The key move is to replace the holistic scalar judgment with a *vector* of independently scored, human-readable criteria. This makes evaluation *decomposed*, *auditable*, and *actionable* in ways a scalar cannot be. At the same time, rubrics are not a free lunch — they are still proxy objectives, subject to their own forms of gaming, quality degradation, and aggregation pitfalls. The research landscape in 2025–2026 reflects both the power of the paradigm and a growing, rigorous awareness of its failure modes: a maturation from "rubrics work" to "rubrics work under these conditions and fail under these others."
+
+This post traces that arc: from the foundational formulation, through scaling, efficiency, and joint optimization innovations, into principled theoretical grounding, and finally into boundary conditions and diagnostic frameworks.
 
 ## Background: The Reward Problem in RL for LLMs
 
@@ -102,9 +108,19 @@ This design has several attractive properties:
 
 The general paradigm, coined **Rubrics-as-Rewards (RaR)**, was articulated in Gunjal et al.<d-cite key="gunjal2026rubrics"></d-cite>, and a flurry of papers in late 2025 and early 2026 have been building on it rapidly.
 
+## The Rubric-Based Landscape: A Bird's Eye ViewThe transition toward rubric-based RL has progressed through three main phases:
+
+- **Phase 1: Static Verification:** Using expert-authored or static LLM-generated checklists to evaluate instruction following.
+- **Phase 2: Synthetic Scaling:** Automatically extracting task-specific rubrics from large-scale preference data to train interpretable reward models.
+- **Phase 3: Dynamic Co-evolution:** Developing rubrics that update online during RL training to prevent model saturation and detect emergent reward hacking patterns.
+
 ## A Tour of Recent Work
 
+The field has moved through several recognizable phases in rapid succession. The first wave established the paradigm and demonstrated that structured rubric criteria yield more reliable rewards than scalars on instruction-following benchmarks. The second wave asked *how to generate good rubrics at scale* — either by contrastive supervision over preference data, training-free extraction, or recursive decomposition. A third wave confronted the *co-evolution problem*: static rubrics degrade as the policy improves, so both rubric generators and rubric judges must be updated during training. The most recent work has begun probing the *boundary conditions* — identifying the regimes in which rubrics succeed, the regimes in which they fail, and the diagnostic tools needed to tell the difference from within a live training run. What follows traces each of these phases in order.
+
 ### OpenRubrics: Scaling Rubric Generation with Contrastive Supervision
+
+*The foundational RaR paper established the paradigm, but left open the question of scale: how do you generate high-quality rubrics automatically, for a wide variety of prompts and domains, without expensive human annotation per task? OpenRubrics is the first systematic answer.*
 
 > "Rubrics include structured natural language criteria that decompose quality into interpretable and measurable dimensions, providing a more consistent and transparent evaluation framework than scalar judgments."
 > — Liu et al.<d-cite key="liu2025openrubrics"></d-cite>
@@ -113,7 +129,7 @@ Liu et al.<d-cite key="liu2025openrubrics"></d-cite> introduce **OpenRubrics**, 
 
 #### Contrastive Rubric Generation (CRG)
 
-Given a preference dataset $\mathcal{D} = \{(x_i, \{\hat{y}_{i,m}\}_{m=1}^{M_i}, \{\ell_{i,m}\}_{m=1}^{M_i})\}_{i=1}^N$ where $\ell_{i,m}$ are preference signals, they form a ranked ordering $\hat{y}_{i,1} \succ \hat{y}_{i,2} \succ \cdots \succ \hat{y}_{i,M_i}$. Rather than prompting an LLM to generate criteria in isolation, they condition the rubric generator $h_\psi$ on both preferred and rejected responses:
+Given a preference dataset $\mathcal{D} = \{(x_i, \\{\hat{y}\_{i,m}\\}\_{m=1}^{M_i}, \\{\ell\_{i,m}\\}\_{m=1}^{M_i})\}\_{i=1}^N$ where $\ell_{i,m}$ are preference signals, they form a ranked ordering $\hat{y}\_{i,1} \succ \hat{y}\_{i,2} \succ \cdots \succ \hat{y}\_{i,M_i}$. Rather than prompting an LLM to generate criteria in isolation, they condition the rubric generator $h_\psi$ on both preferred and rejected responses:
 
 $$
 \mathcal{R}(x_i) \sim h_\psi\!\left(x_i,\; \{\hat{y}_{i,m}\}_{m=1}^{M_i},\; \{\ell_{i,m}\}_{m=1}^{M_i}\right)
@@ -128,7 +144,7 @@ The rubrics themselves are split into two types:
 
 #### Preference-Label Consistency Filtering
 
-Not all generated rubrics faithfully capture the preference signal. For each prompt $x_i$ with candidate responses, they define the set of induced pairwise comparisons $\mathcal{P}_i = \{(a,b) \mid 1 \leq a < b \leq M_i\}$. A rubric is retained only if it yields predictions consistent with human labels:
+Not all generated rubrics faithfully capture the preference signal. For each prompt $x_i$ with candidate responses, they define the set of induced pairwise comparisons $\mathcal{P}_i = \\{(a,b) \mid 1 \leq a < b \leq M_i\\}$. A rubric is retained only if it yields predictions consistent with human labels:
 
 $$
 \text{Acc}_i = \frac{1}{|\mathcal{P}_i|} \sum_{(a,b) \in \mathcal{P}_i} \mathbb{I}\!\left[\hat{\ell}_{i,(a,b)} = \ell_{i,(a,b)}\right] \geq \tau
@@ -168,6 +184,8 @@ The resulting Rubric-RM surpasses strong baselines by **8.4%** on reward modelin
 
 ### Auto-Rubric: Generalizable Rubric Extraction Without Training
 
+*OpenRubrics demonstrated that good rubrics require contrastive supervision and model training. But this raises a practical barrier: what if you are in a new domain or low-resource setting, and cannot afford to train a dedicated rubric generator? Auto-Rubric asks whether the structure underlying human preferences can be recovered without any training at all.*
+
 Xie et al.<d-cite key="xie2025auto"></d-cite> take a different route. They observe that evaluation rubrics underlying human preferences tend to *generalize across queries* — if "factual accuracy" matters for question $Q_1$, it likely matters for $Q_2$ as well. This insight enables a **training-free** framework for reward modeling.
 
 Their two-stage pipeline works as follows:
@@ -179,6 +197,8 @@ The remarkable result is data efficiency: using only **70 preference pairs** (1.
 
 ### DR Tulu: Rubrics That Grow With the Model
 
+*Both OpenRubrics and Auto-Rubric treat rubrics as static objects — generated once and applied throughout training. This works well at initialization, but becomes a liability as the policy improves: once the model satisfies a criterion reliably, that criterion no longer provides a useful gradient signal. DR Tulu confronts this degradation directly.*
+
 One subtle problem with static rubrics: as the policy model improves during RL training, the rubrics that were challenging at the start may become trivially satisfied. The reward signal degrades.
 
 Shao et al.<d-cite key="shao2025dr"></d-cite> tackle this with **Reinforcement Learning with Evolving Rubrics (RLER)**. The central idea is that rubrics should *co-evolve with the policy* during training: the system periodically updates its rubric set to reflect the model's current capability level, incorporating information about what the model has already mastered versus where it still struggles. Schematically, if $\mathcal{R}^{(t)}$ denotes the rubric set at training step $t$, RLER maintains the invariant that criteria in $\mathcal{R}^{(t)}$ remain *discriminative* — i.e., not yet uniformly satisfied by the current policy $\pi_\theta^{(t)}$.
@@ -186,6 +206,8 @@ Shao et al.<d-cite key="shao2025dr"></d-cite> tackle this with **Reinforcement L
 RLER is applied to **deep research** — a long-horizon, multi-step task where a model must search for information, synthesize it, and produce a well-attributed, long-form response. This is precisely the regime where RLVR fails (no binary ground truth exists) and static rubrics quickly become stale. The resulting **DR Tulu-8B** sits on the Pareto frontier of open models, matching more expensive proprietary systems at a fraction of the cost.
 
 ### Rubric-ARM: Learning Rubrics *and* Judgments Jointly
+
+*DR Tulu adapts rubrics over time, but keeps the rubric generator and the judge separate. This separation conceals a chicken-and-egg dependency: a judge trained on poor rubrics will reinforce those rubrics, while a rubric generator trained on unreliable judge feedback will generate criteria that are hard to assess. Rubric-ARM breaks this loop with end-to-end joint optimization.*
 
 A chicken-and-egg problem lurks in rubric-based reward modeling: to train a good rubric generator, you need reliable judgment of those rubrics; but to judge rubrics reliably, you need good rubrics. Xu et al.<d-cite key="xu2026alternating"></d-cite> address this with **Rubric-ARM**, which treats rubric generation as a *latent action* and optimizes both the generator and the judge simultaneously via **alternating reinforcement learning**.
 
@@ -289,6 +311,8 @@ Rubric-ARM achieves a **+4.7%** average gain over strong reasoning-based judges 
 
 ### Rethinking Rubric Generation: Recursive Decomposition
 
+*Rubric-ARM showed that co-optimizing the generator and judge yields better rubrics than treating either as fixed. But even jointly-optimized rubrics can suffer from a more fundamental issue: being generated at the wrong level of granularity. Broad, under-specified rubrics are easy to satisfy trivially; redundant rubrics over-count correlated quality dimensions. Shen et al. step back and ask: what should a well-designed rubric even look like, in a formal sense?*
+
 Shen et al.<d-cite key="shen2026rethinking"></d-cite> step back and ask a more structural question: *How should rubrics themselves be generated?* The problem they identify is that naive LLM-generated rubrics often lack **coverage** (miss important quality dimensions) and are hard to control in terms of granularity or scope. In fact, they show that unconditioned LLM rubrics can actually *degrade* GPT-4o's judgment accuracy from 55.6% to 42.9% on JudgeBench — 13 points below using no rubrics at all.
 
 #### Theoretical Grounding
@@ -325,11 +349,15 @@ The key empirical payoff: RRD with WU weights improves GPT-4o's judgment accurac
 
 ### Outcome Accuracy Is Not Enough: Aligning the Reasoning Behind the Reward
 
+*Even theoretically well-constructed rubrics do not guarantee that a judge's reasoning is trustworthy. A model might score criteria correctly on aggregate while systematically misapplying individual criteria — a diagnostic blind spot that standard reward modeling metrics completely miss. Wang et al. expose this gap.*
+
 Perhaps the most conceptually provocative paper in this space is Wang et al.<d-cite key="wang2026outcome"></d-cite>. The paper makes a striking observation: **Generative Reward Models (GenRMs) and LLM-as-a-Judge can exhibit a form of deceptive alignment** — they produce correct final preference judgments but for *wrong reasons*. The model picks the right winner but its stated rationale (including any rubric-level evaluation it performs) is incoherent or inconsistent with how a human would reason.
 
 This matters because during RLHF, the policy model is being shaped by those rewards. If the reward signal is correct *on average* during training but wrong in specific edge cases — and those edge cases involve the exact behaviors we most want to generalize — the model will exploit the gaps.
 
-The paper introduces **Rationale Consistency** as a complementary metric to outcome accuracy: rather than just asking "did the judge pick the right response?", we ask "is the judge's reasoning consistent with human reasoning?" Crucially, this dovetails with rubric-based approaches: an explicit rubric with per-criterion scores makes the intermediate reasoning *auditable* and thus amenable to this kind of consistency check. Rubrics, in this view, are not just a training signal — they are a transparency mechanism that makes reward models more trustworthy.
+The paper introduces **Rationale Consistency** as a complementary metric to outcome accuracy: rather than just asking "did the judge pick the right response?", we ask "is the judge's reasoning consistent with human reasoning?" Concretely, the authors construct evaluation instances where the correct preference label can be determined from the reasoning alone, and measure whether a judge's stated rationale leads to the same conclusion as its final verdict. A model that consistently shows rationale-verdict disagreement is flagging a deceptive alignment problem — it has learned a shortcut to the right answer that bypasses genuine reasoning.
+
+Crucially, this dovetails with rubric-based approaches: an explicit rubric with per-criterion scores makes the intermediate reasoning *auditable* and thus amenable to this kind of consistency check. Rubrics, in this view, are not just a training signal — they are a transparency mechanism that makes reward models more trustworthy. However, the paper's core finding is sobering: transparency alone is insufficient. The rubric must be *correctly applied*, and verifying correct application requires additional diagnostic tools beyond simple accuracy metrics.
 
 ## Comparison at a Glance
 
