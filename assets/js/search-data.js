@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-rubric-based-rewards-in-reinforcement-learning",
+        },{id: "post-on-policy-distillation",
+        
+          title: "On-Policy Distillation",
+        
+        description: "an informal review of on-policy distillation.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/on-policy-distillation/";
+          
+        },
+      },{id: "post-rubric-based-rewards-in-reinforcement-learning",
         
           title: "Rubric-based Rewards in Reinforcement Learning",
         
