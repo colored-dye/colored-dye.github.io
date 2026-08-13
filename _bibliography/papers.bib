@@ -1,3 +1,31 @@
+@article{li2026skillaligner,
+  title    = {SkillAligner: Treating Retrieved Skills as Adaptable Drafts at Execution Time},
+  author   = {Li*, Qinfeng and He*, Dalin and Bao*, Yuntai and Yang, Ying and Chen, Ruoxi
+              and Yu, Xinyan and Liang, Lizhou and Su, Ge and Zhang, Wenqi
+              and Zhang, Xuhong},
+  journal  = {arXiv preprint arXiv:2608.06880},
+  year     = {2026},
+  abstract = {General-purpose skills promise reusable procedural knowledge for language agents, yet semantic relevance does not guarantee execution utility: a retrieved skill may encode assumptions that conflict with the current task, execution environment, or other retrieved skills. We formalize this problem as the skill--execution misfit. To address it, we propose SkillAligner, a training-free execution-time skill adaptation framework that treats retrieved skills as adaptable drafts rather than fixed instructions. Before execution, SkillAligner performs a one-time joint adaptation that specializes useful skill fragments to task requirements, aligns their procedural assumptions with the available execution interface, and composes the resulting guidance by resolving dependencies, conflicts, and redundancy across skills. The adapted content is consolidated into a compact execution guide and reused throughout the subsequent trajectory. Extensive experiments across diverse agent benchmarks and model backbones show that SkillAligner substantially improves task performance over existing skill-use baselines, reduces skill-induced regressions at the instance level, and lowers total inference cost.  },
+  url      = {https://arxiv.org/abs/2608.06880},
+  selected = {true},
+  abbr     = {arXiv},
+  arxiv    = {2608.06880},
+  pdf      = {https://arxiv.org/pdf/2608.06880}
+}
+
+@article{li2026attrimem,
+  title    = {AttriMem: Attribution-Guided Process Feedback for Agent Memory Learning},
+  author   = {Li*, Qinfeng and Bao*, Yuntai and Yu*, Xinyan and Chen, Hongze and Zhang, Wenqi and Zhang, Xuhong},
+  journal  = {arXiv preprint arXiv:2607.21106},
+  year     = {2026},
+  abstract = {Effective memory is crucial for LLM agents, yet constructing it effectively remains challenging. A memory-construction policy decides what information to extract, store, update, compress, or discard as interactions accumulate. Heuristic memory methods rely on subjective, task-specific rules, which can misalign with downstream objectives and limit cross-task adaptability. RL-based methods, by contrast, learn from task feedback but mainly use outcome- or module-level rewards. These coarse signals indicate task success but cannot identify which intermediate memory contents support the final answer, creating a fine-grained credit-assignment bottleneck. However, constructing such process feedback is prohibitively difficult because intermediate memory decisions lack unique ground-truth targets, while the appropriate credit varies with the agent's uncertain reasoning trajectory and therefore cannot be specified in advance. We propose AttriMem, an attribution-guided process-feedback framework for learning memory-construction policies with RL. AttriMem augments the global outcome reward with local rewards derived from token-level contributions to the final answer. Experiments on long-horizon dialogue question answering show that AttriMem outperforms retrieval-based, heuristic, and RL-based baselines, generalizes across benchmarks and answer models, stabilizes RL optimization.  },
+  url      = {https://arxiv.org/abs/2607.21106},
+  selected = {true},
+  abbr     = {arXiv},
+  arxiv    = {2607.21106},
+  pdf      = {https://arxiv.org/pdf/2607.21106}
+}
+
 @inproceedings{bao2026towards,
   title       = {Towards Steering without Sacrifice: Principled Training of Steering Vectors for Prompt-only Interventions},
   author      = {Bao, Yuntai and Li, Qinfeng and Yu, Xinyan and Zhang, Xuhong and Su, Ge and Zhang, Wenqi and Yan, Liu and Weng, Haiqin and Yin, Jianwei},
@@ -17,9 +45,11 @@
   bibtex_show = {true},
   abbr        = {ICML},
   arxiv       = {2605.05983},
-  pdf         = {http://arxiv.org/pdf/2605.05983},
+  pdf         = {https://arxiv.org/pdf/2605.05983},
   code        = {https://github.com/ZJU-OmniAI/prosv},
-  blog        = {https://colored-dye.github.io/blog/2026/prompt-only-sv/}
+  blog        = {https://colored-dye.github.io/blog/2026/prompt-only-sv/},
+  slides      = {prompt-only-sv/slides.pdf},
+  poster      = {prompt-only-sv/poster.pdf}
 }
 
 @inproceedings{li2026praglocker,
@@ -34,7 +64,7 @@
   abbr        = {ICML},
   arxiv       = {2605.05974},
   pdf         = {https://arxiv.org/pdf/2605.05974},
-  code        = {https://github.com/ZJU-OmniAI/praglocker},
+  code        = {https://github.com/ZJU-OmniAI/praglocker}
 }
 
 @article{bao2026faithful,
