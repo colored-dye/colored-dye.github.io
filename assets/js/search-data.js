@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-on-policy-distillation",
+        },{id: "post-things-i-wish-someone-had-told-me-before-my-phd",
+        
+          title: "Things I Wish Someone Had Told Me before My PhD",
+        
+        description: "a halfway reflection on my PhD, sharing my personal experiences (not lecture).",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/phd-advice/";
+          
+        },
+      },{id: "post-on-policy-distillation",
         
           title: "On-Policy Distillation",
         
