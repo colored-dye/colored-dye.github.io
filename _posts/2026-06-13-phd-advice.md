@@ -28,3 +28,6 @@ _styles: >
 ---
 
 The motivation for this post is that I came across a [Reddit post with the same title](https://www.reddit.com/r/PhD/comments/1u2nxzi/things_i_wish_someone_had_told_me_before_starting/), and I thought "well I have something to share also"--so here I am.
+
+- Do an internship, no matter what you want to do.
+- Always articulate your ideas in words--best if you could find someone to talk to. It would help sharpen your argument and your mind. By "putting into words", I mean both verbal expressions and in writing.

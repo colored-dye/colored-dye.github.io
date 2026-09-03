@@ -108,6 +108,24 @@ cv:
     #     summary: Awarded for outstanding scientific achievement
 
     Publications:
+      - title: "SkillAligner: Treating Retrieved Skills as Adaptable Drafts at Execution Time"
+        authors:
+          - Qinfeng Li
+          - Yuntai Bao
+        publisher: arXiv
+        releaseDate: 2026-08-07
+        url: https://arxiv.org/abs/2608.06880
+        summary: We propose SkillAligner, a training-free framework that adapts retrieved skills to the current task and execution environment, resolving dependencies, conflicts, and redundancies before execution. Across diverse agent benchmarks, SkillAligner improves task performance, reduces skill-induced regressions, and lowers inference cost.
+
+      - title: "AttriMem: Attribution-Guided Process Feedback for Agent Memory Construction"
+        authors:
+          - Qinfeng Li
+          - Yuntai Bao
+        publisher: arXiv
+        releaseDate: 2026-07-23
+        url: https://arxiv.org/abs/2607.21106
+        summary: We propose AttriMem, an attribution-guided framework that trains agent memory-construction policies by combining global outcome rewards with local rewards derived from each memory token’s contribution to the final answer. On long-horizon dialogue question answering, AttriMem outperforms retrieval-based, heuristic, and RL-based baselines while improving generalization and training stability.
+
       - title: "Towards Steering without Sacrifice: Principled Training of Steering Vectors for Prompt-only Interventions"
         authors:
           - Yuntai Bao
