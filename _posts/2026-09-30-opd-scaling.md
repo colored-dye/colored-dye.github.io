@@ -155,6 +155,7 @@ _styles: >
 <div class="opd-pills">
   <a class="primary" href="https://arxiv.org/abs/2609.32722"><i class="ai ai-arxiv"></i> arXiv 2609.32722</a>
   <a href="https://arxiv.org/pdf/2609.32722"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+  <a href="https://huggingface.co/colored-dye/OPD-scaling-checkpoints">🤗 Checkpoints</a>
   <a href="https://x.com/colored_dye/status/2105290534969561508"><i class="fa-brands fa-x-twitter"></i> Thread</a>
   <a href="#citation"><i class="fa-solid fa-quote-right"></i> BibTeX</a>
 </div>
@@ -209,7 +210,8 @@ where $k_3$ is the nonnegative, unbiased estimator of token-mean reverse KL<d-ci
 We study **Qwen2.5 base models at 0.5B, 1.5B, 3B, 7B and 14B**<d-cite key="qwen2024qwen25"></d-cite>.
 Every model first gets a short SFT phase.
 Teachers are then trained with GRPO<d-cite key="shao2024deepseekmath"></d-cite> on the mixed GSM8K + MATH training split (14.8K problems), and gold score is accuracy on the mixed held-out test split (6.3K problems).
-Crossing all five teachers with all five students gives **25 teacher–student pairs**:
+Crossing all five teachers with all five students gives **25 teacher–student pairs**.
+The checkpoints from these runs, including teachers, students and baselines, are released on [Hugging Face](https://huggingface.co/colored-dye/OPD-scaling-checkpoints):
 
 <div class="setups">
   <div class="setup"><div class="h">↗ Weak-to-strong</div><div class="d">small RL expert teaches a larger SFT student (10 pairs)</div></div>
