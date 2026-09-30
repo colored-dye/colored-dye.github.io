@@ -196,11 +196,13 @@ OPD also optimizes the student against a proxy, namely the token-level implicit 
 So we track held-out accuracy, the **gold score** $G$, as a function of how far the student has moved from its initialization:
 
 $$
-d \coloneqq \sqrt{k_3(\pi_\theta, \pi_\mathrm{ref})},
+\begin{aligned}
+d &\mathrel{:=} \sqrt{k_3(\pi_\theta, \pi_\mathrm{ref})},
 \qquad
 k_3 = \mathbb{E}\Big[\tfrac{1}{|y|}\textstyle\sum_t e^{\delta_t} - \delta_t - 1\Big],
-\quad
-\delta_t = \log \pi_\mathrm{ref}(y_t \mid x, y_{<t}) - \log \pi_\theta(y_t \mid x, y_{<t}),
+\\[6pt]
+\delta_t &= \log \pi_\mathrm{ref}(y_t \mid x, y_{\lt t}) - \log \pi_\theta(y_t \mid x, y_{\lt t}),
+\end{aligned}
 $$
 
 where $k_3$ is the nonnegative, unbiased estimator of token-mean reverse KL<d-cite key="schulman2020kl"></d-cite>.
@@ -224,13 +226,13 @@ The checkpoints from these runs, including teachers, students and baselines, are
 <p><b>Vanilla-OPD</b> minimizes reverse KL to the teacher. With the widely used zero-discount update, each sampled token gets the advantage</p>
 
 $$
-A_t^{\mathrm{V}} = \log \pi_T(y_t \mid x, y_{<t}) - \log \pi_\theta(y_t \mid x, y_{<t}).
+A_t^{\mathrm{V}} = \log \pi_T(y_t \mid x, y_{\lt t}) - \log \pi_\theta(y_t \mid x, y_{\lt t}).
 $$
 
 <p><b>Delta-OPD</b> rewards the <i>policy shift</i> the teacher acquired during RL, relative to its own pre-RL checkpoint $\pi_T^{\mathrm{base}}$. A KL penalty to the student's own initialization is added. This is the common core of OPD², Direct-OPD and W2S-OPD<d-cite key="heo2026opd2,feng2026directopd,yu2026w2sopd"></d-cite>:</p>
 
 $$
-A_t^{\Delta} = \log \pi_T(y_t \mid x, y_{<t}) - \log \pi_T^{\mathrm{base}}(y_t \mid x, y_{<t}).
+A_t^{\Delta} = \log \pi_T(y_t \mid x, y_{\lt t}) - \log \pi_T^{\mathrm{base}}(y_t \mid x, y_{\lt t}).
 $$
 
 <p><b>Off-policy distillation (OffPD)</b> is plain SFT on teacher rollouts, $\min_\theta \mathbb{E}_{y\sim\pi_T}[-\log \pi_\theta(y\mid x)]$.</p>
