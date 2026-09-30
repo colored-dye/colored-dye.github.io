@@ -155,6 +155,7 @@ _styles: >
 <div class="opd-pills">
   <a class="primary" href="https://arxiv.org/abs/2609.32722"><i class="ai ai-arxiv"></i> arXiv 2609.32722</a>
   <a href="https://arxiv.org/pdf/2609.32722"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+  <a href="https://x.com/colored_dye/status/2105290534969561508"><i class="fa-brands fa-x-twitter"></i> Thread</a>
   <a href="#citation"><i class="fa-solid fa-quote-right"></i> BibTeX</a>
 </div>
 
