@@ -37,7 +37,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-things-i-wish-someone-had-told-me-before-my-phd",
+        },{id: "post-scaling-properties-of-same-family-on-policy-distillation",
+        
+          title: "Scaling Properties of Same-Family On-Policy Distillation",
+        
+        description: "how much RL-acquired capability transfers across model scales via on-policy distillation, how fast, and how to predict it before training.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/opd-scaling/";
+          
+        },
+      },{id: "post-things-i-wish-someone-had-told-me-before-my-phd",
         
           title: "Things I Wish Someone Had Told Me before My PhD",
         
